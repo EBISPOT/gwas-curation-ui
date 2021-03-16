@@ -3,8 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  AAPURL: 'https://api.aai.ebi.ac.uk',
+  BAD_AAPURL: 'https://api.aai.ebi.ac.uk-TEST',
+  TEMPLATE_DOWNLOAD_API_URL: 'https://api.aai.ebi.ac.uk-TEST',
+  APP_LOCAL_BASE_URI: '',
+  REACT_APP_GWAS_DOC_BASE: 'https://www.ebi.ac.uk/gwas/docs',
+  DATA_URL: '',
+  ANOTHER_API_SECRET: '__ANOTHER__SECRET__'
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
