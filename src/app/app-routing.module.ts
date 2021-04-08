@@ -1,11 +1,23 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 
-
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'submissions',
+    loadChildren: () => import('./feature/submission/submission.module').then(m => m.SubmissionModule),
+    canActivate: [AuthGuard]
+  },
+  {path: '', redirectTo: 'submissions', pathMatch: 'full'},
+  {path: '**', redirectTo: 'submissions'}
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  declarations: [],
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

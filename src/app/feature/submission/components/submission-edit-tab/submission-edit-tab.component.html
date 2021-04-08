@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Edit Submission ID: {{id}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-slide-toggle #toggle matTooltip="Edit tab will be locked for other curators until the current user is done editing.">Lock for edition</mat-slide-toggle>
+    <div fxLayout="row" fxLayoutAlign="center center" *ngIf="toggle.checked">
+      <button mat-raised-button color="primary">Choose file...</button>
+    </div>
+  </mat-card-content>
+</mat-card>

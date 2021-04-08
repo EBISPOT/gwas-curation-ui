@@ -1,0 +1,51 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="example-table-container">
+    <table mat-table [dataSource]="dataSource" class="example-table" matSort (matSortChange)="resetPaging()">
+<!--           matSortActive="summary_statistics_status" matSortDisableClear matSortDirection="desc"-->
+
+      <ng-container matColumnDef="pmid">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>PMID</th>
+        <td mat-cell *matCellDef="let row">{{row.publication?.pmid || 'NA'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="gcp">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>GCP ID</th>
+        <td mat-cell *matCellDef="let row">{{row.bodyOfWork?.bodyOfWorkId || 'NA'}}</td>
+      </ng-container>
+
+      <!-- Number Column -->
+      <ng-container matColumnDef="submissionId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Submission Id</th>
+        <td mat-cell *matCellDef="let row">
+          <a [routerLink]="row.submissionId">{{row.submissionId}}</a>
+        </td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="submission_status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Submission Status</th>
+        <td mat-cell *matCellDef="let row">{{row.submission_status}}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="metadata_status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Metadata Status</th>
+        <td mat-cell *matCellDef="let row">{{row.metadata_status}}</td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="summary_statistics_status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Summary Statistics Status</th>
+        <td mat-cell *matCellDef="let row">{{row.summary_statistics_status}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+</div>
