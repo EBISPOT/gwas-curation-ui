@@ -3,9 +3,41 @@
     <mat-card-title>Edit Submission ID: {{id}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <mat-slide-toggle #toggle matTooltip="Edit tab will be locked for other curators until the current user is done editing.">Lock for edition</mat-slide-toggle>
-    <div fxLayout="row" fxLayoutAlign="center center" *ngIf="toggle.checked">
-      <button mat-raised-button color="primary">Choose file...</button>
+<!--    <mat-slide-toggle #toggle matTooltip="Edit tab will be locked for other curators until the current user is done editing."-->
+<!--                      (change)="uploader.cancelAll(); uploader.clearQueue()">-->
+<!--      Lock for edition-->
+<!--    </mat-slide-toggle>-->
+    <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-top: 50px">
+<!--         *ngIf="toggle.checked">-->
+      <div fxLayout="row">
+        <input type="file" ng2FileSelect [uploader]="uploader" style="padding-top: 8px"/>
+        <div *ngIf="uploader.queue.length > 0">
+          <button [disabled]="uploader.queue[0].isReady || uploader.queue[0].isUploading || uploader.queue[0].isSuccess"
+                  mat-raised-button color="primary" (click)="uploader.queue[0].upload()" style="margin-left: 50px">
+            Upload
+          </button>
+          <button [disabled]="!uploader.queue[0].isUploading" mat-raised-button color="primary" (click)="uploader.queue[0].cancel()" style="margin-left: 50px">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <div fxLayout="row" style="margin-top: 30px">
+        <mat-progress-bar mode="determinate" [value]="uploader.progress" style="height: 6px; width: 300px"></mat-progress-bar>
+      </div>
+      <div fxLayout="row" style="margin-top: 30px" *ngIf="uploader.queue.length > 0 && uploader.queue[0].isUploaded">
+        Metadata valid:
+        <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.metadata_status == 'VALIDATING'"> </mat-spinner>
+        <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
+        <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
+        <span *ngIf="submission?.metadata_status == 'NA'">NA</span>
+        <pre>     </pre>
+        Sumstats valid:
+        <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.summary_statistics_status == 'VALIDATING'"> </mat-spinner>
+        <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
+        <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
+        <span style="white-space:pre"> NA</span>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

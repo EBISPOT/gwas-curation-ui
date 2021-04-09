@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { HttpService } from '../../../../core/services/http.service';
 import { Submission } from '../../../../core/models/submission';
-import { merge, Observable, of } from 'rxjs';
+import { merge, of } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
@@ -14,8 +14,8 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./submission-list.component.css']
 })
 export class SubmissionListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['pmid', 'gcp', 'submissionId', 'submission_status', 'metadata_status', 'summary_statistics_status'];
-  filteredAndPagedIssues: Observable<Submission[]>;
+  displayedColumns: string[] = ['pmid', 'gcp', 'submissionId', 'firstAuthor', 'submissionStatus', 'metadataStatus',
+    'summaryStatisticsStatus', 'submitter', 'lastUpdated', 'started'];
 
   resultsLength = 0;
   isLoadingResults = true;

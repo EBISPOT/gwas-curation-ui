@@ -1,4 +1,4 @@
-<mat-tab-group (selectedTabChange)="tabChange($event)">
+<mat-tab-group>
   <mat-tab label="Details">
     <app-submission-details-tab></app-submission-details-tab>
   </mat-tab>
@@ -6,6 +6,6 @@
     <app-submission-history-tab></app-submission-history-tab>
   </mat-tab>
   <mat-tab label="Edit">
-    <app-submission-edit-tab></app-submission-edit-tab>
+    <app-submission-edit-tab (uploadSuccessEvent)="pollUntilStatusIsNotValidating()" [submission]="submission"></app-submission-edit-tab>
   </mat-tab>
 </mat-tab-group>

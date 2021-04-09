@@ -4,8 +4,8 @@
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
   <div class="example-table-container">
-    <table mat-table [dataSource]="dataSource" class="example-table" matSort (matSortChange)="resetPaging()">
-<!--           matSortActive="summary_statistics_status" matSortDisableClear matSortDirection="desc"-->
+    <table mat-table [dataSource]="dataSource" class="example-table" matSort (matSortChange)="resetPaging()"
+           matSortActive="lastUpdated" matSortDisableClear matSortDirection="desc">
 
       <ng-container matColumnDef="pmid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>PMID</th>
@@ -17,7 +17,6 @@
         <td mat-cell *matCellDef="let row">{{row.bodyOfWork?.bodyOfWorkId || 'NA'}}</td>
       </ng-container>
 
-      <!-- Number Column -->
       <ng-container matColumnDef="submissionId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Submission Id</th>
         <td mat-cell *matCellDef="let row">
@@ -25,22 +24,42 @@
         </td>
       </ng-container>
 
-      <!-- Title Column -->
-      <ng-container matColumnDef="submission_status">
+      <ng-container matColumnDef="firstAuthor">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>First Author</th>
+        <td mat-cell *matCellDef="let row">{{row.publication?.firstAuthor != null ? row.publication.firstAuthor:
+          row.bodyOfWork?.firstAuthor?.lastName != null && row.bodyOfWork?.firstAuthor?.firstName != null ? row.bodyOfWork.firstAuthor.lastName + ' ' + row.bodyOfWork.firstAuthor.firstName.charAt(0):
+          'NA'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="submissionStatus">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Submission Status</th>
         <td mat-cell *matCellDef="let row">{{row.submission_status}}</td>
       </ng-container>
 
-      <!-- State Column -->
-      <ng-container matColumnDef="metadata_status">
+      <ng-container matColumnDef="metadataStatus">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Metadata Status</th>
         <td mat-cell *matCellDef="let row">{{row.metadata_status}}</td>
       </ng-container>
 
-      <!-- Created Column -->
-      <ng-container matColumnDef="summary_statistics_status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Summary Statistics Status</th>
+      <ng-container matColumnDef="summaryStatisticsStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> SumStats Status</th>
         <td mat-cell *matCellDef="let row">{{row.summary_statistics_status}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="submitter">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Submitter</th>
+        <td mat-cell *matCellDef="let row">{{row.created.user.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastUpdated">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear > Last Updated</th>
+        <td mat-cell *matCellDef="let row">{{row.lastUpdated.timestamp | date:"yyyy-MM-dd"}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="started">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Created</th>
+        <td mat-cell *matCellDef="let row">{{row.created.timestamp | date:"yyyy-MM-dd"}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

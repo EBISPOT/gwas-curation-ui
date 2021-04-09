@@ -1,13 +1,13 @@
 <!-- top navbar -->
 <mat-toolbar>
-  <a href="https://www.ebi.ac.uk/gwas" target="_blank" style="margin-left: 50px; margin-right: 30px"><img
+  <a href="https://www.ebi.ac.uk/gwas" target="_blank" style="margin-left: 20px; margin-right: 30px"><img
     src="assets/images/GWAS_Catalog_banner_logo_34x40.svg" alt="GWAS"/></a>
-  <a href="/" class="home-link">GWAS Catalog Curation</a>
+  <a routerLink="" class="home-link">GWAS Curation</a>
   <span class="spacer"></span>
 
   <div fxHide.lt-md="true">
     <a href="/" class="menu-link">Documentation</a>
-    <a href="/" class="menu-link">My submissions</a>
+    <a routerLink="submissions" class="menu-link">Submissions</a>
   </div>
 
   <button mat-icon-button [matMenuTriggerFor]="menu">

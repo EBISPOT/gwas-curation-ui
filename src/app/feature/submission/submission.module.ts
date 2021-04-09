@@ -17,6 +17,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '../../shared/shared.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { FileUploadModule } from 'ng2-file-upload';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -36,7 +39,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSlideToggleModule,
     MatButtonModule,
     MatTooltipModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatProgressBarModule,
+    FileUploadModule,
+    MatIconModule
   ]
 })
 export class SubmissionModule {
