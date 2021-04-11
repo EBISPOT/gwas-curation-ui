@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <div fxLayout="row" style="margin-top: 30px">
+      <div fxLayout="row" style="margin-top: 30px" *ngIf="uploader.queue.length > 0">
         <mat-progress-bar mode="determinate" [value]="uploader.progress" style="height: 6px; width: 300px"></mat-progress-bar>
       </div>
       <div fxLayout="row" style="margin-top: 30px" *ngIf="uploader.queue.length > 0 && uploader.queue[0].isUploaded">
@@ -30,13 +30,13 @@
         <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.metadata_status == 'VALIDATING'"> </mat-spinner>
         <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
         <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
-        <span *ngIf="submission?.metadata_status == 'NA'">NA</span>
+        <span *ngIf="submission?.metadata_status == 'NA'" style="white-space:pre"> NA</span>
         <pre>     </pre>
         Sumstats valid:
         <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.summary_statistics_status == 'VALIDATING'"> </mat-spinner>
         <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
         <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
-        <span style="white-space:pre"> NA</span>
+        <span *ngIf="submission?.summary_statistics_status == 'NA'" style="white-space:pre"> NA</span>
       </div>
     </div>
   </mat-card-content>

@@ -1,26 +1,81 @@
-<mat-card>
+<mat-card *ngIf="submission?.bodyOfWork">
   <mat-card-header>
-    <mat-card-title>Details for GCP ID: </mat-card-title>
+    <mat-card-title>Details for GCP ID: {{submission.bodyOfWork.bodyOfWorkId}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    Yes
+    {{submission.bodyOfWork.title}}
+    {{submission.bodyOfWork.description}}
+    {{submission.bodyOfWork.firstAuthor.firstName}}
+    {{submission.bodyOfWork.firstAuthor.lastName}}
+    {{submission.bodyOfWork.firstAuthor.group}}
+    {{submission.bodyOfWork.lastAuthor.firstName}}
+    {{submission.bodyOfWork.lastAuthor.lastName}}
+    {{submission.bodyOfWork.lastAuthor.group}}
+    {{submission.bodyOfWork.correspondingAuthors}}
+    {{submission.bodyOfWork.journal}}
+    {{submission.bodyOfWork.url}}
+    {{submission.bodyOfWork.prePrintServer}}
+    {{submission.bodyOfWork.preprintServerDOI}}
+    {{submission.bodyOfWork.embargoDate}}
+    {{submission.bodyOfWork.embargoUntilPublished}}
   </mat-card-content>
 </mat-card>
 
-<mat-card>
+<mat-card *ngIf="submission?.publication">
   <mat-card-header>
-    <mat-card-title>Details for PubMed ID: </mat-card-title>
+    <mat-card-title>Details for PubMed ID: {{submission.publication.pmid}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    Yes
+    {{submission.publication.title}}
+    <br>
+    {{submission.publication.firstAuthor + ' et al, ' + submission.publication.publicationDate + ', ' +
+      submission.publication.journal}}
   </mat-card-content>
 </mat-card>
 
-<mat-card>
+<mat-card *ngIf="submission">
   <mat-card-header>
     <mat-card-title>Details for Submission ID: </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    Yes
+    <div fxLayout="row" fxLayoutGap="10">
+      <div fxFlex="50%">
+        Date created: {{submission.created.timestamp | date: 'yyyy-MM-dd'}} <br>
+        User: {{submission.created.user.name}} <br>
+        Status: {{submission.submission_status}} <br>
+        <div class="with-icon">
+          Metadata valid:
+          <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.metadata_status == 'VALIDATING'"> </mat-spinner>
+          <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
+          <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
+          <span *ngIf="submission?.metadata_status == 'NA'">NA</span> <br>
+        </div>
+        <div class="with-icon">
+          Sumstats valid:
+          <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.summary_statistics_status == 'VALIDATING'"> </mat-spinner>
+          <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
+          <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
+          <span *ngIf="submission?.summary_statistics_status == 'NA'">NA</span>
+        </div>
+
+      </div>
+      <div fxFlex="50%">
+        <div class="with-icon">
+          <mat-icon  aria-hidden="false" color="accent">biotech</mat-icon>
+          Studies: {{submission.study_count}}
+        </div>
+        <div class="with-icon">
+          <mat-icon  aria-hidden="false" color="accent">share</mat-icon>
+          Associations: {{submission.association_count}}
+        </div>
+        <div class="with-icon">
+          <mat-icon  aria-hidden="false" color="accent">science</mat-icon>
+          Samples: {{submission.sample_count}}
+        </div>
+      </div>
+    </div>
   </mat-card-content>
 </mat-card>
+<div fxLayout="column" fxLayoutAlign="center center" *ngIf="!submission">
+  <mat-spinner></mat-spinner>
+</div>

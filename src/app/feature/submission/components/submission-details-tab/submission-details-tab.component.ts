@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Submission } from '../../../../core/models/submission';
 
 @Component({
   selector: 'app-submission-details-tab',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubmissionDetailsTabComponent implements OnInit {
 
+  @Input() submission: Submission;
   constructor() { }
 
   ngOnInit(): void {
