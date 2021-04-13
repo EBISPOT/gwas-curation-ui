@@ -3,13 +3,13 @@
     <mat-card-title>Edit Submission ID: {{id}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-<!--    <mat-slide-toggle #toggle matTooltip="Edit tab will be locked for other curators until the current user is done editing."-->
-<!--                      (change)="uploader.cancelAll(); uploader.clearQueue()">-->
-<!--      Lock for edition-->
-<!--    </mat-slide-toggle>-->
-    <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-top: 50px">
-<!--         *ngIf="toggle.checked">-->
+    <mat-slide-toggle #toggle matTooltip="Edit tab will be locked for other curators until the current user is done editing."
+                      (change)="uploader.cancelAll(); uploader.clearQueue()">
+      Lock for edition
+    </mat-slide-toggle>
+    <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-top: 50px" *ngIf="toggle.checked">
       <div fxLayout="row">
+        <span style="padding-top: 8px; margin-right: 20px"> Upload a new template: </span>
         <input type="file" ng2FileSelect [uploader]="uploader" style="padding-top: 8px"/>
         <div *ngIf="uploader.queue.length > 0">
           <button [disabled]="uploader.queue[0].isReady || uploader.queue[0].isUploading || uploader.queue[0].isSuccess"

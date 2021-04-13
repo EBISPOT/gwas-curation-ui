@@ -1,3 +1,14 @@
 .mat-card {
   margin-bottom: 30px;
 }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  max-width: 600px;
+  width: 100%;
+}
+
+td, th {
+  text-align: center;
+  padding: 8px;
+}

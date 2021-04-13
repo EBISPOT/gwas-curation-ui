@@ -1,26 +1,31 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Details for GCP ID: </mat-card-title>
+    <mat-card-title>History for Submission ID: 606f1ab3b1574900010b2829</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    Yes
-  </mat-card-content>
-</mat-card>
-
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Details for PMID: </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    Yes
-  </mat-card-content>
-</mat-card>
-
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Details for Submission ID: </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    Yes
+    <div fxLayout="column" fxLayoutAlign="space-around center">
+      <div fxLayout="row">
+        <table style="width:100%">
+          <tr>
+            <th>File name</th>
+            <th>Uploaded</th>
+            <th>Download</th>
+            <th>Diff</th>
+          </tr>
+          <tr>
+            <td>Buchwald_template_(1).xls</td>
+            <td>2021-04-13 14:14:10</td>
+            <td><button mat-icon-button><mat-icon color="accent">file_download</mat-icon></button></td>
+            <td><button mat-icon-button><mat-icon color="accent">published_with_changes</mat-icon></button></td>
+          </tr>
+          <tr>
+            <td>Stein_submission_template_2.xls</td>
+            <td>2021-04-13 13:00:00</td>
+            <td><button mat-icon-button><mat-icon color="accent">file_download</mat-icon></button></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </mat-card-content>
 </mat-card>
