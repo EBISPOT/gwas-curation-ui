@@ -42,3 +42,7 @@ table {
 a {
   text-decoration: none;
 }
+
+.mat-cell {
+  padding: 4px;
+}

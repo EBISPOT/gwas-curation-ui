@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { TokenStorageService } from '../../../../core/services/token-storage.service';
 import { Submission } from '../../../../core/models/submission';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-submission-edit-tab',
@@ -18,7 +19,7 @@ export class SubmissionEditTabComponent implements OnInit {
   constructor(private route: ActivatedRoute, private tokenService: TokenStorageService) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.uploader = new FileUploader(
-      {url: 'http://193.62.54.159/backend/v1/submissions/' + this.id + '/edituploads', itemAlias: 'file',
+      {url: environment.API_URL + '/submissions/' + this.id + '/edituploads', itemAlias: 'file',
         headers: [{name: 'Authorization', value: 'Bearer ' + this.tokenService.getToken()}]});
   }
 

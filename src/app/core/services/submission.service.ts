@@ -21,4 +21,8 @@ export class SubmissionService {
   getSubmission(id: string): Observable<Submission> {
     return this.http.get('/submissions/' + id);
   }
+
+  downloadTemplate(submissionId: string, fileId: string) {
+    return this.http.download('/submissions/' + submissionId + '/uploads/' + fileId + '/download');
+  }
 }

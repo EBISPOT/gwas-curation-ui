@@ -3,38 +3,53 @@
     <mat-card-title>Details for GCP ID: {{submission.bodyOfWork.bodyOfWorkId}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    {{submission.bodyOfWork?.title}}
-    <div fxLayout="row" fxLayoutGap="10">
-      <div fxFlex="50%">
+    <p style="font-style: italic">
+      {{submission.bodyOfWork.title}}
+    </p>
+    <div fxLayout="row" fxLayoutGap="15px">
+      <div fxFlex="60">
         <div>
-          Description: {{submission.bodyOfWork?.description}}
+          Description: {{submission.bodyOfWork.description}}
         </div>
         <div *ngIf="submission.bodyOfWork.journal">
-          Submitted to: {{submission.bodyOfWork.journal}}
+          Submitted to:
+          <a *ngIf="submission.bodyOfWork.url" [href]="submission.bodyOfWork.url" target="_blank">
+            {{submission.bodyOfWork.journal}}
+          </a>
+          <span *ngIf="!submission.bodyOfWork.url">{{submission.bodyOfWork.journal}}</span>
         </div>
-        <div>
-          {{submission.bodyOfWork?.url}}
+        <div *ngIf="submission.bodyOfWork.prePrintServer" class="with-icon">
+          PrePrint available in: {{submission.bodyOfWork.prePrintServer}} &nbsp;
+          <mat-icon (click)="goToPreprintDoi()" style="cursor: pointer" color="accent">link</mat-icon>
         </div>
-        <div>
-          {{submission.bodyOfWork?.prePrintServer}}
-          {{submission.bodyOfWork?.preprintServerDOI}}
+        <div *ngIf="submission.bodyOfWork.embargoDate || submission.bodyOfWork.embargoUntilPublished">
+          Embargo Until: {{submission.bodyOfWork.embargoUntilPublished ?
+          'Date of publication' : submission.bodyOfWork.embargoDate}}
         </div>
-        <div>
-          {{submission.bodyOfWork?.embargoDate}}
-        </div>
-        <div>
-          {{submission.bodyOfWork?.embargoUntilPublished}}
-        </div>
-
       </div>
-      <div fxFlex="50%">
-        {{submission.bodyOfWork?.firstAuthor?.firstName}}
-        {{submission.bodyOfWork?.firstAuthor?.lastName}}
-        {{submission.bodyOfWork?.firstAuthor?.group}}
-        {{submission.bodyOfWork?.lastAuthor?.firstName}}
-        {{submission.bodyOfWork?.lastAuthor?.lastName}}
-        {{submission.bodyOfWork?.lastAuthor?.group}}
-        {{submission.bodyOfWork?.correspondingAuthors}}
+      <div fxFlex="40">
+        <div *ngIf="submission.bodyOfWork.firstAuthor?.firstName && submission.bodyOfWork?.firstAuthor?.lastName">
+          First author: {{submission.bodyOfWork.firstAuthor.firstName + ' ' + submission.bodyOfWork.firstAuthor.lastName}}
+        </div>
+        <div *ngIf="submission.bodyOfWork.firstAuthor?.group">
+          First author group: {{submission.bodyOfWork.firstAuthor.group}}
+        </div>
+        <div *ngIf="submission.bodyOfWork.lastAuthor?.firstName && submission.bodyOfWork?.lastAuthor?.lastName">
+          First author: {{submission.bodyOfWork.lastAuthor.firstName + ' ' + submission.bodyOfWork.lastAuthor.lastName}}
+        </div>
+        <div *ngIf="submission.bodyOfWork.lastAuthor?.group">
+          Last author group: {{submission.bodyOfWork.lastAuthor.group}}
+        </div>
+        <div *ngIf="submission.bodyOfWork.correspondingAuthors" fxLayout="row wrap">
+          <div fxFlex="35">
+            Corresponding authors:
+          </div>
+          <div fxLayout="column" >
+            <div fxFlex *ngFor="let ca of submission.bodyOfWork.correspondingAuthors">
+                {{ca.firstName + ' ' + ca.lastName + ' ' + ca.email}}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </mat-card-content>
@@ -65,36 +80,39 @@
         <div class="with-icon">
           Metadata valid:
           <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.metadata_status == 'VALIDATING'"> </mat-spinner>
-          <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
-          <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
+          <mat-icon color="accent" *ngIf="submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
+          <mat-icon color="accent" *ngIf="submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
           {{submission?.metadata_status == 'NA' ? 'NA' : ''}}
         </div>
         <div class="with-icon">
           Sumstats valid:
           <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.summary_statistics_status == 'VALIDATING'"> </mat-spinner>
-          <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
-          <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
+          <mat-icon color="accent" *ngIf="submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
+          <mat-icon color="accent" *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
           {{submission?.summary_statistics_status == 'NA' ? 'NA' : ''}}
         </div>
 
       </div>
       <div fxFlex="50%">
         <div class="with-icon">
-          <mat-icon  aria-hidden="false" color="accent">biotech</mat-icon>
+          <mat-icon color="accent">biotech</mat-icon>
           Studies: {{submission.study_count}}
         </div>
         <div class="with-icon">
-          <mat-icon  aria-hidden="false" color="accent">share</mat-icon>
+          <mat-icon color="accent">share</mat-icon>
           Associations: {{submission.association_count}}
         </div>
         <div class="with-icon">
-          <mat-icon  aria-hidden="false" color="accent">science</mat-icon>
+          <mat-icon color="accent">science</mat-icon>
           Samples: {{submission.sample_count}}
         </div>
       </div>
     </div>
+    <div *ngIf="['VALID', 'INVALID', 'SUBMITTED'].includes(this.submission.submission_status)" fxLayout="column" fxLayoutAlign="center center" style="margin-top: 50px">
+      <button mat-stroked-button color="primary" (click)="downloadTemplate()">Download submission template</button>
+    </div>
   </mat-card-content>
 </mat-card>
-<div fxLayout="column" fxLayoutAlign="center center" *ngIf="!submission">
+<div fxLayout="column" fxLayoutAlign="center center" *ngIf="!submission" style="margin-top: 50px">
   <mat-spinner></mat-spinner>
 </div>

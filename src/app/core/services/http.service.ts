@@ -40,4 +40,9 @@ export class HttpService {
       `${environment.API_URL}${path}`
     ).pipe(catchError(HttpService.formatErrors));
   }
+
+  download(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+    return this.http.get(`${environment.API_URL}${path}`, {params, responseType: 'blob'})
+      .pipe(catchError(HttpService.formatErrors));
+  }
 }

@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'submissions',
-    loadChildren: () => import('./feature/submission/submission.module').then(m => m.SubmissionModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./feature/submission/submission.module').then(m => m.SubmissionModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./feature/authentication/authentication.module').then(m => m.AuthenticationModule)
   },
   {path: '', redirectTo: 'submissions', pathMatch: 'full'},
   {path: '**', redirectTo: 'submissions'}

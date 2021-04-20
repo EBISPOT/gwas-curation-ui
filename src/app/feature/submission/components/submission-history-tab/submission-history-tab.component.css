@@ -1,6 +1,8 @@
 .mat-card {
-  margin-bottom: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
