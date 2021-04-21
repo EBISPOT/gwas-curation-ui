@@ -1,5 +1,40 @@
-<div>
-  <router-outlet>
+<!-- top navbar -->
+<mat-toolbar>
+  <a href="https://www.ebi.ac.uk/gwas" target="_blank" style="margin-left: 20px; margin-right: 20px"><img
+    src="assets/images/GWAS_Catalog_banner_logo_34x40.svg" alt="GWAS"/></a>
+  <a routerLink="" class="home-link">GWAS Curation</a>
+  <span class="spacer"></span>
 
-  </router-outlet>
-</div>
+  <div fxHide.lt-md="true">
+    <a href="/" class="menu-link">Documentation</a>
+    <a routerLink="submissions" class="menu-link">Submissions</a>
+  </div>
+
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="logout()">Logout</button>
+  </mat-menu>
+
+  <button mat-icon-button fxHide.gt-sm="true" (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<div style="background-color: rgb(255, 223, 194); height: 4px;"></div>
+<div style="background-color: rgb(57, 138, 150); height: 8px;"></div>
+<div style="background-color: rgb(176, 223, 230); height: 8px;"></div>
+
+<!-- side navbar -->
+<mat-sidenav-container fxFlexFill class="example-container">
+
+  <mat-sidenav #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true" position="end">
+    <div fxLayout="column">
+      <a mat-button href="/" class="menu-link">Documentation</a>
+      <a mat-button routerLink="submissions" class="menu-link">My submissions</a>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content fxFlexFill>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

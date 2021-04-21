@@ -1,0 +1,9 @@
+.mat-card {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.with-icon {
+  display: flex;
+  align-items: center;
+}
