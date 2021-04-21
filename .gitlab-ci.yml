@@ -3,7 +3,7 @@ services:
   - docker:dind
 
 stages:
-  - build-sandbox
+  - sandbox-build
   - docker
   - deploy
 
