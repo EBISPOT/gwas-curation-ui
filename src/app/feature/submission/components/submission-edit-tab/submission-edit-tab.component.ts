@@ -19,12 +19,15 @@ export class SubmissionEditTabComponent implements OnInit {
   constructor(private route: ActivatedRoute, private tokenService: TokenStorageService) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.uploader = new FileUploader(
-      {url: environment.API_URL + '/submissions/' + this.id + '/edituploads', itemAlias: 'file',
-        headers: [{name: 'Authorization', value: 'Bearer ' + this.tokenService.getToken()}]});
+      {
+        url: environment.API_URL + '/submissions/' + this.id + '/uploads/edit', itemAlias: 'file',
+        authToken: 'Bearer ' + tokenService.getToken()
+      });
   }
 
   ngOnInit(): void {
-    this.uploader.onAfterAddingFile = () => {
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
       if (this.uploader.queue.length > 1) {
         this.uploader.cancelAll();
         this.uploader.removeFromQueue(this.uploader.queue[0]);
