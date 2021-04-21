@@ -36,8 +36,8 @@ docker:
   - docker build --force-rm=true -t $CURATION_UI_SERVICE_NAME:latest .
   - docker tag $CURATION_UI_SERVICE_NAME:latest $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
   - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-  except:
-  - tags
+  only:
+  - develop
 
 deploy-sandbox:
   image: dtzar/helm-kubectl:2.13.1
