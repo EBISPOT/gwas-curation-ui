@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { TokenStorageService } from './token-storage.service';
 import jwt_decode from 'jwt-decode';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) {
+  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService, private router: Router) {
 
   }
 
@@ -28,7 +29,7 @@ export class AuthService {
       decoded = 'SESSION TIMEOUT';
       alert(decoded);
       this.tokenStorageService.signOut();
-      window.location.replace('/login');
+      this.router.navigateByUrl('/login').then();
     }
     return decoded;
   }
