@@ -25,4 +25,10 @@ export class SubmissionService {
   downloadTemplate(submissionId: string, fileId: string) {
     return this.http.download('/submissions/' + submissionId + '/uploads/' + fileId + '/download');
   }
+
+  lockOrUnlock(submissionId, lock: boolean) {
+    let params: HttpParams = new HttpParams();
+    params = params.set('lockStatus', lock ? 'lock' : 'unlock');
+    return this.http.put('/submissions/' + submissionId + '/lock', null, params);
+  }
 }

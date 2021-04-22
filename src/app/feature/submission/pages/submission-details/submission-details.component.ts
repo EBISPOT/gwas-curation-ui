@@ -4,6 +4,7 @@ import { Observable, Subject, timer } from 'rxjs';
 import { retry, switchMap, takeUntil } from 'rxjs/operators';
 import { SubmissionService } from '../../../../core/services/submission.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-submission-details',
@@ -14,9 +15,11 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
 
   submission: Submission;
   id: string;
+  disableEdit: boolean;
   timerSubmissionObservable: Observable<Submission>;
   stopPolling = new Subject();
-  constructor(private submissionService: SubmissionService, private route: ActivatedRoute) {
+  constructor(private submissionService: SubmissionService, private route: ActivatedRoute,
+              private authService: AuthService) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.timerSubmissionObservable = timer(1, 5000).pipe(
       switchMap(() => submissionService.getSubmission(this.id)),
@@ -29,6 +32,10 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
   pollUntilStatusIsNotValidating() {
     this.timerSubmissionObservable.subscribe(value => {
       this.submission = value;
+      if (this.submission.lockDetails && this.submission.lockDetails.status === 'LOCKED_FOR_EDITING' &&
+        this.submission.lockDetails.lockedBy.user.email !== this.authService.getDecodedToken().email){
+        this.disableEdit = true;
+      }
       if (value.submission_status == null || value.submission_status === 'VALID' || value.submission_status === 'INVALID' ||
         value.submission_status === 'CURATION_COMPLETE' || value.submission_status === 'COMPLETE' ||
         value.submission_status === 'STARTED' || value.submission_status === 'SUBMITTED') {

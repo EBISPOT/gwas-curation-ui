@@ -4,6 +4,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { TokenStorageService } from '../../../../core/services/token-storage.service';
 import { Submission } from '../../../../core/models/submission';
 import { environment } from '../../../../../environments/environment';
+import { SubmissionService } from '../../../../core/services/submission.service';
 
 @Component({
   selector: 'app-submission-edit-tab',
@@ -14,9 +15,17 @@ export class SubmissionEditTabComponent implements OnInit {
 
   id: string;
   uploader: FileUploader;
-  @Input() submission: Submission;
+  isChecked = false;
+  submission: Submission;
+  @Input('submission') set _submission(submission: Submission) {
+    if (submission?.lockDetails?.status === 'LOCKED_FOR_EDITING') {
+      this.isChecked = true;
+    }
+    this.submission = submission;
+  }
   @Output() uploadSuccessEvent = new EventEmitter();
-  constructor(private route: ActivatedRoute, private tokenService: TokenStorageService) {
+  constructor(private route: ActivatedRoute, private tokenService: TokenStorageService,
+              private submissionService: SubmissionService) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.uploader = new FileUploader(
       {
@@ -40,4 +49,11 @@ export class SubmissionEditTabComponent implements OnInit {
     };
   }
 
+  sliderToggle() {
+    this.uploader.cancelAll();
+    this.uploader.clearQueue();
+    this.submissionService
+      .lockOrUnlock(this.id, this.isChecked)
+      .subscribe();
+  }
 }
