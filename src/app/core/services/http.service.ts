@@ -21,10 +21,11 @@ export class HttpService {
       .pipe(catchError(HttpService.formatErrors));
   }
 
-  put(path: string, body: any = {}): Observable<any> {
+  put(path: string, body: any = {}, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http.put(
       `${environment.API_URL}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      {params}
     ).pipe(catchError(HttpService.formatErrors));
   }
 

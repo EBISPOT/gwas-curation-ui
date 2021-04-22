@@ -6,7 +6,7 @@
   <span class="spacer"></span>
 
   <div fxHide.lt-md="true">
-    <a href="/" class="menu-link">Documentation</a>
+    <a routerLink="/" class="menu-link">Documentation</a>
     <a routerLink="submissions" class="menu-link">Submissions</a>
   </div>
 
@@ -26,15 +26,15 @@
 <div style="background-color: rgb(176, 223, 230); height: 8px;"></div>
 
 <!-- side navbar -->
-<mat-sidenav-container fxFlexFill class="example-container">
+<mat-sidenav-container fxFlexFill>
 
   <mat-sidenav #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true" position="end">
     <div fxLayout="column">
-      <a mat-button href="/" class="menu-link">Documentation</a>
+      <a mat-button routerLink="/" class="menu-link">Documentation</a>
       <a mat-button routerLink="submissions" class="menu-link">My submissions</a>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content fxFlexFill>
+  <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -4,8 +4,8 @@
   </mat-card-header>
   <mat-card-content>
     <mat-slide-toggle #toggle matTooltip="Edit tab will be locked for other curators until the current user is done editing."
-                      (change)="uploader.cancelAll(); uploader.clearQueue()">
-      Lock for edition
+                      (change)="sliderToggle()" [(ngModel)]="isChecked">
+      Lock for editing
     </mat-slide-toggle>
     <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-top: 50px" *ngIf="toggle.checked">
       <div fxLayout="row">

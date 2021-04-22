@@ -20,6 +20,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FileUploadModule } from 'ng2-file-upload';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,23 +28,24 @@ import { MatIconModule } from '@angular/material/icon';
     SubmissionListComponent, SubmissionDetailsComponent, SubmissionDetailsTabComponent, SubmissionEditTabComponent,
     SubmissionHistoryTabComponent
   ],
-  imports: [
-    SharedModule,
-    SubmissionRoutingModule,
-    MatProgressSpinnerModule,
-    MatSortModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatTabsModule,
-    MatCardModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatToolbarModule,
-    MatProgressBarModule,
-    FileUploadModule,
-    MatIconModule
-  ]
+    imports: [
+        SharedModule,
+        SubmissionRoutingModule,
+        MatProgressSpinnerModule,
+        MatSortModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatTabsModule,
+        MatCardModule,
+        MatSlideToggleModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatToolbarModule,
+        MatProgressBarModule,
+        FileUploadModule,
+        MatIconModule,
+        FormsModule
+    ]
 })
 export class SubmissionModule {
 }

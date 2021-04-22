@@ -21,5 +21,7 @@ export interface Submission {
   date_submitted: Date;
   created: Provenance;
   lastUpdated: Provenance;
+  editTemplate: Provenance;
+  lockDetails: {lockedBy: Provenance, status: string};
   agreedToCc0: boolean;
 }
