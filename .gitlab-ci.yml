@@ -21,7 +21,7 @@ sandbox-build:
     - node -v
     - rm -rf node_modules
     - npm install
-    - CI=false npm run build
+    - CI=false npm run build -- --base-href=/gwas/curation/
   artifacts:
     paths:
       - dist/gwas-curation-ui/*
