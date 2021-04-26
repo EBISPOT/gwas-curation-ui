@@ -14,14 +14,14 @@ variables:
   CURATION_UI_SERVICE_NAME: gwas-curation-ui
 
 sandbox-build:
-  image: node:10.15.3
+  image: node:14.15.5
   stage: sandbox-build
   script:
     - npm -v
     - node -v
     - rm -rf node_modules
     - npm install
-    - CI=false npm run build -- --base-href=/gwas/curation/
+    - CI=false npm run build -- --base-href=/gwas/curation/ --configuration sandbox
   artifacts:
     paths:
       - dist/gwas-curation-ui/*
