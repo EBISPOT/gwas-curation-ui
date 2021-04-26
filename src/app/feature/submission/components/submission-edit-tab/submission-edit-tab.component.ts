@@ -54,6 +54,6 @@ export class SubmissionEditTabComponent implements OnInit {
     this.uploader.clearQueue();
     this.submissionService
       .lockOrUnlock(this.id, this.isChecked)
-      .subscribe();
+      .subscribe(() => {}, () => {this.isChecked = !this.isChecked; });
   }
 }
