@@ -7,38 +7,38 @@
                       (change)="sliderToggle()" [(ngModel)]="isChecked">
       Lock for editing
     </mat-slide-toggle>
-    <div fxLayout="column" fxLayoutAlign="space-around center" style="margin-top: 50px" *ngIf="toggle.checked">
-      <div fxLayout="row">
-        <span style="padding-top: 8px; margin-right: 20px"> Upload a new template: </span>
-        <input type="file" ng2FileSelect [uploader]="uploader" style="padding-top: 8px"/>
+    <div class="mt-10" *ngIf="toggle.checked">
+      <div class="flex justify-around">
+        <span class="pt-2"> Upload a new template: </span>
+        <input type="file" ng2FileSelect [uploader]="uploader" class="pt-2"/>
         <div *ngIf="uploader.queue.length > 0">
-          <button [disabled]="uploader.queue[0].isReady || uploader.queue[0].isUploading || uploader.queue[0].isSuccess"
-                  mat-raised-button color="primary" (click)="uploader.queue[0].upload()" style="margin-left: 50px">
+          <button style="margin-right: 30px" [disabled]="uploader.queue[0].isReady || uploader.queue[0].isUploading || uploader.queue[0].isSuccess"
+                  mat-raised-button color="primary" (click)="uploader.queue[0].upload()">
             Upload
           </button>
-          <button [disabled]="!uploader.queue[0].isUploading" mat-raised-button color="primary" (click)="uploader.queue[0].cancel()" style="margin-left: 50px">
+          <button [disabled]="!uploader.queue[0].isUploading" mat-raised-button color="primary" (click)="uploader.queue[0].cancel()">
             Cancel
           </button>
         </div>
       </div>
 
-      <div fxLayout="row" style="margin-top: 30px" *ngIf="uploader.queue.length > 0">
-        <mat-progress-bar mode="determinate" [value]="uploader.progress" style="height: 6px; width: 300px"></mat-progress-bar>
+      <div class="mt-9 flex justify-center" *ngIf="uploader.queue.length > 0">
+        <mat-progress-bar mode="determinate" [value]="uploader.progress" style="width: 300px"></mat-progress-bar>
       </div>
-      <div fxLayout="row" style="margin-top: 30px" *ngIf="uploader.queue.length > 0 && uploader.queue[0].isSuccess">
+      <div class="mt-9 flex justify-center" *ngIf="uploader.queue.length > 0 && uploader.queue[0].isSuccess">
         Metadata valid:
         <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.metadata_status == 'VALIDATING'"> </mat-spinner>
         <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
         <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
-        <span *ngIf="submission?.metadata_status == 'NA'" style="white-space:pre"> NA</span>
+        <span *ngIf="submission?.metadata_status == 'NA'" class="whitespace-pre"> NA</span>
         <pre>     </pre>
         Sumstats valid:
         <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.summary_statistics_status == 'VALIDATING'"> </mat-spinner>
         <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
         <mat-icon aria-hidden="false" color="accent" *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
-        <span *ngIf="submission?.summary_statistics_status == 'NA'" style="white-space:pre"> NA</span>
+        <span *ngIf="submission?.summary_statistics_status == 'NA'" class="whitespace-pre"> NA</span>
       </div>
-      <div fxLayout="row" *ngIf="uploader.queue[0]?.isError" style="color: red"> An error occurred while uploading file.</div>
+      <div *ngIf="uploader.queue[0]?.isError" class="text-red-500"> An error occurred while uploading file.</div>
     </div>
   </mat-card-content>
 </mat-card>

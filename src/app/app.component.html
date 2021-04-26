@@ -5,7 +5,7 @@
   <a routerLink="" class="home-link">GWAS Curation</a>
   <span class="spacer"></span>
 
-  <div fxHide.lt-md="true">
+  <div class="hidden sm:block">
     <a routerLink="/" class="menu-link">Documentation</a>
     <a routerLink="submissions" class="menu-link">Submissions</a>
   </div>
@@ -17,7 +17,7 @@
     <button mat-menu-item (click)="logout()">Logout</button>
   </mat-menu>
 
-  <button mat-icon-button fxHide.gt-sm="true" (click)="sidenav.toggle()">
+  <button class="sm:hidden" mat-icon-button (click)="sidenav.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>
@@ -26,10 +26,9 @@
 <div style="background-color: rgb(176, 223, 230); height: 8px;"></div>
 
 <!-- side navbar -->
-<mat-sidenav-container fxFlexFill>
-
-  <mat-sidenav #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true" position="end">
-    <div fxLayout="column">
+<mat-sidenav-container class="h-full w-full">
+  <mat-sidenav #sidenav class="sm:hidden" mode="over" opened="false" position="end">
+    <div class="flex flex-col">
       <a mat-button routerLink="/" class="menu-link">Documentation</a>
       <a mat-button routerLink="submissions" class="menu-link">My submissions</a>
     </div>
