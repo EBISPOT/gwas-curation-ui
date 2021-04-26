@@ -1,6 +1,5 @@
 export const environment = {
   production: false,
-  enablePurge: true,
   AAPURL: 'https://api.aai.ebi.ac.uk',
   BAD_AAPURL: 'https://api.aai.ebi.ac.uk-TEST',
   TEMPLATE_DOWNLOAD_API_URL: 'https://api.aai.ebi.ac.uk-TEST',
