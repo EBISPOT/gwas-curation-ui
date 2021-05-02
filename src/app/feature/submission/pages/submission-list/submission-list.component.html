@@ -1,10 +1,10 @@
-<div class="mat-elevation-z8 big-container">
+<div class="mat-elevation-z2 big-container">
   <div class="loading-shade"
        *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
   <div class="table-container">
-    <table mat-table [dataSource]="dataSource" class="example-table" matSort (matSortChange)="resetPaging()"
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()"
            matSortActive="lastUpdated" matSortDisableClear matSortDirection="desc">
 
       <ng-container matColumnDef="pmid">

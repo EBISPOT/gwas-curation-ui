@@ -1,4 +1,4 @@
-Everything that needs to be loaded once goes here, e.g. Services, Interceptors, Guards, Http, Constants, Common
+Everything that needs to be loaded once goes here, e.g. Header, Footer, Services, Interceptors, Guards, Http, Constants, Common
 Module...
 
 Core Module should only be imported once at the root module.

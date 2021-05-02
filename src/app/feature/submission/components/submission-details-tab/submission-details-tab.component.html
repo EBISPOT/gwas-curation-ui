@@ -20,7 +20,7 @@
         </div>
         <div *ngIf="submission.bodyOfWork.prePrintServer" class="with-icon">
           PrePrint available in: {{submission.bodyOfWork.prePrintServer}} &nbsp;
-          <mat-icon (click)="goToPreprintDoi()" class="cursor-pointer" color="accent">link</mat-icon>
+          <mat-icon (click)="goToPreprintDoi()" class="cursor-pointer">link</mat-icon>
         </div>
         <div *ngIf="submission.bodyOfWork.embargoDate || submission.bodyOfWork.embargoUntilPublished">
           Embargo Until: {{submission.bodyOfWork.embargoUntilPublished ?
@@ -79,31 +79,31 @@
         Status: {{submission.submission_status}} <br>
         <div class="with-icon">
           Metadata valid:
-          <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.metadata_status == 'VALIDATING'"> </mat-spinner>
-          <mat-icon color="accent" *ngIf="submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
-          <mat-icon color="accent" *ngIf="submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
+          <mat-spinner [diameter]="22" *ngIf="submission?.metadata_status == 'VALIDATING'"> </mat-spinner>
+          <mat-icon *ngIf="submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
+          <mat-icon *ngIf="submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
           {{submission?.metadata_status == 'NA' ? 'NA' : ''}}
         </div>
         <div class="with-icon">
           Sumstats valid:
-          <mat-spinner [diameter]="22" color="accent" *ngIf="submission?.summary_statistics_status == 'VALIDATING'"> </mat-spinner>
-          <mat-icon color="accent" *ngIf="submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
-          <mat-icon color="accent" *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
+          <mat-spinner [diameter]="22" *ngIf="submission?.summary_statistics_status == 'VALIDATING'"> </mat-spinner>
+          <mat-icon *ngIf="submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
+          <mat-icon *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
           {{submission?.summary_statistics_status == 'NA' ? 'NA' : ''}}
         </div>
 
       </div>
       <div>
         <div class="with-icon">
-          <mat-icon color="accent">biotech</mat-icon>
+          <mat-icon>biotech</mat-icon>
           Studies: {{submission.study_count}}
         </div>
         <div class="with-icon">
-          <mat-icon color="accent">share</mat-icon>
+          <mat-icon>share</mat-icon>
           Associations: {{submission.association_count}}
         </div>
         <div class="with-icon">
-          <mat-icon color="accent">science</mat-icon>
+          <mat-icon>science</mat-icon>
           Samples: {{submission.sample_count}}
         </div>
       </div>
