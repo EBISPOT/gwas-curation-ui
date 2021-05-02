@@ -29,7 +29,7 @@ export class SubmissionListComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     // add this.sort.sortChange to merge() params and delete datasource.sort = sort in subscribe() to enable server-side sorting
-    merge(this.paginator.page)
+    merge(this.paginator.page, this.sort.sortChange)
       .pipe(
         startWith({}),
         switchMap(() => {
@@ -49,7 +49,6 @@ export class SubmissionListComponent implements AfterViewInit {
       )
       .subscribe(value => {
         this.dataSource = new MatTableDataSource<Submission>(value);
-        this.dataSource.sort = this.sort;
       });
   }
 
