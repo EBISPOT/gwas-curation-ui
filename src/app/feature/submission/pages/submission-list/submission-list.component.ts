@@ -14,7 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./submission-list.component.css']
 })
 export class SubmissionListComponent implements AfterViewInit {
-  displayedColumns: string[] = ['pmid', 'gcp', 'submissionId', 'firstAuthor', 'submissionStatus', 'metadataStatus',
+  displayedColumns: string[] = ['pmid', 'gcp', 'firstAuthor', 'submissionStatus', 'metadataStatus',
     'summaryStatisticsStatus', 'submitter', 'lastUpdated', 'started', 'being_edited'];
 
   resultsLength = 0;

@@ -29,3 +29,13 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out
 the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Notes
+To run the app with the fake API, run `npm run start-fake`.
+
+To run the app with the Sandbox API, run `ng serve --configuration sandbox`.
+
+You may want to disable tailwind CSS purge as it sometimes messes up intelliSense, do so by setting `purge.enabled` to false in `tailwind.config.js`.
+
+json-server uses the field `id` as a default, so it won't consider `submissionId` for example querying `/submissions/:submissionId`, instead it will look for a field called `id`. 
+A workaround is to add a field `id` to each submission.

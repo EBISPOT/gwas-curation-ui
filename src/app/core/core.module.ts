@@ -5,16 +5,18 @@ import { AuthGuard } from './guards/auth.guard';
 import { authInterceptorProviders } from './interceptors/auth.interceptor';
 import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, FooterComponent],
   imports: [
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   providers: [AuthGuard, authInterceptorProviders]
 })

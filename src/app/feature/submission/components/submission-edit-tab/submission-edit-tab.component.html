@@ -38,7 +38,7 @@
         <mat-icon aria-hidden="false" *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
         <span *ngIf="submission?.summary_statistics_status == 'NA'" class="whitespace-pre"> NA</span>
       </div>
-      <div *ngIf="uploader.queue[0]?.isError" class="text-red-500"> An error occurred while uploading file.</div>
+      <div *ngIf="uploader.queue[0]?.isError" class="text-red-500 flex justify-center"> An error occurred while uploading file.</div>
     </div>
   </mat-card-content>
 </mat-card>
