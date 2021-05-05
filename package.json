@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start-fake": "json-server --watch json-server/db.json --delay 800 --routes json-server/routes.json & ng serve"
+    "start-json-server" : "json-server --watch json-server/db.json --delay 800 --routes json-server/routes.json",
+    "start-fake": "(start npm run start-json-server && ng serve) || (npm run start-json-server & ng serve)"
   },
   "private": true,
   "dependencies": {
