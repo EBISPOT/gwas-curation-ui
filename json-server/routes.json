@@ -1,0 +1,6 @@
+{
+  "/submissions": "/submissions",
+  "/submissions/:submissionId": "/submissionDetails/:submissionId",
+  "/submissions/:submissionId/lock?lockStatus=:s": "/submissionPut/:submissionId",
+  "/submissions/:submissionId/uploads/edit": "/submissionPost"
+}
