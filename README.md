@@ -31,9 +31,9 @@ To get more help on the Angular CLI use `ng help` or go check out
 the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 # Notes
-To run the app with the fake API, run `npm run start-fake`.
+To run the app locally with the fake API, run `npm run start-fake`.
 
-To run the app with the Sandbox API, run `ng serve --configuration sandbox`.
+To run the app locally with the Sandbox API, run `ng serve -c local-sandbox`.
 
 You may want to disable tailwind CSS purge as it sometimes messes up intelliSense, do so by setting `purge.enabled` to false in `tailwind.config.js`.
 

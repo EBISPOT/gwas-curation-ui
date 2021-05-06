@@ -83,6 +83,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "local-sandbox": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sandbox.ts"
+                }
+              ]
             }
           }
         },
@@ -94,6 +102,9 @@
           "configurations": {
             "production": {
               "browserTarget": "gwas-curation-ui:build:production"
+            },
+            "local-sandbox": {
+              "browserTarget": "gwas-curation-ui:build:local-sandbox"
             }
           }
         },
