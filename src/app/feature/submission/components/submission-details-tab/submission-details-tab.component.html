@@ -1,4 +1,4 @@
-<mat-card *ngIf="submission?.bodyOfWork">
+<mat-card *ngIf="submission?.bodyOfWork" class="mt-4 mb-4">
   <mat-card-header>
     <mat-card-title>Details for GCP ID: {{submission.bodyOfWork.bodyOfWorkId}}</mat-card-title>
   </mat-card-header>
@@ -55,7 +55,7 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card *ngIf="submission?.publication">
+<mat-card *ngIf="submission?.publication" class="mt-4 mb-4">
   <mat-card-header>
     <mat-card-title>Details for PubMed ID: {{submission.publication.pmid}}</mat-card-title>
   </mat-card-header>
@@ -67,7 +67,7 @@
   </mat-card-content>
 </mat-card>
 
-<mat-card *ngIf="submission">
+<mat-card *ngIf="submission" class="mt-4 mb-4">
   <mat-card-header>
     <mat-card-title>Details for Submission ID: {{submission.submissionId}}</mat-card-title>
   </mat-card-header>

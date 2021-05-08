@@ -1,16 +1,49 @@
-.mat-card {
-  margin-top: 15px;
-  margin-bottom: 15px;
+.example-container {
+  position: relative;
+  min-height: 200px;
 }
 
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  max-width: 600px;
-  width: 100%;
+.example-table-container {
+  position: relative;
+  height: 400px;
+  overflow: auto;
+}
+
+.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
 }
 
 td, th {
-  text-align: center;
-  padding: 8px;
+  text-align: center !important;
 }
