@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +10,13 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
 
   menuOpen = false;
-  constructor(private authService: AuthService, private router: Router) {
+  pathName = '';
+  constructor(private authService: AuthService, private router: Router, public route: ActivatedRoute) {
+    this.router.events.subscribe((data) => {
+      if (data instanceof RoutesRecognized) {
+        this.pathName = data.state.root.firstChild.firstChild.data.pathName;
+      }
+    });
   }
 
   logout() {

@@ -5,8 +5,8 @@ import { SubmissionDetailsComponent } from './pages/submission-details/submissio
 import { AuthGuard } from '../../core/guards/auth.guard';
 
 const routes: Routes = [
-  {path: '', component: SubmissionListComponent, canActivate: [AuthGuard]},
-  {path: ':id', component: SubmissionDetailsComponent, canActivate: [AuthGuard]},
+  {path: '', component: SubmissionListComponent, canActivate: [AuthGuard], data: {pathName: 'Submissions'}},
+  {path: ':id', component: SubmissionDetailsComponent, canActivate: [AuthGuard], data: {pathName: 'Submission details'}},
   {path: '**', redirectTo: ''}
 ];
 
