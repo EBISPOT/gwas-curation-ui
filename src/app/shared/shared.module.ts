@@ -10,6 +10,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [],
@@ -25,7 +29,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressSpinnerModule,
     MatCardModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTabsModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatTableModule
   ],
   exports: [
     CommonModule,
@@ -39,7 +47,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressSpinnerModule,
     MatCardModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTabsModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatTableModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

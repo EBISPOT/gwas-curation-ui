@@ -9,6 +9,10 @@
   overflow: auto;
 }
 
+table {
+  width: 100%;
+}
+
 .example-detail-row {
   height: 0;
 }
@@ -38,6 +42,9 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description {
   padding: 16px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-style: italic;
+  font-size: small;
 }
 
 .example-element-description-attribution {
