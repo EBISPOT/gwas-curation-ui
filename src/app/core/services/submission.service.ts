@@ -42,8 +42,6 @@ export class SubmissionService {
     for (const h of history) {
       let s = '';
       for (const study of h.studies) {
-        console.log(study.tags
-          .filter(value => value.edited !== undefined));
         s = study.added.length + ' studies added: [' + study.added + '], '
           + study.removed.length + ' removed: [' + study.removed + '], '
           + study.tags.filter(value => value.edited !== undefined).length + ' edited: ['

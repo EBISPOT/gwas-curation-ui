@@ -1980,6 +1980,201 @@
           ]
         }
       ]
+    },
+    {
+      "fileId": "ae12bc-eee33-eaf32...",
+      "fileName": "Stein_Submission_v2.xlsx",
+      "uploadDate": "2021-08-11T20:17:46.384Z",
+      "studies": [
+        {
+          "total": 123,
+          "added": [
+            "study_tag1",
+            "study_tag4",
+            "study_tag6",
+            "..."
+          ],
+          "removed": [
+            "study_tag8",
+            "..."
+          ],
+          "tags": [
+            {
+              "tag": "study_tag6",
+              "associations": {
+                "added": 4,
+                "removed": 2,
+                "edited": [
+                  {
+                    "columnName": "$Association_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  },
+                  {
+                    "columnName": "$Association_Tab_Column_Name2",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "samples": {
+                "added": 3,
+                "removed": 1,
+                "edited": [
+                  {
+                    "columnName": "$Sample_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "edited": [
+                {
+                  "columnName": "$Study_Tab_Column_Name1",
+                  "previous": "...",
+                  "new": "..."
+                },
+                {
+                  "columnName": "$Study_Tab_Column_Name2",
+                  "previous": "...",
+                  "new": "..."
+                }
+              ]
+            },
+            {
+              "tag": "study_tag2",
+              "associations": {
+                "added": 0,
+                "removed": 0,
+                "edited": [
+                  {
+                    "columnName": "$Association_Tab_Column_Name3",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "samples": {
+                "added": 3,
+                "removed": 1,
+                "edited": [
+                  {
+                    "columnName": "$Sample_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  },
+                  {
+                    "columnName": "$Sample_Tab_Column_Name2",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "edited": [
+                {
+                  "columnName": "$Association_Tab_Column_Name3",
+                  "previous": "...",
+                  "new": "..."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fileId": "ae12bc-eee33-eaf32...",
+      "fileName": "Stein_Submission.xlsx",
+      "uploadDate": "2021-08-12T20:17:46.384Z",
+      "studies": [
+        {
+          "total": 123,
+          "added": [
+            "study_tag1",
+            "study_tag2",
+            "..."
+          ],
+          "removed": [
+            "study_tag1",
+            "study_tag2",
+            "..."
+          ],
+          "tags": [
+            {
+              "tag": "study_tag1",
+              "associations": {
+                "added": 4,
+                "removed": 2,
+                "edited": [
+                  {
+                    "columnName": "$Association_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  },
+                  {
+                    "columnName": "$Association_Tab_Column_Name2",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "samples": {
+                "added": 3,
+                "removed": 1,
+                "edited": [
+                  {
+                    "columnName": "$Sample_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "edited": [
+                {
+                  "columnName": "$Study_Tab_Column_Name1",
+                  "previous": "...",
+                  "new": "..."
+                },
+                {
+                  "columnName": "$Study_Tab_Column_Name2",
+                  "previous": "...",
+                  "new": "..."
+                }
+              ]
+            },
+            {
+              "tag": "study_tag2",
+              "associations": {
+                "added": 0,
+                "removed": 0,
+                "edited": [
+                  {
+                    "columnName": "$Association_Tab_Column_Name3",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "samples": {
+                "added": 3,
+                "removed": 1,
+                "edited": [
+                  {
+                    "columnName": "$Sample_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  },
+                  {
+                    "columnName": "$Sample_Tab_Column_Name2",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

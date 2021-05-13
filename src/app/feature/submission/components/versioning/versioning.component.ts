@@ -28,8 +28,6 @@ export class VersioningComponent implements OnInit {
       'in order categorical.');
     dmp.diff_cleanupSemantic(diff);
     this.diffHtml = dmp.diff_prettyHtml(diff);
-
-    console.log(this.diffHtml);
   }
 
 }
