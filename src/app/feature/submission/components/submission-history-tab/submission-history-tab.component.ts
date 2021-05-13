@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { VersioningComponent } from '../versioning/versioning.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SubmissionService } from '../../../../core/services/submission.service';
+import { ActivatedRoute } from '@angular/router';
+import { SubmissionHistory } from '../../../../core/models/submissionHistory';
 
 @Component({
   selector: 'app-submission-history-tab',
@@ -16,68 +19,28 @@ import { MatDialog } from '@angular/material/dialog';
     ]),
   ]
 })
-export class SubmissionHistoryTabComponent {
+export class SubmissionHistoryTabComponent implements OnInit{
 
-  dataSource = ELEMENT_DATA;
-  columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
-  expandedElement: PeriodicElement | null;
+  columnsToDisplay = ['fileName', 'uploadDate', 'download', 'diff'];
+  expandedElement: SubmissionHistory | null;
+  dataSource: SubmissionHistory[];
+  historySummaryReports: string[];
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private submissionService: SubmissionService,
+              private route: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
+    this.submissionService
+      .getSubmissionHistory(this.route.snapshot.paramMap.get('id'))
+      .subscribe(h => {
+        this.dataSource = h;
+        this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(h);
+      });
   }
 
   openDialog() {
-    this.dialog.open(VersioningComponent, {width: '100%'});
+    this.dialog.open(VersioningComponent, {width: '100%', height: '75%'});
   }
 
 }
-
-export interface PeriodicElement {
-  name: string;
-  weight: string;
-  symbol: string;
-  description: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    name: 'Stein_submission_final.xlsx',
-    weight: '27-10-2021',
-    symbol: 'H',
-    description: `1 study added [Stu_tag3], 2 studies removed [Stu_tag1, Stu_tag2], 3 associations edited [Stu_tag8, Stu_tag6].`
-  }, {
-    name: 'Stein_submission_v3.xlsx',
-    weight: '17-10-2021',
-    symbol: 'He',
-    description: `1 study added [Stu_tag3], 2 studies removed [Stu_tag1, Stu_tag2], 3 associations edited [Stu_tag8, Stu_tag6].`
-  }, {
-    name: 'Stein_submission_v2.1.xlsx',
-    weight: '25-09-2021',
-    symbol: 'Li',
-    description: `1 study added [Stu_tag3], 2 studies removed [Stu_tag1, Stu_tag2], 3 associations edited [Stu_tag8, Stu_tag6].`
-  }, {
-    name: 'Stein_submission_v2.xlsx',
-    weight: '25-09-2021',
-    symbol: 'Be',
-    description: `1 study added [Stu_tag3], 2 studies removed [Stu_tag1, Stu_tag2], 3 associations edited [Stu_tag8, Stu_tag6].`
-  }, {
-    name: 'Stein_sub_file.xlsx',
-    weight: '25-09-2021',
-    symbol: 'B',
-    description: `1 study added [Stu_tag3], 2 studies removed [Stu_tag1, Stu_tag2], 3 associations edited [Stu_tag8, Stu_tag6].`
-  }, {
-    name: 'new_Stein_submission.xlsx',
-    weight: '13-05-2021',
-    symbol: 'C',
-    description: `1 study added [Stu_tag3], 2 studies removed [Stu_tag1, Stu_tag2], 3 associations edited [Stu_tag8, Stu_tag6].`
-  }, {
-    name: 'Stein_sub_new.xlsx',
-    weight: '13-05-2021',
-    symbol: 'N',
-    description: `1 study added [Stu_tag3], 2 studies removed [Stu_tag1, Stu_tag2], 3 associations edited [Stu_tag8, Stu_tag6].`
-  }, {
-    name: 'Stein_submission.xlsx',
-    weight: '03-12-2020',
-    symbol: 'O',
-    description: `1 study added [Stu_tag3], 2 studies removed [Stu_tag1, Stu_tag2], 3 associations edited [Stu_tag8, Stu_tag6].`
-  }
-];

@@ -3,7 +3,7 @@ import { Submission } from '../../../../core/models/submission';
 import { Observable, Subject, timer } from 'rxjs';
 import { retry, switchMap, takeUntil } from 'rxjs/operators';
 import { SubmissionService } from '../../../../core/services/submission.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
   timerSubmissionObservable: Observable<Submission>;
   stopPolling = new Subject();
   constructor(private submissionService: SubmissionService, private route: ActivatedRoute,
-              private authService: AuthService) {
+              private authService: AuthService, private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.timerSubmissionObservable = timer(1, 5000).pipe(
       switchMap(() => submissionService.getSubmission(this.id)),
@@ -51,4 +51,7 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
     this.stopPolling.next();
   }
 
+  returnToSubList() {
+    this.router.navigateByUrl('submissions');
+  }
 }
