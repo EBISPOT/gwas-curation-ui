@@ -1,5 +1,5 @@
-<nav class="bg-gray-800 mat-elevation-z9 sticky top-0 w-full" style="z-index: 200">
-  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+<nav class="bg-gray-800 mat-elevation-z9 sticky w-full" style="z-index: 200; top: -1px">
+  <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
     <div class="relative flex items-center justify-between h-16">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
         <!-- Mobile menu button-->
@@ -9,21 +9,17 @@
       </div>
       <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
         <div class="flex-shrink-0 flex items-center">
-          <img class="block h-8 w-auto" src="assets/images/GWAS_Catalog_banner_logo_34x40.svg" alt="GWAS"/>
+          <a href="https://www.ebi.ac.uk/gwas" target="_blank">
+            <img class="block h-10 w-auto" src="assets/images/GWAS_Catalog_banner_logo_34x40.svg" alt="GWAS"/>
+          </a>
         </div>
         <div class="hidden sm:block sm:ml-6">
-          <div class="flex space-x-4">
-            <a mat-button class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
-            <a routerLink="submissions" mat-button class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Submissions</a>
-            <a mat-button class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Documentation</a>
+          <div class="flex flex-wrap space-x-4">
+            <a routerLink="submissions" mat-button class="text-gray-300 hover:bg-gray-700 hover:text-white px-2 py-2 rounded-md text-sm font-medium">Submissions</a>
           </div>
         </div>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <button mat-icon-button class="bg-gray-800 rounded-full text-gray-400 hover:text-white hover:bg-gray-700">
-          <mat-icon class="text-gray-400 hover:text-white">notifications</mat-icon>
-        </button>
-        <!-- Profile dropdown -->
         <div class="ml-3 relative">
           <div>
             <button mat-icon-button [matMenuTriggerFor]="menu" type="button" class="bg-gray-800 rounded-full text-gray-400
@@ -43,9 +39,7 @@
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class="sm:hidden" id="mobile-menu" *ngIf="menuOpen">
     <div class="px-2 pt-2 pb-3 space-y-1">
-      <a mat-button class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
       <a routerLink="submissions" mat-button class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Submissions</a>
-      <a mat-button class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Documentation</a>
     </div>
   </div>
 </nav>

@@ -12,20 +12,22 @@ import { SharedModule } from '../../shared/shared.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { VersioningComponent } from './components/versioning/versioning.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     SubmissionListComponent, SubmissionDetailsComponent, SubmissionDetailsTabComponent, SubmissionEditTabComponent,
     SubmissionHistoryTabComponent, VersioningComponent
   ],
-    imports: [
-        SharedModule,
-        SubmissionRoutingModule,
-        MatSortModule,
-        MatPaginatorModule,
-        FileUploadModule,
-        MatButtonToggleModule
-    ]
+  imports: [
+    SharedModule,
+    SubmissionRoutingModule,
+    MatSortModule,
+    MatPaginatorModule,
+    FileUploadModule,
+    MatButtonToggleModule,
+    MatSnackBarModule
+  ]
 })
 export class SubmissionModule {
 }

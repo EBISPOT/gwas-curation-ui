@@ -1,11 +1,17 @@
-<mat-tab-group animationDuration="150ms">
-  <mat-tab label="Details">
-    <app-submission-details-tab [submission]="submission"></app-submission-details-tab>
-  </mat-tab>
-  <mat-tab label="Submission history">
-    <app-submission-history-tab></app-submission-history-tab>
-  </mat-tab>
-  <mat-tab label="Edit" [disabled]="disableEdit">
-    <app-submission-edit-tab (uploadSuccessEvent)="pollUntilStatusIsNotValidating()" [submission]="submission"></app-submission-edit-tab>
-  </mat-tab>
-</mat-tab-group>
+<div class="relative">
+  <div class="absolute right-0 z-50">
+    <button mat-icon-button (click)="returnToSubList()"><mat-icon color="primary">close</mat-icon></button>
+  </div>
+  <mat-tab-group animationDuration="150ms">
+    <mat-tab label="Details">
+      <app-submission-details-tab [submission]="submission"></app-submission-details-tab>
+    </mat-tab>
+    <mat-tab label="Submission history">
+      <app-submission-history-tab></app-submission-history-tab>
+    </mat-tab>
+    <mat-tab label="Edit" [disabled]="disableEdit">
+      <app-submission-edit-tab (uploadSuccessEvent)="pollUntilStatusIsNotValidating()" [submission]="submission"></app-submission-edit-tab>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>

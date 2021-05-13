@@ -5,6 +5,7 @@ import { TokenStorageService } from '../../../../core/services/token-storage.ser
 import { Submission } from '../../../../core/models/submission';
 import { environment } from '../../../../../environments/environment';
 import { SubmissionService } from '../../../../core/services/submission.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-submission-edit-tab',
@@ -16,6 +17,7 @@ export class SubmissionEditTabComponent implements OnInit {
   id: string;
   uploader: FileUploader;
   isChecked = false;
+  hasDropZoneOver = false;
   submission: Submission;
   @Input('submission') set _submission(submission: Submission) {
     if (submission?.lockDetails?.status === 'LOCKED_FOR_EDITING') {
@@ -25,7 +27,7 @@ export class SubmissionEditTabComponent implements OnInit {
   }
   @Output() uploadSuccessEvent = new EventEmitter();
   constructor(private route: ActivatedRoute, private tokenService: TokenStorageService,
-              private submissionService: SubmissionService) {
+              private submissionService: SubmissionService, private snackBar: MatSnackBar) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.uploader = new FileUploader(
       {
@@ -43,10 +45,15 @@ export class SubmissionEditTabComponent implements OnInit {
       }
     };
     this.uploader.onSuccessItem = () => {
+      this.snackBar.open('File was uploaded successfully.', '', {duration: 2500});
       this.uploadSuccessEvent.emit();
       this.submission.summary_statistics_status = 'VALIDATING';
       this.submission.metadata_status = 'VALIDATING';
     };
+  }
+
+  fileOver(e) {
+    this.hasDropZoneOver = e;
   }
 
   sliderToggle() {
@@ -56,4 +63,5 @@ export class SubmissionEditTabComponent implements OnInit {
       .lockOrUnlock(this.id, this.isChecked)
       .subscribe(() => {}, () => {this.isChecked = !this.isChecked; });
   }
+
 }

@@ -42,6 +42,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description {
   padding: 16px;
+  text-align: left;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-style: italic;
   font-size: small;
@@ -51,6 +52,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   opacity: 0.5;
 }
 
-td, th {
-  text-align: center !important;
+th {
+  color: black;
+  font-weight: bold;
 }
