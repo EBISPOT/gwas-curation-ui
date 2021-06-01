@@ -14,6 +14,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [],
@@ -21,7 +24,6 @@ import { MatTableModule } from '@angular/material/table';
     CommonModule,
     FormsModule,
     RouterModule,
-    MatIconModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -33,13 +35,15 @@ import { MatTableModule } from '@angular/material/table';
     MatTabsModule,
     MatProgressBarModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonToggleModule,
+    MatSnackBarModule,
+    MatSidenavModule
   ],
   exports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    MatIconModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -51,7 +55,10 @@ import { MatTableModule } from '@angular/material/table';
     MatTabsModule,
     MatProgressBarModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonToggleModule,
+    MatSnackBarModule,
+    MatSidenavModule
   ]
 })
 export class SharedModule {

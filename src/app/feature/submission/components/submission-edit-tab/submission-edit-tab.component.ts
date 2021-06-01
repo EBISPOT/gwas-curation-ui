@@ -31,7 +31,7 @@ export class SubmissionEditTabComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.uploader = new FileUploader(
       {
-        url: environment.API_URL + '/submissions/' + this.id + '/uploads/edit', itemAlias: 'file',
+        url: environment.CURATION_API_URL + '/submissions/' + this.id + '/uploads/edit', itemAlias: 'file',
         authToken: 'Bearer ' + tokenService.getToken()
       });
   }

@@ -4,6 +4,7 @@ import { VersioningComponent } from '../versioning/versioning.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SubmissionService } from '../../../../core/services/submission.service';
 import { SubmissionHistory } from '../../../../core/models/submissionHistory';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-submission-history-tab',
@@ -20,21 +21,24 @@ import { SubmissionHistory } from '../../../../core/models/submissionHistory';
 })
 export class SubmissionHistoryTabComponent implements OnInit{
 
-  columnsToDisplay = ['fileName', 'uploadDate', 'studiesTotal', 'associationsTotal', 'samplesTotal', 'download', 'diff'];
+  columnsToDisplay = ['fileName', 'studiesTotal', 'associationsTotal', 'samplesTotal', 'download', 'diff'];
   expandedElement: SubmissionHistory | null;
   dataSource: SubmissionHistory[];
   historySummaryReports: string[];
+  responseText = '';
+  submissionId = this.route.snapshot.paramMap.get('id');
+  isLoading = true;
 
-  constructor(public dialog: MatDialog, private submissionService: SubmissionService) {
+  constructor(public dialog: MatDialog, private submissionService: SubmissionService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    // this.submissionService
-    //   .getSubmissionHistory(this.route.snapshot.paramMap.get('id'))
-    //   .subscribe(h => {
-    //     this.dataSource = h;
-    //     this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(h);
-    //   });
+    /*this.submissionService
+      .getSubmissionHistory(this.route.snapshot.paramMap.get('id'))
+      .subscribe(h => {
+        this.dataSource = h;
+        this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(h);
+      });
     {
       this.dataSource = JSON.parse('[\n' +
         '    {\n' +
@@ -328,11 +332,51 @@ export class SubmissionHistoryTabComponent implements OnInit{
         '    }\n' +
         '  ]');
     }
-    this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(this.dataSource);
+    this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(this.dataSource);*/
+    this.loadHistory();
   }
 
   openDialog() {
     this.dialog.open(VersioningComponent, {width: '100%', height: '75%'});
   }
 
+  downloadTemplate(fileId: string, fileName: string) {
+    this.submissionService.downloadTemplate(this.submissionId, fileId).subscribe(
+      (response: any) => {
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(new Blob([response]));
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+      }
+    );
+  }
+
+  loadHistory() {
+    this.isLoading = true;
+    this.submissionService.getVersionHistory(this.submissionId).subscribe(value => {
+      this.isLoading = false;
+      if (Array.isArray(value)) {
+        const lastItem = value[value.length - 1];
+        const tempHistory: SubmissionHistory = {
+          currentVersionSummary: {
+            totalStudies: lastItem.currentVersionSummary.totalStudies - lastItem.versionSummaryStats.studiesAdded
+              + lastItem.versionSummaryStats.studiesRemoved,
+            totalAcscns: lastItem.currentVersionSummary.totalAcscns - lastItem.versionSummaryStats.ascnsAdded
+              + lastItem.versionSummaryStats.ascnsRemoved,
+            totalSamples: lastItem.currentVersionSummary.totalSamples - lastItem.versionSummaryStats.samplesAdded
+              + lastItem.versionSummaryStats.samplesRemoved,
+          },
+          versionSummaryStats: null, versionDiffStats: null, oldFileDetails: null,
+          newFileDetails: {fileId: lastItem.oldFileDetails.fileId, fileName: lastItem.oldFileDetails.fileName}
+        };
+        value.push(tempHistory);
+        this.dataSource = value;
+        this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(this.dataSource);
+      }
+      else {
+        this.responseText = value;
+      }
+    });
+  }
 }

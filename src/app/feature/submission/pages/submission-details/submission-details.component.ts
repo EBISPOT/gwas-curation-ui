@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Submission } from '../../../../core/models/submission';
 import { Observable, Subject, timer } from 'rxjs';
 import { retry, switchMap, takeUntil } from 'rxjs/operators';
 import { SubmissionService } from '../../../../core/services/submission.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
+import { SubmissionHistoryTabComponent } from '../../components/submission-history-tab/submission-history-tab.component';
 
 @Component({
   selector: 'app-submission-details',
@@ -13,6 +14,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 })
 export class SubmissionDetailsComponent implements OnInit, OnDestroy {
 
+  @ViewChild(SubmissionHistoryTabComponent) historyTabCmp: SubmissionHistoryTabComponent;
   submission: Submission;
   id: string;
   disableEdit: boolean;
@@ -40,6 +42,7 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
         value.submission_status === 'CURATION_COMPLETE' || value.submission_status === 'COMPLETE' ||
         value.submission_status === 'STARTED' || value.submission_status === 'SUBMITTED') {
         this.stopPolling.next();
+        this.historyTabCmp.loadHistory();
       }
     });
   }
