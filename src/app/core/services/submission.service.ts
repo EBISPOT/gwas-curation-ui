@@ -5,13 +5,14 @@ import { Observable } from 'rxjs';
 import { SubmissionListApiResponse } from '../api-responses/submissionListApiResponse';
 import { Submission } from '../models/submission';
 import { SubmissionHistory } from '../models/submissionHistory';
+import { CurationHttpService } from './curation-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubmissionService {
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService, private curationHttp: CurationHttpService) { }
 
   getSubmissions(size: number, page: number, sort: string, order: string): Observable<SubmissionListApiResponse> {
     let params: HttpParams = new HttpParams();
@@ -23,32 +24,60 @@ export class SubmissionService {
     return this.http.get('/submissions/' + id);
   }
 
-  getSubmissionHistory(id: string): Observable<SubmissionHistory[]> {
-    return this.http.get('/submission-history/' + id);
-  }
-
   downloadTemplate(submissionId: string, fileId: string) {
     return this.http.download('/submissions/' + submissionId + '/uploads/' + fileId + '/download');
   }
 
-  lockOrUnlock(submissionId, lock: boolean) {
+  lockOrUnlock(submissionId: string, lock: boolean) {
     let params: HttpParams = new HttpParams();
     params = params.set('lockStatus', lock ? 'lock' : 'unlock');
-    return this.http.put('/submissions/' + submissionId + '/lock', null, params);
+    return this.curationHttp.put('/submissions/' + submissionId + '/lock', null, params);
+  }
+
+  getVersionHistory(submissionId: string) {
+    return this.curationHttp.get('/submissions/' + submissionId + '/versions');
   }
 
   generateSubmissionHistorySummaryReports(history: SubmissionHistory[]): string[] {
     const res: string[] = [];
-    for (const h of history) {
+    for (let i = 0; i < history.length - 1; i++) {
+      const h = history[i];
       let s = '';
-      for (const study of h.studies) {
-        s = study.added.length + ' studies added: [' + study.added + '], '
-          + study.removed.length + ' removed: [' + study.removed + '], '
-          + study.tags.filter(value => value.edited !== undefined).length + ' edited: ['
-          + study.tags
-            .filter(value => value.edited !== undefined)
-            .map(value => value.tag) + ']';
+      if (h.versionSummaryStats.studiesAdded) {
+        s += h.versionSummaryStats.studiesAdded + ' Studies added: [' + h.versionDiffStats.studyTagsAdded + '], ';
       }
+      if (h.versionSummaryStats.studiesRemoved) {
+        s += h.versionSummaryStats.studiesRemoved + ' Studies removed: [' + h.versionDiffStats.studyTagsRemoved + '], ';
+      }
+      if (h.versionSummaryStats.ascnsAdded) {
+        s += h.versionSummaryStats.ascnsAdded + ' Associations added, ';
+      }
+      if (h.versionSummaryStats.ascnsRemoved) {
+        s += h.versionSummaryStats.ascnsRemoved + ' Associations removed, ';
+      }
+      if (h.versionSummaryStats.samplesAdded) {
+        s += h.versionSummaryStats.samplesAdded + ' Samples added, ';
+      }
+      if (h.versionSummaryStats.samplesRemoved) {
+        s += h.versionSummaryStats.samplesRemoved + ' Samples removed, ';
+      }
+      if (h.versionSummaryStats.efoTraitsAdded) {
+        s += h.versionSummaryStats.efoTraitsAdded + ' Efo Traits added, ';
+      }
+      if (h.versionSummaryStats.efoTraitsRemoved) {
+        s += h.versionSummaryStats.efoTraitsRemoved + ' Efo Traits removed, ';
+      }
+      if (h.versionSummaryStats.reportedTraitsAdded) {
+        s += h.versionSummaryStats.reportedTraitsAdded + ' Reported Traits added, ';
+      }
+      if (h.versionSummaryStats.reportedTraitsRemoved) {
+        s += h.versionSummaryStats.reportedTraitsRemoved + ' Reported Traits removed, ';
+      }
+      s = s.slice(0, -2);
+      if (s.length === 0) {
+        s += 'No changes';
+      }
+      s += '.';
       res.push(s);
     }
     return res;

@@ -7,5 +7,6 @@ export const environment = {
   REACT_APP_GWAS_DOC_BASE: 'https://www.ebi.ac.uk/gwas/docs',
   DATA_URL: '',
   API_URL: 'http://193.62.54.159/backend/v1',
+  CURATION_API_URL: 'http://193.62.54.159/curation/v1',
   ANOTHER_API_SECRET: '__ANOTHER__SECRET__'
 };

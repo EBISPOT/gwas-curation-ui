@@ -1,4 +1,4 @@
-export interface SubmissionHistory {
+/*export interface SubmissionHistory {
   fileId: string;
   fileName: string;
   uploadDate: Date;
@@ -33,7 +33,6 @@ interface Edited {
   new: string;
 }
 
-/*
 export interface SubmissionHistory {
   fileId: string;
   fileName: string;
@@ -66,6 +65,65 @@ interface Edited {
   columnName: string;
   previous: string;
   new: string;
+}*/
+
+export interface SubmissionHistory {
+  currentVersionSummary: {
+    totalStudies: number;
+    // TODO tell Sajo to change this
+    totalAcscns: number;
+    totalSamples: number;
+  };
+  versionSummaryStats: {
+    studiesAdded: number;
+    studiesRemoved: number;
+    ascnsAdded: number;
+    ascnsRemoved: number;
+    samplesAdded: number;
+    samplesRemoved: number;
+    // TODO fill these in summary
+    reportedTraitsAdded: number;
+    reportedTraitsRemoved: number;
+    efoTraitsAdded: number;
+    efoTraitsRemoved: number;
+  };
+  versionDiffStats: {
+    studyTagsAdded: string;
+    studyTagsRemoved: string;
+    studies: [
+      {
+        identifier: string;
+        ascnsAdded: number;
+        ascnsRemoved: number;
+        samplesAdded: number;
+        samplesRemoved: number;
+        edited: Edited[];
+        associations: [
+          {
+            identifier: string;
+            edited: Edited[];
+          }
+        ],
+        samples: [
+          {
+            identifier: string;
+            edited: Edited[];
+          }
+        ]
+      }
+    ]
+  };
+  oldFileDetails: FileDetails;
+  newFileDetails: FileDetails;
 }
 
- */
+interface Edited {
+  property: string;
+  oldValue: string;
+  newValue: string;
+}
+
+interface FileDetails {
+  fileId: string;
+  fileName: string;
+}

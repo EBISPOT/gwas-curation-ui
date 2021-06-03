@@ -4,6 +4,9 @@ import { VersioningComponent } from '../versioning/versioning.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SubmissionService } from '../../../../core/services/submission.service';
 import { SubmissionHistory } from '../../../../core/models/submissionHistory';
+import { ActivatedRoute } from '@angular/router';
+import { TreeNode } from '../../../../core/models/treeNode';
+import { VersioningDetails } from '../../../../core/models/versioningDetails';
 
 @Component({
   selector: 'app-submission-history-tab',
@@ -20,21 +23,24 @@ import { SubmissionHistory } from '../../../../core/models/submissionHistory';
 })
 export class SubmissionHistoryTabComponent implements OnInit{
 
-  columnsToDisplay = ['fileName', 'uploadDate', 'studiesTotal', 'associationsTotal', 'samplesTotal', 'download', 'diff'];
+  columnsToDisplay = ['fileName', 'studiesTotal', 'associationsTotal', 'samplesTotal', 'download', 'diff'];
   expandedElement: SubmissionHistory | null;
-  dataSource: SubmissionHistory[];
+  dataSource: SubmissionHistory[] = [];
   historySummaryReports: string[];
+  responseText = '';
+  submissionId = this.route.snapshot.paramMap.get('id');
+  isLoading = true;
 
-  constructor(public dialog: MatDialog, private submissionService: SubmissionService) {
+  constructor(public dialog: MatDialog, private submissionService: SubmissionService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    // this.submissionService
-    //   .getSubmissionHistory(this.route.snapshot.paramMap.get('id'))
-    //   .subscribe(h => {
-    //     this.dataSource = h;
-    //     this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(h);
-    //   });
+    /*this.submissionService
+      .getSubmissionHistory(this.route.snapshot.paramMap.get('id'))
+      .subscribe(h => {
+        this.dataSource = h;
+        this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(h);
+      });
     {
       this.dataSource = JSON.parse('[\n' +
         '    {\n' +
@@ -328,11 +334,136 @@ export class SubmissionHistoryTabComponent implements OnInit{
         '    }\n' +
         '  ]');
     }
-    this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(this.dataSource);
+    this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(this.dataSource);*/
   }
 
-  openDialog() {
-    this.dialog.open(VersioningComponent, {width: '100%', height: '75%'});
+  openDialog(index: number) {
+    this.dialog.open(VersioningComponent, {width: '100%', height: '75%', data: this.constructTree(this.dataSource[index])});
   }
 
+  downloadTemplate(fileId: string, fileName: string) {
+    this.submissionService.downloadTemplate(this.submissionId, fileId).subscribe(
+      (response: any) => {
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(new Blob([response]));
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+      }
+    );
+  }
+
+  // called by details component 'pollUntilStatusIsNotValidating()'
+  loadHistory() {
+    this.isLoading = true;
+    this.submissionService.getVersionHistory(this.submissionId).subscribe(value => {
+      this.isLoading = false;
+      if (Array.isArray(value)) {
+        const lastItem = value[value.length - 1];
+        const tempHistory: SubmissionHistory = {
+          currentVersionSummary: {
+            totalStudies: lastItem.currentVersionSummary.totalStudies - lastItem.versionSummaryStats.studiesAdded
+              + lastItem.versionSummaryStats.studiesRemoved,
+            totalAcscns: lastItem.currentVersionSummary.totalAcscns - lastItem.versionSummaryStats.ascnsAdded
+              + lastItem.versionSummaryStats.ascnsRemoved,
+            totalSamples: lastItem.currentVersionSummary.totalSamples - lastItem.versionSummaryStats.samplesAdded
+              + lastItem.versionSummaryStats.samplesRemoved,
+          },
+          versionSummaryStats: null, versionDiffStats: null, oldFileDetails: null,
+          newFileDetails: {fileId: lastItem.oldFileDetails.fileId, fileName: lastItem.oldFileDetails.fileName}
+        };
+        value.push(tempHistory);
+        this.dataSource = value;
+        this.historySummaryReports = this.submissionService.generateSubmissionHistorySummaryReports(this.dataSource);
+      }
+      else {
+        this.responseText = value;
+      }
+    }, () => {this.isLoading = false; });
+  }
+
+  constructTree(history: SubmissionHistory) {
+    const studyTree: TreeNode[] = [];
+    const associationTree: TreeNode[] = [];
+    const sampleTree: TreeNode[] = [];
+    const versioningDetails = new VersioningDetails();
+    const tagsRemoved = history.versionDiffStats.studyTagsRemoved.split(',');
+    const tagsAdded = history.versionDiffStats.studyTagsAdded.split(',');
+    for (const s of history.versionDiffStats.studies) {
+      if (tagsRemoved.includes(s.identifier)) {
+        const lv1Node = new TreeNode();
+        const lv2Node = new TreeNode();
+        lv1Node.value = s.identifier + ' (Removed)';
+        lv2Node.value = s.ascnsRemoved + ' associations removed, ' + s.samplesRemoved + ' samples removed.';
+        lv1Node.children = [lv2Node];
+        studyTree.push(lv1Node);
+      }
+      else if (tagsAdded.includes(s.identifier)) {
+        const lv1Node = new TreeNode();
+        const lv2Node = new TreeNode();
+        lv1Node.value = s.identifier + ' (Added)';
+        lv2Node.value = s.ascnsAdded + ' associations added, ' + s.samplesAdded + ' samples added.';
+        lv1Node.children = [lv2Node];
+        studyTree.push(lv1Node);
+      }
+      else {
+        const lv1Node = new TreeNode();
+        lv1Node.value = s.identifier;
+        lv1Node.children = [];
+        let lv2Node = new TreeNode();
+        lv2Node.value = s.ascnsAdded + ' associations added, ' + s.samplesAdded + ' samples added, ' + s.ascnsRemoved + ' associations removed, ' + s.samplesRemoved + ' samples removed.';
+        lv1Node.children.push(lv2Node);
+        if (s.edited && s.edited.length > 0) {
+          for (const e of s.edited) {
+            lv2Node = new TreeNode();
+            lv2Node.value = e.property + ': ' + e.oldValue + ' => ' + e.newValue;
+            lv1Node.children.push(lv2Node);
+          }
+        }
+        studyTree.push(lv1Node);
+      }
+      versioningDetails.studyTree = studyTree;
+      if (tagsRemoved.includes(s.identifier) || tagsAdded.includes(s.identifier)) {
+        continue;
+      }
+      if (s.associations && s.associations.length > 0) {
+        const lv1Node = new TreeNode();
+        lv1Node.value = s.identifier;
+        lv1Node.children = [];
+        for (const a of s.associations) {
+          const lv2Node = new TreeNode();
+          lv2Node.value = a.identifier;
+          lv2Node.children = [];
+          for (const e of a.edited) {
+            const lv3Node = new TreeNode();
+            lv3Node.value = e.property + ': ' + e.oldValue + ' => ' + e.newValue;
+            lv2Node.children.push(lv3Node);
+          }
+          lv1Node.children.push(lv2Node);
+        }
+        associationTree.push(lv1Node);
+      }
+      versioningDetails.associationTree = associationTree;
+      if (s.samples && s.samples.length > 0) {
+        const lv1Node = new TreeNode();
+        lv1Node.value = s.identifier;
+        lv1Node.children = [];
+        for (const ss of s.samples) {
+          const lv2Node = new TreeNode();
+          lv2Node.value = ss.identifier;
+          lv2Node.children = [];
+          for (const e of ss.edited) {
+            const lv3Node = new TreeNode();
+            lv3Node.value = e.property + ': ' + e.oldValue + ' => ' + e.newValue;
+            lv2Node.children.push(lv3Node);
+          }
+          lv1Node.children.push(lv2Node);
+        }
+        sampleTree.push(lv1Node);
+      }
+    }
+    versioningDetails.sampleTree = sampleTree;
+    versioningDetails.fileName = history.newFileDetails.fileName;
+    return versioningDetails;
+  }
 }
