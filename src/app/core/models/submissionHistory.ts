@@ -81,6 +81,7 @@ export interface SubmissionHistory {
     ascnsRemoved: number;
     samplesAdded: number;
     samplesRemoved: number;
+    // TODO fill these in summary
     reportedTraitsAdded: number;
     reportedTraitsRemoved: number;
     efoTraitsAdded: number;

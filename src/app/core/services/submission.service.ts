@@ -61,7 +61,22 @@ export class SubmissionService {
       if (h.versionSummaryStats.samplesRemoved) {
         s += h.versionSummaryStats.samplesRemoved + ' Samples removed, ';
       }
+      if (h.versionSummaryStats.efoTraitsAdded) {
+        s += h.versionSummaryStats.efoTraitsAdded + ' Efo Traits added, ';
+      }
+      if (h.versionSummaryStats.efoTraitsRemoved) {
+        s += h.versionSummaryStats.efoTraitsRemoved + ' Efo Traits removed, ';
+      }
+      if (h.versionSummaryStats.reportedTraitsAdded) {
+        s += h.versionSummaryStats.reportedTraitsAdded + ' Reported Traits added, ';
+      }
+      if (h.versionSummaryStats.reportedTraitsRemoved) {
+        s += h.versionSummaryStats.reportedTraitsRemoved + ' Reported Traits removed, ';
+      }
       s = s.slice(0, -2);
+      if (s.length === 0) {
+        s += 'No changes';
+      }
       s += '.';
       res.push(s);
     }

@@ -1,18 +1,89 @@
-<h2 matDialogTitle>--File name-- versioning details</h2>
-<mat-dialog-content>
+<h2 matDialogTitle>{{data.fileName}} versioning details</h2>
+<mat-dialog-content [@.disabled]="disableAnimation">
   <mat-button-toggle-group #toggle="matButtonToggleGroup" value="detailed">
     <mat-button-toggle value="detailed">Detailed report</mat-button-toggle>
     <mat-button-toggle value="diff">File difference</mat-button-toggle>
   </mat-button-toggle-group>
   <div *ngIf="toggle.value == 'detailed'">
-    <h3>Develop across all platforms</h3>
-    <p>Learn one way to build applications with Angular and reuse your code and abilities to build
-      apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>
+    <mat-expansion-panel class="my-3">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Studies
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-tree [dataSource]="studyDataSource" [treeControl]="studyTreeControl" class="example-tree">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle class="study-node">
+          {{node.value}}
+        </mat-tree-node>
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+          <div class="mat-tree-node">
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.value">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{studyTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            {{node.value}}
+          </div>
+          <div [class.example-tree-invisible]="!studyTreeControl.isExpanded(node)" role="group">
+            <ng-container matTreeNodeOutlet></ng-container>
+          </div>
+        </mat-nested-tree-node>
+      </mat-tree>
+    </mat-expansion-panel>
 
-    <h3>Speed &amp; Performance</h3>
-    <p>Achieve the maximum speed possible on the Web Platform today, and take it further, via Web
-      Workers and server-side rendering. Angular puts you in control over scalability. Meet huge
-      data requirements by building data models on RxJS, Immutable.js or another push-model.</p>
+    <mat-expansion-panel class="my-3">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Associations
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      Edited:
+      <mat-tree [dataSource]="associationDataSource" [treeControl]="associationTreeControl" class="example-tree">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+          {{node.value}}
+        </mat-tree-node>
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+          <div class="mat-tree-node">
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.value">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{associationTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            {{node.value}}
+          </div>
+          <div [class.example-tree-invisible]="!associationTreeControl.isExpanded(node)" role="group">
+            <ng-container matTreeNodeOutlet></ng-container>
+          </div>
+        </mat-nested-tree-node>
+      </mat-tree>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="my-3">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Samples
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      Edited:
+      <mat-tree [dataSource]="sampleDataSource" [treeControl]="sampleTreeControl" class="example-tree">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+          {{node.value}}
+        </mat-tree-node>
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+          <div class="mat-tree-node">
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.value">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{sampleTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            {{node.value}}
+          </div>
+          <div [class.example-tree-invisible]="!sampleTreeControl.isExpanded(node)" role="group">
+            <ng-container matTreeNodeOutlet></ng-container>
+          </div>
+        </mat-nested-tree-node>
+      </mat-tree>
+    </mat-expansion-panel>
   </div>
 
   <div *ngIf="toggle.value == 'diff'" [innerHTML]="sanitizer.bypassSecurityTrustHtml(diffHtml)">
