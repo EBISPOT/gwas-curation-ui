@@ -34,8 +34,9 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
   pollUntilStatusIsNotValidating() {
     this.timerSubmissionObservable.subscribe(value => {
       this.submission = value;
-      if (this.submission.lockDetails && this.submission.lockDetails.status === 'LOCKED_FOR_EDITING' &&
-        this.submission.lockDetails.lockedBy.user.email !== this.authService.getDecodedToken().email){
+      if (this.submission.lockDetails && this.submission.lockDetails.status === 'LOCKED_FOR_EDITING'
+        && this.submission.lockDetails.lockedBy.user.email !== this.authService.getDecodedToken().email
+        || this.submission.submission_status === 'STARTED') {
         this.disableEdit = true;
       }
       if (value.submission_status == null || value.submission_status === 'VALID' || value.submission_status === 'INVALID' ||
