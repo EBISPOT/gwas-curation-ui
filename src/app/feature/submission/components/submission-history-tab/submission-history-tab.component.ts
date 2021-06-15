@@ -406,7 +406,7 @@ export class SubmissionHistoryTabComponent implements OnInit{
         lv1Node.children = [lv2Node];
         studyTree.push(lv1Node);
       }
-      else {
+      else if (s.ascnsAdded + s.samplesAdded + s.ascnsRemoved + s.samplesRemoved !== 0 || s.edited && s.edited.length > 0 ) {
         const lv1Node = new TreeNode();
         lv1Node.value = s.identifier;
         lv1Node.children = [];

@@ -37,7 +37,7 @@
           Associations
         </mat-panel-title>
       </mat-expansion-panel-header>
-      Edited:
+      <span *ngIf="associationDataSource.data.length > 0">Edited:</span>
       <mat-tree [dataSource]="associationDataSource" [treeControl]="associationTreeControl" class="example-tree">
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
           {{node.value}}
@@ -64,7 +64,7 @@
           Samples
         </mat-panel-title>
       </mat-expansion-panel-header>
-      Edited:
+      <span *ngIf="sampleDataSource.data.length > 0">Edited:</span>
       <mat-tree [dataSource]="sampleDataSource" [treeControl]="sampleTreeControl" class="example-tree">
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
           {{node.value}}
