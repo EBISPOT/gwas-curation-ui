@@ -1,6 +1,7 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+// This is for the fake json-server backend.
 
 export const environment = {
   production: false,
@@ -11,6 +12,7 @@ export const environment = {
   REACT_APP_GWAS_DOC_BASE: 'https://www.ebi.ac.uk/gwas/docs',
   DATA_URL: '',
   API_URL: 'http://localhost:3000',
+  CURATION_API_URL: 'http://193.62.54.159/curation/v1',
   ANOTHER_API_SECRET: '__ANOTHER__SECRET__'
 };
 

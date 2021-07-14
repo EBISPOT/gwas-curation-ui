@@ -19,6 +19,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -42,7 +44,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatSnackBarModule,
     MatSidenavModule,
     MatExpansionModule,
-    MatTreeModule
+    MatTreeModule,
+    MatListModule,
+    MatCheckboxModule
   ],
   exports: [
     CommonModule,
@@ -64,7 +68,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatSnackBarModule,
     MatSidenavModule,
     MatExpansionModule,
-    MatTreeModule
+    MatTreeModule,
+    MatListModule,
+    MatCheckboxModule
   ]
 })
 export class SharedModule {
