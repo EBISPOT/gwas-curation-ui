@@ -1,0 +1,94 @@
+<mat-drawer-container>
+  <mat-drawer #drawer mode="side" class="w-48">
+    <h4 class="pl-4 text-white py-1" style="background: var(--color-primary); border: dimgray solid 1px;"> Filter by:</h4>
+    <div>
+      <span class="subheader">Metadata status</span>
+      <ul>
+        <li><mat-checkbox>Check me!</mat-checkbox></li>
+        <li><mat-checkbox>Check me!</mat-checkbox></li>
+      </ul>
+
+      <span class="subheader">Metadata status</span>
+      <ul>
+        <li><mat-checkbox>Check me!</mat-checkbox></li>
+        <li><mat-checkbox>Check me!</mat-checkbox></li>
+      </ul>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="mat-elevation-z2 big-container relative">
+      <div class="loading-shade"
+           *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+      </div>
+      <button  mat-icon-button class="float-left absolute z-50 mt-2">
+        <mat-icon *ngIf="!drawer.opened" (click)="drawer.open()">chevron_right</mat-icon>
+        <mat-icon *ngIf="drawer.opened" (click)="drawer.close()">chevron_left</mat-icon>
+      </button>
+      <div class="table-container mx-2">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()"
+               matSortActive="lastUpdated" matSortDisableClear matSortDirection="desc">
+
+          <ng-container matColumnDef="pmid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>PMID</th>
+            <td mat-cell *matCellDef="let row">{{row.publication?.pmid || 'NA'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="gcp">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>GCP ID</th>
+            <td mat-cell *matCellDef="let row">{{row.bodyOfWork?.bodyOfWorkId || 'NA'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="firstAuthor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>First Author</th>
+            <td mat-cell *matCellDef="let row">{{row.publication?.firstAuthor != null ? row.publication.firstAuthor:
+              row.bodyOfWork?.firstAuthor?.lastName != null && row.bodyOfWork?.firstAuthor?.firstName != null ? row.bodyOfWork.firstAuthor.lastName + ' ' + row.bodyOfWork.firstAuthor.firstName.charAt(0):
+                'NA'}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="submissionStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Submission Status</th>
+            <td mat-cell *matCellDef="let row">{{row.submission_status}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="metadataStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Metadata Status</th>
+            <td mat-cell *matCellDef="let row">{{row.metadata_status}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="summaryStatisticsStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> SumStats Status</th>
+            <td mat-cell *matCellDef="let row">{{row.summary_statistics_status}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="submitter">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Submitter</th>
+            <td mat-cell *matCellDef="let row">{{row.created.user.name}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastUpdated">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear > Last Updated</th>
+            <td mat-cell *matCellDef="let row">{{row.lastUpdated.timestamp | date:"yyyy-MM-dd"}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="started">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Created</th>
+            <td mat-cell *matCellDef="let row">{{row.created.timestamp | date:"yyyy-MM-dd"}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="being_edited">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Being edited</th>
+            <td mat-cell *matCellDef="let row">{{row.lockDetails?.status == 'LOCKED_FOR_EDITING' ? 'Yes' : 'No'}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr class="hover:bg-gray-200 cursor-pointer" [routerLink]="row.submissionId"
+              mat-row *matRowDef="let row; columns: displayedColumns; let index = index;"
+              [ngClass]="{gray: index % 2 == 0}"></tr>
+        </table>
+      </div>
+      <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

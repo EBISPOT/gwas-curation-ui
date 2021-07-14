@@ -1,0 +1,118 @@
+<mat-card *ngIf="submission?.bodyOfWork" class="mt-4 mb-4">
+  <mat-card-header>
+    <mat-card-title>Details for GCP ID: {{submission.bodyOfWork.bodyOfWorkId}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="italic">
+      {{submission.bodyOfWork.title}}
+    </p>
+    <div class="flex">
+      <div class="flex-col w-7/12">
+        <div>
+          Description: {{submission.bodyOfWork.description}}
+        </div>
+        <div *ngIf="submission.bodyOfWork.journal">
+          Submitted to:
+          <a *ngIf="submission.bodyOfWork.url" [href]="submission.bodyOfWork.url" target="_blank">
+            {{submission.bodyOfWork.journal}}
+          </a>
+          <span *ngIf="!submission.bodyOfWork.url">{{submission.bodyOfWork.journal}}</span>
+        </div>
+        <div *ngIf="submission.bodyOfWork.prePrintServer" class="with-icon">
+          PrePrint available in: {{submission.bodyOfWork.prePrintServer}} &nbsp;
+          <mat-icon color="primary" (click)="goToPreprintDoi()" class="cursor-pointer">link</mat-icon>
+        </div>
+        <div *ngIf="submission.bodyOfWork.embargoDate || submission.bodyOfWork.embargoUntilPublished">
+          Embargo Until: {{submission.bodyOfWork.embargoUntilPublished ?
+          'Date of publication' : submission.bodyOfWork.embargoDate}}
+        </div>
+      </div>
+      <div class="flex-col w-5/12">
+        <div *ngIf="submission.bodyOfWork.firstAuthor?.firstName && submission.bodyOfWork?.firstAuthor?.lastName">
+          First author: {{submission.bodyOfWork.firstAuthor.firstName + ' ' + submission.bodyOfWork.firstAuthor.lastName}}
+        </div>
+        <div *ngIf="submission.bodyOfWork.firstAuthor?.group">
+          First author group: {{submission.bodyOfWork.firstAuthor.group}}
+        </div>
+        <div *ngIf="submission.bodyOfWork.lastAuthor?.firstName && submission.bodyOfWork?.lastAuthor?.lastName">
+          First author: {{submission.bodyOfWork.lastAuthor.firstName + ' ' + submission.bodyOfWork.lastAuthor.lastName}}
+        </div>
+        <div *ngIf="submission.bodyOfWork.lastAuthor?.group">
+          Last author group: {{submission.bodyOfWork.lastAuthor.group}}
+        </div>
+        <div *ngIf="submission.bodyOfWork.correspondingAuthors" class="flex flex-wrap flex-col md:flex-row">
+          <div class="w-2/6">
+            Corresponding authors:
+          </div>
+          <div class="flex-col w-4/6">
+            <div class="flex" *ngFor="let ca of submission.bodyOfWork.correspondingAuthors">
+                {{ca.firstName + ' ' + ca.lastName + ' ' + ca.email}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="submission?.publication" class="mt-4 mb-4">
+  <mat-card-header>
+    <mat-card-title>Details for PubMed ID: {{submission.publication.pmid}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    {{submission.publication.title}}
+    <br>
+    {{submission.publication.firstAuthor + ' et al, ' + submission.publication.publicationDate + ', ' +
+      submission.publication.journal}}
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="submission" class="mt-4 mb-4">
+  <mat-card-header>
+    <mat-card-title>Details for Submission ID: {{submission.submissionId}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="flex">
+      <div class="w-1/2">
+        Date created: {{submission.created.timestamp | date: 'yyyy-MM-dd'}} <br>
+        User: {{submission.created.user.name}} <br>
+        Status: {{submission.submission_status}} <br>
+        <div class="with-icon">
+          Metadata valid:
+          <mat-spinner [diameter]="22" *ngIf="submission?.metadata_status == 'VALIDATING'"> </mat-spinner>
+          <mat-icon color="primary" *ngIf="submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
+          <mat-icon color="primary" *ngIf="submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
+          {{submission?.metadata_status == 'NA' ? 'NA' : ''}}
+        </div>
+        <div class="with-icon">
+          Sumstats valid:
+          <mat-spinner [diameter]="22" *ngIf="submission?.summary_statistics_status == 'VALIDATING'"> </mat-spinner>
+          <mat-icon color="primary" *ngIf="submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
+          <mat-icon color="primary" *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
+          {{submission?.summary_statistics_status == 'NA' ? 'NA' : ''}}
+        </div>
+
+      </div>
+      <div>
+        <div class="with-icon">
+          <mat-icon color="primary">equalizer</mat-icon>
+          Studies: {{submission.study_count}}
+        </div>
+        <div class="with-icon">
+          <mat-icon color="primary">share</mat-icon>
+          Associations: {{submission.association_count}}
+        </div>
+        <div class="with-icon">
+          <mat-icon color="primary">groups</mat-icon>
+          Samples: {{submission.sample_count}}
+        </div>
+      </div>
+    </div>
+    <div *ngIf="['VALID', 'INVALID', 'SUBMITTED'].includes(this.submission.submission_status)" class="flex justify-center mt-9">
+      <button mat-stroked-button color="primary" (click)="downloadTemplate()">Download submission template</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+<div *ngIf="!submission" class="flex justify-center mt-10">
+  <mat-spinner></mat-spinner>
+</div>

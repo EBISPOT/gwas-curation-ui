@@ -1,0 +1,2180 @@
+{
+  "submissions": {
+    "_embedded": {
+      "submissions": [
+        {
+          "id": "608be33147686b0001733d97",
+          "submissionId": "608be33147686b0001733d97",
+          "publication": {
+            "publicationId": "5ea6cfbf11f0c80001bee884",
+            "pmid": "18601904",
+            "title": "Identification of SNP markers for common CNV regions and association analysis of risk of subarachnoid aneurysmal hemorrhage in Japanese population.",
+            "journal": "Biochem Biophys Res Commun",
+            "firstAuthor": "Bae JS",
+            "publicationDate": "2008-07-02",
+            "status": "UNDER_SUBMISSION"
+          },
+          "files": [
+            {
+              "fileUploadId": "608beb4ff382d00001f34bee",
+              "status": "INVALID",
+              "type": "METADATA",
+              "fileName": "valid.xlsx",
+              "fileSize": 15020,
+              "errors": [
+                "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file",
+                "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file"
+              ]
+            }
+          ],
+          "globusFolder": "12596cad-ead8-48e0-bb11-727e815ab1da",
+          "globusOriginId": "34ae39c2-a9a3-11eb-a159-5fad80e6400b",
+          "study_count": 2,
+          "sample_count": 7,
+          "association_count": 4,
+          "submission_status": "INVALID",
+          "metadata_status": "VALID",
+          "summary_statistics_status": "INVALID",
+          "provenanceType": "PUBLICATION",
+          "created": {
+            "user": {
+              "name": "Sajo John",
+              "email": "sajo@ebi.ac.uk",
+              "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+              "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-30T11:00:01.615Z"
+          },
+          "lastUpdated": {
+            "user": {
+              "name": "Abayomi Mosaku",
+              "email": "abayomi@ebi.ac.uk",
+              "nickname": "8e4bdcaf476e2f877c910cffb7d7f75b4acc009a",
+              "userReference": "usr-75dd7940-1e62-46b1-9e1e-cb1b3a03b94c",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-05-04T08:58:01.986Z"
+          },
+          "editTemplate": {
+            "user": {
+              "name": "Sajo John",
+              "email": "sajo@ebi.ac.uk",
+              "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+              "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-30T11:34:38.880Z"
+          },
+          "agreedToCc0": false,
+          "_links": {
+            "self": {
+              "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/608be33147686b0001733d97"
+            },
+            "files": {
+              "href": "http://193.62.54.159/v1/submissions/608be33147686b0001733d97/uploads"
+            },
+            "studies": {
+              "href": "http://193.62.54.159/v1/submissions/608be33147686b0001733d97/studies"
+            },
+            "samples": {
+              "href": "http://193.62.54.159/v1/submissions/608be33147686b0001733d97/samples"
+            },
+            "associations": {
+              "href": "http://193.62.54.159/v1/submissions/608be33147686b0001733d97/associations"
+            }
+          }
+        },
+        {
+          "id": "606f1ab3b1574900010b2829",
+          "submissionId": "606f1ab3b1574900010b2829",
+          "publication": {
+            "publicationId": "5f284075f958d000019ac8eb",
+            "pmid": "32675224",
+            "title": "Genetic variation near CXCL12 is associated with susceptibility to HIV-related non-Hodgkin lymphoma.",
+            "journal": "Haematologica",
+            "firstAuthor": "Thorball CW",
+            "publicationDate": "2020-07-16",
+            "status": "UNDER_SUBMISSION"
+          },
+          "files": [
+            {
+              "fileUploadId": "608ee1be47686b0001bf71ea",
+              "status": "VALID",
+              "type": "METADATA",
+              "fileName": "Buchwald_template_(1).xlsx",
+              "fileSize": 19007,
+              "errors": []
+            }
+          ],
+          "globusFolder": "6cc2aaed-e0b8-4ece-91ca-78c66869e2b8",
+          "globusOriginId": "3dd3dc0c-987b-11eb-92cc-6b08dd67ff48",
+          "study_count": 7,
+          "sample_count": 8,
+          "association_count": 14,
+          "submission_status": "SUBMITTED",
+          "metadata_status": "VALID",
+          "summary_statistics_status": "NA",
+          "provenanceType": "PUBLICATION",
+          "created": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-08T15:01:07.280Z"
+          },
+          "lastUpdated": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-05-02T17:30:40.385Z"
+          },
+          "editTemplate": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-05-02T17:30:38.108Z"
+          },
+          "lockDetails": {
+            "lockedBy": {
+              "user": {
+                "name": "Ala Abid",
+                "email": "ala@ebi.ac.uk",
+                "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+                "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+                "domains": [
+                  "self.GWAS_Curator"
+                ]
+              },
+              "timestamp": "2021-04-23T13:57:31.607Z"
+            },
+            "status": "LOCKED_FOR_EDITING"
+          },
+          "agreedToCc0": true,
+          "_links": {
+            "self": {
+              "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/606f1ab3b1574900010b2829"
+            },
+            "files": {
+              "href": "http://193.62.54.159/v1/submissions/606f1ab3b1574900010b2829/uploads"
+            },
+            "studies": {
+              "href": "http://193.62.54.159/v1/submissions/606f1ab3b1574900010b2829/studies"
+            },
+            "samples": {
+              "href": "http://193.62.54.159/v1/submissions/606f1ab3b1574900010b2829/samples"
+            },
+            "associations": {
+              "href": "http://193.62.54.159/v1/submissions/606f1ab3b1574900010b2829/associations"
+            }
+          }
+        },
+        {
+          "id": "60891d9de54e670001c0d8fd",
+          "submissionId": "60891d9de54e670001c0d8fd",
+          "publication": {
+            "publicationId": "5ea6cf4511f0c80001bed710",
+            "pmid": "25533513",
+            "title": "Genome-wide association study on susceptibility genes associated with yang-deficiency constitution: A small sample case-control study.",
+            "journal": "Chin J Integr Med",
+            "firstAuthor": "Yao SL",
+            "publicationDate": "2014-12-22",
+            "status": "UNDER_SUMMARY_STATS_SUBMISSION"
+          },
+          "files": [
+            {
+              "fileUploadId": "60891da9e54e670001c0da38",
+              "status": "VALID",
+              "type": "SUMMARY_STATS_TEMPLATE",
+              "fileName": "template.xlsx",
+              "fileSize": 7374,
+              "errors": []
+            },
+            {
+              "fileUploadId": "608be01d47686b000172ef2a",
+              "status": "INVALID",
+              "type": "SUMMARY_STATS",
+              "fileName": "Stein_submission_template_2_(2).xlsx",
+              "fileSize": 19558,
+              "errors": [
+                "Invalid file uploaded. Please download a new template from the submission page and try again."
+              ]
+            }
+          ],
+          "globusFolder": "f52cb9fd-9d48-483e-803a-e9d52b3b4e8e",
+          "globusOriginId": "4356a980-a7fc-11eb-92da-6b08dd67ff48",
+          "study_count": 0,
+          "sample_count": 0,
+          "association_count": 0,
+          "submission_status": "INVALID",
+          "metadata_status": "NA",
+          "summary_statistics_status": "INVALID",
+          "provenanceType": "PUBLICATION",
+          "created": {
+            "user": {
+              "name": "Abayomi Mosaku",
+              "email": "abayomi@ebi.ac.uk",
+              "nickname": "8e4bdcaf476e2f877c910cffb7d7f75b4acc009a",
+              "userReference": "usr-75dd7940-1e62-46b1-9e1e-cb1b3a03b94c",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-28T08:32:29.488Z"
+          },
+          "lastUpdated": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-05-02T17:25:52.691Z"
+          },
+          "lockDetails": {
+            "lockedBy": {
+              "user": {
+                "name": "Ala Abid",
+                "email": "ala@ebi.ac.uk",
+                "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+                "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+                "domains": [
+                  "self.GWAS_Curator"
+                ]
+              },
+              "timestamp": "2021-05-02T17:25:52.691Z"
+            },
+            "status": "LOCKED_FOR_EDITING"
+          },
+          "agreedToCc0": true,
+          "_links": {
+            "self": {
+              "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/60891d9de54e670001c0d8fd"
+            },
+            "files": {
+              "href": "http://193.62.54.159/v1/submissions/60891d9de54e670001c0d8fd/uploads"
+            }
+          }
+        },
+        {
+          "id": "608bcc2547686b0001706568",
+          "submissionId": "608bcc2547686b0001706568",
+          "publication": {
+            "publicationId": "60197ea62d7a90000104d8ff",
+            "pmid": "33209044",
+            "title": "Identification of Genetic Variants for Female Obesity and Evaluation of the Causal Role of Genetically Defined Obesity in Polycystic Ovarian Syndrome.",
+            "journal": "Diabetes Metab Syndr Obes",
+            "firstAuthor": "Ahn Y",
+            "publicationDate": "2020-11-12",
+            "status": "UNDER_SUBMISSION"
+          },
+          "files": [
+            {
+              "fileUploadId": "608bcc5b47686b0001706a81",
+              "status": "VALID",
+              "type": "METADATA",
+              "fileName": "10k_ssa.xlsx",
+              "fileSize": 1011103,
+              "errors": []
+            }
+          ],
+          "globusFolder": "3454e909-ab8b-42ee-8f5d-1093f7fc35ee",
+          "globusOriginId": "77b61ac2-a995-11eb-865b-d16fa0cfc9e7",
+          "study_count": 10000,
+          "sample_count": 10000,
+          "association_count": 10000,
+          "submission_status": "SUBMITTED",
+          "metadata_status": "VALID",
+          "summary_statistics_status": "NA",
+          "provenanceType": "PUBLICATION",
+          "created": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-30T09:21:41.006Z"
+          },
+          "lastUpdated": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-30T09:27:02.588Z"
+          },
+          "agreedToCc0": true,
+          "_links": {
+            "self": {
+              "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/608bcc2547686b0001706568"
+            },
+            "files": {
+              "href": "http://193.62.54.159/v1/submissions/608bcc2547686b0001706568/uploads"
+            },
+            "studies": {
+              "href": "http://193.62.54.159/v1/submissions/608bcc2547686b0001706568/studies"
+            },
+            "samples": {
+              "href": "http://193.62.54.159/v1/submissions/608bcc2547686b0001706568/samples"
+            },
+            "associations": {
+              "href": "http://193.62.54.159/v1/submissions/608bcc2547686b0001706568/associations"
+            }
+          }
+        },
+        {
+          "id": "6061f67d37158e000104a508",
+          "submissionId": "6061f67d37158e000104a508",
+          "publication": {
+            "publicationId": "5ea6cf6011f0c80001beda3e",
+            "pmid": "24143190",
+            "title": "Genome-wide association study of breast cancer in the Japanese population.",
+            "journal": "PLoS One",
+            "firstAuthor": "Low SK",
+            "publicationDate": "2013-10-15",
+            "status": "UNDER_SUMMARY_STATS_SUBMISSION"
+          },
+          "files": [
+            {
+              "fileUploadId": "6061f67e37158e000104a525",
+              "status": "VALID",
+              "type": "SUMMARY_STATS_TEMPLATE",
+              "fileName": "template.xlsx",
+              "fileSize": 7378,
+              "errors": []
+            }
+          ],
+          "globusFolder": "b36e2fcd-e580-4935-abcc-2b072f4d147b",
+          "globusOriginId": "03e38088-90a6-11eb-b7a2-f57b2d55370d",
+          "study_count": 0,
+          "sample_count": 0,
+          "association_count": 0,
+          "submission_status": "STARTED",
+          "metadata_status": "NA",
+          "summary_statistics_status": "NA",
+          "provenanceType": "PUBLICATION",
+          "created": {
+            "user": {
+              "name": "Annalisa Buniello",
+              "email": "buniello@ebi.ac.uk",
+              "nickname": "3fcdb775086555b3052f0aef7a84d37c1c48958a",
+              "userReference": "usr-4faffaae-f7dd-4d4d-a776-05564fd06081",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-03-29T15:47:09.034Z"
+          },
+          "lastUpdated": {
+            "user": {
+              "name": "Abayomi Mosaku",
+              "email": "abayomi@ebi.ac.uk",
+              "nickname": "8e4bdcaf476e2f877c910cffb7d7f75b4acc009a",
+              "userReference": "usr-75dd7940-1e62-46b1-9e1e-cb1b3a03b94c",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-28T15:30:28.286Z"
+          },
+          "agreedToCc0": true,
+          "_links": {
+            "self": {
+              "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/6061f67d37158e000104a508"
+            },
+            "files": {
+              "href": "http://193.62.54.159/v1/submissions/6061f67d37158e000104a508/uploads"
+            }
+          }
+        },
+        {
+          "id": "6077111b43d85c0001296677",
+          "submissionId": "6077111b43d85c0001296677",
+          "publication": {
+            "publicationId": "5ea6ced411f0c80001bec6b0",
+            "pmid": "31420016",
+            "title": "Genetic variation in interleukin-7 is associated with a reduced erythropoietic response in Kenyan children infected with Plasmodium falciparum.",
+            "journal": "BMC Med Genet",
+            "firstAuthor": "Kisia LE",
+            "publicationDate": "2019-08-16",
+            "status": "UNDER_SUBMISSION"
+          },
+          "files": [
+            {
+              "fileUploadId": "6087f305e54e670001a2a6c9",
+              "status": "INVALID",
+              "type": "METADATA",
+              "fileName": "valid.xlsx",
+              "fileSize": 15020,
+              "errors": [
+                "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file",
+                "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file"
+              ]
+            }
+          ],
+          "globusFolder": "c1cf6738-9fab-4535-9972-5c573e6bf42e",
+          "globusOriginId": "39f53d7e-9d3a-11eb-8a8d-d70d98a40c8d",
+          "study_count": 2,
+          "sample_count": 7,
+          "association_count": 4,
+          "submission_status": "INVALID",
+          "metadata_status": "VALID",
+          "summary_statistics_status": "INVALID",
+          "provenanceType": "PUBLICATION",
+          "created": {
+            "user": {
+              "name": "Sajo John",
+              "email": "sajo@ebi.ac.uk",
+              "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+              "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-14T15:58:19.502Z"
+          },
+          "lastUpdated": {
+            "user": {
+              "name": "Sajo John",
+              "email": "sajo@ebi.ac.uk",
+              "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+              "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-27T11:19:06.092Z"
+          },
+          "editTemplate": {
+            "user": {
+              "name": "Sajo John",
+              "email": "sajo@ebi.ac.uk",
+              "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+              "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-27T11:18:29.981Z"
+          },
+          "lockDetails": {
+            "lockedBy": {
+              "user": {
+                "name": "Sajo John",
+                "email": "sajo@ebi.ac.uk",
+                "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+                "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+                "domains": [
+                  "self.GWAS_Curator"
+                ]
+              },
+              "timestamp": "2021-04-27T10:51:09.285Z"
+            },
+            "status": "LOCKED_FOR_EDITING"
+          },
+          "agreedToCc0": false,
+          "_links": {
+            "self": {
+              "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/6077111b43d85c0001296677"
+            },
+            "files": {
+              "href": "http://193.62.54.159/v1/submissions/6077111b43d85c0001296677/uploads"
+            },
+            "studies": {
+              "href": "http://193.62.54.159/v1/submissions/6077111b43d85c0001296677/studies"
+            },
+            "samples": {
+              "href": "http://193.62.54.159/v1/submissions/6077111b43d85c0001296677/samples"
+            },
+            "associations": {
+              "href": "http://193.62.54.159/v1/submissions/6077111b43d85c0001296677/associations"
+            }
+          }
+        },
+        {
+          "id": "606f4112b1574900010f34ba",
+          "submissionId": "606f4112b1574900010f34ba",
+          "bodyOfWork": {
+            "bodyOfWorkId": "GCP000064",
+            "title": "title",
+            "description": "desc",
+            "firstAuthor": {
+              "firstName": "a",
+              "lastName": "b",
+              "email": "a@b.com"
+            },
+            "lastAuthor": {
+              "firstName": "c",
+              "lastName": "d",
+              "email": "a@b.com"
+            },
+            "correspondingAuthors": [
+              {
+                "firstName": "ca - first author",
+                "lastName": "ca - last author",
+                "email": "a@b.com"
+              }
+            ],
+            "prePrintServer": "bioRxiv",
+            "preprintServerDOI": "https://www.biorxiv.org/content/10.1101/2020.02.11.941351v1",
+            "embargoDate": "2020-07-02",
+            "status": "UNDER_SUBMISSION"
+          },
+          "files": [
+            {
+              "fileUploadId": "6071fbdeb1574900015855e0",
+              "status": "INVALID",
+              "type": "METADATA",
+              "fileName": "valid.xlsx",
+              "fileSize": 15020,
+              "errors": [
+                "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file",
+                "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file"
+              ]
+            }
+          ],
+          "globusFolder": "78b6d799-f428-4b88-8d78-01094d75980c",
+          "globusOriginId": "1d16235a-9892-11eb-92cc-6b08dd67ff48",
+          "study_count": 2,
+          "sample_count": 7,
+          "association_count": 4,
+          "submission_status": "INVALID",
+          "metadata_status": "VALID",
+          "summary_statistics_status": "INVALID",
+          "provenanceType": "BODY_OF_WORK",
+          "created": {
+            "user": {
+              "name": "Sajo John",
+              "email": "sajo@ebi.ac.uk",
+              "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+              "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-08T17:44:50.609Z"
+          },
+          "lastUpdated": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-26T14:50:49.725Z"
+          },
+          "lockDetails": {
+            "lockedBy": {
+              "user": {
+                "name": "Ala Abid",
+                "email": "ala@ebi.ac.uk",
+                "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+                "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+                "domains": [
+                  "self.GWAS_Curator"
+                ]
+              },
+              "timestamp": "2021-04-26T14:50:49.725Z"
+            },
+            "status": "LOCKED_FOR_EDITING"
+          },
+          "agreedToCc0": false,
+          "_links": {
+            "self": {
+              "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/606f4112b1574900010f34ba"
+            },
+            "files": {
+              "href": "http://193.62.54.159/v1/submissions/606f4112b1574900010f34ba/uploads"
+            },
+            "studies": {
+              "href": "http://193.62.54.159/v1/submissions/606f4112b1574900010f34ba/studies"
+            },
+            "samples": {
+              "href": "http://193.62.54.159/v1/submissions/606f4112b1574900010f34ba/samples"
+            },
+            "associations": {
+              "href": "http://193.62.54.159/v1/submissions/606f4112b1574900010f34ba/associations"
+            }
+          }
+        },
+        {
+          "id": "6046538632786a0001277c17",
+          "submissionId": "6046538632786a0001277c17",
+          "publication": {
+            "publicationId": "5ea6cecf11f0c80001bec60c",
+            "pmid": "31610627",
+            "title": "In silico approach to calculate the transcript capacity.",
+            "journal": "Genomics Inform",
+            "firstAuthor": "Lee YS",
+            "publicationDate": "2019-09-26",
+            "status": "UNDER_SUBMISSION"
+          },
+          "files": [
+            {
+              "fileUploadId": "60465ade32786a0001280925",
+              "status": "VALID",
+              "type": "METADATA",
+              "fileName": "Stein_submission_template_2.xlsx",
+              "fileSize": 19558,
+              "errors": []
+            }
+          ],
+          "globusFolder": "b1a38c2c-2308-4639-8f68-b1d0064036f3",
+          "globusOriginId": "02736d32-802d-11eb-a17e-752e9fc4b822",
+          "study_count": 6,
+          "sample_count": 16,
+          "association_count": 16,
+          "submission_status": "SUBMITTED",
+          "metadata_status": "VALID",
+          "summary_statistics_status": "NA",
+          "provenanceType": "PUBLICATION",
+          "created": {
+            "user": {
+              "name": "Sajo John",
+              "email": "sajo@ebi.ac.uk",
+              "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+              "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-03-08T16:40:38.981Z"
+          },
+          "lastUpdated": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-26T14:49:26.587Z"
+          },
+          "lockDetails": {
+            "lockedBy": {
+              "user": {
+                "name": "Ala Abid",
+                "email": "ala@ebi.ac.uk",
+                "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+                "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+                "domains": [
+                  "self.GWAS_Curator"
+                ]
+              },
+              "timestamp": "2021-04-26T14:49:26.587Z"
+            },
+            "status": "LOCKED_FOR_EDITING"
+          },
+          "_links": {
+            "self": {
+              "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/6046538632786a0001277c17"
+            },
+            "files": {
+              "href": "http://193.62.54.159/v1/submissions/6046538632786a0001277c17/uploads"
+            },
+            "studies": {
+              "href": "http://193.62.54.159/v1/submissions/6046538632786a0001277c17/studies"
+            },
+            "samples": {
+              "href": "http://193.62.54.159/v1/submissions/6046538632786a0001277c17/samples"
+            },
+            "associations": {
+              "href": "http://193.62.54.159/v1/submissions/6046538632786a0001277c17/associations"
+            }
+          }
+        },
+        {
+          "id": "6053673c21ac020001e377c4",
+          "submissionId": "6053673c21ac020001e377c4",
+          "publication": {
+            "publicationId": "60197ea32d7a90000104d8c8",
+            "pmid": "33287642",
+            "title": "Associations of Observational and Genetically Determined Caffeine Intake With Coronary Artery Disease and Diabetes Mellitus.",
+            "journal": "J Am Heart Assoc",
+            "firstAuthor": "Said MA",
+            "publicationDate": "2020-12-08",
+            "status": "UNDER_SUBMISSION"
+          },
+          "files": [
+            {
+              "fileUploadId": "6053678121ac020001e37eef",
+              "status": "VALID",
+              "type": "METADATA",
+              "fileName": "Stein_submission_template_2.xlsx",
+              "fileSize": 19558,
+              "errors": []
+            }
+          ],
+          "globusFolder": "14bb0d19-8725-480b-8be2-a95288d2a749",
+          "globusOriginId": "6691f7fc-87f8-11eb-85ce-8d7a7e0e97e7",
+          "study_count": 6,
+          "sample_count": 16,
+          "association_count": 16,
+          "submission_status": "CURATION_COMPLETE",
+          "metadata_status": "VALID",
+          "summary_statistics_status": "NA",
+          "provenanceType": "PUBLICATION",
+          "created": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-03-18T14:44:12.731Z"
+          },
+          "lastUpdated": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-26T10:23:01.888Z"
+          },
+          "lockDetails": {
+            "lockedBy": {
+              "user": {
+                "name": "Ala Abid",
+                "email": "ala@ebi.ac.uk",
+                "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+                "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+                "domains": [
+                  "self.GWAS_Curator"
+                ]
+              },
+              "timestamp": "2021-04-26T10:23:01.888Z"
+            },
+            "status": "LOCKED_FOR_EDITING"
+          },
+          "agreedToCc0": true,
+          "_links": {
+            "self": {
+              "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/6053673c21ac020001e377c4"
+            },
+            "files": {
+              "href": "http://193.62.54.159/v1/submissions/6053673c21ac020001e377c4/uploads"
+            },
+            "studies": {
+              "href": "http://193.62.54.159/v1/submissions/6053673c21ac020001e377c4/studies"
+            },
+            "samples": {
+              "href": "http://193.62.54.159/v1/submissions/6053673c21ac020001e377c4/samples"
+            },
+            "associations": {
+              "href": "http://193.62.54.159/v1/submissions/6053673c21ac020001e377c4/associations"
+            }
+          }
+        },
+        {
+          "id": "5eb17686cbce5e0001b066ab",
+          "submissionId": "5eb17686cbce5e0001b066ab",
+          "publication": {
+            "publicationId": "5ee34587fd6b0d0001f49583",
+            "pmid": "32398653",
+            "title": "Pairwise common variant meta-analyses of schizophrenia with other psychiatric disorders reveals shared and distinct gene and gene-set associations.",
+            "journal": "Transl Psychiatry",
+            "firstAuthor": "Reay WR",
+            "publicationDate": "2020-05-12",
+            "status": "UNDER_SUBMISSION"
+          },
+          "bodyOfWork": {
+            "bodyOfWorkId": "GCP000036",
+            "title": "TEST-Investigating regions of shared genetic variation in attention deficit/hyperactivity disorder and major depressive disorder: A GWAS meta-analysis",
+            "description": "desc",
+            "firstAuthor": {
+              "firstName": "Victoria",
+              "lastName": "Powell",
+              "email": "powellv@cardiff.ac.uk"
+            },
+            "lastAuthor": {
+              "firstName": "Richard",
+              "lastName": "Anney",
+              "email": "anneyr@cardiff.ac.uk"
+            },
+            "correspondingAuthors": [
+              {
+                "firstName": "Richard",
+                "lastName": "Anney",
+                "email": "anneyr@cardiff.ac.uk"
+              }
+            ],
+            "prePrintServer": "biorxv",
+            "preprintServerDOI": "https://doi.org/10.1101/2020.04.22.054908",
+            "embargoUntilPublished": true,
+            "pmids": [
+              "32398653"
+            ],
+            "status": "UNDER_SUBMISSION"
+          },
+          "files": [
+            {
+              "fileUploadId": "607fdd71be93920001627335",
+              "status": "VALID",
+              "type": "METADATA",
+              "fileName": "Buchwald_template_(1).xlsx",
+              "fileSize": 19007,
+              "errors": []
+            }
+          ],
+          "globusFolder": "fa15d7a7-dbc1-49ca-9317-2cf746d09a8f",
+          "globusOriginId": "c61a69e6-8edb-11ea-8ec8-02c81b96a709",
+          "study_count": 7,
+          "sample_count": 8,
+          "association_count": 14,
+          "submission_status": "SUBMITTED",
+          "metadata_status": "VALID",
+          "summary_statistics_status": "NA",
+          "provenanceType": "BODY_OF_WORK",
+          "created": {
+            "user": {
+              "name": "Jonathan Stewart",
+              "email": "jstewart@ebi.ac.uk",
+              "nickname": "60e4c62fe9e6c5445631f1abef19a041d8fba3b9",
+              "userReference": "usr-e35c6ccb-8e6f-45b7-a70c-6ec2a8d99c85",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2020-05-05T14:21:58.372Z"
+          },
+          "lastUpdated": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-22T21:22:50.786Z"
+          },
+          "editTemplate": {
+            "user": {
+              "name": "Ala Abid",
+              "email": "ala@ebi.ac.uk",
+              "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+              "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+              "domains": [
+                "self.GWAS_Curator"
+              ]
+            },
+            "timestamp": "2021-04-21T08:08:16.911Z"
+          },
+          "_links": {
+            "self": {
+              "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/5eb17686cbce5e0001b066ab"
+            },
+            "files": {
+              "href": "http://193.62.54.159/v1/submissions/5eb17686cbce5e0001b066ab/uploads"
+            },
+            "studies": {
+              "href": "http://193.62.54.159/v1/submissions/5eb17686cbce5e0001b066ab/studies"
+            },
+            "samples": {
+              "href": "http://193.62.54.159/v1/submissions/5eb17686cbce5e0001b066ab/samples"
+            },
+            "associations": {
+              "href": "http://193.62.54.159/v1/submissions/5eb17686cbce5e0001b066ab/associations"
+            }
+          }
+        }
+      ]
+    },
+    "_links": {
+      "first": {
+        "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions?page=0&size=10&sort=lastUpdated,desc"
+      },
+      "self": {
+        "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions"
+      },
+      "next": {
+        "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions?page=1&size=10&sort=lastUpdated,desc"
+      },
+      "last": {
+        "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions?page=9&size=10&sort=lastUpdated,desc"
+      }
+    },
+    "page": {
+      "size": 10,
+      "totalElements": 95,
+      "totalPages": 10,
+      "number": 0
+    }
+  },
+  "submissionDetails": [
+    {
+      "id": "608be33147686b0001733d97",
+      "submissionId": "608be33147686b0001733d97",
+      "publication": {
+        "publicationId": "5ea6cfbf11f0c80001bee884",
+        "pmid": "18601904",
+        "title": "Identification of SNP markers for common CNV regions and association analysis of risk of subarachnoid aneurysmal hemorrhage in Japanese population.",
+        "journal": "Biochem Biophys Res Commun",
+        "firstAuthor": "Bae JS",
+        "publicationDate": "2008-07-02",
+        "status": "UNDER_SUBMISSION"
+      },
+      "files": [
+        {
+          "fileUploadId": "608beb4ff382d00001f34bee",
+          "status": "INVALID",
+          "type": "METADATA",
+          "fileName": "valid.xlsx",
+          "fileSize": 15020,
+          "errors": [
+            "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file",
+            "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file"
+          ]
+        }
+      ],
+      "globusFolder": "12596cad-ead8-48e0-bb11-727e815ab1da",
+      "globusOriginId": "34ae39c2-a9a3-11eb-a159-5fad80e6400b",
+      "study_count": 2,
+      "sample_count": 7,
+      "association_count": 4,
+      "submission_status": "INVALID",
+      "metadata_status": "VALID",
+      "summary_statistics_status": "INVALID",
+      "provenanceType": "PUBLICATION",
+      "created": {
+        "user": {
+          "name": "Sajo John",
+          "email": "sajo@ebi.ac.uk",
+          "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+          "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-30T11:00:01.615Z"
+      },
+      "lastUpdated": {
+        "user": {
+          "name": "Abayomi Mosaku",
+          "email": "abayomi@ebi.ac.uk",
+          "nickname": "8e4bdcaf476e2f877c910cffb7d7f75b4acc009a",
+          "userReference": "usr-75dd7940-1e62-46b1-9e1e-cb1b3a03b94c",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-05-04T08:58:01.986Z"
+      },
+      "editTemplate": {
+        "user": {
+          "name": "Sajo John",
+          "email": "sajo@ebi.ac.uk",
+          "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+          "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-30T11:34:38.880Z"
+      },
+      "agreedToCc0": false,
+      "_links": {
+        "self": {
+          "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/608be33147686b0001733d97"
+        },
+        "files": {
+          "href": "http://193.62.54.159/v1/submissions/608be33147686b0001733d97/uploads"
+        },
+        "studies": {
+          "href": "http://193.62.54.159/v1/submissions/608be33147686b0001733d97/studies"
+        },
+        "samples": {
+          "href": "http://193.62.54.159/v1/submissions/608be33147686b0001733d97/samples"
+        },
+        "associations": {
+          "href": "http://193.62.54.159/v1/submissions/608be33147686b0001733d97/associations"
+        }
+      }
+    },
+    {
+      "id": "606f1ab3b1574900010b2829",
+      "submissionId": "606f1ab3b1574900010b2829",
+      "publication": {
+        "publicationId": "5f284075f958d000019ac8eb",
+        "pmid": "32675224",
+        "title": "Genetic variation near CXCL12 is associated with susceptibility to HIV-related non-Hodgkin lymphoma.",
+        "journal": "Haematologica",
+        "firstAuthor": "Thorball CW",
+        "publicationDate": "2020-07-16",
+        "status": "UNDER_SUBMISSION"
+      },
+      "files": [
+        {
+          "fileUploadId": "608ee1be47686b0001bf71ea",
+          "status": "VALID",
+          "type": "METADATA",
+          "fileName": "Buchwald_template_(1).xlsx",
+          "fileSize": 19007,
+          "errors": []
+        }
+      ],
+      "globusFolder": "6cc2aaed-e0b8-4ece-91ca-78c66869e2b8",
+      "globusOriginId": "3dd3dc0c-987b-11eb-92cc-6b08dd67ff48",
+      "study_count": 7,
+      "sample_count": 8,
+      "association_count": 14,
+      "submission_status": "SUBMITTED",
+      "metadata_status": "VALID",
+      "summary_statistics_status": "NA",
+      "provenanceType": "PUBLICATION",
+      "created": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-08T15:01:07.280Z"
+      },
+      "lastUpdated": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-05-02T17:30:40.385Z"
+      },
+      "editTemplate": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-05-02T17:30:38.108Z"
+      },
+      "lockDetails": {
+        "lockedBy": {
+          "user": {
+            "name": "Ala Abid",
+            "email": "ala@ebi.ac.uk",
+            "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+            "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+            "domains": [
+              "self.GWAS_Curator"
+            ]
+          },
+          "timestamp": "2021-04-23T13:57:31.607Z"
+        },
+        "status": "LOCKED_FOR_EDITING"
+      },
+      "agreedToCc0": true,
+      "_links": {
+        "self": {
+          "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/606f1ab3b1574900010b2829"
+        },
+        "files": {
+          "href": "http://193.62.54.159/v1/submissions/606f1ab3b1574900010b2829/uploads"
+        },
+        "studies": {
+          "href": "http://193.62.54.159/v1/submissions/606f1ab3b1574900010b2829/studies"
+        },
+        "samples": {
+          "href": "http://193.62.54.159/v1/submissions/606f1ab3b1574900010b2829/samples"
+        },
+        "associations": {
+          "href": "http://193.62.54.159/v1/submissions/606f1ab3b1574900010b2829/associations"
+        }
+      }
+    },
+    {
+      "id": "60891d9de54e670001c0d8fd",
+      "submissionId": "60891d9de54e670001c0d8fd",
+      "publication": {
+        "publicationId": "5ea6cf4511f0c80001bed710",
+        "pmid": "25533513",
+        "title": "Genome-wide association study on susceptibility genes associated with yang-deficiency constitution: A small sample case-control study.",
+        "journal": "Chin J Integr Med",
+        "firstAuthor": "Yao SL",
+        "publicationDate": "2014-12-22",
+        "status": "UNDER_SUMMARY_STATS_SUBMISSION"
+      },
+      "files": [
+        {
+          "fileUploadId": "60891da9e54e670001c0da38",
+          "status": "VALID",
+          "type": "SUMMARY_STATS_TEMPLATE",
+          "fileName": "template.xlsx",
+          "fileSize": 7374,
+          "errors": []
+        },
+        {
+          "fileUploadId": "608be01d47686b000172ef2a",
+          "status": "INVALID",
+          "type": "SUMMARY_STATS",
+          "fileName": "Stein_submission_template_2_(2).xlsx",
+          "fileSize": 19558,
+          "errors": [
+            "Invalid file uploaded. Please download a new template from the submission page and try again."
+          ]
+        }
+      ],
+      "globusFolder": "f52cb9fd-9d48-483e-803a-e9d52b3b4e8e",
+      "globusOriginId": "4356a980-a7fc-11eb-92da-6b08dd67ff48",
+      "study_count": 0,
+      "sample_count": 0,
+      "association_count": 0,
+      "submission_status": "INVALID",
+      "metadata_status": "NA",
+      "summary_statistics_status": "INVALID",
+      "provenanceType": "PUBLICATION",
+      "created": {
+        "user": {
+          "name": "Abayomi Mosaku",
+          "email": "abayomi@ebi.ac.uk",
+          "nickname": "8e4bdcaf476e2f877c910cffb7d7f75b4acc009a",
+          "userReference": "usr-75dd7940-1e62-46b1-9e1e-cb1b3a03b94c",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-28T08:32:29.488Z"
+      },
+      "lastUpdated": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-05-02T17:25:52.691Z"
+      },
+      "lockDetails": {
+        "lockedBy": {
+          "user": {
+            "name": "Ala Abid",
+            "email": "ala@ebi.ac.uk",
+            "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+            "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+            "domains": [
+              "self.GWAS_Curator"
+            ]
+          },
+          "timestamp": "2021-05-02T17:25:52.691Z"
+        },
+        "status": "LOCKED_FOR_EDITING"
+      },
+      "agreedToCc0": true,
+      "_links": {
+        "self": {
+          "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/60891d9de54e670001c0d8fd"
+        },
+        "files": {
+          "href": "http://193.62.54.159/v1/submissions/60891d9de54e670001c0d8fd/uploads"
+        }
+      }
+    },
+    {
+      "id": "608bcc2547686b0001706568",
+      "submissionId": "608bcc2547686b0001706568",
+      "publication": {
+        "publicationId": "60197ea62d7a90000104d8ff",
+        "pmid": "33209044",
+        "title": "Identification of Genetic Variants for Female Obesity and Evaluation of the Causal Role of Genetically Defined Obesity in Polycystic Ovarian Syndrome.",
+        "journal": "Diabetes Metab Syndr Obes",
+        "firstAuthor": "Ahn Y",
+        "publicationDate": "2020-11-12",
+        "status": "UNDER_SUBMISSION"
+      },
+      "files": [
+        {
+          "fileUploadId": "608bcc5b47686b0001706a81",
+          "status": "VALID",
+          "type": "METADATA",
+          "fileName": "10k_ssa.xlsx",
+          "fileSize": 1011103,
+          "errors": []
+        }
+      ],
+      "globusFolder": "3454e909-ab8b-42ee-8f5d-1093f7fc35ee",
+      "globusOriginId": "77b61ac2-a995-11eb-865b-d16fa0cfc9e7",
+      "study_count": 10000,
+      "sample_count": 10000,
+      "association_count": 10000,
+      "submission_status": "SUBMITTED",
+      "metadata_status": "VALID",
+      "summary_statistics_status": "NA",
+      "provenanceType": "PUBLICATION",
+      "created": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-30T09:21:41.006Z"
+      },
+      "lastUpdated": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-30T09:27:02.588Z"
+      },
+      "agreedToCc0": true,
+      "_links": {
+        "self": {
+          "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/608bcc2547686b0001706568"
+        },
+        "files": {
+          "href": "http://193.62.54.159/v1/submissions/608bcc2547686b0001706568/uploads"
+        },
+        "studies": {
+          "href": "http://193.62.54.159/v1/submissions/608bcc2547686b0001706568/studies"
+        },
+        "samples": {
+          "href": "http://193.62.54.159/v1/submissions/608bcc2547686b0001706568/samples"
+        },
+        "associations": {
+          "href": "http://193.62.54.159/v1/submissions/608bcc2547686b0001706568/associations"
+        }
+      }
+    },
+    {
+      "id": "6061f67d37158e000104a508",
+      "submissionId": "6061f67d37158e000104a508",
+      "publication": {
+        "publicationId": "5ea6cf6011f0c80001beda3e",
+        "pmid": "24143190",
+        "title": "Genome-wide association study of breast cancer in the Japanese population.",
+        "journal": "PLoS One",
+        "firstAuthor": "Low SK",
+        "publicationDate": "2013-10-15",
+        "status": "UNDER_SUMMARY_STATS_SUBMISSION"
+      },
+      "files": [
+        {
+          "fileUploadId": "6061f67e37158e000104a525",
+          "status": "VALID",
+          "type": "SUMMARY_STATS_TEMPLATE",
+          "fileName": "template.xlsx",
+          "fileSize": 7378,
+          "errors": []
+        }
+      ],
+      "globusFolder": "b36e2fcd-e580-4935-abcc-2b072f4d147b",
+      "globusOriginId": "03e38088-90a6-11eb-b7a2-f57b2d55370d",
+      "study_count": 0,
+      "sample_count": 0,
+      "association_count": 0,
+      "submission_status": "STARTED",
+      "metadata_status": "NA",
+      "summary_statistics_status": "NA",
+      "provenanceType": "PUBLICATION",
+      "created": {
+        "user": {
+          "name": "Annalisa Buniello",
+          "email": "buniello@ebi.ac.uk",
+          "nickname": "3fcdb775086555b3052f0aef7a84d37c1c48958a",
+          "userReference": "usr-4faffaae-f7dd-4d4d-a776-05564fd06081",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-03-29T15:47:09.034Z"
+      },
+      "lastUpdated": {
+        "user": {
+          "name": "Abayomi Mosaku",
+          "email": "abayomi@ebi.ac.uk",
+          "nickname": "8e4bdcaf476e2f877c910cffb7d7f75b4acc009a",
+          "userReference": "usr-75dd7940-1e62-46b1-9e1e-cb1b3a03b94c",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-28T15:30:28.286Z"
+      },
+      "agreedToCc0": true,
+      "_links": {
+        "self": {
+          "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/6061f67d37158e000104a508"
+        },
+        "files": {
+          "href": "http://193.62.54.159/v1/submissions/6061f67d37158e000104a508/uploads"
+        }
+      }
+    },
+    {
+      "id": "6077111b43d85c0001296677",
+      "submissionId": "6077111b43d85c0001296677",
+      "publication": {
+        "publicationId": "5ea6ced411f0c80001bec6b0",
+        "pmid": "31420016",
+        "title": "Genetic variation in interleukin-7 is associated with a reduced erythropoietic response in Kenyan children infected with Plasmodium falciparum.",
+        "journal": "BMC Med Genet",
+        "firstAuthor": "Kisia LE",
+        "publicationDate": "2019-08-16",
+        "status": "UNDER_SUBMISSION"
+      },
+      "files": [
+        {
+          "fileUploadId": "6087f305e54e670001a2a6c9",
+          "status": "INVALID",
+          "type": "METADATA",
+          "fileName": "valid.xlsx",
+          "fileSize": 15020,
+          "errors": [
+            "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file",
+            "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file"
+          ]
+        }
+      ],
+      "globusFolder": "c1cf6738-9fab-4535-9972-5c573e6bf42e",
+      "globusOriginId": "39f53d7e-9d3a-11eb-8a8d-d70d98a40c8d",
+      "study_count": 2,
+      "sample_count": 7,
+      "association_count": 4,
+      "submission_status": "INVALID",
+      "metadata_status": "VALID",
+      "summary_statistics_status": "INVALID",
+      "provenanceType": "PUBLICATION",
+      "created": {
+        "user": {
+          "name": "Sajo John",
+          "email": "sajo@ebi.ac.uk",
+          "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+          "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-14T15:58:19.502Z"
+      },
+      "lastUpdated": {
+        "user": {
+          "name": "Sajo John",
+          "email": "sajo@ebi.ac.uk",
+          "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+          "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-27T11:19:06.092Z"
+      },
+      "editTemplate": {
+        "user": {
+          "name": "Sajo John",
+          "email": "sajo@ebi.ac.uk",
+          "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+          "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-27T11:18:29.981Z"
+      },
+      "lockDetails": {
+        "lockedBy": {
+          "user": {
+            "name": "Sajo John",
+            "email": "sajo@ebi.ac.uk",
+            "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+            "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+            "domains": [
+              "self.GWAS_Curator"
+            ]
+          },
+          "timestamp": "2021-04-27T10:51:09.285Z"
+        },
+        "status": "LOCKED_FOR_EDITING"
+      },
+      "agreedToCc0": false,
+      "_links": {
+        "self": {
+          "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/6077111b43d85c0001296677"
+        },
+        "files": {
+          "href": "http://193.62.54.159/v1/submissions/6077111b43d85c0001296677/uploads"
+        },
+        "studies": {
+          "href": "http://193.62.54.159/v1/submissions/6077111b43d85c0001296677/studies"
+        },
+        "samples": {
+          "href": "http://193.62.54.159/v1/submissions/6077111b43d85c0001296677/samples"
+        },
+        "associations": {
+          "href": "http://193.62.54.159/v1/submissions/6077111b43d85c0001296677/associations"
+        }
+      }
+    },
+    {
+      "id": "606f4112b1574900010f34ba",
+      "submissionId": "606f4112b1574900010f34ba",
+      "bodyOfWork": {
+        "bodyOfWorkId": "GCP000064",
+        "title": "title",
+        "description": "desc",
+        "firstAuthor": {
+          "firstName": "a",
+          "lastName": "b",
+          "email": "a@b.com"
+        },
+        "lastAuthor": {
+          "firstName": "c",
+          "lastName": "d",
+          "email": "a@b.com"
+        },
+        "correspondingAuthors": [
+          {
+            "firstName": "ca - first author",
+            "lastName": "ca - last author",
+            "email": "a@b.com"
+          }
+        ],
+        "prePrintServer": "bioRxiv",
+        "preprintServerDOI": "https://www.biorxiv.org/content/10.1101/2020.02.11.941351v1",
+        "embargoDate": "2020-07-02",
+        "status": "UNDER_SUBMISSION"
+      },
+      "files": [
+        {
+          "fileUploadId": "6071fbdeb1574900015855e0",
+          "status": "INVALID",
+          "type": "METADATA",
+          "fileName": "valid.xlsx",
+          "fileSize": 15020,
+          "errors": [
+            "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file",
+            "http://test.test: Missing mandatory field, you must provide (i) file path/URL, (ii) md5 sum and (iii) genome assembly for each file"
+          ]
+        }
+      ],
+      "globusFolder": "78b6d799-f428-4b88-8d78-01094d75980c",
+      "globusOriginId": "1d16235a-9892-11eb-92cc-6b08dd67ff48",
+      "study_count": 2,
+      "sample_count": 7,
+      "association_count": 4,
+      "submission_status": "INVALID",
+      "metadata_status": "VALID",
+      "summary_statistics_status": "INVALID",
+      "provenanceType": "BODY_OF_WORK",
+      "created": {
+        "user": {
+          "name": "Sajo John",
+          "email": "sajo@ebi.ac.uk",
+          "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+          "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-08T17:44:50.609Z"
+      },
+      "lastUpdated": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-26T14:50:49.725Z"
+      },
+      "lockDetails": {
+        "lockedBy": {
+          "user": {
+            "name": "Ala Abid",
+            "email": "ala@ebi.ac.uk",
+            "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+            "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+            "domains": [
+              "self.GWAS_Curator"
+            ]
+          },
+          "timestamp": "2021-04-26T14:50:49.725Z"
+        },
+        "status": "LOCKED_FOR_EDITING"
+      },
+      "agreedToCc0": false,
+      "_links": {
+        "self": {
+          "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/606f4112b1574900010f34ba"
+        },
+        "files": {
+          "href": "http://193.62.54.159/v1/submissions/606f4112b1574900010f34ba/uploads"
+        },
+        "studies": {
+          "href": "http://193.62.54.159/v1/submissions/606f4112b1574900010f34ba/studies"
+        },
+        "samples": {
+          "href": "http://193.62.54.159/v1/submissions/606f4112b1574900010f34ba/samples"
+        },
+        "associations": {
+          "href": "http://193.62.54.159/v1/submissions/606f4112b1574900010f34ba/associations"
+        }
+      }
+    },
+    {
+      "id": "6046538632786a0001277c17",
+      "submissionId": "6046538632786a0001277c17",
+      "publication": {
+        "publicationId": "5ea6cecf11f0c80001bec60c",
+        "pmid": "31610627",
+        "title": "In silico approach to calculate the transcript capacity.",
+        "journal": "Genomics Inform",
+        "firstAuthor": "Lee YS",
+        "publicationDate": "2019-09-26",
+        "status": "UNDER_SUBMISSION"
+      },
+      "files": [
+        {
+          "fileUploadId": "60465ade32786a0001280925",
+          "status": "VALID",
+          "type": "METADATA",
+          "fileName": "Stein_submission_template_2.xlsx",
+          "fileSize": 19558,
+          "errors": []
+        }
+      ],
+      "globusFolder": "b1a38c2c-2308-4639-8f68-b1d0064036f3",
+      "globusOriginId": "02736d32-802d-11eb-a17e-752e9fc4b822",
+      "study_count": 6,
+      "sample_count": 16,
+      "association_count": 16,
+      "submission_status": "SUBMITTED",
+      "metadata_status": "VALID",
+      "summary_statistics_status": "NA",
+      "provenanceType": "PUBLICATION",
+      "created": {
+        "user": {
+          "name": "Sajo John",
+          "email": "sajo@ebi.ac.uk",
+          "nickname": "aef584dc726a5586b40955f1551b963e2e839b32",
+          "userReference": "usr-8f78675b-80bc-4527-8948-9456c9f0c4dd",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-03-08T16:40:38.981Z"
+      },
+      "lastUpdated": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-26T14:49:26.587Z"
+      },
+      "lockDetails": {
+        "lockedBy": {
+          "user": {
+            "name": "Ala Abid",
+            "email": "ala@ebi.ac.uk",
+            "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+            "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+            "domains": [
+              "self.GWAS_Curator"
+            ]
+          },
+          "timestamp": "2021-04-26T14:49:26.587Z"
+        },
+        "status": "LOCKED_FOR_EDITING"
+      },
+      "_links": {
+        "self": {
+          "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/6046538632786a0001277c17"
+        },
+        "files": {
+          "href": "http://193.62.54.159/v1/submissions/6046538632786a0001277c17/uploads"
+        },
+        "studies": {
+          "href": "http://193.62.54.159/v1/submissions/6046538632786a0001277c17/studies"
+        },
+        "samples": {
+          "href": "http://193.62.54.159/v1/submissions/6046538632786a0001277c17/samples"
+        },
+        "associations": {
+          "href": "http://193.62.54.159/v1/submissions/6046538632786a0001277c17/associations"
+        }
+      }
+    },
+    {
+      "id": "6053673c21ac020001e377c4",
+      "submissionId": "6053673c21ac020001e377c4",
+      "publication": {
+        "publicationId": "60197ea32d7a90000104d8c8",
+        "pmid": "33287642",
+        "title": "Associations of Observational and Genetically Determined Caffeine Intake With Coronary Artery Disease and Diabetes Mellitus.",
+        "journal": "J Am Heart Assoc",
+        "firstAuthor": "Said MA",
+        "publicationDate": "2020-12-08",
+        "status": "UNDER_SUBMISSION"
+      },
+      "files": [
+        {
+          "fileUploadId": "6053678121ac020001e37eef",
+          "status": "VALID",
+          "type": "METADATA",
+          "fileName": "Stein_submission_template_2.xlsx",
+          "fileSize": 19558,
+          "errors": []
+        }
+      ],
+      "globusFolder": "14bb0d19-8725-480b-8be2-a95288d2a749",
+      "globusOriginId": "6691f7fc-87f8-11eb-85ce-8d7a7e0e97e7",
+      "study_count": 6,
+      "sample_count": 16,
+      "association_count": 16,
+      "submission_status": "CURATION_COMPLETE",
+      "metadata_status": "VALID",
+      "summary_statistics_status": "NA",
+      "provenanceType": "PUBLICATION",
+      "created": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-03-18T14:44:12.731Z"
+      },
+      "lastUpdated": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-26T10:23:01.888Z"
+      },
+      "lockDetails": {
+        "lockedBy": {
+          "user": {
+            "name": "Ala Abid",
+            "email": "ala@ebi.ac.uk",
+            "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+            "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+            "domains": [
+              "self.GWAS_Curator"
+            ]
+          },
+          "timestamp": "2021-04-26T10:23:01.888Z"
+        },
+        "status": "LOCKED_FOR_EDITING"
+      },
+      "agreedToCc0": true,
+      "_links": {
+        "self": {
+          "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/6053673c21ac020001e377c4"
+        },
+        "files": {
+          "href": "http://193.62.54.159/v1/submissions/6053673c21ac020001e377c4/uploads"
+        },
+        "studies": {
+          "href": "http://193.62.54.159/v1/submissions/6053673c21ac020001e377c4/studies"
+        },
+        "samples": {
+          "href": "http://193.62.54.159/v1/submissions/6053673c21ac020001e377c4/samples"
+        },
+        "associations": {
+          "href": "http://193.62.54.159/v1/submissions/6053673c21ac020001e377c4/associations"
+        }
+      }
+    },
+    {
+      "id": "5eb17686cbce5e0001b066ab",
+      "submissionId": "5eb17686cbce5e0001b066ab",
+      "publication": {
+        "publicationId": "5ee34587fd6b0d0001f49583",
+        "pmid": "32398653",
+        "title": "Pairwise common variant meta-analyses of schizophrenia with other psychiatric disorders reveals shared and distinct gene and gene-set associations.",
+        "journal": "Transl Psychiatry",
+        "firstAuthor": "Reay WR",
+        "publicationDate": "2020-05-12",
+        "status": "UNDER_SUBMISSION"
+      },
+      "bodyOfWork": {
+        "bodyOfWorkId": "GCP000036",
+        "title": "TEST-Investigating regions of shared genetic variation in attention deficit/hyperactivity disorder and major depressive disorder: A GWAS meta-analysis",
+        "description": "desc",
+        "firstAuthor": {
+          "firstName": "Victoria",
+          "lastName": "Powell",
+          "email": "powellv@cardiff.ac.uk"
+        },
+        "lastAuthor": {
+          "firstName": "Richard",
+          "lastName": "Anney",
+          "email": "anneyr@cardiff.ac.uk"
+        },
+        "correspondingAuthors": [
+          {
+            "firstName": "Richard",
+            "lastName": "Anney",
+            "email": "anneyr@cardiff.ac.uk"
+          }
+        ],
+        "prePrintServer": "biorxv",
+        "preprintServerDOI": "https://doi.org/10.1101/2020.04.22.054908",
+        "embargoUntilPublished": true,
+        "pmids": [
+          "32398653"
+        ],
+        "status": "UNDER_SUBMISSION"
+      },
+      "files": [
+        {
+          "fileUploadId": "607fdd71be93920001627335",
+          "status": "VALID",
+          "type": "METADATA",
+          "fileName": "Buchwald_template_(1).xlsx",
+          "fileSize": 19007,
+          "errors": []
+        }
+      ],
+      "globusFolder": "fa15d7a7-dbc1-49ca-9317-2cf746d09a8f",
+      "globusOriginId": "c61a69e6-8edb-11ea-8ec8-02c81b96a709",
+      "study_count": 7,
+      "sample_count": 8,
+      "association_count": 14,
+      "submission_status": "SUBMITTED",
+      "metadata_status": "VALID",
+      "summary_statistics_status": "NA",
+      "provenanceType": "BODY_OF_WORK",
+      "created": {
+        "user": {
+          "name": "Jonathan Stewart",
+          "email": "jstewart@ebi.ac.uk",
+          "nickname": "60e4c62fe9e6c5445631f1abef19a041d8fba3b9",
+          "userReference": "usr-e35c6ccb-8e6f-45b7-a70c-6ec2a8d99c85",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2020-05-05T14:21:58.372Z"
+      },
+      "lastUpdated": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-22T21:22:50.786Z"
+      },
+      "editTemplate": {
+        "user": {
+          "name": "Ala Abid",
+          "email": "ala@ebi.ac.uk",
+          "nickname": "0336ba73a0150449f327e552f1bcf2ad9f14d847",
+          "userReference": "usr-e9d88533-3558-46c7-a651-be8a5146085a",
+          "domains": [
+            "self.GWAS_Curator"
+          ]
+        },
+        "timestamp": "2021-04-21T08:08:16.911Z"
+      },
+      "_links": {
+        "self": {
+          "href": "http://193.62.54.159/gwas/deposition/api/v1/submissions/5eb17686cbce5e0001b066ab"
+        },
+        "files": {
+          "href": "http://193.62.54.159/v1/submissions/5eb17686cbce5e0001b066ab/uploads"
+        },
+        "studies": {
+          "href": "http://193.62.54.159/v1/submissions/5eb17686cbce5e0001b066ab/studies"
+        },
+        "samples": {
+          "href": "http://193.62.54.159/v1/submissions/5eb17686cbce5e0001b066ab/samples"
+        },
+        "associations": {
+          "href": "http://193.62.54.159/v1/submissions/5eb17686cbce5e0001b066ab/associations"
+        }
+      }
+    }
+  ],
+  "submissionPut": [
+    {
+      "id": "608be33147686b0001733d97"
+    }
+  ],
+  "submissionPost": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    }
+  ],
+  "submission-history": [
+    {
+      "fileId": "ae12bc-eee33-eaf32...",
+      "fileName": "Stein_Submission.xlsx",
+      "uploadDate": "2021-08-12T20:17:46.384Z",
+      "studies": [
+        {
+          "total": 123,
+          "added": [
+            "study_tag1",
+            "study_tag2",
+            "..."
+          ],
+          "removed": [
+            "study_tag1",
+            "study_tag2",
+            "..."
+          ],
+          "tags": [
+            {
+              "tag": "study_tag1",
+              "associations": {
+                "added": 4,
+                "removed": 2,
+                "edited": [
+                  {
+                    "columnName": "$Association_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  },
+                  {
+                    "columnName": "$Association_Tab_Column_Name2",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "samples": {
+                "added": 3,
+                "removed": 1,
+                "edited": [
+                  {
+                    "columnName": "$Sample_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "edited": [
+                {
+                  "columnName": "$Study_Tab_Column_Name1",
+                  "previous": "...",
+                  "new": "..."
+                },
+                {
+                  "columnName": "$Study_Tab_Column_Name2",
+                  "previous": "...",
+                  "new": "..."
+                }
+              ]
+            },
+            {
+              "tag": "study_tag2",
+              "associations": {
+                "added": 0,
+                "removed": 0,
+                "edited": [
+                  {
+                    "columnName": "$Association_Tab_Column_Name3",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "samples": {
+                "added": 3,
+                "removed": 1,
+                "edited": [
+                  {
+                    "columnName": "$Sample_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  },
+                  {
+                    "columnName": "$Sample_Tab_Column_Name2",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fileId": "ae12bc-eee33-eaf32...",
+      "fileName": "Stein_Submission_v2.xlsx",
+      "uploadDate": "2021-08-11T20:17:46.384Z",
+      "studies": [
+        {
+          "total": 123,
+          "added": [
+            "study_tag1",
+            "study_tag4",
+            "study_tag6",
+            "..."
+          ],
+          "removed": [
+            "study_tag8",
+            "..."
+          ],
+          "tags": [
+            {
+              "tag": "study_tag6",
+              "associations": {
+                "added": 4,
+                "removed": 2,
+                "edited": [
+                  {
+                    "columnName": "$Association_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  },
+                  {
+                    "columnName": "$Association_Tab_Column_Name2",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "samples": {
+                "added": 3,
+                "removed": 1,
+                "edited": [
+                  {
+                    "columnName": "$Sample_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "edited": [
+                {
+                  "columnName": "$Study_Tab_Column_Name1",
+                  "previous": "...",
+                  "new": "..."
+                },
+                {
+                  "columnName": "$Study_Tab_Column_Name2",
+                  "previous": "...",
+                  "new": "..."
+                }
+              ]
+            },
+            {
+              "tag": "study_tag2",
+              "associations": {
+                "added": 0,
+                "removed": 0,
+                "edited": [
+                  {
+                    "columnName": "$Association_Tab_Column_Name3",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "samples": {
+                "added": 3,
+                "removed": 1,
+                "edited": [
+                  {
+                    "columnName": "$Sample_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  },
+                  {
+                    "columnName": "$Sample_Tab_Column_Name2",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "edited": [
+                {
+                  "columnName": "$Association_Tab_Column_Name3",
+                  "previous": "...",
+                  "new": "..."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fileId": "ae12bc-eee33-eaf32...",
+      "fileName": "Stein_Submission.xlsx",
+      "uploadDate": "2021-08-12T20:17:46.384Z",
+      "studies": [
+        {
+          "total": 123,
+          "added": [
+            "study_tag1",
+            "study_tag2",
+            "..."
+          ],
+          "removed": [
+            "study_tag1",
+            "study_tag2",
+            "..."
+          ],
+          "tags": [
+            {
+              "tag": "study_tag1",
+              "associations": {
+                "added": 4,
+                "removed": 2,
+                "edited": [
+                  {
+                    "columnName": "$Association_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  },
+                  {
+                    "columnName": "$Association_Tab_Column_Name2",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "samples": {
+                "added": 3,
+                "removed": 1,
+                "edited": [
+                  {
+                    "columnName": "$Sample_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "edited": [
+                {
+                  "columnName": "$Study_Tab_Column_Name1",
+                  "previous": "...",
+                  "new": "..."
+                },
+                {
+                  "columnName": "$Study_Tab_Column_Name2",
+                  "previous": "...",
+                  "new": "..."
+                }
+              ]
+            },
+            {
+              "tag": "study_tag2",
+              "associations": {
+                "added": 0,
+                "removed": 0,
+                "edited": [
+                  {
+                    "columnName": "$Association_Tab_Column_Name3",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              },
+              "samples": {
+                "added": 3,
+                "removed": 1,
+                "edited": [
+                  {
+                    "columnName": "$Sample_Tab_Column_Name1",
+                    "previous": "...",
+                    "new": "..."
+                  },
+                  {
+                    "columnName": "$Sample_Tab_Column_Name2",
+                    "previous": "...",
+                    "new": "..."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

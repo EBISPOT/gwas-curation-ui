@@ -1,0 +1,76 @@
+<mat-card class="mt-4 mb-4">
+  <mat-card-header>
+    <mat-card-title>Edit Submission ID: {{id}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-slide-toggle #toggle
+                      matTooltip="Edit tab will be locked for other curators until the current user is done editing."
+                      (change)="sliderToggle()" [(ngModel)]="isChecked">
+      Lock for editing
+    </mat-slide-toggle>
+    <div class="mt-10" *ngIf="toggle.checked">
+      <div class="flex flex-wrap justify-around">
+        <span class="pt-2"> Upload a new template: </span>
+        <div class="text-center content-center align-middle">
+          <div ng2FileDrop
+               [uploader]="uploader"
+               (fileOver)="fileOver($event)"
+               [ngClass]="{'nv-file-over': hasDropZoneOver}"
+               class="bg-gradient-to-t from-green-800 via-gray-700 to-blue-900
+               rounded-l p-5 text-white mat-elevation-z6 hidden sm:block w-64 text-center my-drop-zone">
+            <span *ngIf="uploader.queue.length == 0"> Drop new template here </span>
+            <span *ngIf="uploader.queue.length != 0">{{uploader.queue[0].file.name}}</span>
+          </div>
+          <span class="hidden sm:block">Or</span>
+          <button mat-stroked-button (click)="fileInput.click()">
+            <mat-icon color="primary">upload</mat-icon>
+            <span>Select a file</span>
+            <input #fileInput type="file" ng2FileSelect [uploader]="uploader" class="hidden"/>
+          </button>
+        </div>
+        <div *ngIf="uploader.queue.length > 0">
+          <button style="margin-right: 30px"
+                  [disabled]="uploader.queue[0].isReady || uploader.queue[0].isUploading || uploader.queue[0].isSuccess"
+                  mat-raised-button color="primary" (click)="uploader.queue[0].upload()">
+            Upload
+          </button>
+          <button [disabled]="uploader.queue.length === 0" mat-raised-button color="primary"
+                  (click)="uploader.isUploading ? uploader.cancelAll() : uploader.clearQueue(); fileInput.value = '';">
+            <span *ngIf="uploader.isUploading">Cancel</span>
+            <span *ngIf="!uploader.isUploading">Reset</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-9 flex justify-center" *ngIf="uploader.queue.length > 0">
+        {{uploader.queue[0].file.name}}
+      </div>
+      <div class="mt-9 flex justify-center" *ngIf="uploader.queue.length > 0">
+        <mat-progress-bar mode="determinate" [value]="uploader.progress" style="width: 300px"></mat-progress-bar>
+      </div>
+      <div class="mt-9 flex justify-center" *ngIf="uploader.queue.length > 0 && uploader.queue[0].isSuccess">
+        Metadata valid:
+        <mat-spinner [diameter]="22" *ngIf="submission?.metadata_status == 'VALIDATING'"></mat-spinner>
+        <mat-icon color="primary" aria-hidden="false" *ngIf="submission?.metadata_status == 'VALID'">
+          check_circle_outline
+        </mat-icon>
+        <mat-icon color="primary" aria-hidden="false" *ngIf="submission?.metadata_status == 'INVALID'">highlight_off
+        </mat-icon>
+        <span *ngIf="submission?.metadata_status == 'NA'" class="whitespace-pre"> NA</span>
+        <pre>     </pre>
+        Sumstats valid:
+        <mat-spinner [diameter]="22" *ngIf="submission?.summary_statistics_status == 'VALIDATING'"></mat-spinner>
+        <mat-icon color="primary" aria-hidden="false" *ngIf="submission?.summary_statistics_status == 'VALID'">
+          check_circle_outline
+        </mat-icon>
+        <mat-icon color="primary" aria-hidden="false" *ngIf="submission?.summary_statistics_status == 'INVALID'">
+          highlight_off
+        </mat-icon>
+        <span *ngIf="submission?.summary_statistics_status == 'NA'" class="whitespace-pre"> NA</span>
+      </div>
+      <div *ngIf="uploader.queue[0]?.isError" class="text-red-500 flex justify-center"> An error occurred while
+        uploading file.
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

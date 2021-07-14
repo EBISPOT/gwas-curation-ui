@@ -1,0 +1,92 @@
+<h2 matDialogTitle>{{data.fileName}} versioning details</h2>
+<mat-dialog-content [@.disabled]="disableAnimation">
+  <mat-button-toggle-group #toggle="matButtonToggleGroup" value="detailed">
+    <mat-button-toggle value="detailed">Detailed report</mat-button-toggle>
+    <mat-button-toggle value="diff">File difference</mat-button-toggle>
+  </mat-button-toggle-group>
+  <div *ngIf="toggle.value == 'detailed'">
+    <mat-expansion-panel class="my-3">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Studies
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-tree [dataSource]="studyDataSource" [treeControl]="studyTreeControl" class="example-tree">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle class="study-node">
+          {{node.value}}
+        </mat-tree-node>
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+          <div class="mat-tree-node">
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.value">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{studyTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            {{node.value}}
+          </div>
+          <div [class.example-tree-invisible]="!studyTreeControl.isExpanded(node)" role="group">
+            <ng-container matTreeNodeOutlet></ng-container>
+          </div>
+        </mat-nested-tree-node>
+      </mat-tree>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="my-3">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Associations
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <span *ngIf="associationDataSource.data.length > 0">Edited:</span>
+      <mat-tree [dataSource]="associationDataSource" [treeControl]="associationTreeControl" class="example-tree">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+          {{node.value}}
+        </mat-tree-node>
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+          <div class="mat-tree-node">
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.value">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{associationTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            {{node.value}}
+          </div>
+          <div [class.example-tree-invisible]="!associationTreeControl.isExpanded(node)" role="group">
+            <ng-container matTreeNodeOutlet></ng-container>
+          </div>
+        </mat-nested-tree-node>
+      </mat-tree>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="my-3">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Samples
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <span *ngIf="sampleDataSource.data.length > 0">Edited:</span>
+      <mat-tree [dataSource]="sampleDataSource" [treeControl]="sampleTreeControl" class="example-tree">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+          {{node.value}}
+        </mat-tree-node>
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+          <div class="mat-tree-node">
+            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.value">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{sampleTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            {{node.value}}
+          </div>
+          <div [class.example-tree-invisible]="!sampleTreeControl.isExpanded(node)" role="group">
+            <ng-container matTreeNodeOutlet></ng-container>
+          </div>
+        </mat-nested-tree-node>
+      </mat-tree>
+    </mat-expansion-panel>
+  </div>
+
+  <div *ngIf="toggle.value == 'diff'" [innerHTML]="sanitizer.bypassSecurityTrustHtml(diffHtml)">
+
+  </div>
+</mat-dialog-content>
