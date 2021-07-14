@@ -11,8 +11,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$gwas-curation-ui-primary: mat-palette($mat-indigo, 800);
-$gwas-curation-ui-accent: mat-palette($mat-teal, 800);
+$gwas-curation-ui-primary: mat-palette($mat-cyan, 700);
+$gwas-curation-ui-accent: mat-palette($mat-green, 800);
 
 // The warn palette is optional (defaults to red).
 $gwas-curation-ui-warn: mat-palette($mat-red);
@@ -37,3 +37,9 @@ $custom-typography: mat-typography-config(
 // that you are using.
 @include angular-material-theme($gwas-curation-ui-theme);
 
+// The below enables us to use theme colors in CSS, example {background: var(--color-primary)}
+:root {
+  --color-primary: #{mat-color($gwas-curation-ui-primary)};
+  --color-accent: #{mat-color($gwas-curation-ui-accent)};
+  --color-warn: #{mat-color($gwas-curation-ui-warn)};
+}
