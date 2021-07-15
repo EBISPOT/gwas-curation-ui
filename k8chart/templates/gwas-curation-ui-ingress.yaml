@@ -4,14 +4,14 @@ metadata:
   name: curation-ui-ingress
   namespace: gwas
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /gwas/curation/$2
+    nginx.ingress.kubernetes.io/rewrite-target: /gwas/depo-curation/$2
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
     - host:
       http:
         paths:
-          - path: /gwas/curation(/|$)(.*)
+          - path: /gwas/depo-curation(/|$)(.*)
             backend:
               serviceName: gwas-curation-ui
               servicePort: 80
