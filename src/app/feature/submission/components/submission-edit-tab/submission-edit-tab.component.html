@@ -68,8 +68,14 @@
         </mat-icon>
         <span *ngIf="submission?.summary_statistics_status == 'NA'" class="whitespace-pre"> NA</span>
       </div>
-      <div *ngIf="uploader.queue[0]?.isError" class="text-red-500 flex justify-center"> An error occurred while
+      <div *ngIf="uploader.queue[0]?.isError" class="color-warn flex justify-center"> An error occurred while
         uploading file.
+      </div>
+      <div class="color-warn flex-col text-center"
+           *ngIf="uploader.queue.length > 0 && uploader.queue[0].isSuccess
+  && submission.submission_status != 'VALIDATING' && validationErrors.length > 0">
+        Errors:
+        <b class="color-warn flex justify-center" *ngFor="let error of validationErrors">{{error}}</b>
       </div>
     </div>
   </mat-card-content>
