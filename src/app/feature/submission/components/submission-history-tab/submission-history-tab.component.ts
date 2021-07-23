@@ -358,7 +358,7 @@ export class SubmissionHistoryTabComponent implements OnInit{
     this.isLoading = true;
     this.submissionService.getVersionHistory(this.submissionId).subscribe(value => {
       this.isLoading = false;
-      if (Array.isArray(value)) {
+      if (Array.isArray(value) && value.length > 0) {
         const lastItem = value[value.length - 1];
         const tempHistory: SubmissionHistory = {
           currentVersionSummary: {
