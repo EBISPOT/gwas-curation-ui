@@ -26,8 +26,10 @@ export class SubmissionEditTabComponent implements OnInit {
     this.submission = submission;
   }
   @Output() uploadSuccessEvent = new EventEmitter();
+
   constructor(private route: ActivatedRoute, private tokenService: TokenStorageService,
               private submissionService: SubmissionService, private snackBar: MatSnackBar) {
+
     this.id = this.route.snapshot.paramMap.get('id');
     this.uploader = new FileUploader(
       {
@@ -37,6 +39,7 @@ export class SubmissionEditTabComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
       if (this.uploader.queue.length > 1) {
@@ -53,10 +56,12 @@ export class SubmissionEditTabComponent implements OnInit {
   }
 
   fileOver(e) {
+
     this.hasDropZoneOver = e;
   }
 
   sliderToggle() {
+
     this.uploader.cancelAll();
     this.uploader.clearQueue();
     this.submissionService

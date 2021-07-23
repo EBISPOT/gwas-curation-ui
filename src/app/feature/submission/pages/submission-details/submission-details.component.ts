@@ -56,6 +56,6 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
   }
 
   returnToSubList() {
-    this.router.navigateByUrl('submissions');
+    this.router.navigateByUrl('submissions').then();
   }
 }
