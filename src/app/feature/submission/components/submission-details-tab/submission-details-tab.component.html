@@ -91,6 +91,10 @@
           <mat-icon color="primary" *ngIf="submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
           {{submission?.summary_statistics_status == 'NA' ? 'NA' : ''}}
         </div>
+        <div *ngIf="validationErrors.length > 0">
+          Errors:
+          <b class="color-warn flex mb-2" *ngFor="let error of validationErrors">{{error}}</b>
+        </div>
 
       </div>
       <div>

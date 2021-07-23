@@ -1,15 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Submission } from '../../../../core/models/submission';
 import { SubmissionService } from '../../../../core/services/submission.service';
+import { FileUpload } from '../../../../core/models/fileUpload';
+import { log } from 'util';
 
 @Component({
   selector: 'app-submission-details-tab',
   templateUrl: './submission-details-tab.component.html',
   styleUrls: ['./submission-details-tab.component.css']
 })
-export class SubmissionDetailsTabComponent implements OnInit {
+export class SubmissionDetailsTabComponent implements OnInit, OnChanges {
 
   @Input() submission: Submission;
+  validationErrors: string[] = [];
+
+  ngOnChanges(changes) {
+    if (this.submission != null) {
+      this.extractValidationErrors();
+    }
+  }
+
   constructor(private submissionService: SubmissionService) { }
 
   ngOnInit(): void {
@@ -44,4 +54,13 @@ export class SubmissionDetailsTabComponent implements OnInit {
     window.open(this.submission.bodyOfWork.preprintServerDOI, '_blank');
   }
 
+  extractValidationErrors() {
+    if (this.submission.files != null) {
+      for (const file of this.submission.files) {
+        if (file.errors.length > 0) {
+          this.validationErrors = this.validationErrors.concat(file.errors);
+        }
+      }
+    }
+  }
 }
