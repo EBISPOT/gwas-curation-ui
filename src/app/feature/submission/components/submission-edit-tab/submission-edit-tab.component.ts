@@ -19,11 +19,16 @@ export class SubmissionEditTabComponent implements OnInit {
   isChecked = false;
   hasDropZoneOver = false;
   submission: Submission;
+  validationErrors: string[] = [];
   @Input('submission') set _submission(submission: Submission) {
-    if (submission?.lockDetails?.status === 'LOCKED_FOR_EDITING') {
-      this.isChecked = true;
-    }
+
     this.submission = submission;
+    if (this.submission) {
+      if (this.submission.lockDetails?.status === 'LOCKED_FOR_EDITING') {
+        this.isChecked = true;
+      }
+      this.extractValidationErrors();
+    }
   }
   @Output() uploadSuccessEvent = new EventEmitter();
 
@@ -41,6 +46,7 @@ export class SubmissionEditTabComponent implements OnInit {
   ngOnInit(): void {
 
     this.uploader.onAfterAddingFile = (file) => {
+      this.validationErrors = [];
       file.withCredentials = false;
       if (this.uploader.queue.length > 1) {
         this.uploader.cancelAll();
@@ -67,6 +73,18 @@ export class SubmissionEditTabComponent implements OnInit {
     this.submissionService
       .lockOrUnlock(this.id, this.isChecked)
       .subscribe(() => {}, () => {this.isChecked = !this.isChecked; });
+  }
+
+  extractValidationErrors() {
+
+    this.validationErrors = [];
+    if (this.submission.files != null) {
+      for (const file of this.submission.files) {
+        if (file.errors.length > 0) {
+          this.validationErrors = this.validationErrors.concat(file.errors);
+        }
+      }
+    }
   }
 
 }

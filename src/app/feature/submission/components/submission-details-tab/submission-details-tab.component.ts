@@ -53,6 +53,7 @@ export class SubmissionDetailsTabComponent implements OnInit {
   }
 
   extractValidationErrors() {
+    this.validationErrors = [];
     if (this.submission.files != null) {
       for (const file of this.submission.files) {
         if (file.errors.length > 0) {
