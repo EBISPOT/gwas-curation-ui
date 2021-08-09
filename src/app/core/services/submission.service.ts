@@ -14,9 +14,20 @@ export class SubmissionService {
 
   constructor(private http: HttpService, private curationHttp: CurationHttpService) { }
 
-  getSubmissions(size: number, page: number, sort: string, order: string): Observable<SubmissionListApiResponse> {
+  getSubmissions(size: number, page: number, sort: string, order: string, filter: string): Observable<SubmissionListApiResponse> {
     let params: HttpParams = new HttpParams();
-    params = params.set('size', String(size)).set('page', String(page)).set('sort', sort + ',' + order);
+    params = params
+      .set('size', String(size))
+      .set('page', String(page))
+      .set('sort', sort + ',' + order);
+    if (filter) {
+      if (filter.match(/^\d+$/)) {
+        params = params.set('pmid', filter);
+      }
+      else if (filter.startsWith('GCP')) {
+        params = params.set('bowId', filter);
+      }
+    }
     return this.http.get('/submissions', params);
   }
 
