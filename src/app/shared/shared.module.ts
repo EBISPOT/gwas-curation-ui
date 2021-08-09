@@ -21,6 +21,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [],
@@ -47,7 +49,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatExpansionModule,
     MatTreeModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
     CommonModule,
@@ -72,7 +76,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatExpansionModule,
     MatTreeModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class SharedModule {
