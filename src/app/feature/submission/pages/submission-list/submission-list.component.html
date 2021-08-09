@@ -1,19 +1,45 @@
 <mat-drawer-container>
   <mat-drawer #drawer mode="side" class="w-48">
-    <h4 class="pl-4 text-white py-1" style="background: var(--color-primary); border: dimgray solid 1px;"> Filter by:</h4>
+    <h4 class="pl-4 text-white py-1 bg-color-accent" style="border: dimgray solid 1px;"> Filter by:</h4>
     <div>
-      <span class="subheader">Metadata status</span>
-      <ul>
-        <li><mat-checkbox>Check me!</mat-checkbox></li>
-        <li><mat-checkbox>Check me!</mat-checkbox></li>
-      </ul>
+      <form [formGroup]="filterForm" (ngSubmit)="submitFilter()">
+        <span class="subheader">Metadata status</span>
+        <ul formGroupName="metadata">
+          <li><mat-checkbox formControlName="valid">Valid</mat-checkbox></li>
+          <li><mat-checkbox formControlName="invalid">Invalid</mat-checkbox></li>
+          <li><mat-checkbox formControlName="na">NA</mat-checkbox></li>
+        </ul>
 
-      <span class="subheader">Metadata status</span>
-      <ul>
-        <li><mat-checkbox>Check me!</mat-checkbox></li>
-        <li><mat-checkbox>Check me!</mat-checkbox></li>
-      </ul>
+        <span class="subheader">SS status</span>
+        <ul formGroupName="ss">
+          <li><mat-checkbox formControlName="valid">Valid</mat-checkbox></li>
+          <li><mat-checkbox formControlName="invalid">Invalid</mat-checkbox></li>
+          <li><mat-checkbox formControlName="na">NA</mat-checkbox></li>
+        </ul>
+
+        <span class="subheader">Submission status</span>
+        <ul formGroupName="submission">
+          <li><mat-checkbox formControlName="submitted">Submitted</mat-checkbox></li>
+          <li><mat-checkbox formControlName="started">Started</mat-checkbox></li>
+          <li><mat-checkbox formControlName="valid">Valid</mat-checkbox></li>
+          <li><mat-checkbox formControlName="invalid">Invalid</mat-checkbox></li>
+        </ul>
+
+        <span class="subheader">Lock status</span>
+        <ul formGroupName="edit">
+          <li><mat-checkbox formControlName="locked">Locked for editing</mat-checkbox></li>
+          <li><mat-checkbox formControlName="unlocked">Available for editing</mat-checkbox></li>
+        </ul>
+        <div class="flex align-middle justify-center mt-2">
+          <div>
+            <button mat-stroked-button type="submit"> <mat-icon>filter_alt</mat-icon>
+              Filter
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
+
   </mat-drawer>
   <mat-drawer-content>
     <div class="mat-elevation-z2 big-container relative">

@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { SubmissionService } from '../../../../core/services/submission.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-submission-list',
@@ -24,7 +25,30 @@ export class SubmissionListComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<Submission>;
 
-  constructor(private http: HttpService, private submissionService: SubmissionService) {
+  filterForm = new FormGroup({
+    metadata: new FormGroup({
+      valid: new FormControl(false),
+      invalid: new FormControl(false),
+      na: new FormControl(false),
+    }),
+    ss: new FormGroup({
+      valid: new FormControl(false),
+      invalid: new FormControl(false),
+      na: new FormControl(false),
+    }),
+    submission: new FormGroup({
+      submitted: new FormControl(false),
+      started: new FormControl(false),
+      valid: new FormControl(false),
+      invalid: new FormControl(false),
+    }),
+    edit: new FormGroup({
+      locked: new FormControl(false),
+      unlocked: new FormControl(false),
+    })
+  });
+
+  constructor(private http: HttpService, private submissionService: SubmissionService, ) {
   }
 
   ngAfterViewInit() {
@@ -54,6 +78,11 @@ export class SubmissionListComponent implements AfterViewInit {
 
   resetPaging(): void {
     this.paginator.pageIndex = 0;
+  }
+
+  submitFilter() {
+
+    alert(this.filterForm.value);
   }
 
 }
