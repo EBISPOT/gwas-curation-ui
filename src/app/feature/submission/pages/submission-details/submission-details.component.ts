@@ -36,12 +36,13 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
       this.submission = value;
       if (this.submission.lockDetails && this.submission.lockDetails.status === 'LOCKED_FOR_EDITING'
         && this.submission.lockDetails.lockedBy.user.email !== this.authService.getDecodedToken().email
-        || this.submission.submission_status === 'STARTED') {
+        || this.submission.submission_status === 'STARTED'
+        || this.submission.publication && this.submission.publication.status === 'UNDER_SUMMARY_STATS_SUBMISSION') {
         this.disableEdit = true;
       }
-      if (value.submission_status == null || value.submission_status === 'VALID' || value.submission_status === 'INVALID' ||
-        value.submission_status === 'CURATION_COMPLETE' || value.submission_status === 'COMPLETE' ||
-        value.submission_status === 'STARTED' || value.submission_status === 'SUBMITTED') {
+      if (value.submission_status == null || value.submission_status === 'VALID' || value.submission_status === 'INVALID'
+        || value.submission_status === 'CURATION_COMPLETE' || value.submission_status === 'COMPLETE'
+        || value.submission_status === 'STARTED' || value.submission_status === 'SUBMITTED') {
         this.stopPolling.next();
         this.historyTabCmp.loadHistory();
       }
@@ -56,6 +57,6 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
   }
 
   returnToSubList() {
-    this.router.navigateByUrl('submissions');
+    this.router.navigateByUrl('submissions').then();
   }
 }

@@ -9,7 +9,15 @@ import { SubmissionService } from '../../../../core/services/submission.service'
 })
 export class SubmissionDetailsTabComponent implements OnInit {
 
-  @Input() submission: Submission;
+  submission: Submission;
+  @Input('submission') set _submission(submission: Submission) {
+    this.submission = submission;
+    if (this.submission) {
+      this.extractValidationErrors();
+    }
+  }
+  validationErrors: string[] = [];
+
   constructor(private submissionService: SubmissionService) { }
 
   ngOnInit(): void {
@@ -44,4 +52,14 @@ export class SubmissionDetailsTabComponent implements OnInit {
     window.open(this.submission.bodyOfWork.preprintServerDOI, '_blank');
   }
 
+  extractValidationErrors() {
+    this.validationErrors = [];
+    if (this.submission.files != null) {
+      for (const file of this.submission.files) {
+        if (file.errors.length > 0) {
+          this.validationErrors = this.validationErrors.concat(file.errors);
+        }
+      }
+    }
+  }
 }
