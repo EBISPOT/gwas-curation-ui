@@ -40,7 +40,7 @@ prod-build:
     - node -v
     - rm -rf node_modules
     - npm install
-    - CI=false npm run build -- --base-href=/gwas/depo-curation/
+    - CI=false npm run build -- --base-href=/gwas/depo-curation/ --configuration production
   artifacts:
     paths:
       - dist/gwas-curation-ui/*
