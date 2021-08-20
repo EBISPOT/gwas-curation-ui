@@ -117,7 +117,14 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
       if (dialogResult) {
         this.reportedTraitService.deleteTrait(trait.diseaseTraitId).subscribe(() => {
           this.snackBar.open('Trait deleted.', '', {duration: 2500});
-          this.reloadTraits();
+          // so that if only 1 item is on last page, we go back to previous page after deleting that item
+          if (this.paginator.pageIndex + 1 === this.paginator.getNumberOfPages()
+            && this.dataSource.data.length % this.paginator.pageSize === 1) {
+            this.paginator.previousPage();
+          }
+          else {
+            this.reloadTraits();
+          }
         }, () => {
           this.snackBar.open('Error occurred on delete.', '', {duration: 2500});
         });
