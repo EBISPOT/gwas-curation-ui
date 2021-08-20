@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SubmissionListApiResponse } from '../api-responses/submissionListApiResponse';
+import { SubmissionListApiResponse } from '../models/rest/api-responses/submissionListApiResponse';
 import { Submission } from '../models/submission';
 import { SubmissionHistory } from '../models/submissionHistory';
 import { CurationHttpService } from './curation-http.service';

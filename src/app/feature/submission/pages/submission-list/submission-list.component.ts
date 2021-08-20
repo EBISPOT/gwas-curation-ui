@@ -49,7 +49,7 @@ export class SubmissionListComponent implements AfterViewInit {
     })
   });
 
-  constructor(private http: HttpService, private submissionService: SubmissionService, ) {
+  constructor(private http: HttpService, private submissionService: SubmissionService) {
   }
 
   ngAfterViewInit() {

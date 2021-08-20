@@ -1,0 +1,75 @@
+<div class="flex justify-center">
+  <div class="w-1/2">
+    <button mat-raised-button color="accent" (click)="openDialog(dialog)">
+      <mat-icon>add</mat-icon> New reported trait
+    </button>
+    <ng-template #dialog>
+      <h2 mat-dialog-title>Create a new disease trait</h2>
+      <mat-dialog-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter trait name</mat-label>
+          <input matInput placeholder="Trait name" [(ngModel)]="createTraitName">
+        </mat-form-field>
+      </mat-dialog-content>
+      <div mat-dialog-actions>
+        <button mat-button [disabled]="isLoadingCreate" (click)="onCancelClick()">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="isLoadingCreate || createTraitName ===''" (click)="onCreateTrait()">Create</button>
+        <mat-spinner *ngIf="isLoadingCreate" [diameter]="25" class="mx-2"></mat-spinner>
+        <span *ngIf="createError !== ''" class="color-warn">{{createError}}</span>
+      </div>
+    </ng-template>
+
+    <button mat-raised-button [matMenuTriggerFor]="menu" color="accent" class="mx-3">
+      <mat-icon>upload</mat-icon> Bulk upload
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>file_download</mat-icon>
+        <span>Download template</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>upload_file</mat-icon>
+        <span>Upload traits</span>
+      </button>
+    </mat-menu>
+
+    <button mat-raised-button color="primary">
+      <mat-icon>save_alt</mat-icon> Export table
+    </button>
+
+    <div>
+      <mat-form-field appearance="fill" class="w-full mt-4 p-0">
+        <mat-label>Search</mat-label>
+        <input [disabled]="isLoadingResults" matInput [(ngModel)]="searchBoxValue" placeholder="Search for a disease trait">
+        <button *ngIf="searchBoxValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchBoxValue='';">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="mat-elevation-z8 relative">
+        <div class="loading-shade" *ngIf="isLoadingResults">
+          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()"
+               matSortActive="lastUpdated" matSortDisableClear matSortDirection="desc" class="w-full">
+
+          <ng-container matColumnDef="trait">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Trait name</th>
+            <td mat-cell *matCellDef="let row">{{row.trait}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef class="w-4">Delete</th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-icon-button (click)="openConfirmationDialog(row)"> <mat-icon>delete</mat-icon> </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr class="hover:bg-gray-200 cursor-pointer" mat-row *matRowDef="let row;
+      columns: displayedColumns; let index = index;" [ngClass]="{gray: index % 2 == 0}"></tr>
+        </table>
+        <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

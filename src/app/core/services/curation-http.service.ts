@@ -32,7 +32,7 @@ export class CurationHttpService {
   post(path: string, body: any = {}): Observable<any> {
     return this.http.post(
       `${environment.CURATION_API_URL}${path}`,
-      JSON.stringify(body)
+      body
     ).pipe(catchError(CurationHttpService.formatErrors));
   }
 
