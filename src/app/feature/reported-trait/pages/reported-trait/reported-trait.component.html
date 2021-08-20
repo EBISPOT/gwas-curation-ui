@@ -1,41 +1,43 @@
 <div class="flex justify-center">
   <div class="w-1/2">
-    <button mat-raised-button color="accent" (click)="openDialog(dialog)">
-      <mat-icon>add</mat-icon> New reported trait
-    </button>
-    <ng-template #dialog>
-      <h2 mat-dialog-title>Create a new disease trait</h2>
-      <mat-dialog-content>
-        <mat-form-field appearance="fill">
-          <mat-label>Enter trait name</mat-label>
-          <input matInput placeholder="Trait name" [(ngModel)]="createTraitName">
-        </mat-form-field>
-      </mat-dialog-content>
-      <div mat-dialog-actions>
-        <button mat-button [disabled]="isLoadingCreate" (click)="onCancelClick()">Cancel</button>
-        <button mat-raised-button color="primary" [disabled]="isLoadingCreate || createTraitName ===''" (click)="onCreateTrait()">Create</button>
-        <mat-spinner *ngIf="isLoadingCreate" [diameter]="25" class="mx-2"></mat-spinner>
-        <span *ngIf="createError !== ''" class="color-warn">{{createError}}</span>
-      </div>
-    </ng-template>
-
-    <button mat-raised-button [matMenuTriggerFor]="menu" color="accent" class="mx-3">
-      <mat-icon>upload</mat-icon> Bulk upload
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>file_download</mat-icon>
-        <span>Download template</span>
+    <div class="flex flex-col space-y-1 md:space-y-0 md:flex-row justify-center">
+      <button mat-raised-button color="accent" (click)="openDialog(dialog)">
+        <mat-icon>add</mat-icon> New reported trait
       </button>
-      <button mat-menu-item>
-        <mat-icon>upload_file</mat-icon>
-        <span>Upload traits</span>
-      </button>
-    </mat-menu>
+      <ng-template #dialog>
+        <h2 mat-dialog-title>Create a new disease trait</h2>
+        <mat-dialog-content>
+          <mat-form-field appearance="fill">
+            <mat-label>Enter trait name</mat-label>
+            <input matInput placeholder="Trait name" [(ngModel)]="createTraitName">
+          </mat-form-field>
+        </mat-dialog-content>
+        <div mat-dialog-actions>
+          <button mat-button [disabled]="isLoadingCreate" (click)="onCancelClick()">Cancel</button>
+          <button mat-raised-button color="primary" [disabled]="isLoadingCreate || createTraitName ===''" (click)="onCreateTrait()">Create</button>
+          <mat-spinner *ngIf="isLoadingCreate" [diameter]="25" class="mx-2"></mat-spinner>
+          <span *ngIf="createError !== ''" class="color-warn">{{createError}}</span>
+        </div>
+      </ng-template>
 
-    <button mat-raised-button color="primary">
-      <mat-icon>save_alt</mat-icon> Export table
-    </button>
+      <button mat-raised-button [matMenuTriggerFor]="menu" color="accent" class="md:mx-3">
+        <mat-icon>upload</mat-icon> Bulk upload
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>file_download</mat-icon>
+          <span>Download template</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>upload_file</mat-icon>
+          <span>Upload traits</span>
+        </button>
+      </mat-menu>
+
+      <button mat-raised-button color="primary">
+        <mat-icon>save_alt</mat-icon> Export table
+      </button>
+    </div>
 
     <div>
       <mat-form-field appearance="fill" class="w-full mt-4 p-0">
