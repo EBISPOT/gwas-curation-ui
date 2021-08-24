@@ -21,10 +21,11 @@ export class CurationHttpService {
       .pipe(catchError(CurationHttpService.formatErrors));
   }
 
-  put(path: string, body: any = {}): Observable<any> {
+  put(path: string, body: any = {}, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http.put(
       `${environment.CURATION_API_URL}${path}`,
-      body
+      body,
+      {params}
     ).pipe(catchError(CurationHttpService.formatErrors));
   }
 
