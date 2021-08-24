@@ -24,9 +24,12 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
   resultsLength = 0;
   isLoadingResults = true;
   isLoadingCreate = false;
-  createTraitName: string;
+  createTraitName = '';
+  isLoadingEdit = false;
+  editTraitName = '';
   searchBoxValue = '';
   createError = '';
+  editError = '';
   dialogRef: MatDialogRef<any>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -67,10 +70,17 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
     this.paginator.pageIndex = 0;
   }
 
-  openDialog(templateRef) {
+  openCreateDialog(templateRef) {
     this.createTraitName = '';
     this.dialogRef = this.dialog.open(templateRef, {
-      width: '300px'
+      width: '500px'
+    });
+  }
+
+  openEditDialog(editDialog, trait: ReportedTrait) {
+    this.editTraitName = trait.trait;
+    this.dialogRef = this.dialog.open(editDialog, {
+      width: '500px'
     });
   }
 
@@ -92,6 +102,20 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
     });
   }
 
+  onSaveEditedTrait(traitId) {
+    this.isLoadingEdit = true;
+    this.editError = '';
+    this.reportedTraitService.editTrait(traitId, this.editTraitName).subscribe(() => {
+      this.isLoadingEdit = false;
+      this.dialogRef.close();
+      this.snackBar.open('Trait saved.', '', {duration: 2500});
+      this.reloadTraits();
+    }, () => {
+      this.isLoadingEdit = false;
+      this.editError = 'An unexpected error occurred.';
+    });
+  }
+
   reloadTraits() {
     this.isLoadingResults = true;
     this.reportedTraitService
@@ -103,7 +127,7 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
       });
   }
 
-  openConfirmationDialog(trait: ReportedTrait) {
+  openDeleteConfirmationDialog(trait: ReportedTrait) {
     const message = 'Disease trait: ' + trait.trait;
 
     const dialogData = new ConfirmationDialogModel('Confirm deletion', message);

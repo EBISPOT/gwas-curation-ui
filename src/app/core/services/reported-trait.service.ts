@@ -27,6 +27,10 @@ export class ReportedTraitService {
     return this.http.post('/reported-traits', {trait});
   }
 
+  editTrait(traitId, trait) {
+    return this.http.put('/reported-traits/' + traitId, {trait});
+  }
+
   deleteTrait(id: string) {
     return this.http.delete('/reported-traits/' + id);
   }
