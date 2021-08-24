@@ -21,18 +21,17 @@ export class CurationHttpService {
       .pipe(catchError(CurationHttpService.formatErrors));
   }
 
-  put(path: string, body: any = {}, params: HttpParams = new HttpParams()): Observable<any> {
+  put(path: string, body: any = {}): Observable<any> {
     return this.http.put(
       `${environment.CURATION_API_URL}${path}`,
-      JSON.stringify(body),
-      {params}
+      body
     ).pipe(catchError(CurationHttpService.formatErrors));
   }
 
   post(path: string, body: any = {}): Observable<any> {
     return this.http.post(
       `${environment.CURATION_API_URL}${path}`,
-      JSON.stringify(body)
+      body
     ).pipe(catchError(CurationHttpService.formatErrors));
   }
 
