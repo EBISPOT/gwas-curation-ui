@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,6 +12,11 @@ import {
   ConfirmationDialogModel
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FileUploader } from 'ng2-file-upload';
+import { environment } from '../../../../../environments/environment';
+import { TokenStorageService } from '../../../../core/services/token-storage.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { ReportedTraitUploadApiResponse } from '../../../../core/models/rest/api-responses/reportedTraitUploadApiResponse';
 
 @Component({
   selector: 'app-reported-trait',
@@ -31,14 +36,43 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
   createError = '';
   editError = '';
   dialogRef: MatDialogRef<any>;
+  uploader: FileUploader;
+  isChecked = false;
+  hasDropZoneOver = false;
+  uploadResponse: ReportedTraitUploadApiResponse[] = [];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('fileInput') fileInput: ElementRef;
   dataSource: MatTableDataSource<ReportedTrait>;
 
-  constructor(private reportedTraitService: ReportedTraitService,
-              private dialog: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(private reportedTraitService: ReportedTraitService, private tokenService: TokenStorageService,
+              private dialog: MatDialog, private snackBar: MatSnackBar, private bottomSheet: MatBottomSheet) {
+    this.uploader = new FileUploader(
+      {
+        url: environment.CURATION_API_URL + '/reported-traits/fileupload/uploads', itemAlias: 'multipartFile',
+        authToken: 'Bearer ' + tokenService.getToken()
+      });
+  }
 
   ngOnInit(): void {
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+      this.uploadResponse = [];
+      if (this.uploader.queue.length > 1) {
+        this.uploader.cancelAll();
+        this.uploader.removeFromQueue(this.uploader.queue[0]);
+      }
+    };
+    this.uploader.onSuccessItem = (item, response) => {
+      this.snackBar.open('File was uploaded successfully.', '', {duration: 2500});
+      this.uploadResponse = JSON.parse(response);
+      this.uploader.clearQueue();
+      this.fileInput.nativeElement.value = '';
+      this.reloadTraits();
+    };
+    this.uploader.onErrorItem = () => {
+      this.snackBar.open('An unexpected error occurred while uploading.', '', {duration: 2500});
+    };
   }
 
   ngAfterViewInit() {
@@ -154,5 +188,14 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
         });
       }
     });
+  }
+
+  fileOver(e) {
+
+    this.hasDropZoneOver = e;
+  }
+
+  openUploadBottomSheet(bottomSheet) {
+    this.bottomSheet.open(bottomSheet);
   }
 }
