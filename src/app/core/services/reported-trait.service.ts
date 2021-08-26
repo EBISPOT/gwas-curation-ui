@@ -34,4 +34,8 @@ export class ReportedTraitService {
   deleteTrait(id: string) {
     return this.http.delete('/reported-traits/' + id);
   }
+
+  downloadBulkTraitUploadTemplate() {
+    return this.http.download('/reported-traits/fileupload/templates?file=disease-trait');
+  }
 }
