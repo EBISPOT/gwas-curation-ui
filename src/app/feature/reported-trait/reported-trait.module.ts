@@ -4,6 +4,7 @@ import { ReportedTraitRoutingModule } from './reported-trait-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [ReportedTraitComponent],
@@ -11,7 +12,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     SharedModule,
     ReportedTraitRoutingModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FileUploadModule
   ]
 })
 export class ReportedTraitModule { }
