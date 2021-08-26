@@ -24,7 +24,7 @@
         <mat-icon>upload</mat-icon> Bulk upload
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="downloadBulkTraitUploadTemplate()">
           <mat-icon>file_download</mat-icon>
           <span>Download template</span>
         </button>

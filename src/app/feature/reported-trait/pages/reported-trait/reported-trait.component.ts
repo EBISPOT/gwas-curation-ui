@@ -198,4 +198,14 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
   openUploadBottomSheet(bottomSheet) {
     this.bottomSheet.open(bottomSheet);
   }
+
+  downloadBulkTraitUploadTemplate() {
+    this.reportedTraitService.downloadBulkTraitUploadTemplate().subscribe((response: any) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(new Blob([response]));
+      link.setAttribute('download', 'disease-traits-bulk-upload.tsv');
+      document.body.appendChild(link);
+      link.click();
+    });
+  }
 }
