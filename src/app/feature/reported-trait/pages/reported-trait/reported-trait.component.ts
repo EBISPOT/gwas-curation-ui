@@ -15,7 +15,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../../../environments/environment';
 import { TokenStorageService } from '../../../../core/services/token-storage.service';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ReportedTraitUploadApiResponse } from '../../../../core/models/rest/api-responses/reportedTraitUploadApiResponse';
 
 @Component({
@@ -36,42 +35,71 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
   createError = '';
   editError = '';
   dialogRef: MatDialogRef<any>;
-  uploader: FileUploader;
+  traitUploader: FileUploader;
+  analysisUploader: FileUploader;
   isChecked = false;
   hasDropZoneOver = false;
+  analysisHasDropZoneOver = false;
   uploadResponse: ReportedTraitUploadApiResponse[] = [];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('fileInput') fileInput: ElementRef;
+  @ViewChild('analysisFileInput') analysisFileInput: ElementRef;
   dataSource: MatTableDataSource<ReportedTrait>;
+  showTraitUpload = false;
+  showSimilarityAnalysis = false;
+  analysisId = '';
 
   constructor(private reportedTraitService: ReportedTraitService, private tokenService: TokenStorageService,
-              private dialog: MatDialog, private snackBar: MatSnackBar, private bottomSheet: MatBottomSheet) {
-    this.uploader = new FileUploader(
+              private dialog: MatDialog, private snackBar: MatSnackBar) {
+    this.traitUploader = new FileUploader(
       {
         url: environment.CURATION_API_URL + '/reported-traits/fileupload/uploads', itemAlias: 'multipartFile',
+        authToken: 'Bearer ' + tokenService.getToken()
+      });
+    this.analysisUploader = new FileUploader(
+      {
+        url: environment.CURATION_API_URL + '/reported-traits/fileupload/analysis', itemAlias: 'multipartFile',
         authToken: 'Bearer ' + tokenService.getToken()
       });
   }
 
   ngOnInit(): void {
-    this.uploader.onAfterAddingFile = (file) => {
+    this.traitUploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
       this.uploadResponse = [];
-      if (this.uploader.queue.length > 1) {
-        this.uploader.cancelAll();
-        this.uploader.removeFromQueue(this.uploader.queue[0]);
+      if (this.traitUploader.queue.length > 1) {
+        this.traitUploader.cancelAll();
+        this.traitUploader.removeFromQueue(this.traitUploader.queue[0]);
       }
     };
-    this.uploader.onSuccessItem = (item, response) => {
-      this.snackBar.open('File was uploaded successfully.', '', {duration: 2500});
+    this.traitUploader.onSuccessItem = (item, response) => {
+      this.snackBar.open('Traits file was uploaded successfully.', '', {duration: 2500});
       this.uploadResponse = JSON.parse(response);
-      this.uploader.clearQueue();
+      this.traitUploader.clearQueue();
       this.fileInput.nativeElement.value = '';
       this.reloadTraits();
     };
-    this.uploader.onErrorItem = () => {
-      this.snackBar.open('An unexpected error occurred while uploading.', '', {duration: 2500});
+    this.traitUploader.onErrorItem = () => {
+      this.snackBar.open('An unexpected error occurred while uploading traits.', '', {duration: 2500});
+    };
+
+    this.analysisUploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+      this.analysisId = '';
+      if (this.analysisUploader.queue.length > 1) {
+        this.analysisUploader.cancelAll();
+        this.analysisUploader.removeFromQueue(this.analysisUploader.queue[0]);
+      }
+    };
+    this.analysisUploader.onSuccessItem = (item, response) => {
+      this.snackBar.open('Analysis file was uploaded successfully.', '', {duration: 2500});
+      this.analysisId = JSON.parse(response).uniqueId;
+      this.analysisUploader.clearQueue();
+      this.analysisFileInput.nativeElement.value = '';
+    };
+    this.analysisUploader.onErrorItem = () => {
+      this.snackBar.open('An unexpected error occurred while uploading analysis.', '', {duration: 2500});
     };
   }
 
@@ -190,13 +218,12 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
     });
   }
 
-  fileOver(e) {
-
+  traitUploadFileOver(e) {
     this.hasDropZoneOver = e;
   }
 
-  openUploadBottomSheet(bottomSheet) {
-    this.bottomSheet.open(bottomSheet);
+  analysisUploadFileOver(e) {
+    this.analysisHasDropZoneOver = e;
   }
 
   downloadBulkTraitUploadTemplate() {
@@ -206,6 +233,28 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
       link.setAttribute('download', 'disease-traits-bulk-upload.tsv');
       document.body.appendChild(link);
       link.click();
+    });
+  }
+
+  downloadSimilarityAnalysisTemplate() {
+    this.reportedTraitService.downloadSimilarityAnalysisTemplate().subscribe((response: any) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(new Blob([response]));
+      link.setAttribute('download', 'similarity-analysis-template.tsv');
+      document.body.appendChild(link);
+      link.click();
+    });
+  }
+
+  downloadSimilarityAnalysisReport() {
+    this.reportedTraitService.downloadSimilarityAnalysisReport(this.analysisId).subscribe((response: any) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(new Blob([response]));
+      link.setAttribute('download', 'similarity-analysis-report.tsv');
+      document.body.appendChild(link);
+      link.click();
+    }, () => {
+      this.snackBar.open('An unexpected error occurred. Uploaded file may be invalid.', '', {duration: 2500});
     });
   }
 }

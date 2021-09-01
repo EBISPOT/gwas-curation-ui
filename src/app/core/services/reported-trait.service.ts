@@ -38,4 +38,12 @@ export class ReportedTraitService {
   downloadBulkTraitUploadTemplate() {
     return this.http.download('/reported-traits/fileupload/templates?file=disease-trait');
   }
+
+  downloadSimilarityAnalysisTemplate() {
+    return this.http.download('/reported-traits/fileupload/templates?file=similarity-analysis');
+  }
+
+  downloadSimilarityAnalysisReport(id) {
+    return this.http.download('/reported-traits/fileupload/analysis/' + id);
+  }
 }
