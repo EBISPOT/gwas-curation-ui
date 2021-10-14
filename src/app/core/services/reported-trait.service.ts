@@ -11,14 +11,14 @@ export class ReportedTraitService {
 
   constructor(private http: CurationHttpService) { }
 
-  getTraits(size: number, page: number, sort: string, order: string, filter: string): Observable<ReportedTraitsListApiResponse> {
+  getTraits(size: number, page: number, sort: string, order: string, trait: string): Observable<ReportedTraitsListApiResponse> {
     let params: HttpParams = new HttpParams();
     params = params
       .set('size', String(size))
       .set('page', String(page))
       .set('sort', sort + ',' + order);
-    if (filter && filter !== '') {
-      params = params.set('filter', filter);
+    if (trait && trait !== '') {
+      params = params.set('trait', trait);
     }
     return this.http.get('/reported-traits', params);
   }

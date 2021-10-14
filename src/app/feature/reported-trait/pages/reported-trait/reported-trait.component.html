@@ -175,8 +175,8 @@
       <mat-form-field appearance="fill" class="w-full mt-4 p-0">
         <mat-label>Search</mat-label>
         <input [disabled]="isLoadingResults" matInput [(ngModel)]="searchBoxValue"
-               placeholder="Search for a disease trait">
-        <button *ngIf="searchBoxValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchBoxValue='';">
+               placeholder="Search for a disease trait" (keyup.enter)="search()">
+        <button *ngIf="searchBoxValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchBoxValue=''; search()">
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
@@ -205,7 +205,7 @@
                           (click)="onSaveEditedTrait(row.diseaseTraitId)">Save
                   </button>
                   <mat-spinner *ngIf="isLoadingEdit" [diameter]="25" class="mx-2"></mat-spinner>
-                  <span *ngIf="createError !== ''" class="color-warn">{{editError}}</span>
+                  <span *ngIf="editError !== ''" class="color-warn ml-2">{{editError}}</span>
                 </div>
               </ng-template>
             </td>
@@ -224,7 +224,7 @@
           <tr class="hover:bg-gray-200 cursor-pointer" mat-row *matRowDef="let row;
       columns: displayedColumns; let index = index;" [ngClass]="{gray: index % 2 == 0}"></tr>
         </table>
-        <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
       </div>
     </mat-card>
   </div>

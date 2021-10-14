@@ -172,9 +172,12 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
       this.dialogRef.close();
       this.snackBar.open('Trait saved.', '', {duration: 2500});
       this.reloadTraits();
-    }, () => {
+    }, (e) => {
       this.isLoadingEdit = false;
       this.editError = 'An unexpected error occurred.';
+      if (e.includes('duplicate')) {
+        this.editError = 'Error occurred, make sure trait doesnt already exist.';
+      }
     });
   }
 
@@ -256,5 +259,27 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
     }, () => {
       this.snackBar.open('An unexpected error occurred. Uploaded file may be invalid.', '', {duration: 2500});
     });
+  }
+
+  search() {
+    this.isLoadingResults = true;
+    if (this.searchBoxValue === '') {
+      this.reportedTraitService
+        .getTraits(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, null)
+        .subscribe(value => {
+          this.isLoadingResults = false;
+          this.dataSource = new MatTableDataSource<ReportedTrait>(value._embedded.diseaseTraits);
+          this.resultsLength = value.page.totalElements;
+        });
+    }
+    else {
+      this.reportedTraitService
+        .getTraits(this.paginator.pageSize, 0, this.sort.active, this.sort.direction, this.searchBoxValue)
+        .subscribe(value => {
+          this.isLoadingResults = false;
+          this.dataSource = new MatTableDataSource<ReportedTrait>(value._embedded.diseaseTraits);
+          this.resultsLength = value.page.totalElements;
+        });
+    }
   }
 }
