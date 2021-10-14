@@ -224,7 +224,7 @@
           <tr class="hover:bg-gray-200 cursor-pointer" mat-row *matRowDef="let row;
       columns: displayedColumns; let index = index;" [ngClass]="{gray: index % 2 == 0}"></tr>
         </table>
-        <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
       </div>
     </mat-card>
   </div>
