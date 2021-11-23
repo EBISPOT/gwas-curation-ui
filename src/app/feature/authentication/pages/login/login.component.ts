@@ -10,10 +10,12 @@ import { environment } from '../../../../../environments/environment';
 })
 export class LoginComponent implements OnInit {
   window: any;
+  bgImage: string;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     if (this.authService.loggedIn()) { this.router.navigateByUrl('/').then(); }
+    this.randomBgImage();
   }
 
   login() {
@@ -27,6 +29,15 @@ export class LoginComponent implements OnInit {
       this.window.close();
       this.router.navigateByUrl('/').then();
     }
+  }
+
+  randomBgImage() {
+    let images: string[];
+    images = ['bg-4.jpg', 'bg-1.jpg', 'bg-2.jpg', 'bg-3.jpg', 'bg-4.jpg'];
+    const min = 0;
+    const max = 5;
+    const num = Math.floor(Math.random() * (max - min + 1) + min);
+    this.bgImage = `assets/images/${images[num]}`;
   }
 
 }
