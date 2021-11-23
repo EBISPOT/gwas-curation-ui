@@ -3,9 +3,23 @@
 @tailwind components;
 @tailwind utilities;
 
+div {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  font-family: 'IBM Plex Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: #D8DCE3;
 }
+
+a {
+  text-decoration: none;
+}
+
 
 .gray {
   background-color: #f5f5f5
@@ -35,6 +49,9 @@ body {
   color: var(--color-warn)
 }
 
+.mat-row:nth-child(odd){
+  background-color: #F1F1F1;
+}
 
 /* wide button styles */
 .gwas-button-wide {
@@ -54,12 +71,19 @@ body {
   height: 40px;
   overflow: hidden;
   border-radius: 0;
-  margin:  auto !important;
+  margin: auto !important;
 }
 
 .gwas-button-wide:hover {
   background-color: #4E8691;
   color: #fff;
+}
+
+.table-search {
+  border: 1px solid #000 !important;
+  padding: 7px !important;
+  width: 300px !important;
+  background: #fff !important;
 }
 
 /* colored links styles */
@@ -71,6 +95,29 @@ body {
 
 .gwas-link:active {
   color: #262281
+}
+
+/*Floating Action Button*/
+.fab-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  bottom: 0;
+  position: fixed;
+  margin: 1em;
+  left: 0;
+  z-index: 998;
+}
+
+.fab-button-container-r {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  bottom: 0;
+  position: fixed;
+  margin: 1em;
+  right: 0;
+  z-index: 998;
 }
 
 
@@ -85,7 +132,7 @@ body {
   background: #fff;
   z-index: 100;
   border-radius: 3px;
-  box-shadow: 1px 1px 4px rgba(0,0,0,.2);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
   opacity: 0;
   transform: translate(0, 15px) scale(.95);
   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
@@ -157,9 +204,9 @@ a.menu-btn {
 }
 
 .menu-separator {
-  display:block;
+  display: block;
   margin: 7px 5px;
-  height:1px;
+  height: 1px;
   border-bottom: 1px solid #607D8B;
   background-color: #aaa;
 }
@@ -204,6 +251,7 @@ a.menu-btn {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+
 .gwas-elevation:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22), 0 14px 56px rgba(0, 0, 0, 0.25);
 }

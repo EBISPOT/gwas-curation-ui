@@ -16,10 +16,12 @@
     <div class="mt-5 sm:mt-1 sm:float-right">
       <button mat-stroked-button color="basic" id="menu-btn" class="w-48 gwas-elevation"
               style="font-size:12px; margin-right: 10px;">
-        <mat-icon>call_to_action</mat-icon> <span class="ml-2"> Manage Submissions </span>
+        <mat-icon>call_to_action</mat-icon>
+        <span class="ml-2"> Manage Submissions </span>
       </button>
       <button mat-raised-button color="primary" style="font-size:12px; margin-right: -10px;" class="gwas-elevation">
-        <mat-icon>share</mat-icon> Export Data
+        <mat-icon>share</mat-icon>
+        Export Data
       </button>
     </div>
   </div>
@@ -125,167 +127,275 @@
           </a>
         </li>
       </ul>
-
     </div>
   </aside>
 
-</div>
+  <main [ngClass]="{'sm:col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-10 card-3b': showFilter}"
+        class="col-span-12">
 
-<mat-drawer-container>
-  <mat-drawer #drawer mode="side" style="width: 220px">
-    <h4 class="pl-4 text-white py-1 bg-color-accent" style="border: dimgray solid 1px;"> Filter by:</h4>
-    <div>
-      <form [formGroup]="filterForm" (ngSubmit)="submitFilter()">
-        <span class="subheader">Metadata status</span>
-        <ul formGroupName="metadata">
-          <li>
-            <mat-checkbox formControlName="valid">Valid</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox formControlName="invalid">Invalid</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox formControlName="na">NA</mat-checkbox>
-          </li>
-        </ul>
+    <!-- content -->
+    <div class="card-3 flex-1 ml-2 mr-3">
 
-        <span class="subheader">SS status</span>
-        <ul formGroupName="ss">
-          <li>
-            <mat-checkbox formControlName="valid">Valid</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox formControlName="invalid">Invalid</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox formControlName="na">NA</mat-checkbox>
-          </li>
-        </ul>
+      <div class="p-3 bg-white" style="border-bottom: 1px solid #ccc;">
+        <span class="text-sm ml-1">  Manage Submissions  </span>
+        <a style="float: right; cursor: pointer;" (click)="toggleDisplay('visualization')">
+          <mat-icon> bar_chart</mat-icon>
+        </a>
+      </div>
 
-        <span class="subheader">Submission status</span>
-        <ul formGroupName="submission">
-          <li>
-            <mat-checkbox formControlName="submitted">Submitted</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox formControlName="started">Started</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox formControlName="valid">Valid</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox formControlName="invalid">Invalid</mat-checkbox>
-          </li>
-        </ul>
+      <div class="p-4 sm:h-24 h-26"
+           style="background-color: #EDF8F9; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
+        <p class="text-xl font-normal">
+          <img src="https://cdn0.iconfinder.com/data/icons/development-2/24/database-512.png"
+               style="width:30px; margin-left:-5px; display: inline-block;"/> Active Submissions
+        </p>
+        <p style="margin-top: -7px; font-size: 11px;"> 70 submissions are being edited, while 16 are available</p>
 
-        <span class="subheader">Lock status</span>
-        <ul formGroupName="edit">
-          <li>
-            <mat-checkbox formControlName="locked">Locked for editing</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox formControlName="unlocked">Available for editing</mat-checkbox>
-          </li>
-        </ul>
-        <div class="flex align-middle justify-center mt-2">
-          <div>
-            <button mat-stroked-button type="submit">
-              <mat-icon>filter_alt</mat-icon>
-              Filter
-            </button>
-          </div>
+        <div class="sm:float-right" style="margin-top: -70px">
+          <input [disabled]="isLoadingResults" matInput [(ngModel)]="searchBoxValue"
+                 (keyup.enter)="search()"
+                 class="table-search"
+                 placeholder="Search by PMID, GCP ID, or Submission ID">
+          <button *ngIf="searchBoxValue" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="searchBoxValue=''; search()" class="-ml-12">
+            <mat-icon>close</mat-icon>
+          </button>
         </div>
-      </form>
-    </div>
-  </mat-drawer>
 
+      </div>
 
-  <mat-drawer-content>
-    <div>
-      <mat-form-field appearance="fill" class="w-2/3 px-6">
-        <mat-label>Search</mat-label>
-        <input [disabled]="isLoadingResults" matInput [(ngModel)]="searchBoxValue"
-               placeholder="Search by PMID, GCP ID, or Submission ID"
-               (keyup.enter)="search()">
-        <button *ngIf="searchBoxValue" matSuffix mat-icon-button aria-label="Clear"
-                (click)="searchBoxValue=''; search()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
-      <div class="mat-elevation-z2 big-container relative">
-        <div class="loading-shade"
+      <div class="z-0 mat-elevation-z2 relative">
+        <div class="loading-shade mt-40"
              *ngIf="isLoadingResults">
           <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
         </div>
-        <button mat-icon-button class="float-left absolute z-50 mt-2">
-          <mat-icon *ngIf="!drawer.opened" (click)="drawer.open()">chevron_right</mat-icon>
-          <mat-icon *ngIf="drawer.opened" (click)="drawer.close()">chevron_left</mat-icon>
-        </button>
-        <div class="table-container mx-2">
-          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()"
-                 matSortActive="lastUpdated" matSortDisableClear matSortDirection="desc">
 
-            <ng-container matColumnDef="pmid">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>PMID</th>
-              <td mat-cell *matCellDef="let row">{{row.publication?.pmid || 'NA'}}</td>
-            </ng-container>
 
-            <ng-container matColumnDef="gcp">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>GCP ID</th>
-              <td mat-cell *matCellDef="let row">{{row.bodyOfWork?.bodyOfWorkId || 'NA'}}</td>
-            </ng-container>
+        <table mat-table matTableResponsive [dataSource]="dataSource" matSort (matSortChange)="resetPaging()"
+               matSortActive="lastUpdated" matSortDisableClear matSortDirection="desc" class="gwas-table">
 
-            <ng-container matColumnDef="firstAuthor">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>First Author</th>
-              <td mat-cell *matCellDef="let row">{{row.publication?.firstAuthor != null ? row.publication.firstAuthor :
-                row.bodyOfWork?.firstAuthor?.lastName != null && row.bodyOfWork?.firstAuthor?.firstName != null ? row.bodyOfWork.firstAuthor.lastName + ' ' + row.bodyOfWork.firstAuthor.firstName.charAt(0) :
-                  'NA'}}
-              </td>
-            </ng-container>
+          <ng-container matColumnDef="pmid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>PMID</th>
+            <td mat-cell *matCellDef="let row">{{row.publication?.pmid || 'NA'}}</td>
+          </ng-container>
 
-            <ng-container matColumnDef="submissionStatus">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Submission Status</th>
-              <td mat-cell *matCellDef="let row">{{row.submission_status}}</td>
-            </ng-container>
+          <ng-container matColumnDef="gcp">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>GCP ID</th>
+            <td mat-cell *matCellDef="let row"
+                data-label="GCP ID">{{row.bodyOfWork?.bodyOfWorkId || 'NA'}}</td>
+          </ng-container>
 
-            <ng-container matColumnDef="metadataStatus">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Metadata Status</th>
-              <td mat-cell *matCellDef="let row">{{row.metadata_status}}</td>
-            </ng-container>
+          <ng-container matColumnDef="firstAuthor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>FIRST AUTHOR</th>
+            <td mat-cell
+                *matCellDef="let row" data-label="FIRST AUTHOR">
+              {{row.publication?.firstAuthor != null ? row.publication.firstAuthor :
+              row.bodyOfWork?.firstAuthor?.lastName != null && row.bodyOfWork?.firstAuthor?.firstName != null ? row.bodyOfWork.firstAuthor.lastName + ' ' + row.bodyOfWork.firstAuthor.firstName.charAt(0) :
+                'NA'}}
+            </td>
+          </ng-container>
 
-            <ng-container matColumnDef="summaryStatisticsStatus">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> SumStats Status</th>
-              <td mat-cell *matCellDef="let row">{{row.summary_statistics_status}}</td>
-            </ng-container>
+          <ng-container matColumnDef="submissionStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>SUBMISSION</th>
+            <td mat-cell *matCellDef="let row" data-label="SUBMISSION">{{row.submission_status}}</td>
+          </ng-container>
 
-            <ng-container matColumnDef="submitter">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Submitter</th>
-              <td mat-cell *matCellDef="let row">{{row.created.user.name}}</td>
-            </ng-container>
+          <ng-container matColumnDef="metadataStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>METADATA</th>
+            <td mat-cell *matCellDef="let row" data-label="METADATA">{{row.metadata_status}}</td>
+          </ng-container>
 
-            <ng-container matColumnDef="lastUpdated">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Last Updated</th>
-              <td mat-cell *matCellDef="let row">{{row.lastUpdated.timestamp | date:"yyyy-MM-dd"}}</td>
-            </ng-container>
+          <ng-container matColumnDef="summaryStatisticsStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> SUMSTAT</th>
+            <td mat-cell *matCellDef="let row" data-label="SUMSTAT">{{row.summary_statistics_status}}</td>
+          </ng-container>
 
-            <ng-container matColumnDef="started">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Created</th>
-              <td mat-cell *matCellDef="let row">{{row.created.timestamp | date:"yyyy-MM-dd"}}</td>
-            </ng-container>
+          <ng-container matColumnDef="submitter">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> SUBMITTER</th>
+            <td mat-cell *matCellDef="let row" data-label="SUBMITTER">{{row.created.user.name}}</td>
+          </ng-container>
 
-            <ng-container matColumnDef="being_edited">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Being edited</th>
-              <td mat-cell *matCellDef="let row">{{row.lockDetails?.status == 'LOCKED_FOR_EDITING' ? 'Yes' : 'No'}}</td>
-            </ng-container>
+          <ng-container matColumnDef="lastUpdated">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> UPDATED</th>
+            <td mat-cell *matCellDef="let row"
+                data-label="UPDATED">{{row.lastUpdated.timestamp | date:"yyyy-MM-dd"}}</td>
+          </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr class="hover:bg-gray-200 cursor-pointer" [routerLink]="row.submissionId"
-                mat-row *matRowDef="let row; columns: displayedColumns; let index = index;"
-                [ngClass]="{gray: index % 2 == 0}"></tr>
-          </table>
-        </div>
+          <ng-container matColumnDef="started">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> CREATED</th>
+            <td mat-cell *matCellDef="let row"
+                data-label="CREATED">{{row.created.timestamp | date:"yyyy-MM-dd"}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="being_edited">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> EDITING</th>
+            <td mat-cell
+                *matCellDef="let row"
+                data-label="EDITING">{{row.lockDetails?.status == 'LOCKED_FOR_EDITING' ? 'Yes' : 'No'}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="border-2 border-white"></tr>
+          <tr class="hover:bg-gray-100 cursor-pointer" [routerLink]="row.submissionId"
+              mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
         <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
       </div>
     </div>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </main>
+</div>
+
+<div class="fab-button-container" *ngIf="!showFilter">
+  <button (click)="toggleDisplay('filter')" mat-fab color="primary">
+    <mat-icon>filter_list</mat-icon>
+  </button>
+</div>
+
+<!--<mat-drawer-container>-->
+<!--  <mat-drawer #drawer mode="side" style="width: 220px">-->
+<!--    <h4 class="pl-4 text-white py-1 bg-color-accent" style="border: dimgray solid 1px;"> Filter by:</h4>-->
+<!--    <div>-->
+<!--      <form [formGroup]="filterForm" (ngSubmit)="submitFilter()">-->
+<!--        <span class="subheader">Metadata status</span>-->
+<!--        <ul formGroupName="metadata">-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="valid">Valid</mat-checkbox>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="invalid">Invalid</mat-checkbox>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="na">NA</mat-checkbox>-->
+<!--          </li>-->
+<!--        </ul>-->
+
+<!--        <span class="subheader">SS status</span>-->
+<!--        <ul formGroupName="ss">-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="valid">Valid</mat-checkbox>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="invalid">Invalid</mat-checkbox>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="na">NA</mat-checkbox>-->
+<!--          </li>-->
+<!--        </ul>-->
+
+<!--        <span class="subheader">Submission status</span>-->
+<!--        <ul formGroupName="submission">-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="submitted">Submitted</mat-checkbox>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="started">Started</mat-checkbox>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="valid">Valid</mat-checkbox>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="invalid">Invalid</mat-checkbox>-->
+<!--          </li>-->
+<!--        </ul>-->
+
+<!--        <span class="subheader">Lock status</span>-->
+<!--        <ul formGroupName="edit">-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="locked">Locked for editing</mat-checkbox>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <mat-checkbox formControlName="unlocked">Available for editing</mat-checkbox>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--        <div class="flex align-middle justify-center mt-2">-->
+<!--          <div>-->
+<!--            <button mat-stroked-button type="submit">-->
+<!--              <mat-icon>filter_alt</mat-icon>-->
+<!--              Filter-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </form>-->
+<!--    </div>-->
+<!--  </mat-drawer>-->
+
+
+<!--  <mat-drawer-content>-->
+<!--    <div>-->
+
+<!--      <div class="mat-elevation-z2 big-container relative">-->
+<!--        <div class="loading-shade"-->
+<!--             *ngIf="isLoadingResults">-->
+<!--          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>-->
+<!--        </div>-->
+<!--        <button mat-icon-button class="float-left absolute z-50 mt-2">-->
+<!--          <mat-icon *ngIf="!drawer.opened" (click)="drawer.open()">chevron_right</mat-icon>-->
+<!--          <mat-icon *ngIf="drawer.opened" (click)="drawer.close()">chevron_left</mat-icon>-->
+<!--        </button>-->
+<!--        <div class="table-container mx-2">-->
+<!--          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()"-->
+<!--                 matSortActive="lastUpdated" matSortDisableClear matSortDirection="desc">-->
+
+<!--            <ng-container matColumnDef="pmid">-->
+<!--              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>PMID</th>-->
+<!--              <td mat-cell *matCellDef="let row">{{row.publication?.pmid || 'NA'}}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="gcp">-->
+<!--              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>GCP ID</th>-->
+<!--              <td mat-cell *matCellDef="let row">{{row.bodyOfWork?.bodyOfWorkId || 'NA'}}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="firstAuthor">-->
+<!--              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>First Author</th>-->
+<!--              <td mat-cell *matCellDef="let row">{{row.publication?.firstAuthor != null ? row.publication.firstAuthor :-->
+<!--                row.bodyOfWork?.firstAuthor?.lastName != null && row.bodyOfWork?.firstAuthor?.firstName != null ? row.bodyOfWork.firstAuthor.lastName + ' ' + row.bodyOfWork.firstAuthor.firstName.charAt(0) :-->
+<!--                  'NA'}}-->
+<!--              </td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="submissionStatus">-->
+<!--              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Submission Status</th>-->
+<!--              <td mat-cell *matCellDef="let row">{{row.submission_status}}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="metadataStatus">-->
+<!--              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Metadata Status</th>-->
+<!--              <td mat-cell *matCellDef="let row">{{row.metadata_status}}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="summaryStatisticsStatus">-->
+<!--              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> SumStats Status</th>-->
+<!--              <td mat-cell *matCellDef="let row">{{row.summary_statistics_status}}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="submitter">-->
+<!--              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Submitter</th>-->
+<!--              <td mat-cell *matCellDef="let row">{{row.created.user.name}}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="lastUpdated">-->
+<!--              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Last Updated</th>-->
+<!--              <td mat-cell *matCellDef="let row">{{row.lastUpdated.timestamp | date:"yyyy-MM-dd"}}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="started">-->
+<!--              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Created</th>-->
+<!--              <td mat-cell *matCellDef="let row">{{row.created.timestamp | date:"yyyy-MM-dd"}}</td>-->
+<!--            </ng-container>-->
+
+<!--            <ng-container matColumnDef="being_edited">-->
+<!--              <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Being edited</th>-->
+<!--              <td mat-cell *matCellDef="let row">{{row.lockDetails?.status == 'LOCKED_FOR_EDITING' ? 'Yes' : 'No'}}</td>-->
+<!--            </ng-container>-->
+
+<!--            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--            <tr class="hover:bg-gray-200 cursor-pointer" [routerLink]="row.submissionId"-->
+<!--                mat-row *matRowDef="let row; columns: displayedColumns; let index = index;"-->
+<!--                [ngClass]="{gray: index % 2 == 0}"></tr>-->
+<!--          </table>-->
+<!--        </div>-->
+<!--        <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </mat-drawer-content>-->
+<!--</mat-drawer-container>-->
