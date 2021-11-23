@@ -26,6 +26,111 @@
 </div>
 
 
+<div class="mt-4 grid gap-0 grid-cols-12">
+
+  <aside *ngIf="showFilter"
+         class="col-span-12 fixed z-40 overflow-y-scroll bottom-0 top-60
+         sm:overflow-y-hidden md:relative md:inset-y-auto md:col-span-3 sm:min-h-screen
+         lg:col-span-3 xl:col-span-2 ml-2 card-3b bg-white">
+    <div class="p-3" style="background-color: #EDF8F9; border-bottom: 1px solid #ccc;">
+      <span class="text-sm font-normal">  Filter By: </span>
+      <a style="float: right; cursor: pointer;" (click)="toggleDisplay('filter')">
+        <mat-icon> clear</mat-icon>
+      </a>
+    </div>
+
+    <div class="sidebar-content">
+      <ul class="flex flex-col w-full">
+        <li class="my-px bd-bottom mt-4">
+          <span class="flex font-bold text-black px-4 my-4">METADATA STATUS</span>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox" name="vehicle1" value="Bike">
+            <span class="ml-3">Valid Submission</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox" name="vehicle1" value="Bike">
+            <span class="ml-3">Not Valid Submission</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom mt-4">
+          <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">SUMMARY STATISTICS </span>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 rounded-lg text-black hover:bg-gray-100 hover:text-gray-700">
+            <input type="checkbox" name="vehicle1" value="Bike">
+            <span class="ml-3">Valid Sum Stats</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox" name="vehicle1" value="Bike">
+            <span class="ml-3">NA Sum Stats</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom mt-4">
+          <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">SUBMISSION STATUS </span>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox" name="vehicle1" value="Bike">
+            <span class="ml-3">Submitted</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox" name="vehicle1" value="Bike">
+            <span class="ml-3">Started</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox" name="vehicle1" value="Bike">
+            <span class="ml-3">Valid</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox" name="vehicle1" value="Bike">
+            <span class="ml-3">Invalid</span>
+          </a>
+        </li>
+
+        <li class="my-px bd-bottom mt-4">
+          <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">LOCK STATUS </span>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox" name="vehicle1" value="Bike">
+            <span class="ml-3">Lock For Editting</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox" name="vehicle1" value="Bike">
+            <span class="ml-3">Avaulable For Editing</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </aside>
+
+</div>
+
 <mat-drawer-container>
   <mat-drawer #drawer mode="side" style="width: 220px">
     <h4 class="pl-4 text-white py-1 bg-color-accent" style="border: dimgray solid 1px;"> Filter by:</h4>
