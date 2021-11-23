@@ -34,3 +34,42 @@ body {
 .color-warn {
   color: var(--color-warn)
 }
+
+
+/* wide button styles */
+.gwas-button-wide {
+  font-size: 13px;
+  color: #fff;
+  line-height: 1.1;
+  text-transform: uppercase;
+
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -moz-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center;
+  padding: 0 10px;
+  width: 80%;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 0px;
+  margin:  auto !important;
+}
+
+.gwas-button-wide:hover {
+  background-color: #4E8691;
+  color: #fff;
+}
+
+/* colored links styles */
+.gwas-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: #6976ff
+}
+
+.gwas-linkk:active {
+  color: #262281
+}
