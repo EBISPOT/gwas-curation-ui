@@ -22,6 +22,10 @@ export class SubmissionListComponent implements AfterViewInit {
   isLoadingResults = true;
   searchBoxValue = '';
 
+  showFilter = true;
+  menuShow = false;
+  visualization = false;
+
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<Submission>;
@@ -112,6 +116,16 @@ export class SubmissionListComponent implements AfterViewInit {
           this.resultsLength = 0;
           this.dataSource = new MatTableDataSource<Submission>([]);
         });
+    }
+  }
+
+  toggleDisplay(compType: string) {
+    if (compType === 'filter') {
+      this.showFilter = (this.showFilter !== true);
+    } else if (compType === 'menuShow') {
+      this.menuShow = (this.menuShow !== true);
+    } else if (compType === 'visualization') {
+      this.visualization = (this.visualization !== true);
     }
   }
 }
