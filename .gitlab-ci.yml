@@ -22,7 +22,7 @@ variables:
 
 sandbox-build-migration:
   image: node:14.15.5
-  stage: sandbox-build
+  stage: sandbox-build-migration
   script:
     - npm -v
     - node -v
