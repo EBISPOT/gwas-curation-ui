@@ -1,7 +1,7 @@
 module.exports = {
   prefix: '',
   purge: {
-    enabled: true,
+    enabled: false,
     content: [
       './src/**/*.{html,ts}',
     ]
@@ -14,7 +14,7 @@ module.exports = {
     extend: {},
   },
   corePlugins: {
-    preflight: false,
+    preflight: true,
   },
   important: true
 };

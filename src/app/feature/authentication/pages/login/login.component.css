@@ -1,0 +1,9 @@
+.login-divider-container{
+  margin-left: 65px; margin-bottom: 40px; margin-top: 40px;
+}
+.login-divider-container .mat-divider{
+  width: 37%; display: inline-block;
+}
+.login-divider-container span {
+  padding: 10px; font-weight: 500;
+}
