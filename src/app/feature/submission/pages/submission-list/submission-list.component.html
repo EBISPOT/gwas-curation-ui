@@ -9,19 +9,47 @@
         Submission Management</a></div>
     </div>
   </div>
+
+
   <div class="col-span-12 sm:col-span-6">
     <div class="mt-5 sm:mt-1 sm:float-right">
-      <button mat-stroked-button color="basic" id="menu-btn" class="w-48 gwas-elevation"
-              style="font-size:12px; margin-right: 10px;">
-        <mat-icon>call_to_action</mat-icon>
-        <span class="ml-2"> Manage Submissions </span>
-      </button>
+      <label class="dropdown cursor-pointer">
+
+        <button mat-stroked-button color="basic" id="menu-btn" class="w-48 gwas-elevation"
+                (click)="toggleDisplay('menuShow')"
+                style="font-size:12px; margin-right: 10px;">
+          <mat-icon>call_to_action</mat-icon>
+          <span class="ml-2"> Manage Reported Traits </span>
+        </button>
+
+        <ul class="menu" [ngClass]="{'menu-show': menuShow}">
+          <li class="menu-item">
+            <a href="#" class="menu-btn">
+              <em class="fa fa-folder-open"></em> <span class="menu-text"> New reported Trait </span>
+            </a>
+          </li>
+          <li class="menu-separator"></li>
+          <li class="menu-item">
+            <button type="button" class="menu-btn">
+              <em class="fa fa-reply"></em> <span class="menu-text"> Bulk Upload Traits </span>
+            </button>
+          </li>
+          <li class="menu-item">
+            <button type="button" class="menu-btn">
+              <em class="fa fa-star"></em> <span class="menu-text">Similarity Analysis</span>
+            </button>
+          </li>
+        </ul>
+      </label>
+
+
       <button mat-raised-button color="primary" style="font-size:12px; margin-right: -10px;" class="gwas-elevation">
         <mat-icon>share</mat-icon>
-        Export Data
+        Export Table
       </button>
     </div>
   </div>
+
 </div>
 
 
