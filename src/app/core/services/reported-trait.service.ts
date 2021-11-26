@@ -36,7 +36,7 @@ export class ReportedTraitService {
   }
 
   downloadBulkTraitUploadTemplate() {
-    return this.http.download('/reported-traits/fileupload/templates?file=disease-trait');
+    return this.http.download('/reported-traits/fileupload/templates?file=reported-trait');
   }
 
   downloadSimilarityAnalysisTemplate() {

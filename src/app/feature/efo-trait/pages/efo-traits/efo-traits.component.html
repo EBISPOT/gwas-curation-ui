@@ -3,19 +3,38 @@
     <div class="flex flex-col space-y-1 md:space-y-0 md:space-x-4 md:flex-row justify-center">
       <button mat-raised-button color="accent" (click)="openCreateDialog(dialog)">
         <mat-icon>add</mat-icon>
-        New reported trait
+        New EFO trait
       </button>
       <ng-template #dialog>
-        <h2 mat-dialog-title>Create a new disease trait</h2>
+        <h2 mat-dialog-title>Create a new EFO trait</h2>
         <mat-dialog-content>
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Enter trait name</mat-label>
-            <input matInput placeholder="Trait name" [(ngModel)]="createTraitName">
-          </mat-form-field>
+          <form [formGroup]="creationForm">
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>Enter EFO trait name</mat-label>
+              <input matInput placeholder="Trait name" formControlName="createTraitName">
+              <mat-error *ngIf="!creationForm.controls.createTraitName.valid">
+                This field is required
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>Enter EFO trait URI</mat-label>
+              <input matInput placeholder="Trait URI" formControlName="createTraitUri">
+              <mat-error *ngIf="!creationForm.controls.createTraitUri.valid">
+                Enter a valid URL
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>Enter EFO short form</mat-label>
+              <input matInput placeholder="Short form" formControlName="createTraitShortForm">
+              <mat-error *ngIf="!creationForm.controls.createTraitShortForm.valid">
+                Enter a valid URL
+              </mat-error>
+            </mat-form-field>
+          </form>
         </mat-dialog-content>
         <div mat-dialog-actions>
           <button mat-button [disabled]="isLoadingCreate" (click)="onCancelClick()">Cancel</button>
-          <button mat-raised-button color="primary" [disabled]="isLoadingCreate || createTraitName ===''"
+          <button mat-raised-button color="primary" [disabled]="isLoadingCreate || !creationForm.valid"
                   (click)="onCreateTrait()">Create
           </button>
           <mat-spinner *ngIf="isLoadingCreate" [diameter]="25" class="mx-2"></mat-spinner>
@@ -28,37 +47,20 @@
         Bulk upload
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="downloadBulkTraitUploadTemplate()">
+          <button mat-menu-item (click)="downloadBulkEfoTraitUploadTemplate()">
           <mat-icon>file_download</mat-icon>
           <span>Download template</span>
         </button>
-        <button mat-menu-item (click)="showTraitUpload = true;">
+          <button mat-menu-item (click)="showTraitUpload = true;">
           <mat-icon>upload_file</mat-icon>
           <span>Upload traits</span>
         </button>
       </mat-menu>
-
-      <button mat-raised-button [matMenuTriggerFor]="analysisMenu" color="accent">
-        <mat-icon>analytics</mat-icon>
-        Similarity analysis
-      </button>
-      <mat-menu #analysisMenu="matMenu">
-        <button mat-menu-item (click)="downloadSimilarityAnalysisTemplate()">
-          <mat-icon>file_download</mat-icon>
-          <span>Download template</span>
-        </button>
-        <button mat-menu-item (click)="showSimilarityAnalysis = true;">
-          <mat-icon>upload_file</mat-icon>
-          <span>Upload analysis</span>
-        </button>
-      </mat-menu>
-
       <button mat-raised-button color="primary">
         <mat-icon>save_alt</mat-icon>
         Export table
       </button>
     </div>
-
     <mat-card class="space-y-3 my-3 mat-elevation-z4" *ngIf="showTraitUpload">
       <mat-card-header>
         <h2>
@@ -116,66 +118,11 @@
       </section>
     </mat-card>
 
-    <mat-card class="space-y-3 my-3 mat-elevation-z4" *ngIf="showSimilarityAnalysis">
-      <mat-card-header>
-        <h2>
-          Similarity analysis
-        </h2>
-      </mat-card-header>
-      <div class="absolute right-0 z-50" style="top: -10px;">
-        <button mat-icon-button (click)="showSimilarityAnalysis = false;" class="hover:bg-gray-100"><mat-icon color="primary">close</mat-icon></button>
-      </div>
-      <div class="flex justify-center sm:space-x-4">
-        <div ng2FileDrop
-             [uploader]="analysisUploader"
-             (fileOver)="analysisUploadFileOver($event)"
-             [ngClass]="{'nv-file-over': analysisHasDropZoneOver}"
-             class="bg-gradient-to-t from-green-800 via-gray-700 to-blue-900
-               rounded-l p-5 text-white mat-elevation-z6 hidden sm:block w-64 text-center my-drop-zone">
-          <span *ngIf="analysisUploader.queue.length == 0"> Drop analysis template here </span>
-          <span *ngIf="analysisUploader.queue.length != 0">{{analysisUploader.queue[0].file.name}}</span>
-        </div>
-        <div class="flex items-center">
-          <h3 class="hidden sm:block mt-2">OR</h3>
-        </div>
-        <div class="flex items-center">
-          <button mat-stroked-button (click)="analysisFileInput.click()">
-            <mat-icon color="primary">upload</mat-icon>
-            <span>Select file</span>
-            <input id="analysisFileInput" #analysisFileInput type="file" ng2FileSelect [uploader]="analysisUploader" class="hidden"/>
-          </button>
-        </div>
-      </div>
-      <div class="flex justify-center">
-        <div class="flex-col"></div>
-        <span *ngIf="analysisUploader.queue.length == 0">No file selected.</span>
-        <span *ngIf="analysisUploader.queue.length > 0">{{analysisUploader.queue[0].file.name}}</span>
-      </div>
-      <div class="flex justify-center" *ngIf="analysisId != ''">
-        <button mat-raised-button color="warn" (click)="downloadSimilarityAnalysisReport()">Download report</button>
-      </div>
-      <div class="flex justify-center" *ngIf="analysisUploader.queue.length > 0">
-        <mat-progress-bar mode="determinate" [value]="analysisUploader.progress"></mat-progress-bar>
-      </div>
-      <div *ngIf="analysisUploader.queue.length > 0" class="flex justify-center">
-        <button class="mx-3"
-                [disabled]="analysisUploader.queue[0].isReady || analysisUploader.queue[0].isUploading || analysisUploader.queue[0].isSuccess"
-                mat-raised-button color="primary" (click)="analysisUploader.progress=0; analysisUploader.queue[0].upload();">
-          Upload
-        </button>
-        <button [disabled]="analysisUploader.queue.length == 0" mat-raised-button color="primary"
-                (click)="analysisUploader.isUploading ? analysisUploader.cancelAll() : analysisUploader.clearQueue(); analysisFileInput.value = '';">
-          <span *ngIf="analysisUploader.isUploading">Cancel</span>
-          <span *ngIf="!analysisUploader.isUploading">Reset</span>
-        </button>
-      </div>
-    </mat-card>
-
     <mat-card class="mat-elevation-z4 mt-4">
       <mat-form-field appearance="fill" class="w-full mt-4 p-0">
         <mat-label>Search</mat-label>
         <input [disabled]="isLoadingResults" matInput [(ngModel)]="searchBoxValue"
-               placeholder="Search for a disease trait" (keyup.enter)="search()">
+               placeholder="Search for an EFO trait" (keyup.enter)="search()">
         <button *ngIf="searchBoxValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchBoxValue=''; search()">
           <mat-icon>close</mat-icon>
         </button>
@@ -189,27 +136,25 @@
 
           <ng-container matColumnDef="trait">
             <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Trait name</th>
-            <td mat-cell *matCellDef="let row" (click)="openEditDialog(editDialog, row)">{{row.trait}}
-              <ng-template #editDialog>
-                <h2 mat-dialog-title>Edit disease trait</h2>
-                <mat-dialog-content>
-                  <mat-form-field appearance="fill" class="w-full">
-                    <mat-label>Trait name</mat-label>
-                    <input matInput placeholder="Trait name" [(ngModel)]="editTraitName">
-                  </mat-form-field>
-                </mat-dialog-content>
-                <div mat-dialog-actions>
-                  <button mat-button [disabled]="isLoadingEdit" (click)="onCancelClick()">Cancel</button>
-                  <button mat-raised-button color="primary"
-                          [disabled]="isLoadingEdit || editTraitName ==='' || editTraitName === row.trait"
-                          (click)="onSaveEditedTrait(row.diseaseTraitId)">Save
-                  </button>
-                  <mat-spinner *ngIf="isLoadingEdit" [diameter]="25" class="mx-2"></mat-spinner>
-                  <span *ngIf="editError !== ''" class="color-warn ml-2">{{editError}}</span>
-                </div>
-              </ng-template>
+            <td mat-cell *matCellDef="let row" (click)="openEditDialog(editDialog, row)">
+              {{row.trait}}
             </td>
           </ng-container>
+
+          <ng-container matColumnDef="uri">
+            <th mat-header-cell *matHeaderCellDef>URI</th>
+            <td mat-cell *matCellDef="let row" (click)="openEditDialog(editDialog, row)">
+              {{row.uri}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="shortForm">
+            <th mat-header-cell *matHeaderCellDef>Short Form</th>
+            <td mat-cell *matCellDef="let row" (click)="openEditDialog(editDialog, row)">
+              {{row.shortForm}}
+            </td>
+          </ng-container>
+
 
           <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef class="w-4">Delete</th>
@@ -230,6 +175,41 @@
           </tr>
         </table>
         <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
+        <ng-template #editDialog>
+          <h2 mat-dialog-title>Edit EFO trait</h2>
+          <mat-dialog-content>
+            <form [formGroup]="editForm">
+              <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Enter EFO trait name</mat-label>
+                <input matInput placeholder="Trait name" formControlName="trait">
+                <mat-error *ngIf="!editForm.controls.trait.valid">
+                  This field is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Enter EFO trait URI</mat-label>
+                <input matInput placeholder="URI" formControlName="uri">
+                <mat-error *ngIf="!editForm.controls.uri.valid">
+                  This field is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Enter EFO short form</mat-label>
+                <input matInput placeholder="Short form" formControlName="shortForm">
+                <mat-error *ngIf="!editForm.controls.shortForm.valid">
+                  This field is required
+                </mat-error>
+              </mat-form-field>
+            </form>
+          </mat-dialog-content>
+          <div mat-dialog-actions>
+            <button mat-button [disabled]="isLoadingEdit" (click)="onCancelClick()">Cancel</button>
+            <button mat-raised-button color="primary" [disabled]="isLoadingEdit || !isEditFormDirty"
+                    (click)="onSaveEditedTrait()">Save</button>
+            <mat-spinner *ngIf="isLoadingEdit" [diameter]="25" class="mx-2"></mat-spinner>
+            <span *ngIf="editError !== ''" class="color-warn ml-2">{{editError}}</span>
+          </div>
+        </ng-template>
       </div>
     </mat-card>
   </div>

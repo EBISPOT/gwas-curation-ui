@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../../../environments/environment';
 import { TokenStorageService } from '../../../../core/services/token-storage.service';
-import { ReportedTraitUploadApiResponse } from '../../../../core/models/rest/api-responses/reportedTraitUploadApiResponse';
+import { TraitUploadApiResponse } from '../../../../core/models/rest/api-responses/traitUploadApiResponse';
 
 @Component({
   selector: 'app-reported-trait',
@@ -40,7 +40,7 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
   isChecked = false;
   hasDropZoneOver = false;
   analysisHasDropZoneOver = false;
-  uploadResponse: ReportedTraitUploadApiResponse[] = [];
+  uploadResponse: TraitUploadApiResponse[] = [];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('fileInput') fileInput: ElementRef;

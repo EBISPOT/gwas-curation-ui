@@ -40,8 +40,10 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-/tailwind.config.js
 
 # System Files
 .DS_Store
 Thumbs.db
+
+tailwind.config.js
+src/environments/environment.ts
