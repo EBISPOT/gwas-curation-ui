@@ -216,7 +216,7 @@ a {
   cursor: pointer;
   border: 1px solid transparent;
   white-space: nowrap;
-  padding: 6px 8px;
+  padding: 10px 8px;
   border-radius: 3px;
 }
 
@@ -250,9 +250,9 @@ a.menu-btn {
 .menu-item:hover > .menu-btn {
   color: #fff;
   outline: none;
-  background-color: #607D8B;
-  background: linear-gradient(to bottom, #5D6D79, #607D8B);
-  border: 1px solid #607D8B;
+  background-color: #0097A7;
+ /* background: linear-gradient(to bottom, #5D6D79, #0097A7);*/
+  border: 1px solid #0097A7;
 }
 
 .menu-item-disabled {
@@ -266,7 +266,7 @@ a.menu-btn {
 
 .menu-separator {
   display: block;
-  margin: 7px 5px;
+  margin: 2px 5px;
   height: 1px;
   border-bottom: 1px solid #607D8B;
   background-color: #aaa;
