@@ -31,6 +31,9 @@ export class SubmissionHistoryTabComponent implements OnInit{
   submissionId = this.route.snapshot.paramMap.get('id');
   isLoading = true;
 
+  showClickedDetails: boolean;
+  selectedRow: number;
+
   constructor(public dialog: MatDialog, private submissionService: SubmissionService, private route: ActivatedRoute) {
   }
 
@@ -465,5 +468,15 @@ export class SubmissionHistoryTabComponent implements OnInit{
     versioningDetails.sampleTree = sampleTree;
     versioningDetails.fileName = history.newFileDetails.fileName;
     return versioningDetails;
+  }
+
+  getDetails(id: number) {
+    this.toggleDetails(true);
+    this.selectedRow = id;
+  }
+
+  toggleDetails(value: boolean) {
+    this.showClickedDetails = value;
+    console.log(this.showClickedDetails);
   }
 }

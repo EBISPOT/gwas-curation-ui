@@ -147,6 +147,8 @@ a {
   background: #fff !important;
 }
 
+
+
 /* colored links styles */
 .gwas-link {
   cursor: pointer;
@@ -157,6 +159,7 @@ a {
 .gwas-link:active {
   color: #262281
 }
+
 
 /*Floating Action Button*/
 .fab-button-container {
@@ -216,7 +219,7 @@ a {
   cursor: pointer;
   border: 1px solid transparent;
   white-space: nowrap;
-  padding: 6px 8px;
+  padding: 10px 8px;
   border-radius: 3px;
 }
 
@@ -250,9 +253,9 @@ a.menu-btn {
 .menu-item:hover > .menu-btn {
   color: #fff;
   outline: none;
-  background-color: #607D8B;
-  background: linear-gradient(to bottom, #5D6D79, #607D8B);
-  border: 1px solid #607D8B;
+  background-color: #0097A7;
+ /* background: linear-gradient(to bottom, #5D6D79, #0097A7);*/
+  border: 1px solid #0097A7;
 }
 
 .menu-item-disabled {
@@ -266,7 +269,7 @@ a.menu-btn {
 
 .menu-separator {
   display: block;
-  margin: 7px 5px;
+  margin: 2px 5px;
   height: 1px;
   border-bottom: 1px solid #607D8B;
   background-color: #aaa;
@@ -336,4 +339,42 @@ a.menu-btn {
 .bd-bottom {
   border-bottom: 1px solid #ddd;
   padding-left: 7px;
+}
+
+
+/* Plain Table for simple data presentation */
+.plain-table {
+  border-collapse: collapse;
+  width: 100%;
+  border-top: 1px solid #999;
+}
+.plain-table th, td {
+  padding: 0.50rem;
+  text-align: left;;
+}
+
+.plain-table tr {
+  border-top: thin solid #ccc;
+  border-bottom: thin solid #ccc;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #fff;
+}
+
+
+.button-sm{
+  height: 32px;
+  font-size:11px; margin-right: -10px;
+  padding-top: 1px;
+}
+
+
+.styleFile {
+  padding: 0 0 15px;
+  color: #fff;
+  margin: 20px 10px 0 0;
+  font-weight: normal;
+}
+
+.active {
+  background: rgba(96,125,139, 0.4) !important;
 }
