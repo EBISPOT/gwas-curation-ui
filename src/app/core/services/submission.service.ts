@@ -93,4 +93,15 @@ export class SubmissionService {
     }
     return res;
   }
+
+  getSubmissionStudies(size: number, page: number, sort: string, order: string, submissionId: string) {
+    let params: HttpParams = new HttpParams();
+    params = params
+      .set('size', String(size))
+      .set('page', String(page))
+      .set('sort', sort + ',' + order)
+      .set('submissionId', submissionId);
+    this.http.get('/studies');
+  }
+
 }

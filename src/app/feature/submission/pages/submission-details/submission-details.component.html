@@ -12,6 +12,9 @@
     <mat-tab label="Edit" [disabled]="disableEdit">
       <app-submission-edit-tab (uploadSuccessEvent)="pollUntilStatusIsNotValidating()" [submission]="submission"></app-submission-edit-tab>
     </mat-tab>
+    <mat-tab label="Studies">
+      <app-study-tab></app-study-tab>
+    </mat-tab>
   </mat-tab-group>
 
 </div>

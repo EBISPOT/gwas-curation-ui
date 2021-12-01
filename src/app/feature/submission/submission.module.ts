@@ -11,11 +11,12 @@ import { SubmissionHistoryTabComponent } from './components/submission-history-t
 import { SharedModule } from '../../shared/shared.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { VersioningComponent } from './components/versioning/versioning.component';
+import { StudyTabComponent } from './components/study-tab/study-tab.component';
 
 @NgModule({
   declarations: [
     SubmissionListComponent, SubmissionDetailsComponent, SubmissionDetailsTabComponent, SubmissionEditTabComponent,
-    SubmissionHistoryTabComponent, VersioningComponent
+    SubmissionHistoryTabComponent, VersioningComponent, StudyTabComponent
   ],
     imports: [
         SharedModule,
