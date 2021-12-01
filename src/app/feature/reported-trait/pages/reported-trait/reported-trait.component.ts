@@ -49,6 +49,7 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
   showTraitUpload = false;
   showSimilarityAnalysis = false;
   analysisId = '';
+  menuShow = false;
 
   constructor(private reportedTraitService: ReportedTraitService, private tokenService: TokenStorageService,
               private dialog: MatDialog, private snackBar: MatSnackBar) {
@@ -148,6 +149,12 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
 
   onCancelClick() {
     this.dialogRef.close();
+  }
+
+  toggleDisplay(compType: string) {
+    if (compType === 'menuShow') {
+      this.menuShow = (this.menuShow !== true);
+    }
   }
 
   onCreateTrait() {
