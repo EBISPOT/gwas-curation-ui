@@ -147,6 +147,8 @@ a {
   background: #fff !important;
 }
 
+
+
 /* colored links styles */
 .gwas-link {
   cursor: pointer;
@@ -157,6 +159,7 @@ a {
 .gwas-link:active {
   color: #262281
 }
+
 
 /*Floating Action Button*/
 .fab-button-container {
@@ -336,4 +339,42 @@ a.menu-btn {
 .bd-bottom {
   border-bottom: 1px solid #ddd;
   padding-left: 7px;
+}
+
+
+/* Plain Table for simple data presentation */
+.plain-table {
+  border-collapse: collapse;
+  width: 100%;
+  border-top: 1px solid #999;
+}
+.plain-table th, td {
+  padding: 0.50rem;
+  text-align: left;;
+}
+
+.plain-table tr {
+  border-top: thin solid #ccc;
+  border-bottom: thin solid #ccc;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #fff;
+}
+
+
+.button-sm{
+  height: 32px;
+  font-size:11px; margin-right: -10px;
+  padding-top: 1px;
+}
+
+
+.styleFile {
+  padding: 0 0 15px;
+  color: #fff;
+  margin: 20px 10px 0 0;
+  font-weight: normal;
+}
+
+.active {
+  background: rgba(96,125,139, 0.4) !important;
 }
