@@ -16,7 +16,7 @@ export class SubmissionEditTabComponent implements OnInit {
 
   id: string;
   uploader: FileUploader;
-  isChecked = true;
+  isChecked = false;
   hasDropZoneOver = false;
   submission: Submission;
   validationErrors: string[] = [];

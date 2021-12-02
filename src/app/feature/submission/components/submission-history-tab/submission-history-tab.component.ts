@@ -23,7 +23,7 @@ import { VersioningDetails } from '../../../../core/models/versioningDetails';
 })
 export class SubmissionHistoryTabComponent implements OnInit{
 
-  columnsToDisplay = ['fileName', 'studiesTotal', 'associationsTotal', 'samplesTotal', 'download', 'diff'];
+  columnsToDisplay = ['fileName', 'studiesTotal', 'associationsTotal', 'samplesTotal', 'diff', 'download'];
   expandedElement: SubmissionHistory | null;
   dataSource: SubmissionHistory[] = [];
   historySummaryReports: string[];
@@ -471,12 +471,11 @@ export class SubmissionHistoryTabComponent implements OnInit{
   }
 
   getDetails(id: number) {
-    this.toggleDetails(true);
+    this.toggleDetails(false); //TODO: Set as false till further notice
     this.selectedRow = id;
   }
 
   toggleDetails(value: boolean) {
     this.showClickedDetails = value;
-    console.log(this.showClickedDetails);
   }
 }
