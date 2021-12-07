@@ -22,9 +22,9 @@ export interface Study {
   readme_file: string;
   cohort: string;
   cohort_id: string;
-  associations: Association[];
-  samples: Sample[];
-  notes: Note[];
+  // associations: Association[];
+  // samples: Sample[];
+  // notes: Note[];
   agreedToCc0: boolean;
   diseaseTraits: ReportedTrait;
 }

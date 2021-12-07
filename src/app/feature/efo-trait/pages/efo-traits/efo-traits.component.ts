@@ -55,6 +55,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['trait', 'uri', 'shortForm', 'delete'];
   editFormInitialValue: any;
   isEditFormDirty = false;
+  menuShow = false;
 
   constructor(private tokenService: TokenStorageService, private dialog: MatDialog,
               private snackBar: MatSnackBar, private efoTraitService: EfoTraitService) {
@@ -148,6 +149,12 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
       this.isLoadingCreate = false;
       this.createError = 'An unexpected error occurred.';
     });
+  }
+
+  toggleDisplay(compType: string) {
+    if (compType === 'menuShow') {
+      this.menuShow = (this.menuShow !== true);
+    }
   }
 
   reloadTraits() {

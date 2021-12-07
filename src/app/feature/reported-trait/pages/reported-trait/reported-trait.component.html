@@ -77,7 +77,8 @@
         <button mat-icon-button (click)="showTraitUpload = false;" class="hover:bg-gray-100"><mat-icon color="primary">close</mat-icon></button>
       </div>
       <button mat-stroked-button (click)="downloadBulkTraitUploadTemplate()">
-        <mat-icon>download</mat-icon> Download template </button>
+        <mat-icon>download</mat-icon> Download template
+      </button>
       <div class="flex justify-center sm:space-x-4">
         <div ng2FileDrop
              [uploader]="traitUploader"
@@ -135,6 +136,8 @@
       <div class="absolute right-0 z-50" style="top: -10px;">
         <button mat-icon-button (click)="showSimilarityAnalysis = false;" class="hover:bg-gray-100"><mat-icon color="primary">close</mat-icon></button>
       </div>
+      <button mat-stroked-button (click)="downloadSimilarityAnalysisTemplate()">
+        <mat-icon>download</mat-icon> Download template </button>
       <div class="flex justify-center sm:space-x-4">
         <div ng2FileDrop
              [uploader]="analysisUploader"
