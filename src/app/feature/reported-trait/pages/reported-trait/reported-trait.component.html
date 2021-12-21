@@ -26,13 +26,11 @@
               <em class="fa fa-folder-open"></em> <span class="menu-text"> New reported Trait </span>
             </button>
           </li>
-          <li class="menu-separator"></li>
           <li class="menu-item">
             <button class="menu-btn" (click)="showTraitUpload = true;">
               <em class="fa fa-reply"></em> <span class="menu-text"> Bulk upload traits </span>
             </button>
           </li>
-          <li class="menu-separator"></li>
           <li class="menu-item">
             <button class="menu-btn" (click)="showSimilarityAnalysis = true;">
               <em class="fa fa-reply"></em> <span class="menu-text"> Similarity analysis </span>
@@ -184,15 +182,25 @@
       </div>
     </mat-card>
 
-    <mat-card class="mat-elevation-z4 mt-4">
-      <mat-form-field appearance="fill" class="w-full mt-4 p-0">
-        <mat-label>Search</mat-label>
-        <input [disabled]="isLoadingResults" matInput [(ngModel)]="searchBoxValue"
-               placeholder="Search for a disease trait" (keyup.enter)="search()">
-        <button *ngIf="searchBoxValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchBoxValue=''; search()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+    <div class="card-3 mt-4">
+
+      <div class="p-3 bg-white" style="border-bottom: 1px solid #ccc;">
+        <span class="text-sm ml-1">  Manage Reported Traits  </span>
+      </div>
+
+      <div class="p-4 sm:h-16 h-26"
+           style="background-color: #EDF8F9; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
+        <div class="sm:float-right">
+          <input [disabled]="isLoadingResults" matInput [(ngModel)]="searchBoxValue"
+                 (keyup.enter)="search()"
+                 class="table-search"
+                 placeholder="Search traits">
+          <button *ngIf="searchBoxValue" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="searchBoxValue=''; search()" class="-ml-12">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
       <div class="mat-elevation-z1 relative">
         <div class="loading-shade" *ngIf="isLoadingResults">
           <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
@@ -244,6 +252,6 @@
         </table>
         <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
       </div>
-    </mat-card>
+    </div>
   </div>
 </div>

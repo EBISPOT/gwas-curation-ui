@@ -1,6 +1,7 @@
 import { ReportedTrait } from './reportedTrait';
 
 export interface Study {
+  studyId: string;
   study_tag: string;
   study_accession: string;
   genotyping_technology: string;
@@ -26,5 +27,5 @@ export interface Study {
   // samples: Sample[];
   // notes: Note[];
   agreedToCc0: boolean;
-  diseaseTraits: ReportedTrait;
+  diseaseTraits: ReportedTrait[];
 }

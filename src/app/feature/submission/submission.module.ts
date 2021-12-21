@@ -12,19 +12,23 @@ import { SharedModule } from '../../shared/shared.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { VersioningComponent } from './components/versioning/versioning.component';
 import { StudyTabComponent } from './components/study-tab/study-tab.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
     SubmissionListComponent, SubmissionDetailsComponent, SubmissionDetailsTabComponent, SubmissionEditTabComponent,
     SubmissionHistoryTabComponent, VersioningComponent, StudyTabComponent
   ],
-    imports: [
-        SharedModule,
-        SubmissionRoutingModule,
-        MatSortModule,
-        MatPaginatorModule,
-        FileUploadModule
-    ]
+  imports: [
+    SharedModule,
+    SubmissionRoutingModule,
+    MatSortModule,
+    MatPaginatorModule,
+    FileUploadModule,
+    MatChipsModule,
+    MatAutocompleteModule
+  ]
 })
 export class SubmissionModule {
 }

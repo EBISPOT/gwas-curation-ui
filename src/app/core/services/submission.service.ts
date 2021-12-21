@@ -6,6 +6,8 @@ import { SubmissionListApiResponse } from '../models/rest/api-responses/submissi
 import { Submission } from '../models/submission';
 import { SubmissionHistory } from '../models/submissionHistory';
 import { CurationHttpService } from './curation-http.service';
+import { ReportedTrait } from '../models/reportedTrait';
+import { Study } from '../models/study';
 
 @Injectable({
   providedIn: 'root'
@@ -101,7 +103,21 @@ export class SubmissionService {
       .set('page', String(page))
       .set('sort', sort + ',' + order)
       .set('submissionId', submissionId);
-    this.http.get('/studies');
+    return this.curationHttp.get('/studies', params);
   }
 
+  getStudy(id: string) {
+
+    return this.curationHttp.get('/studies/' + id);
+  }
+
+  downloadBulkStudyTraitUploadTemplate() {
+
+    return this.curationHttp.download('/reported-traits/fileupload/templates?file=study-trait');
+  }
+
+  editReportedTraits(traits: ReportedTrait[], study: Study) {
+
+    return this.curationHttp.put('/studies/' + study.studyId, {diseaseTraits: traits, study_tag: study.study_tag});
+  }
 }
