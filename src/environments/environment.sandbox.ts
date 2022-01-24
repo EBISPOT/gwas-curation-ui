@@ -6,7 +6,8 @@ export const environment = {
   APP_LOCAL_BASE_URI: '',
   REACT_APP_GWAS_DOC_BASE: 'https://www.ebi.ac.uk/gwas/docs',
   DATA_URL: '',
-  API_URL: 'http://193.62.54.159/backend/v1',
-  CURATION_API_URL: 'http://193.62.54.159/curation-traits/v1',
+  API_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition/api/v1',
+  CURATION_API_URL: 'https://wwwdev.ebi.ac.uk/gwas/depo-curation/api/v1',
+  DEPOSITION_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition',
   ANOTHER_API_SECRET: '__ANOTHER__SECRET__'
 };

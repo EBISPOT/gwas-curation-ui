@@ -31,46 +31,12 @@
     <div class="p-3" style="background-color: #EDF8F9; border-bottom: 1px solid #ccc;">
       <span class="text-sm font-normal">  Filter By: </span>
       <a style="float: right; cursor: pointer;" (click)="toggleDisplay('filter')">
-        <mat-icon> clear</mat-icon>
+        <mat-icon> chevron_left</mat-icon>
       </a>
     </div>
 
     <div class="sidebar-content">
       <ul class="flex flex-col w-full">
-        <li class="my-px bd-bottom mt-4">
-          <span class="flex font-bold text-black px-4 my-4">METADATA STATUS</span>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Valid Submission</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Not Valid Submission</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom mt-4">
-          <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">SUMMARY STATISTICS </span>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 rounded-lg text-black hover:bg-gray-100 hover:text-gray-700">
-            <input type="checkbox">
-            <span class="ml-3">Valid Sum Stats</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">NA Sum Stats</span>
-          </a>
-        </li>
         <li class="my-px bd-bottom mt-4">
           <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">SUBMISSION STATUS </span>
         </li>
@@ -102,6 +68,77 @@
             <span class="ml-3">Invalid</span>
           </a>
         </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox">
+            <span class="ml-3">Validating</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 rounded-lg text-black hover:bg-gray-100 hover:text-gray-700">
+            <input type="checkbox">
+            <span class="ml-3">Curation complete</span>
+          </a>
+        </li>
+
+        <li class="my-px bd-bottom mt-4">
+          <span class="flex font-bold text-black px-4 my-4">METADATA STATUS</span>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox">
+            <span class="ml-3">Valid</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox">
+            <span class="ml-3">Invalid</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox">
+            <span class="ml-3">Validating</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom mt-4">
+          <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">SUMMARY STATISTICS </span>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 rounded-lg text-black hover:bg-gray-100 hover:text-gray-700">
+            <input type="checkbox">
+            <span class="ml-3">Valid</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 rounded-lg text-black hover:bg-gray-100 hover:text-gray-700">
+            <input type="checkbox">
+            <span class="ml-3">Invalid</span>
+          </a>
+        </li>
+        <li class="my-px bd-bottom">
+        <a href="#"
+           class="flex flex-row items-center h-10 px-3 rounded-lg text-black hover:bg-gray-100 hover:text-gray-700">
+          <input type="checkbox">
+          <span class="ml-3">Validating</span>
+        </a>
+      </li>
+        <li class="my-px bd-bottom">
+          <a href="#"
+             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+            <input type="checkbox">
+            <span class="ml-3">NA Sumstats</span>
+          </a>
+        </li>
+
 
         <li class="my-px bd-bottom mt-4">
           <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">LOCK STATUS </span>
@@ -110,14 +147,14 @@
           <a href="#"
              class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
             <input type="checkbox">
-            <span class="ml-3">Lock For Editting</span>
+            <span class="ml-3">Lock For Editing</span>
           </a>
         </li>
         <li class="my-px bd-bottom">
           <a href="#"
              class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
             <input type="checkbox">
-            <span class="ml-3">Avaulable For Editing</span>
+            <span class="ml-3">Available For Editing</span>
           </a>
         </li>
       </ul>
@@ -232,7 +269,7 @@
           <tr class="hover:bg-gray-100 cursor-pointer" [routerLink]="row.submissionId"
               mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons="true"></mat-paginator>
       </div>
     </div>
   </main>

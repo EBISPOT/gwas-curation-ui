@@ -8,6 +8,7 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { SubmissionService } from '../../../../core/services/submission.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-submission-list',
@@ -93,7 +94,7 @@ export class SubmissionListComponent implements AfterViewInit {
     this.isLoadingResults = true;
     if (this.searchBoxValue === '' || this.searchBoxValue.match(/^\d+$/) || this.searchBoxValue.startsWith('GCP')) {
       this.submissionService
-        .getSubmissions(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, this.searchBoxValue)
+        .getSubmissions(this.paginator.pageSize, 0, this.sort.active, this.sort.direction, this.searchBoxValue)
         .subscribe(data => {
           this.isLoadingResults = false;
           this.resultsLength = data.page.totalElements;
