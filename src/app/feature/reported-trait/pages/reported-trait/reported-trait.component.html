@@ -196,7 +196,7 @@
                  class="table-search"
                  placeholder="Search traits">
           <button *ngIf="searchBoxValue" matSuffix mat-icon-button aria-label="Clear"
-                  (click)="searchBoxValue=''; search(); paginator.firstPage();" class="-ml-12">
+                  (click)="searchBoxValue=''; search()" class="-ml-12">
             <mat-icon>close</mat-icon>
           </button>
         </div>

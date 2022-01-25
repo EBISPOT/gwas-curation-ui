@@ -112,7 +112,7 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
         switchMap(() => {
           this.isLoadingResults = true;
           return this.reportedTraitService
-            .getTraits(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, null);
+            .getTraits(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, this.searchBoxValue);
         }),
         map(data => {
           this.isLoadingResults = false;
@@ -215,10 +215,9 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
           this.snackBar.open('Trait deleted.', '', {duration: 2500});
           // so that if only 1 item is on last page, we go back to previous page after deleting that item
           if (this.paginator.pageIndex + 1 === this.paginator.getNumberOfPages()
-              && this.dataSource.data.length % this.paginator.pageSize === 1) {
+            && this.dataSource.data.length % this.paginator.pageSize === 1) {
             this.paginator.previousPage();
-          }
-          else {
+          } else {
             this.reloadTraits();
           }
         }, () => {
@@ -269,24 +268,16 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
   }
 
   search() {
+    this.resetPaging();
     this.isLoadingResults = true;
-    if (this.searchBoxValue === '') {
-      this.reportedTraitService
-        .getTraits(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, null)
-        .subscribe(value => {
-          this.isLoadingResults = false;
-          this.dataSource = new MatTableDataSource<ReportedTrait>(value._embedded.diseaseTraits);
-          this.resultsLength = value.page.totalElements;
-        });
-    }
-    else {
-      this.reportedTraitService
-        .getTraits(this.paginator.pageSize, 0, this.sort.active, this.sort.direction, this.searchBoxValue)
-        .subscribe(value => {
-          this.isLoadingResults = false;
-          this.dataSource = new MatTableDataSource<ReportedTrait>(value._embedded.diseaseTraits);
-          this.resultsLength = value.page.totalElements;
-        });
-    }
+
+    this.reportedTraitService
+      .getTraits(this.paginator.pageSize, 0, this.sort.active, this.sort.direction, this.searchBoxValue)
+      .subscribe(value => {
+        this.isLoadingResults = false;
+        this.dataSource = new MatTableDataSource<ReportedTrait>(value?._embedded?.diseaseTraits ? value._embedded.diseaseTraits : null);
+        this.resultsLength = value.page.totalElements;
+      });
+
   }
 }
