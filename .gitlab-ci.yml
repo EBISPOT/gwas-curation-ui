@@ -1,6 +1,6 @@
-image: docker:latest
+image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:latest
 services:
-  - docker:dind
+  - ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/docker:dind
 
 stages:
   - sandbox-build-migration
@@ -21,7 +21,7 @@ variables:
 
 
 sandbox-build-migration:
-  image: node:14.15.5
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/node:14.15.5
   stage: sandbox-build-migration
   script:
     - npm -v
@@ -37,7 +37,7 @@ sandbox-build-migration:
 
 
 prod-build:
-  image: node:14.15.5
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/node:14.15.5
   stage: prod-build
   script:
     - npm -v
@@ -81,7 +81,7 @@ docker-build-release:
 
 
 deploy-sandbox-migration:
-  image: dtzar/helm-kubectl:2.13.1
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/dtzar/helm-kubectl:2.13.1
   stage: deploy-sandbox-migration
   script:
     - echo "Deploy to sandbox server"
@@ -96,7 +96,7 @@ deploy-sandbox-migration:
     - develop
 
 deploy-fallback:
-  image: dtzar/helm-kubectl:2.13.1
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/dtzar/helm-kubectl:2.13.1
   stage: deploy-fallback
   script:
     - echo "Deploy to Production fallback server"
@@ -111,7 +111,7 @@ deploy-fallback:
     - tags
 
 deploy-production:
-  image: dtzar/helm-kubectl:2.13.1
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/dtzar/helm-kubectl:2.13.1
   stage: deploy-production
   script:
     - echo "Deploy to Production server"
