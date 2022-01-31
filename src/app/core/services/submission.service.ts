@@ -30,11 +30,11 @@ export class SubmissionService {
         params = params.set('bowId', filter);
       }
     }
-    return this.http.get('/submissions', params);
+    return this.curationHttp.get('/submissions', params);
   }
 
   getSubmission(id: string): Observable<Submission> {
-    return this.http.get('/submissions/' + id);
+    return this.curationHttp.get('/submissions/' + id);
   }
 
   downloadTemplate(submissionId: string, fileId: string) {
@@ -115,8 +115,8 @@ export class SubmissionService {
     return this.curationHttp.download('/reported-traits/templates?file=study-trait');
   }
 
-  editReportedTraits(traits: ReportedTrait[], study: Study) {
+  editReportedTraits(traits: ReportedTrait[], submissionId, study: Study) {
 
-    return this.curationHttp.put('/studies/' + study.studyId, {diseaseTraits: traits, study_tag: study.study_tag});
+    return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId, {diseaseTraits: traits, study_tag: study.study_tag});
   }
 }

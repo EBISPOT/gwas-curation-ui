@@ -171,7 +171,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   saveReportedTraits() {
 
     this.isLoadingSidenav = true;
-    this.submissionService.editReportedTraits(this.reportedTraits, this.sidenavStudy)
+    this.submissionService.editReportedTraits(this.reportedTraits, this.submissionId, this.sidenavStudy)
       .subscribe((v) => {
         this.sidenavStudy = v;
         this.isLoadingSidenav = false;

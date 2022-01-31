@@ -5,7 +5,7 @@
       <div style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">EFO traits</div>
     </div>
     <div class="col-span-6">
-      <div style="margin-top: 5px;"><a href="#" style="margin-right: 5px;">Dashboard</a> / <a href="#">
+      <div style="margin-top: 5px;"><a href="#" style="margin-right: 5px;">Dashboard</a> / <a>
         EFO traits</a></div>
     </div>
   </div>
@@ -88,7 +88,9 @@
       <div class="absolute right-0 z-50" style="top: -10px;">
         <button mat-icon-button (click)="showTraitUpload = false;" class="hover:bg-gray-100"><mat-icon color="primary">close</mat-icon></button>
       </div>
-      <button mat-stroked-button (click)="downloadBulkEfoTraitUploadTemplate()"> Download template </button>
+      <button mat-stroked-button (click)="downloadBulkEfoTraitUploadTemplate()">
+        <mat-icon>download</mat-icon> Download template
+      </button>
       <div class="flex justify-center sm:space-x-4">
         <div ng2FileDrop
              [uploader]="traitUploader"
