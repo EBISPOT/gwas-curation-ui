@@ -29,27 +29,31 @@ export class SubmissionListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<Submission>;
+  filtersString = '';
 
   filterForm = new FormGroup({
-    metadata: new FormGroup({
-      valid: new FormControl(false),
-      invalid: new FormControl(false),
-      na: new FormControl(false),
+    metaStatus: new FormGroup({
+      VALID: new FormControl(false),
+      INVALID: new FormControl(false),
+      VALIDATING: new FormControl(false),
+      NA: new FormControl(false)
     }),
-    ss: new FormGroup({
-      valid: new FormControl(false),
-      invalid: new FormControl(false),
-      na: new FormControl(false),
+    ssStatus: new FormGroup({
+      VALID: new FormControl(false),
+      INVALID: new FormControl(false),
+      VALIDATING: new FormControl(false),
+      NA: new FormControl(false)
     }),
-    submission: new FormGroup({
-      submitted: new FormControl(false),
-      started: new FormControl(false),
-      valid: new FormControl(false),
-      invalid: new FormControl(false),
+    submissionStatus: new FormGroup({
+      SUBMITTED: new FormControl(false),
+      STARTED: new FormControl(false),
+      VALID: new FormControl(false),
+      INVALID: new FormControl(false),
+      VALIDATING: new FormControl(false),
+      CURATION_COMPLETE: new FormControl(false)
     }),
-    edit: new FormGroup({
-      locked: new FormControl(false),
-      unlocked: new FormControl(false),
+    lockStatus: new FormGroup({
+      LOCKED_FOR_EDITING: new FormControl(false),
     })
   });
 
@@ -64,7 +68,8 @@ export class SubmissionListComponent implements AfterViewInit {
         switchMap(() => {
           this.isLoadingResults = true;
           return this.submissionService
-            .getSubmissions(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, null);
+            .getSubmissions(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active,
+              this.sort.direction, null, this.filtersString);
         }),
         map(data => {
           this.isLoadingResults = false;
@@ -86,14 +91,45 @@ export class SubmissionListComponent implements AfterViewInit {
   }
 
   submitFilter() {
-    alert(this.filterForm.value);
+
+    this.filtersString = '';
+
+    Object.keys(this.filterForm.controls).forEach(key1 => {
+      const control = this.filterForm.controls[key1] as FormControl | FormGroup;
+      if (control instanceof FormGroup) {
+        let filterString = '';
+        Object.keys(control.controls).forEach(key2 => {
+          if (control.controls[key2].value) {
+            filterString += key2 + '|';
+          }
+        });
+        if (filterString) {
+          // removing last separator
+          filterString = filterString.substring(0, filterString.length - 1);
+          if (this.filtersString) {
+            this.filtersString += '&';
+          }
+          this.filtersString += key1 + '=' + filterString;
+        }
+      }
+    });
+
+    this.resetPaging();
+    this.isLoadingResults = true;
+    this.submissionService
+      .filterSubmissions(this.filtersString, this.paginator.pageSize, 0, this.sort.active, this.sort.direction)
+      .subscribe(value => {
+        this.isLoadingResults = false;
+        this.dataSource = new MatTableDataSource<Submission>(value?._embedded?.submissions ? value._embedded.submissions : null);
+        this.resultsLength = value.page.totalElements;
+      });
   }
 
   search() {
     this.isLoadingResults = true;
     if (this.searchBoxValue === '' || this.searchBoxValue.match(/^\d+$/) || this.searchBoxValue.startsWith('GCP')) {
       this.submissionService
-        .getSubmissions(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, this.searchBoxValue)
+        .getSubmissions(this.paginator.pageSize, 0, this.sort.active, this.sort.direction, this.searchBoxValue, null)
         .subscribe(data => {
           this.isLoadingResults = false;
           this.resultsLength = data.page.totalElements;

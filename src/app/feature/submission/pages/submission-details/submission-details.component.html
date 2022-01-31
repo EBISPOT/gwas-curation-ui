@@ -15,10 +15,10 @@
         </div>
         <div class="col-span-6">
           <div *ngIf="submission?.publication" style="margin-top: 5px;">
-            <a href="#" style="margin-right: 5px;">Submission</a> / <a href="/#" class="text-blue-500">{{submission.submissionId}}</a>
+            <a href="#" style="margin-right: 5px;">Submission</a> / <a target="_blank" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" class="text-blue-500">{{submission.submissionId}}</a>
           </div>
           <div *ngIf="submission?.bodyOfWork" style="margin-top: 5px;">
-            <a href="#" style="margin-right: 5px;">Submission</a> / <a href="/#" class="text-blue-500">{{submission.submissionId}}</a>
+            <a href="#" style="margin-right: 5px;">Submission</a> / <a target="_blank" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" class="text-blue-500">{{submission.submissionId}}</a>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
           <a *ngIf="submission?.publication" mat-raised-button color="primary"  class="gwas-elevation" style="font-size:12px;"
              href="{{'https://europepmc.org/article/MED/'+ submission?.publication.pmid}}" target="_blank">
             <mat-icon>launch</mat-icon>
-            View in PubMed
+            View in Europe PMC
           </a>
 
         </div>

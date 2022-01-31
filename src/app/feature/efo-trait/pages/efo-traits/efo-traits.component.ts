@@ -102,7 +102,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
         switchMap(() => {
           this.isLoadingResults = true;
           return this.efoTraitService
-            .getTraits(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, null);
+            .getTraits(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, this.searchBoxValue);
         }),
         map(data => {
           this.isLoadingResults = false;
@@ -187,25 +187,15 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
   }
 
   search() {
+    this.resetPaging();
     this.isLoadingResults = true;
-    if (this.searchBoxValue === '') {
-      this.efoTraitService
-        .getTraits(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, null)
-        .subscribe(value => {
-          this.isLoadingResults = false;
-          this.dataSource = new MatTableDataSource<EfoTrait>(value._embedded.efoTraits);
-          this.resultsLength = value.page.totalElements;
-        });
-    }
-    else {
-      this.efoTraitService
-        .getTraits(this.paginator.pageSize, 0, this.sort.active, this.sort.direction, this.searchBoxValue)
-        .subscribe(value => {
-          this.isLoadingResults = false;
-          this.dataSource = new MatTableDataSource<EfoTrait>(value._embedded.efoTraits);
-          this.resultsLength = value.page.totalElements;
-        });
-    }
+    this.efoTraitService
+      .getTraits(this.paginator.pageSize, 0, this.sort.active, this.sort.direction, this.searchBoxValue)
+      .subscribe(value => {
+        this.isLoadingResults = false;
+        this.dataSource = new MatTableDataSource<EfoTrait>(value?._embedded?.efoTraits ? value._embedded.efoTraits : null);
+        this.resultsLength = value.page.totalElements;
+      });
   }
 
   openEditDialog(editDialog, trait: EfoTrait) {

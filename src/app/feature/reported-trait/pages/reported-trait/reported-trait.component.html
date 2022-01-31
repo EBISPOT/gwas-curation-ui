@@ -5,7 +5,7 @@
       <div style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">Reported traits</div>
     </div>
     <div class="col-span-6">
-      <div style="margin-top: 5px;"><a href="#" style="margin-right: 5px;">Dashboard</a> / <a href="#">
+      <div style="margin-top: 5px;"><a href="#" style="margin-right: 5px;">Dashboard</a> / <a>
         Reported traits</a></div>
     </div>
   </div>
@@ -102,6 +102,9 @@
         <span *ngIf="traitUploader.queue.length == 0">No file selected.</span>
         <span *ngIf="traitUploader.queue.length > 0">{{traitUploader.queue[0].file.name}}</span>
       </div>
+      <div class="flex justify-center" *ngIf="report">
+        <button mat-raised-button color="warn" (click)="downloadBulkUploadReport()">Download report</button>
+      </div>
       <div class="flex justify-center" *ngIf="traitUploader.queue.length > 0">
         <mat-progress-bar mode="determinate" [value]="traitUploader.progress"></mat-progress-bar>
       </div>
@@ -117,12 +120,6 @@
           <span *ngIf="!traitUploader.isUploading">Reset</span>
         </button>
       </div>
-      <section *ngIf="uploadResponse.length > 0">
-        <h3>Upload report:</h3>
-        <ul>
-          <li *ngFor="let r of uploadResponse">{{r.uploadComment}}</li>
-        </ul>
-      </section>
     </mat-card>
 
     <mat-card class="space-y-3 my-3 mat-elevation-z4" *ngIf="showSimilarityAnalysis">
@@ -250,7 +247,7 @@
             </td>
           </tr>
         </table>
-        <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
+        <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons="true"></mat-paginator>
       </div>
     </div>
   </div>

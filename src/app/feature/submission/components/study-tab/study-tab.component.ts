@@ -51,7 +51,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
               private reportedTraitService: ReportedTraitService, private tokenService: TokenStorageService) {
     this.traitUploader = new FileUploader(
       {
-        url: environment.CURATION_API_URL + '/studies/fileupload', itemAlias: 'multipartFile',
+        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/files', itemAlias: 'multipartFile',
         authToken: 'Bearer ' + tokenService.getToken()
       });
   }
@@ -156,7 +156,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     // loading
     this.isLoadingSidenav = true;
     // get study
-    this.submissionService.getStudy(id).subscribe((value: Study) => {
+    this.submissionService.getStudy(this.submissionId, id).subscribe((value: Study) => {
       this.sidenavStudy = value;
       this.reportedTraits = this.sidenavStudy.diseaseTraits;
       this.isLoadingSidenav = false;
@@ -171,7 +171,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   saveReportedTraits() {
 
     this.isLoadingSidenav = true;
-    this.submissionService.editReportedTraits(this.reportedTraits, this.sidenavStudy)
+    this.submissionService.editReportedTraits(this.reportedTraits, this.submissionId, this.sidenavStudy)
       .subscribe((v) => {
         this.sidenavStudy = v;
         this.isLoadingSidenav = false;

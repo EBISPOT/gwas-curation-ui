@@ -40,7 +40,6 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
   isChecked = false;
   hasDropZoneOver = false;
   analysisHasDropZoneOver = false;
-  uploadResponse: TraitUploadApiResponse[] = [];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('fileInput') fileInput: ElementRef;
@@ -50,25 +49,26 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
   showSimilarityAnalysis = false;
   analysisId = '';
   menuShow = false;
+  report: any;
 
   constructor(private reportedTraitService: ReportedTraitService, private tokenService: TokenStorageService,
               private dialog: MatDialog, private snackBar: MatSnackBar) {
     this.traitUploader = new FileUploader(
       {
-        url: environment.CURATION_API_URL + '/reported-traits/fileupload/uploads', itemAlias: 'multipartFile',
+        url: environment.CURATION_API_URL + '/reported-traits/files', itemAlias: 'multipartFile',
         authToken: 'Bearer ' + tokenService.getToken()
       });
     this.analysisUploader = new FileUploader(
       {
-        url: environment.CURATION_API_URL + '/reported-traits/fileupload/analysis', itemAlias: 'multipartFile',
+        url: environment.CURATION_API_URL + '/reported-traits/analysis', itemAlias: 'multipartFile',
         authToken: 'Bearer ' + tokenService.getToken()
       });
   }
 
   ngOnInit(): void {
     this.traitUploader.onAfterAddingFile = (file) => {
+      this.report = null;
       file.withCredentials = false;
-      this.uploadResponse = [];
       if (this.traitUploader.queue.length > 1) {
         this.traitUploader.cancelAll();
         this.traitUploader.removeFromQueue(this.traitUploader.queue[0]);
@@ -76,7 +76,7 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
     };
     this.traitUploader.onSuccessItem = (item, response) => {
       this.snackBar.open('Traits file was uploaded successfully.', '', {duration: 2500});
-      this.uploadResponse = JSON.parse(response);
+      this.report = response;
       this.traitUploader.clearQueue();
       this.fileInput.nativeElement.value = '';
       this.reloadTraits();
@@ -112,7 +112,7 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
         switchMap(() => {
           this.isLoadingResults = true;
           return this.reportedTraitService
-            .getTraits(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, null);
+            .getTraits(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, this.searchBoxValue);
         }),
         map(data => {
           this.isLoadingResults = false;
@@ -215,14 +215,18 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
           this.snackBar.open('Trait deleted.', '', {duration: 2500});
           // so that if only 1 item is on last page, we go back to previous page after deleting that item
           if (this.paginator.pageIndex + 1 === this.paginator.getNumberOfPages()
-              && this.dataSource.data.length % this.paginator.pageSize === 1) {
+            && this.dataSource.data.length % this.paginator.pageSize === 1) {
             this.paginator.previousPage();
-          }
-          else {
+          } else {
             this.reloadTraits();
           }
-        }, () => {
-          this.snackBar.open('Error occurred on delete.', '', {duration: 2500});
+        }, (error) => {
+          if (error.indexOf('linked') > 0) {
+            this.snackBar.open(error, '', {duration: 2500});
+          }
+          else {
+            this.snackBar.open('Error occurred on delete.', '', {duration: 2500});
+          }
         });
       }
     });
@@ -269,24 +273,25 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
   }
 
   search() {
+    this.resetPaging();
     this.isLoadingResults = true;
-    if (this.searchBoxValue === '') {
-      this.reportedTraitService
-        .getTraits(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, null)
-        .subscribe(value => {
-          this.isLoadingResults = false;
-          this.dataSource = new MatTableDataSource<ReportedTrait>(value._embedded.diseaseTraits);
-          this.resultsLength = value.page.totalElements;
-        });
-    }
-    else {
-      this.reportedTraitService
-        .getTraits(this.paginator.pageSize, 0, this.sort.active, this.sort.direction, this.searchBoxValue)
-        .subscribe(value => {
-          this.isLoadingResults = false;
-          this.dataSource = new MatTableDataSource<ReportedTrait>(value._embedded.diseaseTraits);
-          this.resultsLength = value.page.totalElements;
-        });
-    }
+
+    this.reportedTraitService
+      .getTraits(this.paginator.pageSize, 0, this.sort.active, this.sort.direction, this.searchBoxValue)
+      .subscribe(value => {
+        this.isLoadingResults = false;
+        this.dataSource = new MatTableDataSource<ReportedTrait>(value?._embedded?.diseaseTraits ? value._embedded.diseaseTraits : null);
+        this.resultsLength = value.page.totalElements;
+      });
+
+  }
+
+  downloadBulkUploadReport() {
+
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(new Blob([this.report]));
+    link.setAttribute('download', 'traits-bulk-report.tsv');
+    document.body.appendChild(link);
+    link.click();
   }
 }

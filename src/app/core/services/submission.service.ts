@@ -16,7 +16,12 @@ export class SubmissionService {
 
   constructor(private http: HttpService, private curationHttp: CurationHttpService) { }
 
-  getSubmissions(size: number, page: number, sort: string, order: string, filter: string): Observable<SubmissionListApiResponse> {
+  getSubmissions(size: number, page: number, sort: string, order: string,
+                 filter: string, filtersString: string): Observable<SubmissionListApiResponse> {
+    if (filtersString) {
+      const p = filtersString + '&size=' + String(size) + '&sort=' + sort + ',' + order + '&page=' + String(page);
+      return this.curationHttp.get('/submissions?' + p);
+    }
     let params: HttpParams = new HttpParams();
     params = params
       .set('size', String(size))
@@ -30,11 +35,11 @@ export class SubmissionService {
         params = params.set('bowId', filter);
       }
     }
-    return this.http.get('/submissions', params);
+    return this.curationHttp.get('/submissions', params);
   }
 
   getSubmission(id: string): Observable<Submission> {
-    return this.http.get('/submissions/' + id);
+    return this.curationHttp.get('/submissions/' + id);
   }
 
   downloadTemplate(submissionId: string, fileId: string) {
@@ -101,23 +106,28 @@ export class SubmissionService {
     params = params
       .set('size', String(size))
       .set('page', String(page))
-      .set('sort', sort + ',' + order)
-      .set('submissionId', submissionId);
-    return this.curationHttp.get('/studies', params);
+      .set('sort', sort + ',' + order);
+    return this.curationHttp.get('/submissions/' + submissionId + '/studies', params);
   }
 
-  getStudy(id: string) {
+  getStudy(submissionId: string, studyId: string) {
 
-    return this.curationHttp.get('/studies/' + id);
+    return this.curationHttp.get('/submissions/' + submissionId + '/studies/' + studyId);
   }
 
   downloadBulkStudyTraitUploadTemplate() {
 
-    return this.curationHttp.download('/reported-traits/fileupload/templates?file=study-trait');
+    return this.curationHttp.download('/reported-traits/templates?file=study-trait');
   }
 
-  editReportedTraits(traits: ReportedTrait[], study: Study) {
+  editReportedTraits(traits: ReportedTrait[], submissionId, study: Study) {
 
-    return this.curationHttp.put('/studies/' + study.studyId, {diseaseTraits: traits, study_tag: study.study_tag});
+    return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
+      {diseaseTraits: traits, study_tag: study.study_tag});
+  }
+
+  filterSubmissions(filtersString: string, size: number, page: number, sort: string, order: string) {
+    const params = filtersString + '&size=' + String(size) + '&sort=' + sort + ',' + order;
+    return this.curationHttp.get('/submissions?' + params);
   }
 }

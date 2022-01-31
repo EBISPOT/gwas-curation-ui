@@ -13,7 +13,8 @@ export const environment = {
   DATA_URL: '',
   API_URL: 'http://hh-rke-wp-webadmin-09-worker-2.caas.ebi.ac.uk:30183/gwas/deposition/api/v1',
   CURATION_API_URL: 'http://localhost:3000',
-  ANOTHER_API_SECRET: '__ANOTHER__SECRET__'
+  ANOTHER_API_SECRET: '__ANOTHER__SECRET__',
+  DEPOSITION_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition'
 };
 
 

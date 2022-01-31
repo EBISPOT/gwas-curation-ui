@@ -8,5 +8,6 @@ export const environment = {
   DATA_URL: '',
   API_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition/api/v1',
   CURATION_API_URL: 'https://wwwdev.ebi.ac.uk/gwas/depo-curation/api/v1',
-  ANOTHER_API_SECRET: '__ANOTHER__SECRET__'
+  ANOTHER_API_SECRET: '__ANOTHER__SECRET__',
+  DEPOSITION_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition'
 };

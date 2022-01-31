@@ -36,11 +36,11 @@ export class ReportedTraitService {
   }
 
   downloadBulkTraitUploadTemplate() {
-    return this.http.download('/reported-traits/fileupload/templates?file=reported-trait');
+    return this.http.download('/reported-traits/templates?file=reported-trait');
   }
 
   downloadSimilarityAnalysisTemplate() {
-    return this.http.download('/reported-traits/fileupload/templates?file=similarity-analysis');
+    return this.http.download('/reported-traits/templates?file=similarity-analysis');
   }
 
   downloadSimilarityAnalysisReport(id) {
