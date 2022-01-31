@@ -36,128 +36,109 @@
     </div>
 
     <div class="sidebar-content">
-      <ul class="flex flex-col w-full">
-        <li class="my-px bd-bottom mt-4">
-          <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">SUBMISSION STATUS </span>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Submitted</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Started</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Valid</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Invalid</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Validating</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 rounded-lg text-black hover:bg-gray-100 hover:text-gray-700">
-            <input type="checkbox">
-            <span class="ml-3">Curation complete</span>
-          </a>
-        </li>
+      <form [formGroup]="filterForm" (ngSubmit)="submitFilter()">
+        <ul class="flex flex-col" formGroupName="submissionStatus">
+          <li class="my-px bd-bottom mt-4">
+            <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">SUBMISSION STATUS </span>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="SUBMITTED">Submitted</mat-checkbox>
+            </a>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="STARTED">Started</mat-checkbox>
+            </a>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="VALID">Valid</mat-checkbox>
+            </a>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="INVALID">Invalid</mat-checkbox>
+            </a>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="VALIDATING">Validating</mat-checkbox>
+            </a>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="CURATION_COMPLETE">CURATION_COMPLETE</mat-checkbox>
+            </a>
+          </li>
+        </ul>
 
-        <li class="my-px bd-bottom mt-4">
-          <span class="flex font-bold text-black px-4 my-4">METADATA STATUS</span>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Valid</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Invalid</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Validating</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom mt-4">
-          <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">SUMMARY STATISTICS </span>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 rounded-lg text-black hover:bg-gray-100 hover:text-gray-700">
-            <input type="checkbox">
-            <span class="ml-3">Valid</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 rounded-lg text-black hover:bg-gray-100 hover:text-gray-700">
-            <input type="checkbox">
-            <span class="ml-3">Invalid</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-        <a href="#"
-           class="flex flex-row items-center h-10 px-3 rounded-lg text-black hover:bg-gray-100 hover:text-gray-700">
-          <input type="checkbox">
-          <span class="ml-3">Validating</span>
-        </a>
-      </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">NA Sumstats</span>
-          </a>
-        </li>
+        <ul class="flex flex-col" formGroupName="metaStatus">
+          <li class="my-px bd-bottom mt-4">
+            <span class="flex font-bold text-black px-4 my-4">METADATA STATUS</span>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="VALID">Valid</mat-checkbox>
+            </a>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="INVALID">Invalid</mat-checkbox>
+            </a>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="VALIDATING">Validating</mat-checkbox>
+            </a>
+          </li>
+        </ul>
 
+        <ul class="flex flex-col" formGroupName="ssStatus">
+          <li class="my-px bd-bottom mt-4">
+            <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">SUMMARY STATISTICS </span>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="VALID">Valid</mat-checkbox>
+            </a>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="INVALID">Invalid</mat-checkbox>
+            </a>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="VALIDATING">Validating</mat-checkbox>
+            </a>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="NA">NA Sumstats</mat-checkbox>
+            </a>
+          </li>
+        </ul>
 
-        <li class="my-px bd-bottom mt-4">
-          <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">LOCK STATUS </span>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Locked For Editing</span>
-          </a>
-        </li>
-        <li class="my-px bd-bottom">
-          <a href="#"
-             class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
-            <input type="checkbox">
-            <span class="ml-3">Available For Editing</span>
-          </a>
-        </li>
-      </ul>
+        <ul class="flex flex-col" formGroupName="lockStatus">
+          <li class="my-px bd-bottom mt-4">
+            <span class="flex font-bold text-sm text-bold px-4 my-4 uppercase">LOCK STATUS </span>
+          </li>
+          <li class="my-px bd-bottom">
+            <a class="flex flex-row items-center h-10 px-3 text-black hover:bg-gray-100 hover:text-black">
+              <mat-checkbox formControlName="LOCKED_FOR_EDITING">Locked for editing</mat-checkbox>
+            </a>
+          </li>
+        </ul>
+        <div class="flex align-middle justify-center mt-2">
+          <div>
+            <button mat-raised-button type="submit" color="primary">
+              <mat-icon>filter_alt</mat-icon>
+              Filter
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </aside>
 
@@ -269,7 +250,8 @@
           <tr class="hover:bg-gray-100 cursor-pointer" [routerLink]="row.submissionId"
               mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons="true"></mat-paginator>
+        <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"
+                       showFirstLastButtons="true"></mat-paginator>
       </div>
     </div>
   </main>

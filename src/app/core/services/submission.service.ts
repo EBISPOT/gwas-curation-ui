@@ -16,7 +16,12 @@ export class SubmissionService {
 
   constructor(private http: HttpService, private curationHttp: CurationHttpService) { }
 
-  getSubmissions(size: number, page: number, sort: string, order: string, filter: string): Observable<SubmissionListApiResponse> {
+  getSubmissions(size: number, page: number, sort: string, order: string,
+                 filter: string, filtersString: string): Observable<SubmissionListApiResponse> {
+    if (filtersString) {
+      const p = filtersString + '&size=' + String(size) + '&sort=' + sort + ',' + order + '&page=' + String(page);
+      return this.curationHttp.get('/submissions?' + p);
+    }
     let params: HttpParams = new HttpParams();
     params = params
       .set('size', String(size))
@@ -117,6 +122,12 @@ export class SubmissionService {
 
   editReportedTraits(traits: ReportedTrait[], submissionId, study: Study) {
 
-    return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId, {diseaseTraits: traits, study_tag: study.study_tag});
+    return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
+      {diseaseTraits: traits, study_tag: study.study_tag});
+  }
+
+  filterSubmissions(filtersString: string, size: number, page: number, sort: string, order: string) {
+    const params = filtersString + '&size=' + String(size) + '&sort=' + sort + ',' + order;
+    return this.curationHttp.get('/submissions?' + params);
   }
 }
