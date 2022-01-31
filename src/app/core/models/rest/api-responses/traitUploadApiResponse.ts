@@ -1,3 +1,4 @@
+// TODO delete
 export interface TraitUploadApiResponse {
   trait: string;
   uploadComment: string;

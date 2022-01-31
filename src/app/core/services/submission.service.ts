@@ -101,19 +101,18 @@ export class SubmissionService {
     params = params
       .set('size', String(size))
       .set('page', String(page))
-      .set('sort', sort + ',' + order)
-      .set('submissionId', submissionId);
-    return this.curationHttp.get('/studies', params);
+      .set('sort', sort + ',' + order);
+    return this.curationHttp.get('/submissions/' + submissionId + '/studies', params);
   }
 
-  getStudy(id: string) {
+  getStudy(submissionId: string, studyId: string) {
 
-    return this.curationHttp.get('/studies/' + id);
+    return this.curationHttp.get('/submissions/' + submissionId + '/studies/' + studyId);
   }
 
   downloadBulkStudyTraitUploadTemplate() {
 
-    return this.curationHttp.download('/reported-traits/fileupload/templates?file=study-trait');
+    return this.curationHttp.download('/reported-traits/templates?file=study-trait');
   }
 
   editReportedTraits(traits: ReportedTrait[], study: Study) {
