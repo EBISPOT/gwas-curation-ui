@@ -42,16 +42,26 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   isLoadingSidenav: boolean;
   sidenavStudy: Study;
   showTraitUpload = false;
+  showEfoUpload = false;
   traitUploader: FileUploader;
+  efoUploader: FileUploader;
   hasDropZoneOver = false;
   @ViewChild('fileInput') fileInput: ElementRef;
+  @ViewChild('efoFileInput') efoFileInput: ElementRef;
   report: any;
+  efoReport: any;
 
   constructor(private route: ActivatedRoute, private submissionService: SubmissionService, private snackBar: MatSnackBar,
               private reportedTraitService: ReportedTraitService, private tokenService: TokenStorageService) {
     this.traitUploader = new FileUploader(
       {
-        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/files', itemAlias: 'multipartFile',
+        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/reported-traits/files', itemAlias: 'multipartFile',
+        authToken: 'Bearer ' + tokenService.getToken()
+      });
+
+    this.efoUploader = new FileUploader(
+      {
+        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/efo-traits/files', itemAlias: 'multipartFile',
         authToken: 'Bearer ' + tokenService.getToken()
       });
   }
@@ -74,6 +84,25 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
       this.reloadStudies();
     };
     this.traitUploader.onErrorItem = () => {
+      this.snackBar.open('An unexpected error occurred while uploading traits.', '', {duration: 2500});
+    };
+
+    this.efoUploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+      this.efoReport = null;
+      if (this.efoUploader.queue.length > 1) {
+        this.efoUploader.cancelAll();
+        this.efoUploader.removeFromQueue(this.efoUploader.queue[0]);
+      }
+    };
+    this.efoUploader.onSuccessItem = (item, response) => {
+      this.snackBar.open('Traits file was uploaded successfully.', '', {duration: 2500});
+      this.efoReport = response;
+      this.efoUploader.clearQueue();
+      this.efoFileInput.nativeElement.value = '';
+      this.reloadStudies();
+    };
+    this.efoUploader.onErrorItem = () => {
       this.snackBar.open('An unexpected error occurred while uploading traits.', '', {duration: 2500});
     };
   }
@@ -183,7 +212,18 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     this.submissionService.downloadBulkStudyTraitUploadTemplate().subscribe((response: any) => {
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(new Blob([response]));
-      link.setAttribute('download', 'study-traits-bulk-upload.tsv');
+      link.setAttribute('download', 'study-trait-bulk-upload.tsv');
+      document.body.appendChild(link);
+      link.click();
+    });
+  }
+
+  downloadBulkStudyEfoUploadTemplate() {
+
+    this.submissionService.downloadBulkStudyEfoUploadTemplate().subscribe((response: any) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(new Blob([response]));
+      link.setAttribute('download', 'study-efo-bulk-upload.tsv');
       document.body.appendChild(link);
       link.click();
     });
@@ -205,6 +245,15 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(new Blob([this.report]));
     link.setAttribute('download', 'study-trait-bulk-report.tsv');
+    document.body.appendChild(link);
+    link.click();
+  }
+
+  downloadStudyEfoMappingReport() {
+
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(new Blob([this.efoReport]));
+    link.setAttribute('download', 'study-efo-bulk-report.tsv');
     document.body.appendChild(link);
     link.click();
   }

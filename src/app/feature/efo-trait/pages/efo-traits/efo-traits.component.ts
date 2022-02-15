@@ -10,7 +10,6 @@ import { EfoTrait } from '../../../../core/models/efoTrait';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../../../environments/environment';
-import { TraitUploadApiResponse } from '../../../../core/models/rest/api-responses/traitUploadApiResponse';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogModel
@@ -43,7 +42,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
   showTraitUpload = false;
   traitUploader: FileUploader;
   hasDropZoneOver = false;
-  uploadResponse: TraitUploadApiResponse[] = [];
+  report: any;
   @ViewChild('fileInput') fileInput: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -76,7 +75,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
 
     this.traitUploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
-      this.uploadResponse = [];
+      this.report = null;
       if (this.traitUploader.queue.length > 1) {
         this.traitUploader.cancelAll();
         this.traitUploader.removeFromQueue(this.traitUploader.queue[0]);
@@ -84,7 +83,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
     };
     this.traitUploader.onSuccessItem = (item, response) => {
       this.snackBar.open('Traits file was uploaded successfully.', '', {duration: 2500});
-      this.uploadResponse = JSON.parse(response);
+      this.report = response;
       this.traitUploader.clearQueue();
       this.fileInput.nativeElement.value = '';
       this.reloadTraits();
@@ -145,9 +144,14 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
       this.dialogRef.close();
       this.snackBar.open('Trait created.', '', {duration: 2500});
       this.reloadTraits();
-    }, () => {
+    }, (error) => {
       this.isLoadingCreate = false;
-      this.createError = 'An unexpected error occurred.';
+      if (error.status === 409) {
+        this.createError = 'Trait cannot be added because one with same URI already exists';
+      }
+      else {
+        this.createError = 'An unexpected error occurred.';
+      }
     });
   }
 
@@ -177,6 +181,16 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(new Blob([response]));
       link.setAttribute('download', 'efo-traits-bulk-upload.tsv');
+      document.body.appendChild(link);
+      link.click();
+    });
+  }
+
+  downloadEfoTraitsExport() {
+    this.efoTraitService.getEfoTraitsExport(this.searchBoxValue).subscribe((response: any) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(new Blob([response]));
+      link.setAttribute('download', 'efo-traits-export.tsv');
       document.body.appendChild(link);
       link.click();
     });
@@ -262,5 +276,14 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
         this.editError = 'Error occurred, make sure trait doesnt already exist.';
       }
     });
+  }
+
+  downloadBulkUploadReport() {
+
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(new Blob([this.report]));
+    link.setAttribute('download', 'efo-traits-bulk-report.tsv');
+    document.body.appendChild(link);
+    link.click();
   }
 }

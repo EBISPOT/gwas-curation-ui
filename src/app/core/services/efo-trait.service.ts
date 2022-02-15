@@ -39,4 +39,12 @@ export class EfoTraitService {
   editTrait(traitId: string, efoTrait: EfoTrait) {
     return this.http.put('/efo-traits/' + traitId, efoTrait);
   }
+
+  getEfoTraitsExport(trait: string) {
+    let params: HttpParams = new HttpParams();
+    if (trait && trait !== '') {
+      params = params.set('trait', trait);
+    }
+    return this.http.download('/efo-traits/export', params);
+  }
 }

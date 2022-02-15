@@ -34,7 +34,7 @@
           </li>
         </ul>
       </label>
-      <button mat-raised-button color="primary" style="font-size:12px; margin-right: -10px;" class="gwas-elevation">
+      <button mat-raised-button color="primary" style="font-size:12px; margin-right: -10px;" class="gwas-elevation" (click)="downloadEfoTraitsExport()">
         <mat-icon>share</mat-icon>
         Export Data
       </button>
@@ -116,6 +116,9 @@
         <span *ngIf="traitUploader.queue.length == 0">No file selected.</span>
         <span *ngIf="traitUploader.queue.length > 0">{{traitUploader.queue[0].file.name}}</span>
       </div>
+      <div class="flex justify-center" *ngIf="report">
+        <button mat-raised-button color="warn" (click)="downloadBulkUploadReport()">Download report</button>
+      </div>
       <div class="flex justify-center" *ngIf="traitUploader.queue.length > 0">
         <mat-progress-bar mode="determinate" [value]="traitUploader.progress"></mat-progress-bar>
       </div>
@@ -131,12 +134,6 @@
           <span *ngIf="!traitUploader.isUploading">Reset</span>
         </button>
       </div>
-      <section *ngIf="uploadResponse.length > 0">
-        <h3>Upload report:</h3>
-        <ul>
-          <li *ngFor="let r of uploadResponse">{{r.uploadComment}}</li>
-        </ul>
-      </section>
     </mat-card>
 
     <div class="card-3 mt-4">
