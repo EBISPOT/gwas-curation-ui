@@ -248,9 +248,14 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
           else {
             this.reloadTraits();
           }
-        }, () => {
-          this.isLoadingResults = false;
-          this.snackBar.open('Error occurred on delete.', '', {duration: 2500});
+        }, (error) => {
+          if (error.error.indexOf('linked') > 0) {
+            this.snackBar.open(error.error, '', {duration: 2500});
+          }
+          else {
+            this.isLoadingResults = false;
+            this.snackBar.open('Error occurred on delete.', '', {duration: 2500});
+          }
         });
       }
     });
