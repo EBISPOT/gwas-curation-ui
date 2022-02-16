@@ -37,7 +37,7 @@
         </table>
 
       </div>
-      <mat-form-field class="w-4/5" appearance="fill">
+      <mat-form-field class="w-4/5" appearance="outline">
         <mat-label>Reported traits</mat-label>
         <mat-chip-list #chipList>
           <mat-chip
@@ -64,6 +64,14 @@
         </mat-autocomplete>
       </mat-form-field>
       <button mat-raised-button color="primary" class="mx-4 -top-1" (click)="saveReportedTraits()"> Save </button>
+      <mat-form-field class="w-4/5" appearance="outline">
+        <mat-label>EFO traits</mat-label>
+        <mat-chip-list>
+          <mat-chip *ngFor="let efoTrait of efoTraits">
+            {{efoTrait.trait + ', ' + efoTrait.shortForm}}
+          </mat-chip>
+        </mat-chip-list>
+      </mat-form-field>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>

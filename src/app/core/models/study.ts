@@ -1,4 +1,5 @@
 import { ReportedTrait } from './reportedTrait';
+import { EfoTrait } from './efoTrait';
 
 export interface Study {
   studyId: string;
@@ -28,4 +29,5 @@ export interface Study {
   // notes: Note[];
   agreedToCc0: boolean;
   diseaseTraits: ReportedTrait[];
+  efoTraits: EfoTrait[];
 }

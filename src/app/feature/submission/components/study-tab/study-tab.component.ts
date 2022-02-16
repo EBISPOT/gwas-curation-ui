@@ -17,6 +17,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../../../environments/environment';
 import { TokenStorageService } from '../../../../core/services/token-storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EfoTrait } from '../../../../core/models/efoTrait';
 
 @Component({
   selector: 'app-study-tab',
@@ -36,6 +37,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   traitCtrl = new FormControl();
   reportedTraits: ReportedTrait[] = [];
+  efoTraits: EfoTrait[] = [];
   reportedTraitsDropdownItems: ReportedTrait[] = [];
   @ViewChild('reportedTraitInput') reportedTraitInput: ElementRef;
   @ViewChild('sidenav') sidenav: MatSidenav;
@@ -188,6 +190,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     this.submissionService.getStudy(this.submissionId, id).subscribe((value: Study) => {
       this.sidenavStudy = value;
       this.reportedTraits = this.sidenavStudy.diseaseTraits;
+      this.efoTraits = this.sidenavStudy.efoTraits;
       this.isLoadingSidenav = false;
     });
   }
