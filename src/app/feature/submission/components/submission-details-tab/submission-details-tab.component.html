@@ -303,6 +303,13 @@
 <!--  </mat-card-content>-->
 <!--</mat-card>-->
 
+<div
+  *ngIf="submission && ['VALID', 'INVALID', 'SUBMITTED', 'CURATION_COMPLETE'].includes(this.submission.submission_status)"
+  class="flex justify-center mt-9">
+  <button mat-stroked-button color="primary" (click)="downloadTemplate()">Download submission template
+  </button>
+</div>
+
 <div *ngIf="!submission" class="flex justify-center mt-10">
   <mat-spinner></mat-spinner>
 </div>

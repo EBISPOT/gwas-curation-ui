@@ -13,7 +13,7 @@ export class CurationHttpService {
   }
 
   private static formatErrors(error: any) {
-    return throwError(error.error);
+    return throwError(error);
   }
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {

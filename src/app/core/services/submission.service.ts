@@ -120,6 +120,11 @@ export class SubmissionService {
     return this.curationHttp.download('/reported-traits/templates?file=study-trait');
   }
 
+  downloadBulkStudyEfoUploadTemplate() {
+
+    return this.curationHttp.download('/reported-traits/templates?file=study-efo-trait');
+  }
+
   editReportedTraits(traits: ReportedTrait[], submissionId, study: Study) {
 
     return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,

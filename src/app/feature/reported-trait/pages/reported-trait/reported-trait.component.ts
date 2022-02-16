@@ -221,8 +221,8 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
             this.reloadTraits();
           }
         }, (error) => {
-          if (error.indexOf('linked') > 0) {
-            this.snackBar.open(error, '', {duration: 2500});
+          if (error.error.indexOf('linked') > 0) {
+            this.snackBar.open(error.error, '', {duration: 2500});
           }
           else {
             this.snackBar.open('Error occurred on delete.', '', {duration: 2500});
@@ -290,7 +290,7 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
 
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(new Blob([this.report]));
-    link.setAttribute('download', 'traits-bulk-report.tsv');
+    link.setAttribute('download', 'reported-traits-bulk-report.tsv');
     document.body.appendChild(link);
     link.click();
   }

@@ -44,6 +44,6 @@ export class ReportedTraitService {
   }
 
   downloadSimilarityAnalysisReport(id) {
-    return this.http.download('/reported-traits/fileupload/analysis/' + id);
+    return this.http.download('/reported-traits/analysis/' + id);
   }
 }
