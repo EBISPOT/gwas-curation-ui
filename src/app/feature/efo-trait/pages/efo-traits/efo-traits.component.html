@@ -61,13 +61,13 @@
               Enter a valid URL
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Enter EFO short form</mat-label>
-            <input matInput placeholder="Short form" formControlName="createTraitShortForm">
-            <mat-error *ngIf="!creationForm.controls.createTraitShortForm.valid">
-              Enter a valid URL
-            </mat-error>
-          </mat-form-field>
+<!--          <mat-form-field appearance="fill" class="w-full">-->
+<!--            <mat-label>Enter EFO short form</mat-label>-->
+<!--            <input matInput placeholder="Short form" formControlName="createTraitShortForm">-->
+<!--            <mat-error *ngIf="!creationForm.controls.createTraitShortForm.valid">-->
+<!--              Enter a valid string-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
         </form>
       </mat-dialog-content>
       <div mat-dialog-actions>
@@ -222,7 +222,7 @@
               </mat-form-field>
               <mat-form-field appearance="fill" class="w-full">
                 <mat-label>Enter EFO short form</mat-label>
-                <input matInput placeholder="Short form" formControlName="shortForm">
+                <input matInput placeholder="Short form" formControlName="shortForm" readonly>
                 <mat-error *ngIf="!editForm.controls.shortForm.valid">
                   This field is required
                 </mat-error>

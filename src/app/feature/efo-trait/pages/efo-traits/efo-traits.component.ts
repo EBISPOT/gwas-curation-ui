@@ -134,10 +134,10 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
     this.createError = '';
     const trait = this.creationForm.controls.createTraitName.value;
     const uri = this.creationForm.controls.createTraitUri.value;
-    let shortForm = this.creationForm.controls.createTraitShortForm.value;
-    if (!shortForm) {
-      shortForm = uri.substring(uri.lastIndexOf('/') + 1);
-    }
+    const shortForm = this.creationForm.controls.createTraitShortForm.value;
+    // if (!shortForm) {
+    //   shortForm = uri.substring(uri.lastIndexOf('/') + 1);
+    // }
     const efoTrait: EfoTrait = {trait, uri, shortForm, created: null, edited: null, efoTraitId: null};
     this.efoTraitService.createTrait(efoTrait).subscribe(() => {
       this.isLoadingCreate = false;
