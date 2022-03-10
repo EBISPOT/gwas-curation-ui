@@ -30,4 +30,7 @@ export interface Study {
   agreedToCc0: boolean;
   diseaseTraits: ReportedTrait[];
   efoTraits: EfoTrait[];
+  sumstats_flag: boolean;
+  pooled_flag: boolean;
+  gxe_flag: boolean;
 }
