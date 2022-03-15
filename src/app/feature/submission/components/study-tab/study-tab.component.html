@@ -63,7 +63,7 @@
           <mat-option disabled *ngIf="reportedTraitsDropdownItems.length == 0"> No results. </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <button mat-raised-button color="primary" class="mx-4 -top-1" (click)="saveReportedTraits()"> Save </button>
+      <button mat-raised-button color="primary" class="mx-4 -top-1" (click)="saveReportedTraits()" [disabled]="reportedTraits.length == 0"> Save </button>
       <mat-form-field class="w-4/5" appearance="outline">
         <mat-label>EFO traits</mat-label>
         <mat-chip-list>
@@ -246,11 +246,11 @@
         </ng-container>
 
 
-        <ng-container matColumnDef="disease_traits">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Reported traits</th>
+        <ng-container matColumnDef="disease_trait">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Reported trait</th>
           <td mat-cell *matCellDef="let row" style="max-width: 350px">
-            <span *ngIf="!row.diseaseTraits">N/A</span>
-            <span *ngIf="row.diseaseTraits">{{makeReportedTraitsString(row.diseaseTraits)}}</span>
+            <span *ngIf="!row.diseaseTrait">N/A</span>
+            <span *ngIf="row.diseaseTrait">{{row.diseaseTrait.trait}}</span>
           </td>
         </ng-container>
 

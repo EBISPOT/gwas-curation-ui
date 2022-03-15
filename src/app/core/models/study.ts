@@ -28,6 +28,6 @@ export interface Study {
   // samples: Sample[];
   // notes: Note[];
   agreedToCc0: boolean;
-  diseaseTraits: ReportedTrait[];
+  diseaseTrait: ReportedTrait;
   efoTraits: EfoTrait[];
 }

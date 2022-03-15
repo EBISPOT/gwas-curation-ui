@@ -29,7 +29,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Study>;
   resultsLength = 0;
   isLoadingResults = true;
-  displayedColumns: string[] = ['study_accession', 'study_tag', 'variant_count', 'genotyping_technology', 'imputation', 'disease_traits'];
+  displayedColumns: string[] = ['study_accession', 'study_tag', 'variant_count', 'genotyping_technology', 'imputation', 'disease_trait'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   submissionId = this.route.snapshot.paramMap.get('id');
@@ -175,7 +175,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.reportedTraits.push(event.option.value);
+    this.reportedTraits[0] = event.option.value;
     this.reportedTraitInput.nativeElement.value = '';
     this.traitCtrl.setValue(null);
   }
@@ -189,21 +189,27 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     // get study
     this.submissionService.getStudy(this.submissionId, id).subscribe((value: Study) => {
       this.sidenavStudy = value;
-      this.reportedTraits = this.sidenavStudy.diseaseTraits;
+      if (this.sidenavStudy.diseaseTrait) {
+        this.reportedTraits[0] = this.sidenavStudy.diseaseTrait;
+      }
       this.efoTraits = this.sidenavStudy.efoTraits;
       this.isLoadingSidenav = false;
     });
   }
 
-  makeReportedTraitsString(arr: ReportedTrait[]) {
-
-    return arr.map(value => value.trait).join(', ');
-  }
+  // makeReportedTraitsString(arr: ReportedTrait[]) {
+  //
+  //   return arr.map(value => value.trait).join(', ');
+  // }
 
   saveReportedTraits() {
 
+    let trait: ReportedTrait = null;
     this.isLoadingSidenav = true;
-    this.submissionService.editReportedTraits(this.reportedTraits, this.submissionId, this.sidenavStudy)
+    if (this.reportedTraits.length > 0) {
+      trait = this.reportedTraits[0];
+    }
+    this.submissionService.editReportedTraits(trait, this.submissionId, this.sidenavStudy)
       .subscribe((v) => {
         this.sidenavStudy = v;
         this.isLoadingSidenav = false;
