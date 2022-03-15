@@ -44,7 +44,8 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
       }
       if (value.submission_status == null || value.submission_status === 'VALID' || value.submission_status === 'INVALID'
         || value.submission_status === 'CURATION_COMPLETE' || value.submission_status === 'COMPLETE'
-        || value.submission_status === 'STARTED' || value.submission_status === 'SUBMITTED', value.submission_status === 'IMPORT_FAILED') {
+        || value.submission_status === 'STARTED' || value.submission_status === 'SUBMITTED'
+        || value.submission_status === 'IMPORT_FAILED') {
         this.stopPolling.next();
         this.historyTabCmp.loadHistory();
       }
