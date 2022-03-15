@@ -125,10 +125,10 @@ export class SubmissionService {
     return this.curationHttp.download('/reported-traits/templates?file=study-efo-trait');
   }
 
-  editReportedTraits(traits: ReportedTrait[], submissionId, study: Study) {
+  editReportedTraits(trait: ReportedTrait, submissionId, study: Study) {
 
     return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
-      {diseaseTraits: traits, study_tag: study.study_tag});
+      {diseaseTrait: trait, study_tag: study.study_tag});
   }
 
   filterSubmissions(filtersString: string, size: number, page: number, sort: string, order: string) {
