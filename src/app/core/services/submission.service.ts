@@ -135,4 +135,9 @@ export class SubmissionService {
     const params = filtersString + '&size=' + String(size) + '&sort=' + sort + ',' + order;
     return this.curationHttp.get('/submissions?' + params);
   }
+
+  patchSubmission(submission: Submission) {
+
+    return this.curationHttp.patch('/submissions/' + submission.submissionId, submission);
+  }
 }

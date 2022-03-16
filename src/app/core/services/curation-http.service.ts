@@ -42,6 +42,14 @@ export class CurationHttpService {
     ).pipe(catchError(CurationHttpService.formatErrors));
   }
 
+  patch(path: string, body: any = {}, params: HttpParams = new HttpParams()): Observable<any> {
+    return this.http.patch(
+      `${environment.CURATION_API_URL}${path}`,
+      body,
+      {params}
+    ).pipe(catchError(CurationHttpService.formatErrors));
+  }
+
   download(path: string, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http.get(`${environment.CURATION_API_URL}${path}`, {params, responseType: 'blob'})
       .pipe(catchError(CurationHttpService.formatErrors));
