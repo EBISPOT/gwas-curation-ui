@@ -102,10 +102,15 @@ export class SubmissionDetailsTabComponent implements OnInit {
         this.submissionService.patchSubmission(submission).subscribe((value) => {
           this.snackbar.open('Changes saved.', '', {duration: 2500});
           this.submission = value;
+        }, () => {
+          this.snackbar.open('Error occurred while saving flags.', '', {duration: 2500});
+          if (field === 'Open Targets') { cb.checked = this.submission.opentargets_flag; }
+          if (field === 'User Requested') { cb.checked = this.submission.userrequested_flag; }
         });
       }
       else {
-        cb.toggle();
+        if (field === 'Open Targets') { cb.checked = this.submission.opentargets_flag; }
+        if (field === 'User Requested') { cb.checked = this.submission.userrequested_flag; }
       }
     });
   }
