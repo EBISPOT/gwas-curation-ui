@@ -1,0 +1,112 @@
+<div class="p-3 mb-4" style="background-color: #EDF8F9; border: 1px solid #ccc">
+  <span class="font-bold"> Samples for submission: {{submissionId}} </span>
+</div>
+
+<button *ngIf="!showSampleUpload" mat-raised-button class="mx-4" (click)="showSampleUpload = true;"> Edit samples in bulk </button>
+
+<mat-card class="space-y-3 my-3 mat-elevation-z4" *ngIf="showSampleUpload">
+  <mat-card-header>
+    <h2>
+      Edit samples in bulk
+    </h2>
+  </mat-card-header>
+  <div class="absolute right-0 z-50" style="top: -10px;">
+    <button mat-icon-button (click)="showSampleUpload = false;" class="hover:bg-gray-100"><mat-icon color="primary">close</mat-icon></button>
+  </div>
+  <button mat-stroked-button (click)="downloadSamplesPrefilledTemplate()">
+    <mat-icon>download</mat-icon> Download template
+  </button>
+  <div class="flex justify-center sm:space-x-4">
+    <div ng2FileDrop
+         [uploader]="sampleUploader"
+         (fileOver)="sampleUploadFileOver($event)"
+         [ngClass]="{'nv-file-over': hasDropZoneOver}"
+         class="bg-gradient-to-t from-green-800 via-gray-700 to-blue-900
+               rounded-l p-5 text-white mat-elevation-z6 hidden sm:block w-64 text-center my-drop-zone">
+      <span *ngIf="sampleUploader.queue.length == 0"> Drop samples template here </span>
+      <span *ngIf="sampleUploader.queue.length != 0">{{sampleUploader.queue[0].file.name}}</span>
+    </div>
+    <div class="flex items-center">
+      <h3 class="hidden sm:block mt-2">OR</h3>
+    </div>
+    <div class="flex items-center">
+      <button mat-stroked-button (click)="fileInput.click()">
+        <mat-icon color="primary">upload</mat-icon>
+        <span>Select file</span>
+        <input id="fileInput" #fileInput type="file" ng2FileSelect [uploader]="sampleUploader" class="hidden"/>
+      </button>
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <span *ngIf="sampleUploader.queue.length == 0">No file selected.</span>
+    <span *ngIf="sampleUploader.queue.length > 0">{{sampleUploader.queue[0].file.name}}</span>
+  </div>
+  <div class="flex justify-center" *ngIf="sampleUploader.queue.length > 0">
+    <mat-progress-bar mode="determinate" [value]="sampleUploader.progress"></mat-progress-bar>
+  </div>
+  <div *ngIf="sampleUploader.queue.length > 0" class="flex justify-center">
+    <button class="mx-3"
+            [disabled]="sampleUploader.queue[0].isReady || sampleUploader.queue[0].isUploading || sampleUploader.queue[0].isSuccess"
+            mat-raised-button color="primary" (click)="sampleUploader.progress=0; sampleUploader.queue[0].upload();">
+      Upload
+    </button>
+    <button [disabled]="sampleUploader.queue.length == 0" mat-raised-button color="primary"
+            (click)="sampleUploader.isUploading ? sampleUploader.cancelAll() : sampleUploader.clearQueue(); fileInput.value = '';">
+      <span *ngIf="sampleUploader.isUploading">Cancel</span>
+      <span *ngIf="!sampleUploader.isUploading">Reset</span>
+    </button>
+  </div>
+  <section *ngIf="report">
+    <button mat-raised-button color="warn" (click)="downloadSampleUploadReport()"> <mat-icon>download</mat-icon> Download report</button>
+  </section>
+</mat-card>
+
+<div class="border border-gray-400 m-4">
+  <div class="loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()"
+         matSortActive="accession" matSortDisableClear matSortDirection="desc" class="w-full">
+
+    <ng-container matColumnDef="GCST">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Accession</th>
+      <td mat-cell *matCellDef="let row">
+        {{row.GCST}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="studyTag">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Study Tag</th>
+      <td mat-cell *matCellDef="let row">
+        <span *ngIf="!row.studyTag">N/A</span>
+        <span *ngIf="row.studyTag">{{row.studyTag}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="initialSampleDescription">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Initial Sample Desc.</th>
+      <td mat-cell *matCellDef="let row">
+        <span *ngIf="!row.initialSampleDescription">N/A</span>
+        <span *ngIf="row.initialSampleDescription">{{row.initialSampleDescription}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="replicateSampleDescription">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Replicate Sample Desc</th>
+      <td mat-cell *matCellDef="let row">
+        <span *ngIf="!row.replicateSampleDescription">N/A</span>
+        <span *ngIf="row.replicateSampleDescription">{{row.replicateSampleDescription}}</span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr class="hover:bg-gray-200 cursor-pointer" mat-row *matRowDef="let row;
+      columns: displayedColumns; let index = index;" [ngClass]="{gray: index % 2 == 0}"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="9999">
+        No data found.
+      </td>
+    </tr>
+  </table>
+  <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons="true"></mat-paginator>
+</div>

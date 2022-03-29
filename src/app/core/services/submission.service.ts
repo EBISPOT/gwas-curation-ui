@@ -125,6 +125,11 @@ export class SubmissionService {
     return this.curationHttp.download('/reported-traits/templates?file=study-efo-trait');
   }
 
+  downloadSamplesPrefilledTemplate(submissionId: string) {
+
+    return this.curationHttp.download('/submissions/' + submissionId + '/studies/sampledescription/files');
+  }
+
   editReportedTraits(trait: ReportedTrait, submissionId, study: Study) {
 
     return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
@@ -139,5 +144,15 @@ export class SubmissionService {
   patchSubmission(submission: Submission) {
 
     return this.curationHttp.patch('/submissions/' + submission.submissionId, submission);
+  }
+
+  getSubmissionSamples(size: number, page: number, sort: string, order: string, submissionId: string) {
+
+    let params: HttpParams = new HttpParams();
+    params = params
+      .set('size', String(size))
+      .set('page', String(page))
+      .set('sort', sort + ',' + order);
+    return this.curationHttp.get('/submissions/' + submissionId + '/studies/sampledescription', params);
   }
 }
