@@ -86,7 +86,7 @@
 <div *ngIf="submission?.publication" class="col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-12 card-3b bg-white">
 
   <div class="p-3" style="background-color: #EDF8F9;">
-    <span class="font-bold"> Publication : PMID {{submission.publication.pmid}} </span>
+    <span class="font-bold"> Publication: PMID {{submission.publication.pmid}} </span>
     <a style="float: right; cursor: pointer;" (click)="toggleDisplay('showPublication')">
       <mat-icon *ngIf="showPublication">keyboard_arrow_up</mat-icon>
       <mat-icon *ngIf="!showPublication">keyboard_arrow_down</mat-icon>
@@ -136,7 +136,7 @@
 <div *ngIf="submission" class="col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-12 card-3b mt-4 bg-white">
 
   <div class="p-3" style="background-color: #EDF8F9; border-top: 1px solid #ccc">
-    <span class="font-bold"> Details for Submission :  {{submission.submissionId}} </span>
+    <span class="font-bold"> Details for Submission:  {{submission.submissionId}} </span>
     <a style="float: right; cursor: pointer;" (click)="toggleDisplay('showSubmission')">
       <mat-icon *ngIf="showSubmission">keyboard_arrow_up</mat-icon>
       <mat-icon *ngIf="!showSubmission">keyboard_arrow_down</mat-icon>

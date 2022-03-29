@@ -57,15 +57,17 @@
           <app-submission-history-tab></app-submission-history-tab>
         </div>
       </mat-tab>
-      <mat-tab label="Studies (200)">
+      <mat-tab label="Studies ({{submission.study_count}})" *ngIf="submission">
         <ng-template matTabContent>
           <app-study-tab></app-study-tab>
         </ng-template>
       </mat-tab>
-      <mat-tab label="Samples (20)">
-
+      <mat-tab label="Samples ({{submission.sample_count}})" *ngIf="submission">
+        <ng-template matTabContent>
+          <app-sample-tab></app-sample-tab>
+        </ng-template>
       </mat-tab>
-      <mat-tab label="Association (120)" [disabled]="disableEdit">
+      <mat-tab label="Association ({{submission.association_count}})" [disabled]="disableEdit" *ngIf="submission">
 
       </mat-tab>
     </mat-tab-group>

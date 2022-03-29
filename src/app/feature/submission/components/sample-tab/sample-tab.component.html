@@ -1,0 +1,62 @@
+<div class="p-3 mb-4" style="background-color: #EDF8F9; border: 1px solid #ccc">
+  <span class="font-bold"> Samples for submission:  </span>
+</div>
+
+<button *ngIf="!showSampleUpload" mat-raised-button class="mx-4" (click)="showSampleUpload = true;"> Assign traits in bulk </button>
+
+<mat-card class="space-y-3 my-3 mat-elevation-z4" *ngIf="showSampleUpload">
+  <mat-card-header>
+    <h2>
+      Edit samples in bulk
+    </h2>
+  </mat-card-header>
+  <div class="absolute right-0 z-50" style="top: -10px;">
+    <button mat-icon-button (click)="showSampleUpload = false;" class="hover:bg-gray-100"><mat-icon color="primary">close</mat-icon></button>
+  </div>
+  <button mat-stroked-button (click)="downloadSamplesPrefilledTemplate()">
+    <mat-icon>download</mat-icon> Download template
+  </button>
+  <div class="flex justify-center sm:space-x-4">
+    <div ng2FileDrop
+         [uploader]="sampleUploader"
+         (fileOver)="sampleUploadFileOver($event)"
+         [ngClass]="{'nv-file-over': hasDropZoneOver}"
+         class="bg-gradient-to-t from-green-800 via-gray-700 to-blue-900
+               rounded-l p-5 text-white mat-elevation-z6 hidden sm:block w-64 text-center my-drop-zone">
+      <span *ngIf="sampleUploader.queue.length == 0"> Drop samples template here </span>
+      <span *ngIf="sampleUploader.queue.length != 0">{{sampleUploader.queue[0].file.name}}</span>
+    </div>
+    <div class="flex items-center">
+      <h3 class="hidden sm:block mt-2">OR</h3>
+    </div>
+    <div class="flex items-center">
+      <button mat-stroked-button (click)="fileInput.click()">
+        <mat-icon color="primary">upload</mat-icon>
+        <span>Select file</span>
+        <input id="fileInput" #fileInput type="file" ng2FileSelect [uploader]="sampleUploader" class="hidden"/>
+      </button>
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <span *ngIf="sampleUploader.queue.length == 0">No file selected.</span>
+    <span *ngIf="sampleUploader.queue.length > 0">{{sampleUploader.queue[0].file.name}}</span>
+  </div>
+  <div class="flex justify-center" *ngIf="sampleUploader.queue.length > 0">
+    <mat-progress-bar mode="determinate" [value]="sampleUploader.progress"></mat-progress-bar>
+  </div>
+  <div *ngIf="sampleUploader.queue.length > 0" class="flex justify-center">
+    <button class="mx-3"
+            [disabled]="sampleUploader.queue[0].isReady || sampleUploader.queue[0].isUploading || sampleUploader.queue[0].isSuccess"
+            mat-raised-button color="primary" (click)="sampleUploader.progress=0; sampleUploader.queue[0].upload();">
+      Upload
+    </button>
+    <button [disabled]="sampleUploader.queue.length == 0" mat-raised-button color="primary"
+            (click)="sampleUploader.isUploading ? sampleUploader.cancelAll() : sampleUploader.clearQueue(); fileInput.value = '';">
+      <span *ngIf="sampleUploader.isUploading">Cancel</span>
+      <span *ngIf="!sampleUploader.isUploading">Reset</span>
+    </button>
+  </div>
+<!--  <section *ngIf="report">-->
+<!--    <button mat-raised-button color="warn" (click)="downloadStudyTraitMappingReport()"> <mat-icon>download</mat-icon> Download report</button>-->
+<!--  </section>-->
+</mat-card>

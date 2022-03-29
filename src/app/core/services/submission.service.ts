@@ -125,6 +125,11 @@ export class SubmissionService {
     return this.curationHttp.download('/reported-traits/templates?file=study-efo-trait');
   }
 
+  downloadSamplesPrefilledTemplate(submissionId: string) {
+
+    return this.curationHttp.download('/submissions/' + submissionId + '/studies/sampledescription/files');
+  }
+
   editReportedTraits(trait: ReportedTrait, submissionId, study: Study) {
 
     return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
