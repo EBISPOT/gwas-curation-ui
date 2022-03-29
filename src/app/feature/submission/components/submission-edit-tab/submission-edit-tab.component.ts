@@ -20,6 +20,19 @@ export class SubmissionEditTabComponent implements OnInit {
   hasDropZoneOver = false;
   submission: Submission;
   validationErrors: string[] = [];
+
+
+  // Remove Later
+  report = null;
+  dataTypes = [];
+  selectedFiles: FileList;
+  currentFileUpload: File;
+  uploadedFilename: string;
+  errorReport: string;
+  showCSV = false;
+  // Remove Later
+
+
   @Input('submission') set _submission(submission: Submission) {
 
     this.submission = submission;
@@ -85,6 +98,14 @@ export class SubmissionEditTabComponent implements OnInit {
         }
       }
     }
+  }
+
+
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.uploadedFilename = this.currentFileUpload.name;
+    this.report = 'waiting';
   }
 
 }

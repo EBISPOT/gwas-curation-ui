@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SubmissionListApiResponse } from '../api-responses/submissionListApiResponse';
+import { SubmissionListApiResponse } from '../models/rest/api-responses/submissionListApiResponse';
 import { Submission } from '../models/submission';
 import { SubmissionHistory } from '../models/submissionHistory';
 import { CurationHttpService } from './curation-http.service';
+import { ReportedTrait } from '../models/reportedTrait';
+import { Study } from '../models/study';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,12 @@ export class SubmissionService {
 
   constructor(private http: HttpService, private curationHttp: CurationHttpService) { }
 
-  getSubmissions(size: number, page: number, sort: string, order: string, filter: string): Observable<SubmissionListApiResponse> {
+  getSubmissions(size: number, page: number, sort: string, order: string,
+                 filter: string, filtersString: string): Observable<SubmissionListApiResponse> {
+    if (filtersString) {
+      const p = filtersString + '&size=' + String(size) + '&sort=' + sort + ',' + order + '&page=' + String(page);
+      return this.curationHttp.get('/submissions?' + p);
+    }
     let params: HttpParams = new HttpParams();
     params = params
       .set('size', String(size))
@@ -28,11 +35,11 @@ export class SubmissionService {
         params = params.set('bowId', filter);
       }
     }
-    return this.http.get('/submissions', params);
+    return this.curationHttp.get('/submissions', params);
   }
 
   getSubmission(id: string): Observable<Submission> {
-    return this.http.get('/submissions/' + id);
+    return this.curationHttp.get('/submissions/' + id);
   }
 
   downloadTemplate(submissionId: string, fileId: string) {
@@ -92,5 +99,40 @@ export class SubmissionService {
       res.push(s);
     }
     return res;
+  }
+
+  getSubmissionStudies(size: number, page: number, sort: string, order: string, submissionId: string) {
+    let params: HttpParams = new HttpParams();
+    params = params
+      .set('size', String(size))
+      .set('page', String(page))
+      .set('sort', sort + ',' + order);
+    return this.curationHttp.get('/submissions/' + submissionId + '/studies', params);
+  }
+
+  getStudy(submissionId: string, studyId: string) {
+
+    return this.curationHttp.get('/submissions/' + submissionId + '/studies/' + studyId);
+  }
+
+  downloadBulkStudyTraitUploadTemplate() {
+
+    return this.curationHttp.download('/reported-traits/templates?file=study-trait');
+  }
+
+  downloadBulkStudyEfoUploadTemplate() {
+
+    return this.curationHttp.download('/reported-traits/templates?file=study-efo-trait');
+  }
+
+  editReportedTraits(trait: ReportedTrait, submissionId, study: Study) {
+
+    return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
+      {diseaseTrait: trait, study_tag: study.study_tag});
+  }
+
+  filterSubmissions(filtersString: string, size: number, page: number, sort: string, order: string) {
+    const params = filtersString + '&size=' + String(size) + '&sort=' + sort + ',' + order;
+    return this.curationHttp.get('/submissions?' + params);
   }
 }

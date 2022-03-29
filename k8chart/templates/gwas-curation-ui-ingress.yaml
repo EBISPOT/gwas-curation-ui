@@ -1,8 +1,8 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: curation-ui-ingress
-  namespace: gwas
+  name: {{.Values.ingress.name}}
+  namespace: {{.Values.k8Namespace}}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /gwas/depo-curation/$2
     nginx.ingress.kubernetes.io/ssl-redirect: "false"

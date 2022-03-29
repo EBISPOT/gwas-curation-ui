@@ -14,7 +14,7 @@ module.exports = {
     extend: {},
   },
   corePlugins: {
-    preflight: false,
+    preflight: true,
   },
   important: true
 };

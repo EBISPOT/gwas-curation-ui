@@ -20,6 +20,7 @@ service:
   port: 80
 
 ingress:
+  name: curation-ui-ingress
   enabled: false
   annotations: {}
     # kubernetes.io/ingress.class: nginx

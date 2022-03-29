@@ -1,5 +1,5 @@
-import { ApiResponse } from '../models/apiResponse';
-import { Submission } from '../models/submission';
+import { ApiResponse } from './apiResponse';
+import { Submission } from '../../submission';
 
 export interface SubmissionListApiResponse extends ApiResponse {
   _embedded: {

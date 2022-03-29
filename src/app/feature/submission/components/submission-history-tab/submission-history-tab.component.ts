@@ -23,13 +23,16 @@ import { VersioningDetails } from '../../../../core/models/versioningDetails';
 })
 export class SubmissionHistoryTabComponent implements OnInit{
 
-  columnsToDisplay = ['fileName', 'studiesTotal', 'associationsTotal', 'samplesTotal', 'download', 'diff'];
+  columnsToDisplay = ['fileName', 'studiesTotal', 'associationsTotal', 'samplesTotal', 'diff', 'download'];
   expandedElement: SubmissionHistory | null;
   dataSource: SubmissionHistory[] = [];
   historySummaryReports: string[];
   responseText = '';
   submissionId = this.route.snapshot.paramMap.get('id');
   isLoading = true;
+
+  showClickedDetails: boolean;
+  selectedRow: number;
 
   constructor(public dialog: MatDialog, private submissionService: SubmissionService, private route: ActivatedRoute) {
   }
@@ -465,5 +468,14 @@ export class SubmissionHistoryTabComponent implements OnInit{
     versioningDetails.sampleTree = sampleTree;
     versioningDetails.fileName = history.newFileDetails.fileName;
     return versioningDetails;
+  }
+
+  getDetails(id: number) {
+    this.toggleDetails(false); //TODO: Set as false till further notice
+    this.selectedRow = id;
+  }
+
+  toggleDetails(value: boolean) {
+    this.showClickedDetails = value;
   }
 }

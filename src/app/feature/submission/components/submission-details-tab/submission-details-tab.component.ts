@@ -9,6 +9,10 @@ import { SubmissionService } from '../../../../core/services/submission.service'
 })
 export class SubmissionDetailsTabComponent implements OnInit {
 
+  showSubmission = true;
+  showPublication = true;
+  showBodyOfWork = true;
+
   submission: Submission;
   @Input('submission') set _submission(submission: Submission) {
     this.submission = submission;
@@ -60,6 +64,16 @@ export class SubmissionDetailsTabComponent implements OnInit {
           this.validationErrors = this.validationErrors.concat(file.errors);
         }
       }
+    }
+  }
+
+  toggleDisplay(compType: string) {
+    if (compType === 'showSubmission') {
+      this.showSubmission = (this.showSubmission !== true);
+    } else if (compType === 'showPublication') {
+      this.showPublication = (this.showPublication !== true);
+    } else if (compType === 'showBodyOfWork') {
+      this.showBodyOfWork = (this.showBodyOfWork !== true);
     }
   }
 }

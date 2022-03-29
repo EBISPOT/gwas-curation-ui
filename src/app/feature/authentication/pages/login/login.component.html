@@ -1,14 +1,66 @@
-<div class="flex flex-col items-center">
-  <div class="mt-16 inline-flex flex-col text-center space-y-16 bg-gradient-to-t from-black
-  via-gray-700 to-blue-900 rounded-2xl p-5 text-white mat-elevation-z24">
-    <div>
-      Single Sign On using your ELIXIR identity!
-    </div>
-    <div>
-      <button mat-raised-button class="h-10 mb-16" (click)="login()" color="accent">
-        <img class="inline h-8 w-8" src="assets/images/elixir-white-orange-logo.png" alt="">
-        <span>Login</span>
+
+<div class="grid gap-0 grid-cols-12 opacity-95">
+  <div class="col-span-6 absolute z-40 card-3b
+  bg-white w-11/12 sm:w-10/12 md:w-6/12 lg:w-4/12 inset-2.5 mx-auto my-auto gwas-height-660px">
+
+    <img class="w-20 mt-10 left-0 right-0 mx-auto" alt="GWAS Logo"
+         src="https://ebispot.github.io/gwas-blog/_nuxt/img/gwas-logo.2a25f43.png">
+
+    <div class="text-center text-2xl mt-4 mb-8"> GWAS Curation App </div>
+
+    <div class="mb-4">
+      <button class="gwas-button-wide card-3b " (click)="login()" mat-raised-button color="primary">
+        <img class="inline h-8 w-8" src="assets/images/elixir-white-orange-logo.png" alt="">-
+        Sign in with Elixir identity!
       </button>
     </div>
+
+    <div class="login-divider-container">
+      <mat-divider></mat-divider>
+      <span> or </span>
+      <mat-divider></mat-divider>
+    </div>
+
+    <div class="mb-4">
+      <a href="https://www.ebi.ac.uk/gwas/" target="_blank">
+        <button mat-stroked-button color="primary"
+                class="gwas-button-wide card-3b text-gray-800 hover:text-white border border-gray-500">
+          Go to GWAS Catalog
+        </button>
+      </a>
+
+    </div>
+
+    <a href="https://ebispot.github.io/gwas-blog/" target="_blank">
+      <button mat-stroked-button color="primary"
+              class="gwas-button-wide card-3b text-gray-800 hover:text-white border border-gray-500">
+        Go to GWAS Blog
+      </button>
+    </a>
+
+
+    <div class="ml-12 mt-10">
+      <a class="gwas-link " href="#"> Need Help ?  </a>
+
+      <div class="gwas-mt-10px">
+        New to Curation App? | <a href="" class="gwas-link"> Watch Demo </a>
+      </div>
+
+      <div class="gwas-mt-10px">
+        Contact GWAS team on | <a href="mailto:gwas-info@ebi.ac.uk" class="gwas-link">gwas-info@ebi.ac.uk </a>
+      </div>
+
+      <div class="bottom-8 absolute">
+        You think you've found a bug?
+        <a class="gwas-link" href="https://github.com/EBISPOT/gwas-user-requests/issues">
+          Look at our known issues page
+        </a>
+      </div>
+    </div>
   </div>
+</div>
+
+
+<div class="flex bg-cover h-screen items-center justify-center "
+     [ngStyle]="{'background-image': 'url('+bgImage+')'}">
 </div>

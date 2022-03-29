@@ -13,7 +13,7 @@ export class CurationHttpService {
   }
 
   private static formatErrors(error: any) {
-    return throwError(error.error);
+    return throwError(error);
   }
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
@@ -24,7 +24,7 @@ export class CurationHttpService {
   put(path: string, body: any = {}, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http.put(
       `${environment.CURATION_API_URL}${path}`,
-      JSON.stringify(body),
+      body,
       {params}
     ).pipe(catchError(CurationHttpService.formatErrors));
   }
@@ -32,7 +32,7 @@ export class CurationHttpService {
   post(path: string, body: any = {}): Observable<any> {
     return this.http.post(
       `${environment.CURATION_API_URL}${path}`,
-      JSON.stringify(body)
+      body
     ).pipe(catchError(CurationHttpService.formatErrors));
   }
 

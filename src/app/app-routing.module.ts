@@ -7,6 +7,14 @@ const routes: Routes = [
     loadChildren: () => import('./feature/submission/submission.module').then(m => m.SubmissionModule)
   },
   {
+    path: 'reported-traits',
+    loadChildren: () => import('./feature/reported-trait/reported-trait.module').then(m => m.ReportedTraitModule)
+  },
+  {
+    path: 'efo-traits',
+    loadChildren: () => import('./feature/efo-trait/efo-trait.module').then(m => m.EfoTraitModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./feature/authentication/authentication.module').then(m => m.AuthenticationModule)
   },

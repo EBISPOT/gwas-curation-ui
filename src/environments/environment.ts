@@ -11,9 +11,10 @@ export const environment = {
   APP_LOCAL_BASE_URI: '',
   REACT_APP_GWAS_DOC_BASE: 'https://www.ebi.ac.uk/gwas/docs',
   DATA_URL: '',
-  API_URL: 'http://localhost:3000',
-  CURATION_API_URL: 'http://193.62.54.159/curation/v1',
-  ANOTHER_API_SECRET: '__ANOTHER__SECRET__'
+  API_URL: 'http://hh-rke-wp-webadmin-09-worker-2.caas.ebi.ac.uk:30183/gwas/deposition/api/v1',
+  CURATION_API_URL: 'http://localhost:3000',
+  ANOTHER_API_SECRET: '__ANOTHER__SECRET__',
+  DEPOSITION_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition'
 };
 
 

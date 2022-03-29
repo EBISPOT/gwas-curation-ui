@@ -1,17 +1,94 @@
-<div class="relative">
-  <div class="absolute right-0 z-50">
-    <button mat-icon-button (click)="returnToSubList()" class="hover:bg-gray-100"><mat-icon color="primary">close</mat-icon></button>
-  </div>
-  <mat-tab-group animationDuration="150ms">
-    <mat-tab label="Details">
-      <app-submission-details-tab [submission]="submission"></app-submission-details-tab>
-    </mat-tab>
-    <mat-tab label="Submission history">
-      <app-submission-history-tab></app-submission-history-tab>
-    </mat-tab>
-    <mat-tab label="Edit" [disabled]="disableEdit">
-      <app-submission-edit-tab (uploadSuccessEvent)="pollUntilStatusIsNotValidating()" [submission]="submission"></app-submission-edit-tab>
-    </mat-tab>
-  </mat-tab-group>
+<div class="mt-0 grid gap-0 grid-cols-12 card-3b bg-white"
+     style="min-height: 6.5rem; margin-bottom: 15px; !important; border:1px solid #999;
+     background-color: transparent; padding: 20px 30px 15px ">
 
+  <div class="col-span-12">
+    <div class="mt-0 grid gap-0 grid-cols-12 lg:container md:mx-auto">
+      <div class="col-span-12 sm:col-span-6">
+        <div class="col-span-12">
+          <div *ngIf="submission?.publication" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
+            Publication: PMID-{{submission.publication.pmid}}
+          </div>
+          <div *ngIf="submission?.bodyOfWork" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
+            Body of Work: ID- {{submission.bodyOfWork.bodyOfWorkId}}
+          </div>
+        </div>
+        <div class="col-span-6">
+          <div *ngIf="submission?.publication" style="margin-top: 5px;">
+            <a href="#" style="margin-right: 5px;">Submission</a> / <a target="_blank" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" class="text-blue-500">{{submission.submissionId}}</a>
+          </div>
+          <div *ngIf="submission?.bodyOfWork" style="margin-top: 5px;">
+            <a href="#" style="margin-right: 5px;">Submission</a> / <a target="_blank" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" class="text-blue-500">{{submission.submissionId}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-12 sm:col-span-6">
+        <div class="mt-5 sm:mt-1 sm:float-right">
+          <a *ngIf="submission?.publication" mat-raised-button color="basic" style="font-size:12px;" class="gwas-elevation mr-2"
+             href="{{'https://pubmed.ncbi.nlm.nih.gov/'+ submission?.publication.pmid}}" target="_blank">
+            <mat-icon>launch</mat-icon>
+            View in PubMed
+          </a>
+
+          <a *ngIf="submission?.publication" mat-raised-button color="primary"  class="gwas-elevation" style="font-size:12px;"
+             href="{{'https://europepmc.org/article/MED/'+ submission?.publication.pmid}}" target="_blank">
+            <mat-icon>launch</mat-icon>
+            View in Europe PMC
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<div class="lg:container md:mx-auto grid gap-0 grid-cols-12 card-3b bg-white">
+  <div class="col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-12 h:screen">
+    <mat-tab-group animationDuration="150ms">
+      <mat-tab label="Details">
+
+        <app-submission-details-tab [submission]="submission"></app-submission-details-tab>
+
+        <div class="card-3b col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-12 mt-4 bg-white pb-2">
+          <app-submission-edit-tab (uploadSuccessEvent)="pollUntilStatusIsNotValidating()"
+                                   [submission]="submission"></app-submission-edit-tab>
+
+          <app-submission-history-tab></app-submission-history-tab>
+        </div>
+      </mat-tab>
+      <mat-tab label="Studies (200)">
+        <ng-template matTabContent>
+          <app-study-tab></app-study-tab>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Samples (20)">
+
+      </mat-tab>
+      <mat-tab label="Association (120)" [disabled]="disableEdit">
+
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+
+
+
+<!--<div class="relative">-->
+<!--  <div class="absolute right-0 z-50">-->
+<!--    <button mat-icon-button (click)="returnToSubList()" class="hover:bg-gray-100"><mat-icon color="primary">close</mat-icon></button>-->
+<!--  </div>-->
+<!--  <mat-tab-group animationDuration="150ms">-->
+<!--    <mat-tab label="Details">-->
+<!--      <app-submission-details-tab [submission]="submission"></app-submission-details-tab>-->
+<!--    </mat-tab>-->
+<!--    <mat-tab label="Submission history">-->
+<!--      <app-submission-history-tab></app-submission-history-tab>-->
+<!--    </mat-tab>-->
+<!--    <mat-tab label="Edit" [disabled]="disableEdit">-->
+<!--      <app-submission-edit-tab (uploadSuccessEvent)="pollUntilStatusIsNotValidating()" [submission]="submission"></app-submission-edit-tab>-->
+<!--    </mat-tab>-->
+<!--  </mat-tab-group>-->
+
+<!--</div>-->

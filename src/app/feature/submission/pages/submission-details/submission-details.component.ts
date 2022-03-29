@@ -6,6 +6,7 @@ import { SubmissionService } from '../../../../core/services/submission.service'
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { SubmissionHistoryTabComponent } from '../../components/submission-history-tab/submission-history-tab.component';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-submission-details',
@@ -20,6 +21,7 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
   disableEdit: boolean;
   timerSubmissionObservable: Observable<Submission>;
   stopPolling = new Subject();
+  env = environment;
   constructor(private submissionService: SubmissionService, private route: ActivatedRoute,
               private authService: AuthService, private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -42,7 +44,8 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
       }
       if (value.submission_status == null || value.submission_status === 'VALID' || value.submission_status === 'INVALID'
         || value.submission_status === 'CURATION_COMPLETE' || value.submission_status === 'COMPLETE'
-        || value.submission_status === 'STARTED' || value.submission_status === 'SUBMITTED') {
+        || value.submission_status === 'STARTED' || value.submission_status === 'SUBMITTED'
+        || value.submission_status === 'IMPORT_FAILED') {
         this.stopPolling.next();
         this.historyTabCmp.loadHistory();
       }
