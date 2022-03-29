@@ -145,4 +145,14 @@ export class SubmissionService {
 
     return this.curationHttp.patch('/submissions/' + submission.submissionId, submission);
   }
+
+  getSubmissionSamples(size: number, page: number, sort: string, order: string, submissionId: string) {
+
+    let params: HttpParams = new HttpParams();
+    params = params
+      .set('size', String(size))
+      .set('page', String(page))
+      .set('sort', sort + ',' + order);
+    return this.curationHttp.get('/submissions/' + submissionId + '/studies/sampledescription', params);
+  }
 }
