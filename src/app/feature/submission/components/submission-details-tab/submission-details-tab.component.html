@@ -310,9 +310,11 @@
 <!--</mat-card>-->
 
 <div
-  *ngIf="submission && ['VALID', 'INVALID', 'SUBMITTED', 'CURATION_COMPLETE'].includes(this.submission.submission_status)"
+  *ngIf="submission && ['VALID', 'INVALID', 'SUBMITTED', 'CURATION_COMPLETE', 'DEPOSITION_COMPLETE'].includes(this.submission.submission_status)"
   class="flex justify-center mt-9">
   <button mat-stroked-button color="primary" (click)="downloadTemplate()">Download submission template
+  </button>
+  <button *ngIf="submission.submission_status == 'DEPOSITION_COMPLETE'" mat-stroked-button color="warn" (click)="allowImport()" class="ml-4"> Allow import
   </button>
 </div>
 

@@ -114,4 +114,14 @@ export class SubmissionDetailsTabComponent implements OnInit {
       }
     });
   }
+
+  allowImport() {
+    const submission: Submission = ({} as any) as Submission;
+    submission.submissionId = this.submission.submissionId;
+    submission.submission_status = 'SUBMITTED';
+    this.submissionService.patchSubmission(submission).subscribe(value => {
+      this.submission = value;
+      this.snackbar.open('Import enabled.', '', {duration: 2500});
+    });
+  }
 }

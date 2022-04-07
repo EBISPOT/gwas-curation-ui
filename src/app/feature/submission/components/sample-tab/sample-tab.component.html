@@ -1,5 +1,5 @@
 <div class="p-3 mb-4" style="background-color: #EDF8F9; border: 1px solid #ccc">
-  <span class="font-bold"> Samples for submission: {{submissionId}} </span>
+  <span class="font-bold"> Samples descriptions for submission: {{submissionId}} </span>
 </div>
 
 <button *ngIf="!showSampleUpload" mat-raised-button class="mx-4" (click)="showSampleUpload = true;"> Edit samples in bulk </button>
@@ -85,17 +85,17 @@
 
     <ng-container matColumnDef="initialSampleDescription">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Initial Sample Desc.</th>
-      <td mat-cell *matCellDef="let row">
+      <td mat-cell *matCellDef="let row" matTooltip="{{row.initialSampleDescription}}" [matTooltipShowDelay]="500" [matTooltipDisabled]="row.initialSampleDescription.length <= 80">
         <span *ngIf="!row.initialSampleDescription">N/A</span>
-        <span *ngIf="row.initialSampleDescription">{{row.initialSampleDescription}}</span>
+        <span *ngIf="row.initialSampleDescription">{{(row.initialSampleDescription.length > 80) ? ((row.initialSampleDescription).slice(0, 80) + '...') : row.initialSampleDescription}}</span>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="replicateSampleDescription">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Replicate Sample Desc</th>
-      <td mat-cell *matCellDef="let row">
+      <td mat-cell *matCellDef="let row" matTooltip="{{row.replicateSampleDescription}}" [matTooltipShowDelay]="500" [matTooltipDisabled]="row.replicateSampleDescription.length <= 80">
         <span *ngIf="!row.replicateSampleDescription">N/A</span>
-        <span *ngIf="row.replicateSampleDescription">{{row.replicateSampleDescription}}</span>
+        <span *ngIf="row.replicateSampleDescription">{{(row.replicateSampleDescription.length > 80) ? ((row.replicateSampleDescription).slice(0, 80) + '...') : row.replicateSampleDescription}}</span>
       </td>
     </ng-container>
 
