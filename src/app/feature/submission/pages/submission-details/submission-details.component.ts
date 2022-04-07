@@ -42,10 +42,9 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
         || this.submission.publication && this.submission.publication.status === 'UNDER_SUMMARY_STATS_SUBMISSION') {
         this.disableEdit = true;
       }
-      if (value.submission_status == null || value.submission_status === 'VALID' || value.submission_status === 'INVALID'
-        || value.submission_status === 'CURATION_COMPLETE' || value.submission_status === 'COMPLETE'
-        || value.submission_status === 'STARTED' || value.submission_status === 'SUBMITTED'
-        || value.submission_status === 'IMPORT_FAILED') {
+      if (value.submission_status == null
+        || ['VALID', 'INVALID', 'CURATION_COMPLETE', 'COMPLETE', 'STARTED', 'SUBMITTED', 'IMPORT_FAILED', 'DEPOSITION_COMPLETE']
+            .includes(value.submission_status)) {
         this.stopPolling.next();
         this.historyTabCmp.loadHistory();
       }
