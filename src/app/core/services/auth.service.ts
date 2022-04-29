@@ -19,17 +19,14 @@ export class AuthService {
   }
 
   isCurator() {
-    return this.getDecodedToken().domains.indexOf('self.GWAS_Curator') > -1;
+    return this.getDecodedToken()?.domains?.indexOf('self.GWAS_Curator') > -1;
   }
 
   getDecodedToken() {
     const jwtToken = this.tokenStorageService.getToken();
-    let decoded = jwt_decode(jwtToken);
+    const decoded = jwt_decode(jwtToken);
     if (Date.now() > decoded.exp * 1000) {
-      decoded = 'SESSION TIMEOUT';
-      alert(decoded);
       this.tokenStorageService.signOut();
-      this.router.navigateByUrl('/login').then();
     }
     return decoded;
   }
@@ -82,6 +79,6 @@ export class AuthService {
   }
 
   logout() {
-    this.tokenStorageService.signOut();
+    window.localStorage.removeItem('id_token');
   }
 }
