@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     if (this.authService.loggedIn() && this.authService.isCurator()) {
       return true;
     } else {
-      this.tss.signOut();
+      this.tss.signOut(state.url);
       return false;
     }
   }

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from '../../../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 
 @Component({
@@ -11,11 +11,13 @@ import { environment } from '../../../../../environments/environment';
 export class LoginComponent implements OnInit {
   window: any;
   bgImage: string;
-  constructor(private authService: AuthService, private router: Router) {}
+  private returnUrl: string;
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     if (this.authService.loggedIn()) { this.router.navigateByUrl('/').then(); }
     this.randomBgImage();
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
   login() {
@@ -27,7 +29,7 @@ export class LoginComponent implements OnInit {
     if (event.origin === environment.AAPURL) {
       this.authService.saveToken(event.data);
       this.window.close();
-      this.router.navigateByUrl('/').then();
+      this.router.navigateByUrl(this.returnUrl).then();
     }
   }
 
