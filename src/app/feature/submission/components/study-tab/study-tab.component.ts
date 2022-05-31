@@ -29,7 +29,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Study>;
   resultsLength = 0;
   isLoadingResults = true;
-  displayedColumns: string[] = ['study_accession', 'study_tag', 'variant_count', 'genotyping_technology', 'imputation', 'disease_trait'];
+  displayedColumns: string[] = ['study_accession', 'study_tag', 'variant_count', 'genotyping_technology', 'array_manufacturer', 'array_information', 'imputation', 'statistical_model', 'study_description', 'disease_trait', 'efo', 'background_efo', 'sumstats_file', 'cohort'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   submissionId = this.route.snapshot.paramMap.get('id');

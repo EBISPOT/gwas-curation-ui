@@ -213,7 +213,7 @@
       <div class="loading-shade" *ngIf="isLoadingResults">
         <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
       </div>
-      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()"
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()"
              matSortActive="accession" matSortDisableClear matSortDirection="desc" class="w-full">
 
         <ng-container matColumnDef="study_accession">
@@ -231,19 +231,27 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="variant_count">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Variant Count</th>
-          <td mat-cell *matCellDef="let row">
-            <span *ngIf="!row.variant_count">N/A</span>
-            <span *ngIf="row.variant_count">{{row.variant_count}}</span>
-          </td>
-        </ng-container>
-
         <ng-container matColumnDef="genotyping_technology">
           <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Genotyping Tech.</th>
           <td mat-cell *matCellDef="let row">
             <span *ngIf="!row.genotyping_technology">N/A</span>
             <span *ngIf="row.genotyping_technology">{{row.genotyping_technology}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="array_manufacturer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Array Manufacturer</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="!row.array_manufacturer">N/A</span>
+            <span *ngIf="row.array_manufacturer">{{row.array_manufacturer}}</span>
+          </td>
+        </ng-container>array_information
+
+        <ng-container matColumnDef="array_information">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Array Info.</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="!row.array_information">N/A</span>
+            <span *ngIf="row.array_information">{{row.array_information}}</span>
           </td>
         </ng-container>
 
@@ -255,12 +263,67 @@
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="variant_count">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Variant Count</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="!row.variant_count">N/A</span>
+            <span *ngIf="row.variant_count">{{row.variant_count}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="statistical_model">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Statistical Model</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="!row.statisticalModel">N/A</span>
+            <span *ngIf="row.statisticalModel">{{row.statisticalModel}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="study_description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Study Desc.</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="!row.studyDescription">N/A</span>
+            <span *ngIf="row.studyDescription">{{row.studyDescription}}</span>
+          </td>
+        </ng-container>
 
         <ng-container matColumnDef="disease_trait">
           <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Reported trait</th>
           <td mat-cell *matCellDef="let row" style="max-width: 350px">
             <span *ngIf="!row.diseaseTrait">N/A</span>
             <span *ngIf="row.diseaseTrait">{{row.diseaseTrait.trait}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="efo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>EFO</th>
+          <td mat-cell *matCellDef="let row" style="max-width: 350px">
+            <span *ngIf="!row.efo_trait">N/A</span>
+            <span *ngIf="row.efo_trait">{{row.efo_trait}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="background_efo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Background EFO</th>
+          <td mat-cell *matCellDef="let row" style="max-width: 350px">
+            <span *ngIf="!row.backgroundEfoTrait">N/A</span>
+            <span *ngIf="row.backgroundEfoTrait">{{row.backgroundEfoTrait}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sumstats_file">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Sumstats File</th>
+          <td mat-cell *matCellDef="let row" style="max-width: 350px">
+            <span *ngIf="!row.summaryStatisticsFile">N/A</span>
+            <span *ngIf="row.summaryStatisticsFile">{{row.summaryStatisticsFile}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cohort">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Cohort</th>
+          <td mat-cell *matCellDef="let row" style="max-width: 350px">
+            <span *ngIf="!row.cohort">N/A</span>
+            <span *ngIf="row.cohort">{{row.cohort}}</span>
           </td>
         </ng-container>
 
