@@ -18,6 +18,7 @@ import { environment } from '../../../../../environments/environment';
 import { TokenStorageService } from '../../../../core/services/token-storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EfoTrait } from '../../../../core/models/efoTrait';
+import { EfoTraitService } from '../../../../core/services/efo-trait.service';
 
 @Component({
   selector: 'app-study-tab',
@@ -36,10 +37,13 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   openedGcst: number;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   traitCtrl = new FormControl();
+  efoTraitCtrl = new FormControl();
   reportedTraits: ReportedTrait[] = [];
   efoTraits: EfoTrait[] = [];
   reportedTraitsDropdownItems: ReportedTrait[] = [];
+  efoTraitsDropdownItems: EfoTrait[] = [];
   @ViewChild('reportedTraitInput') reportedTraitInput: ElementRef;
+  @ViewChild('efoTraitInput') efoTraitInput: ElementRef;
   @ViewChild('sidenav') sidenav: MatSidenav;
   isLoadingSidenav: boolean;
   sidenavStudy: Study;
@@ -54,7 +58,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   efoReport: any;
 
   constructor(private route: ActivatedRoute, private submissionService: SubmissionService, private snackBar: MatSnackBar,
-              private reportedTraitService: ReportedTraitService, private tokenService: TokenStorageService) {
+              private reportedTraitService: ReportedTraitService, private efoTraitService: EfoTraitService, private tokenService: TokenStorageService) {
     this.traitUploader = new FileUploader(
       {
         url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/multi-traits/files', itemAlias: 'multipartFile',
@@ -156,6 +160,21 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
           }
         });
       });
+
+    fromEvent(this.efoTraitInput.nativeElement, 'input').pipe()
+      .pipe(map((event: Event) => (event.target as HTMLInputElement).value))
+      .pipe(debounceTime(1000))
+      .pipe(distinctUntilChanged())
+      .subscribe(data => {
+        this.efoTraitService.getTraits(50, 0, 'trait', 'asc', data).subscribe(value => {
+          if (value?._embedded?.efoTraits) {
+            this.efoTraitsDropdownItems = value._embedded.efoTraits;
+          }
+          else {
+            this.efoTraitsDropdownItems = [];
+          }
+        });
+      });
   }
 
   getSubmissionStudies() {
@@ -174,10 +193,26 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     }
   }
 
+  removeEfo(trait: EfoTrait): void {
+    const index = this.efoTraits.indexOf(trait);
+
+    if (index >= 0) {
+      this.efoTraits.splice  (index, 1);
+    }
+  }
+
   selected(event: MatAutocompleteSelectedEvent): void {
     this.reportedTraits[0] = event.option.value;
     this.reportedTraitInput.nativeElement.value = '';
     this.traitCtrl.setValue(null);
+  }
+
+  selectedEfo(event: MatAutocompleteSelectedEvent): void {
+    if (this.efoTraits.indexOf(event.option.value) < 0) {
+      this.efoTraits.push(event.option.value);
+    }
+    this.efoTraitInput.nativeElement.value = '';
+    this.efoTraitCtrl.setValue(null);
   }
 
   openSidenav(id: string) {
@@ -210,6 +245,17 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
       trait = this.reportedTraits[0];
     }
     this.submissionService.editReportedTraits(trait, this.submissionId, this.sidenavStudy)
+      .subscribe((v) => {
+        this.sidenavStudy = v;
+        this.isLoadingSidenav = false;
+      });
+  }
+
+  saveEfoTraits() {
+
+    this.isLoadingSidenav = true;
+
+    this.submissionService.editEfoTraits(this.efoTraits, this.submissionId, this.sidenavStudy)
       .subscribe((v) => {
         this.sidenavStudy = v;
         this.isLoadingSidenav = false;

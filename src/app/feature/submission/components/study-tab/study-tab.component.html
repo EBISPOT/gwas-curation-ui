@@ -74,14 +74,34 @@
         </mat-autocomplete>
       </mat-form-field>
       <button mat-raised-button color="primary" class="mx-4 -top-1" (click)="saveReportedTraits()" [disabled]="reportedTraits.length == 0"> Save </button>
+
+
       <mat-form-field class="w-4/5" appearance="outline">
         <mat-label>EFO traits</mat-label>
-        <mat-chip-list>
-          <mat-chip *ngFor="let efoTrait of efoTraits">
+        <mat-chip-list #efoChipList>
+          <mat-chip *ngFor="let efoTrait of efoTraits"
+                    (removed)="removeEfo(efoTrait)">
             {{efoTrait.trait + ', ' + efoTrait.shortForm}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
           </mat-chip>
+          <input
+          placeholder="Add trait..."
+          #efoTraitInput
+          [formControl]="efoTraitCtrl"
+          [matAutocomplete]="efoAuto"
+          [matChipInputFor]="efoChipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
         </mat-chip-list>
+        <mat-autocomplete #efoAuto="matAutocomplete" (optionSelected)="selectedEfo($event)">
+          <mat-option *ngFor="let efoTrait of efoTraitsDropdownItems" [value]="efoTrait">
+            {{efoTrait.trait + ', ' + efoTrait.shortForm}}
+          </mat-option>
+          <mat-option disabled *ngIf="efoTraitsDropdownItems.length == 0"> No results. </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
+      <button mat-raised-button color="primary" class="mx-4 -top-1" (click)="saveEfoTraits()" [disabled]="efoTraits.length == 0"> Save </button>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>

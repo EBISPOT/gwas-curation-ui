@@ -8,6 +8,7 @@ import { SubmissionHistory } from '../models/submissionHistory';
 import { CurationHttpService } from './curation-http.service';
 import { ReportedTrait } from '../models/reportedTrait';
 import { Study } from '../models/study';
+import { EfoTrait } from '../models/efoTrait';
 
 @Injectable({
   providedIn: 'root'
@@ -139,6 +140,12 @@ export class SubmissionService {
 
     return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
       {diseaseTrait: trait, study_tag: study.study_tag});
+  }
+
+  editEfoTraits(efoTraits: EfoTrait[], submissionId, study: Study) {
+
+    return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
+      {efoTraits, study_tag: study.study_tag});
   }
 
   filterSubmissions(filtersString: string, size: number, page: number, sort: string, order: string) {
