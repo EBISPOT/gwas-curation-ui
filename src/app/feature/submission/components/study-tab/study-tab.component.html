@@ -96,13 +96,13 @@
     <mat-card class="space-y-3 my-3 mat-elevation-z4" *ngIf="showTraitUpload">
       <mat-card-header>
         <h2>
-          Assign Reported Traits in bulk
+          Assign EFO and Reported Traits in bulk
         </h2>
       </mat-card-header>
       <div class="absolute right-0 z-50" style="top: -10px;">
         <button mat-icon-button (click)="showTraitUpload = false;" class="hover:bg-gray-100"><mat-icon color="primary">close</mat-icon></button>
       </div>
-      <button mat-stroked-button (click)="downloadBulkStudyTraitUploadTemplate()">
+      <button mat-stroked-button (click)="downloadBulkStudyMultiTraitUploadTemplate()">
         <mat-icon>download</mat-icon> Download template
       </button>
       <div class="flex justify-center sm:space-x-4">
@@ -147,65 +147,6 @@
       </div>
       <section *ngIf="report">
         <button mat-raised-button color="warn" (click)="downloadStudyTraitMappingReport()"> <mat-icon>download</mat-icon> Download report</button>
-      </section>
-    </mat-card>
-
-    <button *ngIf="!showEfoUpload" mat-raised-button class="mx-4" (click)="showEfoUpload = true;"> Assign EFOs in bulk </button>
-
-    <mat-card class="space-y-3 my-3 mat-elevation-z4" *ngIf="showEfoUpload">
-      <mat-card-header>
-        <h2>
-          Assign EFO Traits in bulk
-        </h2>
-      </mat-card-header>
-      <div class="absolute right-0 z-50" style="top: -10px;">
-        <button mat-icon-button (click)="showEfoUpload = false;" class="hover:bg-gray-100"><mat-icon color="primary">close</mat-icon></button>
-      </div>
-      <button mat-stroked-button (click)="downloadBulkStudyEfoUploadTemplate()">
-        <mat-icon>download</mat-icon> Download template
-      </button>
-      <div class="flex justify-center sm:space-x-4">
-        <div ng2FileDrop
-             [uploader]="efoUploader"
-             (fileOver)="traitUploadFileOver($event)"
-             [ngClass]="{'nv-file-over': hasDropZoneOver}"
-             class="bg-gradient-to-t from-green-800 via-gray-700 to-blue-900
-               rounded-l p-5 text-white mat-elevation-z6 hidden sm:block w-64 text-center my-drop-zone">
-          <span *ngIf="efoUploader.queue.length == 0"> Drop traits template here </span>
-          <span *ngIf="efoUploader.queue.length != 0">{{efoUploader.queue[0].file.name}}</span>
-        </div>
-        <div class="flex items-center">
-          <h3 class="hidden sm:block mt-2">OR</h3>
-        </div>
-        <div class="flex items-center">
-          <button mat-stroked-button (click)="efoFileInput.click()">
-            <mat-icon color="primary">upload</mat-icon>
-            <span>Select file</span>
-            <input #efoFileInput type="file" ng2FileSelect [uploader]="efoUploader" class="hidden"/>
-          </button>
-        </div>
-      </div>
-      <div class="flex justify-center">
-        <span *ngIf="efoUploader.queue.length == 0">No file selected.</span>
-        <span *ngIf="efoUploader.queue.length > 0">{{efoUploader.queue[0].file.name}}</span>
-      </div>
-      <div class="flex justify-center" *ngIf="efoUploader.queue.length > 0">
-        <mat-progress-bar mode="determinate" [value]="efoUploader.progress"></mat-progress-bar>
-      </div>
-      <div *ngIf="efoUploader.queue.length > 0" class="flex justify-center">
-        <button class="mx-3"
-                [disabled]="efoUploader.queue[0].isReady || efoUploader.queue[0].isUploading || efoUploader.queue[0].isSuccess"
-                mat-raised-button color="primary" (click)="efoUploader.progress=0; efoUploader.queue[0].upload();">
-          Upload
-        </button>
-        <button [disabled]="efoUploader.queue.length == 0" mat-raised-button color="primary"
-                (click)="efoUploader.isUploading ? efoUploader.cancelAll() : efoUploader.clearQueue(); efoFileInput.value = '';">
-          <span *ngIf="efoUploader.isUploading">Cancel</span>
-          <span *ngIf="!efoUploader.isUploading">Reset</span>
-        </button>
-      </div>
-      <section *ngIf="efoReport">
-        <button mat-raised-button color="warn" (click)="downloadStudyEfoMappingReport()"> <mat-icon>download</mat-icon>Download report</button>
       </section>
     </mat-card>
 

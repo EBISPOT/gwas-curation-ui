@@ -57,7 +57,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
               private reportedTraitService: ReportedTraitService, private tokenService: TokenStorageService) {
     this.traitUploader = new FileUploader(
       {
-        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/reported-traits/files', itemAlias: 'multipartFile',
+        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/multi-traits/files', itemAlias: 'multipartFile',
         authToken: 'Bearer ' + tokenService.getToken()
       });
 
@@ -214,6 +214,17 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
         this.sidenavStudy = v;
         this.isLoadingSidenav = false;
       });
+  }
+
+  downloadBulkStudyMultiTraitUploadTemplate() {
+
+    this.submissionService.downloadBulkStudyMultiTraitUploadTemplate().subscribe((response: any) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(new Blob([response]));
+      link.setAttribute('download', 'study-multi-trait-bulk-upload.tsv');
+      document.body.appendChild(link);
+      link.click();
+    });
   }
 
   downloadBulkStudyTraitUploadTemplate() {

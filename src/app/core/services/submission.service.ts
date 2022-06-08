@@ -115,6 +115,11 @@ export class SubmissionService {
     return this.curationHttp.get('/submissions/' + submissionId + '/studies/' + studyId);
   }
 
+  downloadBulkStudyMultiTraitUploadTemplate() {
+
+    return this.curationHttp.download('/reported-traits/templates?file=study-multi-trait');
+  }
+
   downloadBulkStudyTraitUploadTemplate() {
 
     return this.curationHttp.download('/reported-traits/templates?file=study-trait');
