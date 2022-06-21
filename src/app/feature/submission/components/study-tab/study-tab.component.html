@@ -165,9 +165,12 @@
           <span *ngIf="!traitUploader.isUploading">Reset</span>
         </button>
       </div>
-      <section *ngIf="report">
+      <div class="flex justify-center" *ngIf="report">
         <button mat-raised-button color="warn" (click)="downloadStudyTraitMappingReport()"> <mat-icon>download</mat-icon> Download report</button>
-      </section>
+      </div>
+      <div class="flex justify-center" *ngIf="report && report.hasErrors == true">
+        <h4 class="color-warn">Report may contain errors, please download and have a look.</h4>
+      </div>
     </mat-card>
 
     <div class="border border-gray-400 m-4">

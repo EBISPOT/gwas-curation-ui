@@ -15,7 +15,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../../../environments/environment';
 import { TokenStorageService } from '../../../../core/services/token-storage.service';
-import { TraitUploadApiResponse } from '../../../../core/models/rest/api-responses/traitUploadApiResponse';
 
 @Component({
   selector: 'app-reported-trait',
@@ -76,7 +75,7 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
     };
     this.traitUploader.onSuccessItem = (item, response) => {
       this.snackBar.open('Traits file was uploaded successfully.', '', {duration: 2500});
-      this.report = response;
+      this.report = JSON.parse(response);
       this.traitUploader.clearQueue();
       this.fileInput.nativeElement.value = '';
       this.reloadTraits();
@@ -283,13 +282,11 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
         this.dataSource = new MatTableDataSource<ReportedTrait>(value?._embedded?.diseaseTraits ? value._embedded.diseaseTraits : null);
         this.resultsLength = value.page.totalElements;
       });
-
   }
 
   downloadBulkUploadReport() {
-
     const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(new Blob([this.report]));
+    link.href = window.URL.createObjectURL(new Blob([atob(this.report.uploadReport)]));
     link.setAttribute('download', 'reported-traits-bulk-report.tsv');
     document.body.appendChild(link);
     link.click();
