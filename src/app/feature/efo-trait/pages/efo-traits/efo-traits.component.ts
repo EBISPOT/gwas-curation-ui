@@ -83,7 +83,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
     };
     this.traitUploader.onSuccessItem = (item, response) => {
       this.snackBar.open('Traits file was uploaded successfully.', '', {duration: 2500});
-      this.report = response;
+      this.report = JSON.parse(response);
       this.traitUploader.clearQueue();
       this.fileInput.nativeElement.value = '';
       this.reloadTraits();
@@ -286,7 +286,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
   downloadBulkUploadReport() {
 
     const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(new Blob([this.report]));
+    link.href = window.URL.createObjectURL(new Blob([atob(this.report.uploadReport)]));
     link.setAttribute('download', 'efo-traits-bulk-report.tsv');
     document.body.appendChild(link);
     link.click();
