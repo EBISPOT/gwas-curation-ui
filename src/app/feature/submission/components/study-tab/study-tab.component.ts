@@ -56,6 +56,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   @ViewChild('efoFileInput') efoFileInput: ElementRef;
   report: any;
   efoReport: any;
+  uploadError: any;
 
   constructor(private route: ActivatedRoute, private submissionService: SubmissionService, private snackBar: MatSnackBar,
               private reportedTraitService: ReportedTraitService, private efoTraitService: EfoTraitService, private tokenService: TokenStorageService) {
@@ -77,19 +78,24 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     this.traitUploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
       this.report = null;
+      this.uploadError = null;
       if (this.traitUploader.queue.length > 1) {
         this.traitUploader.cancelAll();
         this.traitUploader.removeFromQueue(this.traitUploader.queue[0]);
       }
     };
     this.traitUploader.onSuccessItem = (item, response) => {
+      this.uploadError = null;
       this.snackBar.open('Traits file was uploaded successfully.', '', {duration: 2500});
       this.report = JSON.parse(response);
       this.traitUploader.clearQueue();
       this.fileInput.nativeElement.value = '';
       this.reloadStudies();
     };
-    this.traitUploader.onErrorItem = () => {
+    this.traitUploader.onErrorItem = (item, response) => {
+      const prefix = 'FileProcessingException:';
+      const message = JSON.parse(response).message;
+      this.uploadError = message.slice(message.indexOf(prefix) + prefix.length);
       this.snackBar.open('An unexpected error occurred while uploading traits.', '', {duration: 2500});
     };
 
@@ -143,6 +149,13 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe(value => {
+        for (const study of value) {
+          study.efo_trait = '';
+          for (const efo of study.efoTraits) {
+            study.efo_trait = study.efo_trait + efo.shortForm + ' | ';
+          }
+          study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
+        }
         this.dataSource = new MatTableDataSource<Study>(value);
       });
 
@@ -301,6 +314,13 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     this.submissionService
       .getSubmissionStudies(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, this.submissionId)
       .subscribe(value => {
+        for (const study of value._embedded.studies) {
+          study.efo_trait = '';
+          for (const efo of study.efoTraits) {
+            study.efo_trait = study.efo_trait + efo.shortForm + ' | ';
+          }
+          study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
+        }
         this.isLoadingResults = false;
         this.dataSource = new MatTableDataSource<Study>(value._embedded.studies);
       });
