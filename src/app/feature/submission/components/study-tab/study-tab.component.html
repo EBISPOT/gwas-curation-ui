@@ -150,6 +150,9 @@
         <span *ngIf="traitUploader.queue.length == 0">No file selected.</span>
         <span *ngIf="traitUploader.queue.length > 0">{{traitUploader.queue[0].file.name}}</span>
       </div>
+      <div class="flex justify-center" *ngIf="uploadError">
+        <h4 class="color-warn">{{uploadError}}</h4>
+      </div>
       <div class="flex justify-center" *ngIf="traitUploader.queue.length > 0">
         <mat-progress-bar mode="determinate" [value]="traitUploader.progress"></mat-progress-bar>
       </div>
@@ -160,7 +163,7 @@
           Upload
         </button>
         <button [disabled]="traitUploader.queue.length == 0" mat-raised-button color="primary"
-                (click)="traitUploader.isUploading ? traitUploader.cancelAll() : traitUploader.clearQueue(); fileInput.value = '';">
+                (click)="traitUploader.isUploading ? traitUploader.cancelAll() : traitUploader.clearQueue(); fileInput.value = ''; uploadError = null;">
           <span *ngIf="traitUploader.isUploading">Cancel</span>
           <span *ngIf="!traitUploader.isUploading">Reset</span>
         </button>

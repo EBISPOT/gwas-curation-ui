@@ -108,6 +108,9 @@
       <div class="flex justify-center" *ngIf="report && report.hasErrors == true">
         <h4 class="color-warn">Report may contain errors, please download and have a look.</h4>
       </div>
+      <div class="flex justify-center" *ngIf="uploadError">
+        <h4 class="color-warn">{{uploadError}}</h4>
+      </div>
       <div class="flex justify-center" *ngIf="traitUploader.queue.length > 0">
         <mat-progress-bar mode="determinate" [value]="traitUploader.progress"></mat-progress-bar>
       </div>
@@ -118,7 +121,7 @@
           Upload
         </button>
         <button [disabled]="traitUploader.queue.length == 0" mat-raised-button color="primary"
-                (click)="traitUploader.isUploading ? traitUploader.cancelAll() : traitUploader.clearQueue(); fileInput.value = '';">
+                (click)="traitUploader.isUploading ? traitUploader.cancelAll() : traitUploader.clearQueue(); fileInput.value = ''; uploadError = false;">
           <span *ngIf="traitUploader.isUploading">Cancel</span>
           <span *ngIf="!traitUploader.isUploading">Reset</span>
         </button>
