@@ -152,7 +152,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
         for (const study of value) {
           study.efo_trait = '';
           for (const efo of study.efoTraits) {
-            study.efo_trait = study.efo_trait + efo.shortForm + ' | ';
+            study.efo_trait = study.efo_trait + efo.trait + ' | ';
           }
           study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
         }
@@ -317,7 +317,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
         for (const study of value._embedded.studies) {
           study.efo_trait = '';
           for (const efo of study.efoTraits) {
-            study.efo_trait = study.efo_trait + efo.shortForm + ' | ';
+            study.efo_trait = study.efo_trait + efo.trait + ' | ';
           }
           study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
         }
