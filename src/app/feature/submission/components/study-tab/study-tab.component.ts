@@ -151,10 +151,15 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
       .subscribe(value => {
         for (const study of value) {
           study.efo_trait = '';
+          study.background_efo_trait = '';
           for (const efo of study.efoTraits) {
             study.efo_trait = study.efo_trait + efo.trait + ' | ';
           }
           study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
+          for (const efo of study.backgroundEfoTraits) {
+            study.background_efo_trait = study.background_efo_trait + efo.trait + ' | ';
+          }
+          study.background_efo_trait = study.background_efo_trait.substring(0, study.background_efo_trait.length - 3);
         }
         this.dataSource = new MatTableDataSource<Study>(value);
       });
@@ -316,10 +321,15 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
       .subscribe(value => {
         for (const study of value._embedded.studies) {
           study.efo_trait = '';
+          study.background_efo_trait = '';
           for (const efo of study.efoTraits) {
             study.efo_trait = study.efo_trait + efo.trait + ' | ';
           }
           study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
+          for (const efo of study.backgroundEfoTraits) {
+            study.background_efo_trait = study.background_efo_trait + efo.trait + ' | ';
+          }
+          study.background_efo_trait = study.background_efo_trait.substring(0, study.background_efo_trait.length - 3);
         }
         this.isLoadingResults = false;
         this.dataSource = new MatTableDataSource<Study>(value._embedded.studies);
