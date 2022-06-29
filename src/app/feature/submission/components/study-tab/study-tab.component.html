@@ -102,6 +102,34 @@
         </mat-autocomplete>
       </mat-form-field>
       <button mat-raised-button color="primary" class="mx-4 -top-1" (click)="saveEfoTraits()" [disabled]="efoTraits.length == 0"> Save </button>
+
+      <mat-form-field class="w-4/5" appearance="outline">
+        <mat-label>Background EFO traits</mat-label>
+        <mat-chip-list #bgEfoChipList>
+          <mat-chip *ngFor="let bgEfoTrait of bgEfoTraits"
+                    (removed)="removeBgEfo(bgEfoTrait)">
+            {{bgEfoTrait.trait + ', ' + bgEfoTrait.shortForm}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            placeholder="Add trait..."
+            #bgEfoTraitInput
+            [formControl]="bgEfoTraitCtrl"
+            [matAutocomplete]="bgEfoAuto"
+            [matChipInputFor]="bgEfoChipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+        </mat-chip-list>
+        <mat-autocomplete #bgEfoAuto="matAutocomplete" (optionSelected)="selectedBgEfo($event)">
+          <mat-option *ngFor="let bgEfoTrait of bgEfoTraitsDropdownItems" [value]="bgEfoTrait">
+            {{bgEfoTrait.trait + ', ' + bgEfoTrait.shortForm}}
+          </mat-option>
+          <mat-option disabled *ngIf="bgEfoTraitsDropdownItems.length == 0"> No results. </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="mx-4 -top-1" (click)="saveBgEfoTraits()"> Save </button>
+
     </div>
   </mat-sidenav>
   <mat-sidenav-content>

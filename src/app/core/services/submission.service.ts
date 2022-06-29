@@ -148,6 +148,12 @@ export class SubmissionService {
       {efoTraits, study_tag: study.study_tag});
   }
 
+  editBgEfoTraits(backgroundEfoTraits: EfoTrait[], submissionId, study: Study) {
+
+    return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
+      {backgroundEfoTraits, study_tag: study.study_tag});
+  }
+
   filterSubmissions(filtersString: string, size: number, page: number, sort: string, order: string) {
     const params = filtersString + '&size=' + String(size) + '&sort=' + sort + ',' + order;
     return this.curationHttp.get('/submissions?' + params);

@@ -38,12 +38,16 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   traitCtrl = new FormControl();
   efoTraitCtrl = new FormControl();
+  bgEfoTraitCtrl = new FormControl();
   reportedTraits: ReportedTrait[] = [];
   efoTraits: EfoTrait[] = [];
+  bgEfoTraits: EfoTrait[] = [];
   reportedTraitsDropdownItems: ReportedTrait[] = [];
   efoTraitsDropdownItems: EfoTrait[] = [];
+  bgEfoTraitsDropdownItems: EfoTrait[] = [];
   @ViewChild('reportedTraitInput') reportedTraitInput: ElementRef;
   @ViewChild('efoTraitInput') efoTraitInput: ElementRef;
+  @ViewChild('bgEfoTraitInput') bgEfoTraitInput: ElementRef;
   @ViewChild('sidenav') sidenav: MatSidenav;
   isLoadingSidenav: boolean;
   sidenavStudy: Study;
@@ -193,6 +197,21 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
           }
         });
       });
+
+    fromEvent(this.bgEfoTraitInput.nativeElement, 'input').pipe()
+      .pipe(map((event: Event) => (event.target as HTMLInputElement).value))
+      .pipe(debounceTime(1000))
+      .pipe(distinctUntilChanged())
+      .subscribe(data => {
+        this.efoTraitService.getTraits(50, 0, 'trait', 'asc', data).subscribe(value => {
+          if (value?._embedded?.efoTraits) {
+            this.bgEfoTraitsDropdownItems = value._embedded.efoTraits;
+          }
+          else {
+            this.bgEfoTraitsDropdownItems = [];
+          }
+        });
+      });
   }
 
   getSubmissionStudies() {
@@ -219,6 +238,14 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     }
   }
 
+  removeBgEfo(trait: EfoTrait): void {
+    const index = this.bgEfoTraits.indexOf(trait);
+
+    if (index >= 0) {
+      this.bgEfoTraits.splice  (index, 1);
+    }
+  }
+
   selected(event: MatAutocompleteSelectedEvent): void {
     this.reportedTraits[0] = event.option.value;
     this.reportedTraitInput.nativeElement.value = '';
@@ -231,6 +258,14 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     }
     this.efoTraitInput.nativeElement.value = '';
     this.efoTraitCtrl.setValue(null);
+  }
+
+  selectedBgEfo(event: MatAutocompleteSelectedEvent): void {
+    if (this.bgEfoTraits.indexOf(event.option.value) < 0) {
+      this.bgEfoTraits.push(event.option.value);
+    }
+    this.bgEfoTraitInput.nativeElement.value = '';
+    this.bgEfoTraitCtrl.setValue(null);
   }
 
   openSidenav(id: string) {
@@ -246,6 +281,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
         this.reportedTraits[0] = this.sidenavStudy.diseaseTrait;
       }
       this.efoTraits = this.sidenavStudy.efoTraits;
+      this.bgEfoTraits = this.sidenavStudy.backgroundEfoTraits;
       this.isLoadingSidenav = false;
     });
   }
@@ -266,6 +302,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
       .subscribe((v) => {
         this.sidenavStudy = v;
         this.isLoadingSidenav = false;
+        this.reloadStudies();
       });
   }
 
@@ -277,6 +314,19 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
       .subscribe((v) => {
         this.sidenavStudy = v;
         this.isLoadingSidenav = false;
+        this.reloadStudies();
+      });
+  }
+
+
+  saveBgEfoTraits() {
+    this.isLoadingSidenav = true;
+
+    this.submissionService.editBgEfoTraits(this.bgEfoTraits, this.submissionId, this.sidenavStudy)
+      .subscribe((v) => {
+        this.sidenavStudy = v;
+        this.isLoadingSidenav = false;
+        this.reloadStudies();
       });
   }
 
