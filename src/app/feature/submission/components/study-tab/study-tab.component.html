@@ -107,7 +107,7 @@
         <mat-label>Background EFO traits</mat-label>
         <mat-chip-list #bgEfoChipList>
           <mat-chip *ngFor="let bgEfoTrait of bgEfoTraits"
-                    (removed)="removeBgEfo(bgEfoTrait)">
+                    (removed)="removeBgEfo(bgEfoTrait)" selected>
             {{bgEfoTrait.trait + ', ' + bgEfoTrait.shortForm}}
             <button matChipRemove>
               <mat-icon>cancel</mat-icon>
