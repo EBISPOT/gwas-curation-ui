@@ -30,7 +30,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Study>;
   resultsLength = 0;
   isLoadingResults = true;
-  displayedColumns: string[] = ['study_accession', 'study_tag', 'genotyping_technology', 'array_manufacturer', 'array_information', 'imputation', 'variant_count', 'statistical_model', 'study_description', 'disease_trait', 'efo', 'background_efo', 'sumstats_file', 'cohort'];
+  displayedColumns: string[] = ['study_accession', 'study_tag', 'genotyping_technology', 'array_manufacturer', 'array_information', 'imputation', 'variant_count', 'statistical_model', 'study_description', 'disease_trait', 'efo', 'sumstats_file', 'cohort'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   submissionId = this.route.snapshot.paramMap.get('id');
@@ -38,16 +38,12 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   traitCtrl = new FormControl();
   efoTraitCtrl = new FormControl();
-  bgEfoTraitCtrl = new FormControl();
   reportedTraits: ReportedTrait[] = [];
   efoTraits: EfoTrait[] = [];
-  bgEfoTraits: EfoTrait[] = [];
   reportedTraitsDropdownItems: ReportedTrait[] = [];
   efoTraitsDropdownItems: EfoTrait[] = [];
-  bgEfoTraitsDropdownItems: EfoTrait[] = [];
   @ViewChild('reportedTraitInput') reportedTraitInput: ElementRef;
   @ViewChild('efoTraitInput') efoTraitInput: ElementRef;
-  @ViewChild('bgEfoTraitInput') bgEfoTraitInput: ElementRef;
   @ViewChild('sidenav') sidenav: MatSidenav;
   isLoadingSidenav: boolean;
   sidenavStudy: Study;
@@ -155,15 +151,10 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
       .subscribe(value => {
         for (const study of value) {
           study.efo_trait = '';
-          study.background_efo_trait = '';
           for (const efo of study.efoTraits) {
             study.efo_trait = study.efo_trait + efo.trait + ' | ';
           }
           study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
-          for (const efo of study.backgroundEfoTraits) {
-            study.background_efo_trait = study.background_efo_trait + efo.trait + ' | ';
-          }
-          study.background_efo_trait = study.background_efo_trait.substring(0, study.background_efo_trait.length - 3);
         }
         this.dataSource = new MatTableDataSource<Study>(value);
       });
@@ -197,21 +188,6 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
           }
         });
       });
-
-    fromEvent(this.bgEfoTraitInput.nativeElement, 'input').pipe()
-      .pipe(map((event: Event) => (event.target as HTMLInputElement).value))
-      .pipe(debounceTime(1000))
-      .pipe(distinctUntilChanged())
-      .subscribe(data => {
-        this.efoTraitService.getTraits(50, 0, 'trait', 'asc', data).subscribe(value => {
-          if (value?._embedded?.efoTraits) {
-            this.bgEfoTraitsDropdownItems = value._embedded.efoTraits;
-          }
-          else {
-            this.bgEfoTraitsDropdownItems = [];
-          }
-        });
-      });
   }
 
   getSubmissionStudies() {
@@ -238,14 +214,6 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     }
   }
 
-  removeBgEfo(trait: EfoTrait): void {
-    const index = this.bgEfoTraits.indexOf(trait);
-
-    if (index >= 0) {
-      this.bgEfoTraits.splice  (index, 1);
-    }
-  }
-
   selected(event: MatAutocompleteSelectedEvent): void {
     this.reportedTraits[0] = event.option.value;
     this.reportedTraitInput.nativeElement.value = '';
@@ -258,14 +226,6 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     }
     this.efoTraitInput.nativeElement.value = '';
     this.efoTraitCtrl.setValue(null);
-  }
-
-  selectedBgEfo(event: MatAutocompleteSelectedEvent): void {
-    if (this.bgEfoTraits.indexOf(event.option.value) < 0) {
-      this.bgEfoTraits.push(event.option.value);
-    }
-    this.bgEfoTraitInput.nativeElement.value = '';
-    this.bgEfoTraitCtrl.setValue(null);
   }
 
   openSidenav(id: string) {
@@ -282,7 +242,6 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
         this.reportedTraits[0] = this.sidenavStudy.diseaseTrait;
       }
       this.efoTraits = this.sidenavStudy.efoTraits;
-      this.bgEfoTraits = this.sidenavStudy.backgroundEfoTraits;
       this.isLoadingSidenav = false;
     });
   }
@@ -312,18 +271,6 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     this.isLoadingSidenav = true;
 
     this.submissionService.editEfoTraits(this.efoTraits, this.submissionId, this.sidenavStudy)
-      .subscribe((v) => {
-        this.sidenavStudy = v;
-        this.isLoadingSidenav = false;
-        this.reloadStudies();
-      });
-  }
-
-
-  saveBgEfoTraits() {
-    this.isLoadingSidenav = true;
-
-    this.submissionService.editBgEfoTraits(this.bgEfoTraits, this.submissionId, this.sidenavStudy)
       .subscribe((v) => {
         this.sidenavStudy = v;
         this.isLoadingSidenav = false;
@@ -372,15 +319,10 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
       .subscribe(value => {
         for (const study of value._embedded.studies) {
           study.efo_trait = '';
-          study.background_efo_trait = '';
           for (const efo of study.efoTraits) {
             study.efo_trait = study.efo_trait + efo.trait + ' | ';
           }
           study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
-          for (const efo of study.backgroundEfoTraits) {
-            study.background_efo_trait = study.background_efo_trait + efo.trait + ' | ';
-          }
-          study.background_efo_trait = study.background_efo_trait.substring(0, study.background_efo_trait.length - 3);
         }
         this.isLoadingResults = false;
         this.dataSource = new MatTableDataSource<Study>(value._embedded.studies);
