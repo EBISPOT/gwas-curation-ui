@@ -277,6 +277,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     // get study
     this.submissionService.getStudy(this.submissionId, id).subscribe((value: Study) => {
       this.sidenavStudy = value;
+      this.reportedTraits = [];
       if (this.sidenavStudy.diseaseTrait) {
         this.reportedTraits[0] = this.sidenavStudy.diseaseTrait;
       }

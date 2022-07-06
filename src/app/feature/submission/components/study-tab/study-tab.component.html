@@ -52,7 +52,7 @@
         <mat-chip-list #chipList>
           <mat-chip
             *ngFor="let reportedTrait of reportedTraits"
-            (removed)="remove(reportedTrait)">
+            (removed)="remove(reportedTrait)" selected>
             {{reportedTrait.trait}}
             <button matChipRemove>
               <mat-icon>cancel</mat-icon>
