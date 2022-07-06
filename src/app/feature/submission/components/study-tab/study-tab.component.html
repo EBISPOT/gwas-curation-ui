@@ -52,7 +52,7 @@
         <mat-chip-list #chipList>
           <mat-chip
             *ngFor="let reportedTrait of reportedTraits"
-            (removed)="remove(reportedTrait)">
+            (removed)="remove(reportedTrait)" selected>
             {{reportedTrait.trait}}
             <button matChipRemove>
               <mat-icon>cancel</mat-icon>
@@ -107,7 +107,7 @@
         <mat-label>Background EFO traits</mat-label>
         <mat-chip-list #bgEfoChipList>
           <mat-chip *ngFor="let bgEfoTrait of bgEfoTraits"
-                    (removed)="removeBgEfo(bgEfoTrait)" selected>
+                    (removed)="removeBgEfo(bgEfoTrait)">
             {{bgEfoTrait.trait + ', ' + bgEfoTrait.shortForm}}
             <button matChipRemove>
               <mat-icon>cancel</mat-icon>
