@@ -14,11 +14,12 @@ import { VersioningComponent } from './components/versioning/versioning.componen
 import { StudyTabComponent } from './components/study-tab/study-tab.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { SampleTabComponent } from './components/sample-tab/sample-tab.component';
 
 @NgModule({
   declarations: [
     SubmissionListComponent, SubmissionDetailsComponent, SubmissionDetailsTabComponent, SubmissionEditTabComponent,
-    SubmissionHistoryTabComponent, VersioningComponent, StudyTabComponent
+    SubmissionHistoryTabComponent, VersioningComponent, StudyTabComponent, SampleTabComponent
   ],
   imports: [
     SharedModule,

@@ -86,7 +86,7 @@
 <div *ngIf="submission?.publication" class="col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-12 card-3b bg-white">
 
   <div class="p-3" style="background-color: #EDF8F9;">
-    <span class="font-bold"> Publication : PMID {{submission.publication.pmid}} </span>
+    <span class="font-bold"> Publication: PMID {{submission.publication.pmid}} </span>
     <a style="float: right; cursor: pointer;" (click)="toggleDisplay('showPublication')">
       <mat-icon *ngIf="showPublication">keyboard_arrow_up</mat-icon>
       <mat-icon *ngIf="!showPublication">keyboard_arrow_down</mat-icon>
@@ -122,6 +122,12 @@
         </a>
       </th>
     </tr>
+    <tr>
+      <th class="col-span-2"> Open Targets </th>
+      <td class="col-span-3"> <mat-checkbox class="ml-1" [ngModel]="submission.opentargets_flag" (change)="openConfirmationDialog('Open Targets', otCheckbox)" #otCheckbox></mat-checkbox> </td>
+      <th class="col-span-2"> User Requested</th>
+      <td class="col-span-3"> <mat-checkbox class="ml-1" [ngModel]="submission.userrequested_flag" (change)="openConfirmationDialog('User Requested', urCheckbox)" #urCheckbox></mat-checkbox> </td>
+    </tr>
   </table>
 
 </div>
@@ -130,7 +136,7 @@
 <div *ngIf="submission" class="col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-12 card-3b mt-4 bg-white">
 
   <div class="p-3" style="background-color: #EDF8F9; border-top: 1px solid #ccc">
-    <span class="font-bold"> Details for Submission :  {{submission.submissionId}} </span>
+    <span class="font-bold"> Details for Submission:  {{submission.submissionId}} </span>
     <a style="float: right; cursor: pointer;" (click)="toggleDisplay('showSubmission')">
       <mat-icon *ngIf="showSubmission">keyboard_arrow_up</mat-icon>
       <mat-icon *ngIf="!showSubmission">keyboard_arrow_down</mat-icon>
@@ -304,9 +310,11 @@
 <!--</mat-card>-->
 
 <div
-  *ngIf="submission && ['VALID', 'INVALID', 'SUBMITTED', 'CURATION_COMPLETE'].includes(this.submission.submission_status)"
+  *ngIf="submission && ['VALID', 'INVALID', 'SUBMITTED', 'CURATION_COMPLETE', 'DEPOSITION_COMPLETE'].includes(this.submission.submission_status)"
   class="flex justify-center mt-9">
   <button mat-stroked-button color="primary" (click)="downloadTemplate()">Download submission template
+  </button>
+  <button *ngIf="submission.submission_status == 'DEPOSITION_COMPLETE'" mat-stroked-button color="warn" (click)="allowImport()" class="ml-4"> Allow import
   </button>
 </div>
 

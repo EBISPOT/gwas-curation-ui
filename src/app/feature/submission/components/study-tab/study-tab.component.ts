@@ -18,6 +18,7 @@ import { environment } from '../../../../../environments/environment';
 import { TokenStorageService } from '../../../../core/services/token-storage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EfoTrait } from '../../../../core/models/efoTrait';
+import { EfoTraitService } from '../../../../core/services/efo-trait.service';
 
 @Component({
   selector: 'app-study-tab',
@@ -29,17 +30,20 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Study>;
   resultsLength = 0;
   isLoadingResults = true;
-  displayedColumns: string[] = ['study_accession', 'study_tag', 'variant_count', 'genotyping_technology', 'imputation', 'disease_trait'];
+  displayedColumns: string[] = ['study_accession', 'study_tag', 'genotyping_technology', 'array_manufacturer', 'array_information', 'imputation', 'variant_count', 'statistical_model', 'study_description', 'disease_trait', 'efo', 'sumstats_file', 'cohort'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   submissionId = this.route.snapshot.paramMap.get('id');
   openedGcst: number;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   traitCtrl = new FormControl();
+  efoTraitCtrl = new FormControl();
   reportedTraits: ReportedTrait[] = [];
   efoTraits: EfoTrait[] = [];
   reportedTraitsDropdownItems: ReportedTrait[] = [];
+  efoTraitsDropdownItems: EfoTrait[] = [];
   @ViewChild('reportedTraitInput') reportedTraitInput: ElementRef;
+  @ViewChild('efoTraitInput') efoTraitInput: ElementRef;
   @ViewChild('sidenav') sidenav: MatSidenav;
   isLoadingSidenav: boolean;
   sidenavStudy: Study;
@@ -52,12 +56,13 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   @ViewChild('efoFileInput') efoFileInput: ElementRef;
   report: any;
   efoReport: any;
+  uploadError: any;
 
   constructor(private route: ActivatedRoute, private submissionService: SubmissionService, private snackBar: MatSnackBar,
-              private reportedTraitService: ReportedTraitService, private tokenService: TokenStorageService) {
+              private reportedTraitService: ReportedTraitService, private efoTraitService: EfoTraitService, private tokenService: TokenStorageService) {
     this.traitUploader = new FileUploader(
       {
-        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/reported-traits/files', itemAlias: 'multipartFile',
+        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/multi-traits/files', itemAlias: 'multipartFile',
         authToken: 'Bearer ' + tokenService.getToken()
       });
 
@@ -73,19 +78,24 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     this.traitUploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
       this.report = null;
+      this.uploadError = null;
       if (this.traitUploader.queue.length > 1) {
         this.traitUploader.cancelAll();
         this.traitUploader.removeFromQueue(this.traitUploader.queue[0]);
       }
     };
     this.traitUploader.onSuccessItem = (item, response) => {
+      this.uploadError = null;
       this.snackBar.open('Traits file was uploaded successfully.', '', {duration: 2500});
-      this.report = response;
+      this.report = JSON.parse(response);
       this.traitUploader.clearQueue();
       this.fileInput.nativeElement.value = '';
       this.reloadStudies();
     };
-    this.traitUploader.onErrorItem = () => {
+    this.traitUploader.onErrorItem = (item, response) => {
+      const prefix = 'FileProcessingException:';
+      const message = JSON.parse(response).message;
+      this.uploadError = message.slice(message.indexOf(prefix) + prefix.length);
       this.snackBar.open('An unexpected error occurred while uploading traits.', '', {duration: 2500});
     };
 
@@ -139,6 +149,13 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe(value => {
+        for (const study of value) {
+          study.efo_trait = '';
+          for (const efo of study.efoTraits) {
+            study.efo_trait = study.efo_trait + efo.trait + ' | ';
+          }
+          study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
+        }
         this.dataSource = new MatTableDataSource<Study>(value);
       });
 
@@ -153,6 +170,21 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
           }
           else {
             this.reportedTraitsDropdownItems = [];
+          }
+        });
+      });
+
+    fromEvent(this.efoTraitInput.nativeElement, 'input').pipe()
+      .pipe(map((event: Event) => (event.target as HTMLInputElement).value))
+      .pipe(debounceTime(1000))
+      .pipe(distinctUntilChanged())
+      .subscribe(data => {
+        this.efoTraitService.getTraits(50, 0, 'trait', 'asc', data).subscribe(value => {
+          if (value?._embedded?.efoTraits) {
+            this.efoTraitsDropdownItems = value._embedded.efoTraits;
+          }
+          else {
+            this.efoTraitsDropdownItems = [];
           }
         });
       });
@@ -174,10 +206,26 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     }
   }
 
+  removeEfo(trait: EfoTrait): void {
+    const index = this.efoTraits.indexOf(trait);
+
+    if (index >= 0) {
+      this.efoTraits.splice  (index, 1);
+    }
+  }
+
   selected(event: MatAutocompleteSelectedEvent): void {
     this.reportedTraits[0] = event.option.value;
     this.reportedTraitInput.nativeElement.value = '';
     this.traitCtrl.setValue(null);
+  }
+
+  selectedEfo(event: MatAutocompleteSelectedEvent): void {
+    if (this.efoTraits.indexOf(event.option.value) < 0) {
+      this.efoTraits.push(event.option.value);
+    }
+    this.efoTraitInput.nativeElement.value = '';
+    this.efoTraitCtrl.setValue(null);
   }
 
   openSidenav(id: string) {
@@ -189,6 +237,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     // get study
     this.submissionService.getStudy(this.submissionId, id).subscribe((value: Study) => {
       this.sidenavStudy = value;
+      this.reportedTraits = [];
       if (this.sidenavStudy.diseaseTrait) {
         this.reportedTraits[0] = this.sidenavStudy.diseaseTrait;
       }
@@ -213,7 +262,31 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
       .subscribe((v) => {
         this.sidenavStudy = v;
         this.isLoadingSidenav = false;
+        this.reloadStudies();
       });
+  }
+
+  saveEfoTraits() {
+
+    this.isLoadingSidenav = true;
+
+    this.submissionService.editEfoTraits(this.efoTraits, this.submissionId, this.sidenavStudy)
+      .subscribe((v) => {
+        this.sidenavStudy = v;
+        this.isLoadingSidenav = false;
+        this.reloadStudies();
+      });
+  }
+
+  downloadBulkStudyMultiTraitUploadTemplate() {
+
+    this.submissionService.downloadBulkStudyMultiTraitUploadTemplate().subscribe((response: any) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(new Blob([response]));
+      link.setAttribute('download', 'study-multi-trait-bulk-upload.tsv');
+      document.body.appendChild(link);
+      link.click();
+    });
   }
 
   downloadBulkStudyTraitUploadTemplate() {
@@ -244,6 +317,13 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
     this.submissionService
       .getSubmissionStudies(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, this.submissionId)
       .subscribe(value => {
+        for (const study of value._embedded.studies) {
+          study.efo_trait = '';
+          for (const efo of study.efoTraits) {
+            study.efo_trait = study.efo_trait + efo.trait + ' | ';
+          }
+          study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
+        }
         this.isLoadingResults = false;
         this.dataSource = new MatTableDataSource<Study>(value._embedded.studies);
       });
@@ -252,7 +332,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   downloadStudyTraitMappingReport() {
 
     const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(new Blob([this.report]));
+    link.href = window.URL.createObjectURL(new Blob([atob(this.report.uploadReport)]));
     link.setAttribute('download', 'study-trait-bulk-report.tsv');
     document.body.appendChild(link);
     link.click();

@@ -55,6 +55,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
   editFormInitialValue: any;
   isEditFormDirty = false;
   menuShow = false;
+  uploadError: any;
 
   constructor(private tokenService: TokenStorageService, private dialog: MatDialog,
               private snackBar: MatSnackBar, private efoTraitService: EfoTraitService) {
@@ -74,6 +75,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
     });
 
     this.traitUploader.onAfterAddingFile = (file) => {
+      this.uploadError = null;
       file.withCredentials = false;
       this.report = null;
       if (this.traitUploader.queue.length > 1) {
@@ -82,13 +84,17 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
       }
     };
     this.traitUploader.onSuccessItem = (item, response) => {
+      this.uploadError = null;
       this.snackBar.open('Traits file was uploaded successfully.', '', {duration: 2500});
-      this.report = response;
+      this.report = JSON.parse(response);
       this.traitUploader.clearQueue();
       this.fileInput.nativeElement.value = '';
       this.reloadTraits();
     };
-    this.traitUploader.onErrorItem = () => {
+    this.traitUploader.onErrorItem = (item, response) => {
+      const prefix = 'FileProcessingException:';
+      const message = JSON.parse(response).message;
+      this.uploadError = message.slice(message.indexOf(prefix) + prefix.length);
       this.snackBar.open('An unexpected error occurred while uploading traits.', '', {duration: 2500});
     };
   }
@@ -286,7 +292,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
   downloadBulkUploadReport() {
 
     const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(new Blob([this.report]));
+    link.href = window.URL.createObjectURL(new Blob([atob(this.report.uploadReport)]));
     link.setAttribute('download', 'efo-traits-bulk-report.tsv');
     document.body.appendChild(link);
     link.click();

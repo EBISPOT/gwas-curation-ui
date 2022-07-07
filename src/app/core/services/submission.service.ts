@@ -8,6 +8,7 @@ import { SubmissionHistory } from '../models/submissionHistory';
 import { CurationHttpService } from './curation-http.service';
 import { ReportedTrait } from '../models/reportedTrait';
 import { Study } from '../models/study';
+import { EfoTrait } from '../models/efoTrait';
 
 @Injectable({
   providedIn: 'root'
@@ -115,6 +116,11 @@ export class SubmissionService {
     return this.curationHttp.get('/submissions/' + submissionId + '/studies/' + studyId);
   }
 
+  downloadBulkStudyMultiTraitUploadTemplate() {
+
+    return this.curationHttp.download('/reported-traits/templates?file=study-multi-trait');
+  }
+
   downloadBulkStudyTraitUploadTemplate() {
 
     return this.curationHttp.download('/reported-traits/templates?file=study-trait');
@@ -125,14 +131,46 @@ export class SubmissionService {
     return this.curationHttp.download('/reported-traits/templates?file=study-efo-trait');
   }
 
+  downloadSamplesPrefilledTemplate(submissionId: string) {
+
+    return this.curationHttp.download('/submissions/' + submissionId + '/studies/sampledescription/files');
+  }
+
   editReportedTraits(trait: ReportedTrait, submissionId, study: Study) {
 
     return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
       {diseaseTrait: trait, study_tag: study.study_tag});
   }
 
+  editEfoTraits(efoTraits: EfoTrait[], submissionId, study: Study) {
+
+    return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
+      {efoTraits, study_tag: study.study_tag});
+  }
+
+  editBgEfoTraits(backgroundEfoTraits: EfoTrait[], submissionId, study: Study) {
+
+    return this.curationHttp.put('/submissions/' + submissionId + '/studies/' + study.studyId,
+      {backgroundEfoTraits, study_tag: study.study_tag});
+  }
+
   filterSubmissions(filtersString: string, size: number, page: number, sort: string, order: string) {
     const params = filtersString + '&size=' + String(size) + '&sort=' + sort + ',' + order;
     return this.curationHttp.get('/submissions?' + params);
+  }
+
+  patchSubmission(submission: Submission) {
+
+    return this.curationHttp.patch('/submissions/' + submission.submissionId, submission);
+  }
+
+  getSubmissionSamples(size: number, page: number, sort: string, order: string, submissionId: string) {
+
+    let params: HttpParams = new HttpParams();
+    params = params
+      .set('size', String(size))
+      .set('page', String(page))
+      .set('sort', sort + ',' + order);
+    return this.curationHttp.get('/submissions/' + submissionId + '/studies/sampledescription', params);
   }
 }

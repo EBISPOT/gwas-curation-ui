@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Router, RouterStateSnapshot } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 const TOKEN_KEY = 'id_token';
 
@@ -7,11 +9,14 @@ const TOKEN_KEY = 'id_token';
 })
 export class TokenStorageService {
 
-  constructor() {
+  constructor(private router: Router, private dialog: MatDialog) {
   }
 
-  signOut() {
-    window.localStorage.clear();
+  signOut(guardReturnUri?: string) {
+    setTimeout('alert("SESSION EXPIRED")', 1);
+    this.dialog.closeAll();
+    this.router.navigate(['/login'], {queryParams: {returnUrl: guardReturnUri ? guardReturnUri : 'home'}}).then();
+    window.localStorage.removeItem(TOKEN_KEY);
   }
 
   public saveToken(token: string) {
