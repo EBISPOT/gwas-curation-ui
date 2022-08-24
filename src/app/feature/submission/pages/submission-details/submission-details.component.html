@@ -67,8 +67,10 @@
           <app-sample-tab></app-sample-tab>
         </ng-template>
       </mat-tab>
-      <mat-tab label="Association ({{submission.association_count}})" [disabled]="disableEdit" *ngIf="submission">
-
+      <mat-tab label="Association ({{submission.association_count}})" *ngIf="submission">
+        <ng-template matTabContent>
+          <app-association-tab [submission]="submission" (approveSnpsEvent)="pollUntilStatusIsNotValidating()"></app-association-tab>
+        </ng-template>
       </mat-tab>
     </mat-tab-group>
   </div>

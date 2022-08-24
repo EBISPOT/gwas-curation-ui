@@ -173,4 +173,16 @@ export class SubmissionService {
       .set('sort', sort + ',' + order);
     return this.curationHttp.get('/submissions/' + submissionId + '/studies/sampledescription', params);
   }
+
+  getNoValidSnps(submissionId: string) {
+    return this.curationHttp.get('/submissions/' + submissionId + '/associations/no-valid-snps');
+  }
+
+  approveSnps(submissionId: string) {
+    return this.curationHttp.put('/submissions/' + submissionId + '/associations/approve-snps');
+  }
+
+  downloadSnpValidationReport(submissionId: string) {
+    return this.curationHttp.download('/submissions/' + submissionId + '/associations/snp-validation-report');
+  }
 }

@@ -20,10 +20,14 @@ export class SubmissionDetailsTabComponent implements OnInit {
   showPublication = true;
   showBodyOfWork = true;
   submission: Submission;
+  numberOfValidSnps = 0;
   @Input('submission') set _submission(submission: Submission) {
     this.submission = submission;
     if (this.submission) {
       this.extractValidationErrors();
+    }
+    if (submission && submission.submission_status === 'DEPOSITION_COMPLETE') {
+      this.getNoValidSnps();
     }
   }
   validationErrors: string[] = [];
@@ -123,5 +127,10 @@ export class SubmissionDetailsTabComponent implements OnInit {
       this.submission = value;
       this.snackbar.open('Import enabled.', '', {duration: 2500});
     });
+  }
+
+
+  getNoValidSnps() {
+    this.submissionService.getNoValidSnps(this.submission.submissionId).subscribe(n => this.numberOfValidSnps = n);
   }
 }
