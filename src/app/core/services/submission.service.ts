@@ -174,8 +174,8 @@ export class SubmissionService {
     return this.curationHttp.get('/submissions/' + submissionId + '/studies/sampledescription', params);
   }
 
-  getNoValidSnps(submissionId: string) {
-    return this.curationHttp.get('/submissions/' + submissionId + '/associations/no-valid-snps');
+  getSnpStatus(submissionId: string) {
+    return this.curationHttp.get('/submissions/' + submissionId + '/associations/snp-status');
   }
 
   approveSnps(submissionId: string) {

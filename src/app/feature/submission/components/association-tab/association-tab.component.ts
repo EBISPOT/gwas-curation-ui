@@ -12,15 +12,18 @@ export class AssociationTabComponent implements OnInit {
 
   submissionId = this.route.snapshot.paramMap.get('id');
   numberOfValidSnps = 0;
+  numberOfApprovedSnps = 0;
   isLoading = true;
   @Input()
   submission: Submission;
   @Output() approveSnpsEvent = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private submissionService: SubmissionService) {
-    submissionService.getNoValidSnps(this.submissionId).subscribe((n) => {
+    this.isLoading = true;
+    submissionService.getSnpStatus(this.submissionId).subscribe((value) => {
       this.isLoading = false;
-      this.numberOfValidSnps = n;
+      this.numberOfValidSnps = value.noValidSnps;
+      this.numberOfApprovedSnps = value.noApprovedSnps;
     });
   }
 
@@ -31,9 +34,10 @@ export class AssociationTabComponent implements OnInit {
     this.isLoading = true;
     this.submissionService.approveSnps(this.submissionId).subscribe(() => {
       this.submissionService.getSubmission(this.submissionId).subscribe(submission => {
-        this.submissionService.getNoValidSnps(this.submissionId).subscribe((n) => {
+        this.submissionService.getSnpStatus(this.submissionId).subscribe((value) => {
           this.isLoading = false;
-          this.numberOfValidSnps = n;
+          this.numberOfValidSnps = value.noValidSnps;
+          this.numberOfApprovedSnps = value.noApprovedSnps;
           this.approveSnpsEvent.emit();
         });
         this.submission = submission;

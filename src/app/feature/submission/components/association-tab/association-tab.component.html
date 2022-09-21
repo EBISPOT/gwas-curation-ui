@@ -1,17 +1,21 @@
 <div class="p-3 mb-4" style="background-color: #EDF8F9; border: 1px solid #ccc">
-  <span class="font-bold"> Samples descriptions for submission: {{submissionId}} </span>
+  <span class="font-bold"> Associations for submission: {{submissionId}} </span>
+</div>
+<div *ngIf="isLoading" class="loading-shade">
+  <mat-spinner></mat-spinner>
 </div>
 <div class="flex flex-col justify-center items-center">
-  <div class="flex flex-col border border-gray-400 p-6 m-4 items-center justify-center" *ngIf="numberOfValidSnps !== submission.association_count">
+  <div class="flex flex-col border border-gray-400 p-6 m-4 items-center justify-center" *ngIf="numberOfValidSnps !== submission.association_count && numberOfApprovedSnps !== submission.association_count">
     <h3>{{submission.association_count}} associations were submitted</h3>
     <h2 class="color-warn"> Warning: {{submission.association_count - numberOfValidSnps}} out of {{submission.association_count}} SNPs were invalid</h2>
-    <button mat-raised-button color="primary" (click)="downloadSnpValidationReport()">Download Report</button>
   </div>
-  <div class="flex flex-col border border-gray-400 p-6 m-4 items-center justify-center" *ngIf="numberOfValidSnps == submission.association_count">
+  <div class="flex flex-col border border-gray-400 p-6 m-4 items-center justify-center" *ngIf="numberOfApprovedSnps == submission.association_count || numberOfValidSnps == submission.association_count">
     <h3>{{submission.association_count}} associations were submitted</h3>
-    <h2 class="color-accent"> All SNPs were valid</h2>
-    <mat-icon color="accent">check_circle_outline</mat-icon>
-    <button mat-raised-button color="primary" *ngIf="numberOfValidSnps !== submission.association_count">Download Report</button>
+    <h2 class="color-accent" *ngIf="numberOfValidSnps == submission.association_count">All SNPs were valid</h2>
+    <h2 class="color-accent" *ngIf="numberOfValidSnps != submission.association_count">All SNPs were approved</h2>
+    <mat-icon color="accent" style="font-size: 50px" class="mb-6">check_circle_outline</mat-icon>
+    <h4 class="color-warn" *ngIf="numberOfValidSnps !== submission.association_count"> Some approved SNPs may have had errors</h4>
   </div>
-  <button mat-raised-button color="accent" class="mb-6" (click)="approveSnps()" *ngIf="numberOfValidSnps !== submission.association_count"><mat-icon>check</mat-icon>Approve all SNPs</button>
+  <button mat-raised-button color="primary" class="mb-6" (click)="downloadSnpValidationReport()"  *ngIf="numberOfValidSnps !== submission.association_count">Download Report</button>
+  <button mat-raised-button color="accent" class="mb-6" (click)="approveSnps()" *ngIf="numberOfValidSnps !== submission.association_count && numberOfApprovedSnps !== submission.association_count"><mat-icon>check</mat-icon>Approve all SNPs</button>
 </div>
