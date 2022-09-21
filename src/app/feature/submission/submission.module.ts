@@ -15,11 +15,12 @@ import { StudyTabComponent } from './components/study-tab/study-tab.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SampleTabComponent } from './components/sample-tab/sample-tab.component';
+import { AssociationTabComponent } from './components/association-tab/association-tab.component';
 
 @NgModule({
   declarations: [
     SubmissionListComponent, SubmissionDetailsComponent, SubmissionDetailsTabComponent, SubmissionEditTabComponent,
-    SubmissionHistoryTabComponent, VersioningComponent, StudyTabComponent, SampleTabComponent
+    SubmissionHistoryTabComponent, VersioningComponent, StudyTabComponent, SampleTabComponent, AssociationTabComponent
   ],
   imports: [
     SharedModule,
