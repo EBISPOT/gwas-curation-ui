@@ -185,4 +185,8 @@ export class SubmissionService {
   downloadSnpValidationReport(submissionId: string) {
     return this.curationHttp.download('/submissions/' + submissionId + '/associations/snp-validation-report');
   }
+
+  retriggerSnpValidation(submissionId: string) {
+    return this.http.get('/submissions/' + submissionId + '/validate-snps');
+  }
 }

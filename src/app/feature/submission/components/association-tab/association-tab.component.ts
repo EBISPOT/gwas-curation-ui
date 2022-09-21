@@ -55,4 +55,10 @@ export class AssociationTabComponent implements OnInit {
     });
   }
 
+  retriggerValidation() {
+    this.isLoading = true;
+    this.submissionService.retriggerSnpValidation(this.submissionId).subscribe(() => {
+      this.isLoading = false;
+    });
+  }
 }
