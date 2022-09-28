@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubmissionService } from '../../../../core/services/submission.service';
 import { Submission } from '../../../../core/models/submission';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-association-tab',
@@ -18,7 +19,7 @@ export class AssociationTabComponent implements OnInit {
   submission: Submission;
   @Output() approveSnpsEvent = new EventEmitter();
 
-  constructor(private route: ActivatedRoute, private submissionService: SubmissionService) {
+  constructor(private route: ActivatedRoute, private submissionService: SubmissionService, private snackbar: MatSnackBar) {
     this.isLoading = true;
     submissionService.getSnpStatus(this.submissionId).subscribe((value) => {
       this.isLoading = false;
@@ -57,8 +58,18 @@ export class AssociationTabComponent implements OnInit {
 
   retriggerValidation() {
     this.isLoading = true;
-    this.submissionService.retriggerSnpValidation(this.submissionId).subscribe(() => {
-      this.isLoading = false;
+    this.submissionService.retriggerSnpValidation(this.submissionId).subscribe((value) => {
+      if (!value) {
+        this.snackbar.open('Connection to Ensembl DB failed', '', {duration: 2500});
+        this.isLoading = false;
+      }
+      else {
+        this.submissionService.getSnpStatus(this.submissionId).subscribe((res) => {
+          this.isLoading = false;
+          this.numberOfValidSnps = res.noValidSnps;
+          this.numberOfApprovedSnps = res.noApprovedSnps;
+        });
+      }
     });
   }
 }
