@@ -59,9 +59,16 @@ export class AssociationTabComponent implements OnInit {
   retriggerValidation() {
     this.isLoading = true;
     this.submissionService.retriggerSnpValidation(this.submissionId).subscribe((value) => {
-      this.isLoading = false;
       if (!value) {
         this.snackbar.open('Connection to Ensembl DB failed', '', {duration: 2500});
+        this.isLoading = false;
+      }
+      else {
+        this.submissionService.getSnpStatus(this.submissionId).subscribe((res) => {
+          this.isLoading = false;
+          this.numberOfValidSnps = res.noValidSnps;
+          this.numberOfApprovedSnps = res.noApprovedSnps;
+        });
       }
     });
   }
