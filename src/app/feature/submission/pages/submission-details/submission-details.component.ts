@@ -46,7 +46,9 @@ export class SubmissionDetailsComponent implements OnInit, OnDestroy {
         || ['VALID', 'INVALID', 'CURATION_COMPLETE', 'COMPLETE', 'STARTED', 'SUBMITTED', 'IMPORT_FAILED', 'DEPOSITION_COMPLETE']
             .includes(value.submission_status)) {
         this.stopPolling.next();
-        this.historyTabCmp.loadHistory();
+        setTimeout(() => {
+          this.historyTabCmp.loadHistory();
+        }, 0);
       }
     });
   }
