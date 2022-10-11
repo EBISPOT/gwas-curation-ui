@@ -19,84 +19,95 @@
   </div>
 </div>
 <div>
-  <mat-card class="p-4"
-            style="background-color: #EDF8F9; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
-    <h3>Filter studies</h3>
+  <mat-expansion-panel class="m-3">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="text-lg">
+        <mat-icon>manage_search</mat-icon>Filter studies
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card class="p-4"
+              style="background-color: #EDF8F9; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
+      <h3>Search parameters</h3>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Search by note</mat-label>
-      <input matInput placeholder="Note" [(ngModel)]="searchBoxValue">
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Search by note</mat-label>
+        <input matInput placeholder="Note" [(ngModel)]="searchBoxValue">
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="ml-4">
-      <mat-label>Reported trait</mat-label>
-      <input type="text"
-             placeholder="Select trait..."
-             matInput
-             #reportedTraitInput
-             [(ngModel)]="reportedTrait"
-             [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let reportedTrait of reportedTraitsDropdownItems" [value]="reportedTrait.trait">
-          {{reportedTrait.trait}}
-        </mat-option>
-        <mat-option disabled *ngIf="reportedTraitsDropdownItems.length == 0"> No results.</mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="ml-4">
+        <mat-label>Reported trait</mat-label>
+        <input type="text"
+               placeholder="Select trait..."
+               matInput
+               #reportedTraitInput
+               [(ngModel)]="reportedTrait"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let reportedTrait of reportedTraitsDropdownItems" [value]="reportedTrait.trait">
+            {{reportedTrait.trait}}
+          </mat-option>
+          <mat-option disabled *ngIf="reportedTraitsDropdownItems.length == 0"> No results.</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="ml-4">
-      <mat-label>EFO trait</mat-label>
-      <input type="text"
-             placeholder="Select trait..."
-             matInput
-             #efoTraitInput
-             [(ngModel)]="efoTrait"
-             [matAutocomplete]="efoAuto">
-      <mat-autocomplete #efoAuto="matAutocomplete">
-        <mat-option *ngFor="let efoTrait of efoTraitsDropdownItems" [value]="efoTrait.trait">
-          {{efoTrait.trait}}
-        </mat-option>
-        <mat-option disabled *ngIf="efoTraitsDropdownItems.length == 0"> No results.</mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline">
-      <mat-label>GxE flag</mat-label>
-      <mat-select [(ngModel)]="gxe">
-        <mat-option *ngFor="let val of ['any', 'true', 'false']" [value]="val">
-          {{val}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="ml-4">
+        <mat-label>EFO trait</mat-label>
+        <input type="text"
+               placeholder="Select trait..."
+               matInput
+               #efoTraitInput
+               [(ngModel)]="efoTrait"
+               [matAutocomplete]="efoAuto">
+        <mat-autocomplete #efoAuto="matAutocomplete">
+          <mat-option *ngFor="let efoTrait of efoTraitsDropdownItems" [value]="efoTrait.trait">
+            {{efoTrait.trait}}
+          </mat-option>
+          <mat-option disabled *ngIf="efoTraitsDropdownItems.length == 0"> No results.</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button mat-raised-button class="ml-4" (click)="resetFilters()">
+        <mat-icon>restart_alt</mat-icon>
+        Reset
+      </button>
+      <br>
+      <mat-form-field appearance="outline">
+        <mat-label>GxE flag</mat-label>
+        <mat-select [(ngModel)]="gxe">
+          <mat-option *ngFor="let val of ['any', 'true', 'false']" [value]="val">
+            {{val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="ml-4">
-      <mat-label>Pooled flag</mat-label>
-      <mat-select [(ngModel)]="pooled">
-        <mat-option *ngFor="let val of ['any', 'true', 'false']" [value]="val">
-          {{val}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="ml-4">
+        <mat-label>Pooled flag</mat-label>
+        <mat-select [(ngModel)]="pooled">
+          <mat-option *ngFor="let val of ['any', 'true', 'false']" [value]="val">
+            {{val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="ml-4">
-      <mat-label>Sumstats flag</mat-label>
-      <mat-select [(ngModel)]="sumstats">
-        <mat-option *ngFor="let val of ['any', true, false]" [value]="val">
-          {{val}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="ml-4">
+        <mat-label>Sumstats flag</mat-label>
+        <mat-select [(ngModel)]="sumstats">
+          <mat-option *ngFor="let val of ['any', true, false]" [value]="val">
+            {{val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <button mat-raised-button class="ml-4" (click)="search()">
-      <mat-icon>search</mat-icon>
-      Search
-    </button>
+      <button mat-raised-button class="ml-4" (click)="search()">
+        <mat-icon>search</mat-icon>
+        Search
+      </button>
 
-    <mat-card-footer>
-      <mat-progress-bar mode="indeterminate" *ngIf="isLoadingResults"></mat-progress-bar>
-    </mat-card-footer>
+      <mat-card-footer>
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoadingResults"></mat-progress-bar>
+      </mat-card-footer>
 
-  </mat-card>
+    </mat-card>
+  </mat-expansion-panel>
   <div class="flex justify-center">
 
     <!-- content -->
