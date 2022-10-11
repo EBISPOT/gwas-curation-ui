@@ -20,7 +20,7 @@
 </div>
 <div>
   <mat-card class="p-4"
-       style="background-color: #EDF8F9; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
+            style="background-color: #EDF8F9; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
     <h3>Filter studies</h3>
 
     <mat-form-field appearance="outline">
@@ -31,16 +31,16 @@
     <mat-form-field appearance="outline" class="ml-4">
       <mat-label>Reported trait</mat-label>
       <input type="text"
-        placeholder="Select trait..."
-        matInput
-        #reportedTraitInput
-        [(ngModel)]="reportedTrait"
-        [matAutocomplete]="auto">
+             placeholder="Select trait..."
+             matInput
+             #reportedTraitInput
+             [(ngModel)]="reportedTrait"
+             [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let reportedTrait of reportedTraitsDropdownItems" [value]="reportedTrait.trait">
           {{reportedTrait.trait}}
         </mat-option>
-        <mat-option disabled *ngIf="reportedTraitsDropdownItems.length == 0"> No results. </mat-option>
+        <mat-option disabled *ngIf="reportedTraitsDropdownItems.length == 0"> No results.</mat-option>
       </mat-autocomplete>
     </mat-form-field>
 
@@ -56,7 +56,7 @@
         <mat-option *ngFor="let efoTrait of efoTraitsDropdownItems" [value]="efoTrait.trait">
           {{efoTrait.trait}}
         </mat-option>
-        <mat-option disabled *ngIf="efoTraitsDropdownItems.length == 0"> No results. </mat-option>
+        <mat-option disabled *ngIf="efoTraitsDropdownItems.length == 0"> No results.</mat-option>
       </mat-autocomplete>
     </mat-form-field>
     <br>
@@ -88,7 +88,8 @@
     </mat-form-field>
 
     <button mat-raised-button class="ml-4" (click)="search()">
-      <mat-icon>search</mat-icon> Search
+      <mat-icon>search</mat-icon>
+      Search
     </button>
 
     <mat-card-footer>
@@ -162,7 +163,6 @@
           </tr>
         </table>
       </div>
-
 
 
     </div>

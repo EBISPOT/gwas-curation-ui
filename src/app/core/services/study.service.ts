@@ -22,13 +22,13 @@ export class StudyService {
       params = params.set('sort', sort + ',' + order);
     }
     if (efoTrait){
-      params = params.set('efoTrait', String(efoTrait));
+      params = params.set('efoTrait', '"' + efoTrait + '"');
     }
     if (reportedTrait) {
-      params = params.set('reportedTrait', String(reportedTrait));
+      params = params.set('reportedTrait', '"' + reportedTrait + '"');
     }
     if (note) {
-      params = params.set('note', String(note));
+      params = params.set('note', '"' + note + '"');
     }
     if (sumstatsFlag !== 'any' && sumstatsFlag != null) {
       params = params.set('sumstatsFlag', String(sumstatsFlag));
