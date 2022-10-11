@@ -120,4 +120,13 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
   resetPaging(): void {
     this.paginator.pageIndex = 0;
   }
+
+  resetFilters() {
+    this.efoTrait = null;
+    this.reportedTrait = null;
+    this.gxe = 'any';
+    this.pooled = 'any';
+    this.sumstats = 'any';
+    this.searchBoxValue = null;
+  }
 }
