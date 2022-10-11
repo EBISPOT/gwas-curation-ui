@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
 import { EfoTrait } from '../../../../core/models/efoTrait';
 import { ReportedTraitService } from '../../../../core/services/reported-trait.service';
 import { EfoTraitService } from '../../../../core/services/efo-trait.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-study-search',
@@ -40,7 +41,8 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
   pooled = 'any';
   sumstats = 'any';
 
-  constructor(private studyService: StudyService, private reportedTraitService: ReportedTraitService, private efoTraitService: EfoTraitService) { }
+  constructor(private studyService: StudyService, private reportedTraitService: ReportedTraitService, private efoTraitService: EfoTraitService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -109,7 +111,10 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
         this.resultsLength = data.page.totalElements;
         this.dataSource = new MatTableDataSource<StudySolr>(data?._embedded?.studySolrDToes);
         this.isLoadingResults = false;
-      }, error => this.isLoadingResults = false);
+      }, error => {
+        this.isLoadingResults = false;
+        this.snackBar.open('Error occurred, make sure search parameters are valid', '', {duration: 3000});
+    });
   }
 
   resetPaging(): void {
