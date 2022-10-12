@@ -1,5 +1,5 @@
 .mat-cell {
-  padding: 4px;
+  padding: 0 4px;
 }
 
 th {
@@ -14,6 +14,7 @@ th {
 
 table {
   width: 100%;
+  min-height: 300px;
 }
 
 th, td {
@@ -29,12 +30,53 @@ th, td {
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.15);
-  z-index: 1;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-button {
+.filters-button {
   width: 120px;
+}
+
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-description {
+  padding: 16px;
+}
+
+.mat-row {
+  background-color: white;
+}
+
+.mat-row:nth-child(4n-1), .mat-row:nth-child(4n) {
+  background-color: #eee;
+}
+
+.note-col {
+  overflow: hidden;
+  max-width: 120px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+::ng-deep .cdk-overlay-pane {
+  width: auto !important;
 }
