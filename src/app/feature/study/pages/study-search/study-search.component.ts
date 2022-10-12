@@ -8,16 +8,23 @@ import { StudyService } from '../../../../core/services/study.service';
 import { StudySearchApiResponse } from '../../../../core/models/rest/api-responses/studySearchApiResponse';
 import { StudySolr } from '../../../../core/models/studySolr';
 import { ReportedTrait } from '../../../../core/models/reportedTrait';
-import { FormControl } from '@angular/forms';
 import { EfoTrait } from '../../../../core/models/efoTrait';
 import { ReportedTraitService } from '../../../../core/services/reported-trait.service';
 import { EfoTraitService } from '../../../../core/services/efo-trait.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-study-search',
   templateUrl: './study-search.component.html',
-  styleUrls: ['./study-search.component.css']
+  styleUrls: ['./study-search.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class StudySearchComponent implements OnInit, AfterViewInit{
   displayedColumns: string[] = [ 'accessionId', 'pmid', 'publicationDate', 'firstAuthor', 'title', 'efoTrait', 'reportedTrait', 'note'];
@@ -40,6 +47,8 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
   gxe = 'any';
   pooled = 'any';
   sumstats = 'any';
+
+  expandedElement: StudySolr | null;
 
   constructor(private studyService: StudyService, private reportedTraitService: ReportedTraitService, private efoTraitService: EfoTraitService,
               private snackBar: MatSnackBar) { }
@@ -77,7 +86,7 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
       .pipe(debounceTime(1000))
       .pipe(distinctUntilChanged())
       .subscribe(data => {
-        this.reportedTraitService.getTraits(50, 0, 'trait', 'asc', data).subscribe(value => {
+        this.reportedTraitService.getTraits(1000, 0, 'trait', 'asc', data).subscribe(value => {
           if (value?._embedded?.diseaseTraits) {
             this.reportedTraitsDropdownItems = value._embedded.diseaseTraits;
           }
