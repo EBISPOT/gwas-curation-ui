@@ -64,7 +64,7 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
           this.isLoadingResults = true;
           return this.studyService
             .search(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active,
-              this.sort.direction, this.efoTrait, this.efoTrait, this.searchBoxValue,
+              this.sort.direction, this.efoTrait, this.reportedTrait, this.searchBoxValue,
               this.sumstats, this.pooled, this.gxe);
         }),
         map((data: StudySearchApiResponse) => {
