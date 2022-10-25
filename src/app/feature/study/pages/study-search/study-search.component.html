@@ -119,7 +119,7 @@
         <div class="loading-shade" *ngIf="isLoadingResults">
           <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
         </div>
-        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()" multiTemplateDataRows>
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()" multiTemplateDataRows matSortActive="accessionId" matSortDirection="desc">
 
           <ng-container matColumnDef="accessionId">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>GCST</th>
@@ -166,7 +166,7 @@
           <ng-container matColumnDef="note">
             <th mat-header-cell *matHeaderCellDef>NOTE</th>
             <td mat-cell *matCellDef="let row" class="ellipsis-col">{{row?.notes?.toString() || 'NA'}}
-              <button mat-icon-button class="float-right -top-8 -right-6" (click)="(expandedElement = expandedElement === row ? null : row); $event.stopPropagation()" *ngIf="row?.notes">
+              <button mat-icon-button class="float-right -top-7 -right-6" (click)="(expandedElement = expandedElement === row ? null : row); $event.stopPropagation()" *ngIf="row?.notes">
                 <mat-icon *ngIf="expandedElement !== row">keyboard_arrow_down</mat-icon>
                 <mat-icon *ngIf="expandedElement === row">keyboard_arrow_up</mat-icon>
               </button>
