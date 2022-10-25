@@ -434,3 +434,8 @@ a.menu-btn {
   position: fixed;
   overflow-y: scroll;
 }
+
+.mat-tooltip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+}

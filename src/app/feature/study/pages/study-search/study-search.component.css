@@ -70,9 +70,9 @@ tr.example-element-row:not(.example-expanded-row):active {
   background-color: #eee;
 }
 
-.note-col {
+.ellipsis-col {
   overflow: hidden;
-  max-width: 120px;
+  max-width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
