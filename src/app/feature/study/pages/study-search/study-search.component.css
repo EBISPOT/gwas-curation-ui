@@ -1,0 +1,82 @@
+.mat-cell {
+  padding: 0 4px;
+}
+
+th {
+  color: black;
+  font-weight: bold;
+}
+.table-container {
+  position: relative;
+  overflow: auto;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  min-height: 300px;
+}
+
+th, td {
+    white-space: pre-wrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filters-button {
+  width: 120px;
+}
+
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.element-description {
+  padding: 16px;
+}
+
+.mat-row {
+  background-color: white;
+}
+
+.mat-row:nth-child(4n-1), .mat-row:nth-child(4n) {
+  background-color: #eee;
+}
+
+.ellipsis-col {
+  overflow: hidden;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+::ng-deep .cdk-overlay-pane {
+  width: auto !important;
+}

@@ -1,0 +1,205 @@
+<div class="mt-0 grid gap-0 grid-cols-12 card-3b"
+     style="min-height: 6.5rem; margin-bottom: 15px; !important; border:1px solid #999; background-color: white; padding: 20px 30px 15px ">
+  <div class="col-span-12 sm:col-span-6">
+    <div class="col-span-12">
+      <div style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">Studies</div>
+    </div>
+    <div class="col-span-6">
+      <div style="margin-top: 5px;"><a href="#" style="margin-right: 5px;">Dashboard</a> / <a>
+        Studies</a></div>
+    </div>
+  </div>
+  <div class="col-span-12 sm:col-span-6">
+    <div class="mt-5 sm:mt-1 sm:float-right">
+      <button mat-raised-button color="primary" style="font-size:12px; margin-right: -10px;" class="gwas-elevation">
+        <mat-icon>share</mat-icon>
+        Export Data
+      </button>
+    </div>
+  </div>
+</div>
+<div>
+  <mat-expansion-panel class="m-3">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="text-lg">
+        <mat-icon>manage_search</mat-icon>Filter studies
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card class="p-4"
+              style="background-color: #EDF8F9; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
+      <h3>Search parameters</h3>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Search by note</mat-label>
+        <input matInput placeholder="Note" [(ngModel)]="searchBoxValue">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="ml-4">
+        <mat-label>Reported trait</mat-label>
+        <input type="text"
+               placeholder="Select trait..."
+               matInput
+               #reportedTraitInput
+               [(ngModel)]="reportedTrait"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let reportedTrait of reportedTraitsDropdownItems" [value]="reportedTrait.trait">
+            {{reportedTrait.trait}}
+          </mat-option>
+          <mat-option disabled *ngIf="reportedTraitsDropdownItems.length == 0"> No results.</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="ml-4">
+        <mat-label>EFO trait</mat-label>
+        <input type="text"
+               placeholder="Select trait..."
+               matInput
+               #efoTraitInput
+               [(ngModel)]="efoTrait"
+               [matAutocomplete]="efoAuto">
+        <mat-autocomplete #efoAuto="matAutocomplete">
+          <mat-option *ngFor="let efoTrait of efoTraitsDropdownItems" [value]="efoTrait.trait">
+            {{efoTrait.trait}}
+          </mat-option>
+          <mat-option disabled *ngIf="efoTraitsDropdownItems.length == 0"> No results.</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="outline">
+        <mat-label>GxE flag</mat-label>
+        <mat-select [(ngModel)]="gxe">
+          <mat-option *ngFor="let val of ['any', 'true', 'false']" [value]="val">
+            {{val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="ml-4">
+        <mat-label>Pooled flag</mat-label>
+        <mat-select [(ngModel)]="pooled">
+          <mat-option *ngFor="let val of ['any', 'true', 'false']" [value]="val">
+            {{val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="ml-4">
+        <mat-label>Sumstats flag</mat-label>
+        <mat-select [(ngModel)]="sumstats">
+          <mat-option *ngFor="let val of ['any', true, false]" [value]="val">
+            {{val}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button class="ml-4 filters-button" color="primary" (click)="resetFilters()">
+        <mat-icon>restart_alt</mat-icon>
+        Reset
+      </button>
+
+      <button mat-raised-button class="ml-4 filters-button" color="primary" (click)="search()">
+        <mat-icon>search</mat-icon>
+        Search
+      </button>
+
+      <mat-card-footer>
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoadingResults"></mat-progress-bar>
+      </mat-card-footer>
+
+    </mat-card>
+  </mat-expansion-panel>
+  <div class="flex justify-center">
+
+    <!-- content -->
+    <div class="table-container">
+
+
+      <div class="mat-elevation-z2 relative">
+        <div class="loading-shade" *ngIf="isLoadingResults">
+          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()" multiTemplateDataRows matSortActive="accessionId" matSortDirection="desc">
+
+          <ng-container matColumnDef="accessionId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>GCST</th>
+            <td mat-cell *matCellDef="let row">{{row?.accessionId || 'NA'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="pmid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>PMID</th>
+            <td mat-cell *matCellDef="let row">{{row?.pmid || 'NA'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="submissionId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>SUBMISSION ID</th>
+            <td mat-cell *matCellDef="let row">{{row?.submissionId || 'NA'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="publicationDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>PUB DATE</th>
+            <td mat-cell *matCellDef="let row">{{row?.publicationDate || 'NA'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="firstAuthor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>FIRST AUTHOR</th>
+            <td mat-cell *matCellDef="let row">{{row?.firstAuthor || 'NA'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>TITLE</th>
+            <td mat-cell *matCellDef="let row" class="ellipsis-col">
+              <span matTooltip="{{row?.title}}" matTooltipClass="mat-tooltip">{{row?.title || 'NA'}}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="efoTrait">
+            <th mat-header-cell *matHeaderCellDef>EFO TRAITS</th>
+            <td mat-cell *matCellDef="let row">{{row?.efoTraits || 'NA'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="reportedTrait">
+            <th mat-header-cell *matHeaderCellDef> REPORTED TRAITS</th>
+            <td mat-cell *matCellDef="let row">{{row?.reportedTrait || 'NA'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="note">
+            <th mat-header-cell *matHeaderCellDef>NOTE</th>
+            <td mat-cell *matCellDef="let row" class="ellipsis-col">{{row?.notes?.toString() || 'NA'}}
+              <button mat-icon-button class="float-right -top-7 -right-6" (click)="(expandedElement = expandedElement === row ? null : row); $event.stopPropagation()" *ngIf="row?.notes">
+                <mat-icon *ngIf="expandedElement !== row">keyboard_arrow_down</mat-icon>
+                <mat-icon *ngIf="expandedElement === row">keyboard_arrow_up</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+              <div class="element-detail"
+                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="element-description">
+                  {{element?.notes?.toString()}}
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="border-2 border-white"></tr>
+          <tr class="hover:bg-gray-100" mat-row *matRowDef="let row; columns: displayedColumns;" [class.example-expanded-row]="expandedElement === row"></tr>
+          <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="example-detail-row"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="9999">
+              No data matching the search criteria.
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="flex justify-center"></div>
+  <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons="true" class="card-3"></mat-paginator>
+</div>

@@ -25,6 +25,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [ConfirmationDialogComponent],
@@ -54,7 +55,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatRadioModule
   ],
   exports: [
     CommonModule,
@@ -82,7 +84,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatRadioModule
   ]
 })
 export class SharedModule {

@@ -41,3 +41,7 @@
   overflow: hidden;
   vertical-align: middle;
 }
+
+::ng-deep .cdk-overlay-pane {
+  width: auto !important;
+}
