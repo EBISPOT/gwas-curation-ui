@@ -29,12 +29,12 @@
               style="background-color: #EDF8F9; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc;">
       <h3>Search parameters</h3>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="mr-4">
         <mat-label>Search by note</mat-label>
         <input matInput placeholder="Note" [(ngModel)]="searchBoxValue">
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="ml-4">
+      <mat-form-field appearance="outline" class="mr-4">
         <mat-label>Reported trait</mat-label>
         <input type="text"
                placeholder="Select trait..."
@@ -50,7 +50,7 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="ml-4">
+      <mat-form-field appearance="outline" class="mr-4">
         <mat-label>EFO trait</mat-label>
         <input type="text"
                placeholder="Select trait..."
@@ -66,7 +66,7 @@
         </mat-autocomplete>
       </mat-form-field>
       <br>
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="mr-4">
         <mat-label>GxE flag</mat-label>
         <mat-select [(ngModel)]="gxe">
           <mat-option *ngFor="let val of ['any', 'true', 'false']" [value]="val">
@@ -75,7 +75,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="ml-4">
+      <mat-form-field appearance="outline" class="mr-4">
         <mat-label>Pooled flag</mat-label>
         <mat-select [(ngModel)]="pooled">
           <mat-option *ngFor="let val of ['any', 'true', 'false']" [value]="val">
@@ -84,7 +84,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="ml-4">
+      <mat-form-field appearance="outline" class="mr-4">
         <mat-label>Sumstats flag</mat-label>
         <mat-select [(ngModel)]="sumstats">
           <mat-option *ngFor="let val of ['any', true, false]" [value]="val">
@@ -93,12 +93,12 @@
         </mat-select>
       </mat-form-field>
 
-      <button mat-raised-button class="ml-4 filters-button" color="primary" (click)="resetFilters()">
+      <button mat-raised-button class="mr-4 filters-button" color="primary" (click)="resetFilters()">
         <mat-icon>restart_alt</mat-icon>
         Reset
       </button>
 
-      <button mat-raised-button class="ml-4 filters-button" color="primary" (click)="search()">
+      <button mat-raised-button class="filters-button" color="primary" (click)="search()">
         <mat-icon>search</mat-icon>
         Search
       </button>
