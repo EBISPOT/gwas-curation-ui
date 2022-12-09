@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./feature/study/study.module').then(m => m.StudyModule)
   },
   {
+    path: 'publications',
+    loadChildren: () => import('./feature/publication/publication.module').then(m => m.PublicationModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./feature/authentication/authentication.module').then(m => m.AuthenticationModule)
   },
