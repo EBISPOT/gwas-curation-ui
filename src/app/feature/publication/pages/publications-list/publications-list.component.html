@@ -1,0 +1,155 @@
+<div class="mt-0 grid gap-0 grid-cols-12 card-3b"
+     style="min-height: 6.5rem; margin-bottom: 15px; !important; border:1px solid #999; background-color: white; padding: 20px 30px 15px ">
+  <div class="col-span-12 sm:col-span-6">
+    <div class="col-span-12">
+      <div style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">Publications</div>
+    </div>
+    <div class="col-span-6">
+      <div style="margin-top: 5px;"><a href="#" style="margin-right: 5px;">Dashboard</a> / <a>
+        Publications</a></div>
+    </div>
+  </div>
+  <div class="col-span-12 sm:col-span-6">
+    <div class="mt-5 sm:mt-1 sm:float-right">
+      <button mat-raised-button color="primary" style="font-size:12px; margin-right: -10px;" class="gwas-elevation">
+        <mat-icon>share</mat-icon>
+        Export Data
+      </button>
+    </div>
+  </div>
+</div>
+<div class="mt-4 grid gap-0 grid-cols-12">
+  <aside *ngIf="showFilter"
+         class="col-span-12 fixed z-40 overflow-y-scroll bottom-0 top-60
+         sm:overflow-y-hidden md:relative md:inset-y-auto md:col-span-3 h-96
+         lg:col-span-3 xl:col-span-2 ml-2 card-3b bg-white">
+    <div class="p-3" style="background-color: #EDF8F9; border-bottom: 1px solid #ccc;">
+      <span class="text-sm font-normal">  Filter By: </span>
+      <a style="float: right; cursor: pointer;" (click)="toggleDisplay('filter')">
+        <mat-icon> chevron_left</mat-icon>
+      </a>
+    </div>
+
+    <div class="p-2">
+      <form [formGroup]="filterForm" (ngSubmit)="submitFilter()" class="flex flex-col items-center mt-7">
+        <mat-form-field appearance="fill" class="w-4/5">
+          <mat-label>PMID</mat-label>
+          <input matInput placeholder="Enter PMID" formControlName="pmid" type="number">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-4/5">
+          <mat-label>Title</mat-label>
+          <input matInput placeholder="Enter title" formControlName="title">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-4/5">
+          <mat-label>Curator</mat-label>
+          <input type="text"
+                 placeholder="Select curator"
+                 matInput
+                 formControlName="curator"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <div class=" justify-center mt-2">
+          <div>
+            <button mat-raised-button type="submit" color="primary" (click)="search()">
+              <mat-icon>filter_alt</mat-icon>
+              Filter
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </aside>
+  <main [ngClass]="{'sm:col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-10 card-3b': showFilter}" class="col-span-12 ml-2">
+    <div class="card-3 mr-3">
+      <div class="p-3 bg-white" style="border-bottom: 1px solid #ccc;">
+        <span class="text-sm ml-1"> Manage Publications </span>
+      </div>
+      <div class="mat-elevation-z1 relative">
+        <div class="loading-shade" *ngIf="isLoadingResults">
+          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()" matSortDisableClear class="w-full">
+          <ng-container matColumnDef="pmid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>PMID</th>
+            <td mat-cell *matCellDef="let row">
+              {{row.pmid}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="firstAuthor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>First Author</th>
+            <td mat-cell *matCellDef="let row">
+              {{row.firstAuthor}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Title</th>
+            <td mat-cell *matCellDef="let row" class="ellipsis-col">
+              <span matTooltip="{{row?.title}}" matTooltipClass="mat-tooltip">{{row?.title || 'NA'}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="submitter">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Submitter</th>
+            <td mat-cell *matCellDef="let row">
+              {{row.submitter}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="curator">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Curator</th>
+            <td mat-cell *matCellDef="let row">
+              <mat-form-field class="mt-1">
+                <input type="text"
+                       placeholder="Curator"
+                       matInput
+                       [matAutocomplete]="auto"
+                       [(ngModel)]="row.curator">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="curationStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Curation status</th>
+            <td mat-cell *matCellDef="let row">
+              <mat-form-field class="mt-1">
+                <mat-label>Status</mat-label>
+                <mat-select [(ngModel)]="row.curationStatus">
+                  <mat-option *ngFor="let status of curationStatuses" [value]="status">
+                    {{status}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="publicationDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Publication Date</th>
+            <td mat-cell *matCellDef="let row">
+              {{row.publicationDate}}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr class="hover:bg-gray-200 cursor-pointer" mat-row *matRowDef="let row;
+          columns: displayedColumns; let index = index;" [ngClass]="{gray: index % 2 == 0}"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="9999">
+              No data matching the search criteria.
+            </td>
+          </tr>
+        </table>
+        <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons="true"></mat-paginator>
+      </div>
+    </div>
+  </main>
+  <div class="fab-button-container" *ngIf="!showFilter">
+    <button (click)="toggleDisplay('filter')" mat-fab color="primary">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+</div>
