@@ -314,8 +314,8 @@
   class="flex justify-center mt-9">
   <button mat-stroked-button color="primary" (click)="downloadTemplate()">Download submission template
   </button>
-  <button *ngIf="submission.submission_status == 'DEPOSITION_COMPLETE'" mat-stroked-button color="warn"
-          (click)="allowImport()" class="ml-4" [disabled]="numberOfValidSnps !== submission.association_count && numberOfApprovedSnps !== submission.association_count"
+  <button *ngIf="['CURATION_COMPLETE', 'DEPOSITION_COMPLETE'].includes(submission.submission_status)" mat-stroked-button color="warn"
+          (click)="allowImport(submission.submission_status)" class="ml-4" [disabled]="numberOfValidSnps !== submission.association_count && numberOfApprovedSnps !== submission.association_count"
           matTooltip="Edit or Approve SNPs to enable this" [matTooltipDisabled]="numberOfValidSnps === submission.association_count || numberOfApprovedSnps === submission.association_count">
     Allow import
   </button>

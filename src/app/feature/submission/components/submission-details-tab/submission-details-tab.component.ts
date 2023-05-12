@@ -120,14 +120,34 @@ export class SubmissionDetailsTabComponent implements OnInit {
     });
   }
 
-  allowImport() {
+  allowImport(status: string) {
     const submission: Submission = ({} as any) as Submission;
     submission.submissionId = this.submission.submissionId;
     submission.submission_status = 'SUBMITTED';
-    this.submissionService.patchSubmission(submission).subscribe(value => {
-      this.submission = value;
-      this.snackbar.open('Import enabled.', '', {duration: 2500});
-    });
+    if (status === 'CURATION_COMPLETE') {
+      const dialogData = new ConfirmationDialogModel('Important', 'Please ensure you have unpublished any published studies before updating them.');
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        maxWidth: '700px',
+        data: dialogData
+      });
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if (dialogResult) {
+          this.submissionService.patchSubmission(submission).subscribe(value => {
+            this.submission = value;
+            this.snackbar.open('Import enabled.', '', {duration: 2500});
+          });
+        }
+        else {
+          return;
+        }
+      });
+    }
+    else {
+      this.submissionService.patchSubmission(submission).subscribe(value => {
+        this.submission = value;
+        this.snackbar.open('Import enabled.', '', {duration: 2500});
+      });
+    }
   }
 
 
