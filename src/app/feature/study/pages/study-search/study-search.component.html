@@ -31,7 +31,7 @@
 
       <mat-form-field appearance="outline" class="mr-4">
         <mat-label>Search by note</mat-label>
-        <input matInput placeholder="Note" [(ngModel)]="searchBoxValue">
+        <input matInput placeholder="Note" [(ngModel)]="noteSearchBoxValue">
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="mr-4">
@@ -65,6 +65,12 @@
           <mat-option disabled *ngIf="efoTraitsDropdownItems.length == 0"> No results.</mat-option>
         </mat-autocomplete>
       </mat-form-field>
+
+      <mat-form-field appearance="outline" class="mr-4">
+        <mat-label>Search by GCST</mat-label>
+        <input matInput placeholder="GCST" [(ngModel)]="gcstSearchBoxValue">
+      </mat-form-field>
+
       <br>
       <mat-form-field appearance="outline" class="mr-4">
         <mat-label>GxE flag</mat-label>
