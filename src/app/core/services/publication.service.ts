@@ -11,7 +11,8 @@ export class PublicationService {
 
   constructor(private http: CurationHttpService) { }
 
-  getPublications(size: number, page: number, sort: string, order: string, pmid: string, title: string, curator: string): Observable<PublicationListApiResponse> {
+  getPublications(size: number, page: number, sort: string, order: string, pmid: string, title: string, curator: string,
+                  curationStatus: string, submitter: string): Observable<PublicationListApiResponse> {
     let params: HttpParams = new HttpParams();
     params = params
       .set('size', String(size))
@@ -28,6 +29,24 @@ export class PublicationService {
     if (curator) {
       params = params.set('curator', curator);
     }
+    if (curationStatus) {
+      params = params.set('curationStatus', curationStatus);
+    }
+    if (submitter) {
+      params = params.set('submitter', submitter);
+    }
     return this.http.get('/publications', params);
+  }
+
+  getCurators() {
+    return this.http.get('/curators');
+  }
+
+  getCurationStatuses() {
+    return this.http.get('/curation-status');
+  }
+
+  updatePublicationCurationDetails(pmid: string, publicationCurationPatchDto: any) {
+    return this.http.patch('/publications/' + pmid + '/curation', publicationCurationPatchDto);
   }
 }
