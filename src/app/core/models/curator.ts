@@ -1,5 +1,5 @@
 export interface Curator {
-  id: string;
+  curatorId: string;
   firstName: string;
   lastName: string;
   email: string;

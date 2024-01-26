@@ -43,7 +43,7 @@
         <mat-form-field appearance="fill" class="w-4/5">
           <mat-label>Curator</mat-label>
           <mat-select formControlName="curator">
-            <mat-option *ngFor="let curator of curators" [value]="curator.id">
+            <mat-option *ngFor="let curator of curators" [value]="curator.curatorId">
               {{curator.fullName}}
             </mat-option>
           </mat-select>
@@ -51,7 +51,7 @@
         <mat-form-field appearance="fill" class="w-4/5">
           <mat-label>Status</mat-label>
           <mat-select formControlName="curationStatus">
-            <mat-option *ngFor="let status of curationStatus" [value]="status.id">
+            <mat-option *ngFor="let status of curationStatus" [value]="status.curationStatusId">
               {{status.status}}
             </mat-option>
           </mat-select>
@@ -113,9 +113,9 @@
             <th mat-header-cell *matHeaderCellDef>Curator</th>
             <td mat-cell *matCellDef="let row; let i = index;">
               <mat-form-field class="mt-1">
-                <mat-select [ngModel]="row.curator.id">
+                <mat-select [ngModel]="row.curator.curatorId">
                   <mat-select-trigger>{{row?.curator?.fullName}}</mat-select-trigger>
-                  <mat-option *ngFor="let curator of curators" [value]="curator.id"
+                  <mat-option *ngFor="let curator of curators" [value]="curator.curatorId"
                               (click)="openSaveCurationDetailsDialog(row.pmid, curator, null, i)">
                     {{curator.fullName}}
                   </mat-option>
@@ -127,9 +127,9 @@
             <th mat-header-cell *matHeaderCellDef>Curation status</th>
             <td mat-cell *matCellDef="let row; let i = index;">
               <mat-form-field class="mt-1">
-                <mat-select [ngModel]="row.curationStatus.id">
+                <mat-select [ngModel]="row.curationStatus.curationStatusId">
                   <mat-select-trigger>{{row?.curationStatus?.status}}</mat-select-trigger>
-                  <mat-option *ngFor="let curationStatus of curationStatus" [value]="curationStatus.id"
+                  <mat-option *ngFor="let curationStatus of curationStatus" [value]="curationStatus.curationStatusId"
                               (click)="openSaveCurationDetailsDialog(row.pmid, null, curationStatus, i)">
                     {{curationStatus.status}}
                   </mat-option>
