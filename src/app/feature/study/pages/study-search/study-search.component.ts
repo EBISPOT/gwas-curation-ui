@@ -31,7 +31,8 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
 
   resultsLength = 0;
   isLoadingResults = true;
-  searchBoxValue = '';
+  noteSearchBoxValue = '';
+  gcstSearchBoxValue = '';
 
   dataSource: any;
   @ViewChild(MatSort) sort: MatSort;
@@ -50,8 +51,8 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
 
   expandedElement: StudySolr | null;
 
-  constructor(private studyService: StudyService, private reportedTraitService: ReportedTraitService, private efoTraitService: EfoTraitService,
-              private snackBar: MatSnackBar) { }
+  constructor(private studyService: StudyService, private reportedTraitService: ReportedTraitService,
+              private efoTraitService: EfoTraitService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -64,8 +65,8 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
           this.isLoadingResults = true;
           return this.studyService
             .search(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active,
-              this.sort.direction, this.efoTrait, this.reportedTrait, this.searchBoxValue,
-              this.sumstats, this.pooled, this.gxe);
+              this.sort.direction, this.efoTrait, this.reportedTrait, this.noteSearchBoxValue,
+              this.gcstSearchBoxValue, this.sumstats, this.pooled, this.gxe);
         }),
         map((data: StudySearchApiResponse) => {
           this.isLoadingResults = false;
@@ -115,8 +116,8 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
   search() {
     this.isLoadingResults = true;
     this.studyService.search(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active,
-      this.sort.direction, this.efoTrait, this.reportedTrait, this.searchBoxValue,
-      this.sumstats, this.pooled, this.gxe).subscribe((data: StudySearchApiResponse) => {
+      this.sort.direction, this.efoTrait, this.reportedTrait, this.noteSearchBoxValue,
+      this.gcstSearchBoxValue, this.sumstats, this.pooled, this.gxe).subscribe((data: StudySearchApiResponse) => {
         this.resultsLength = data.page.totalElements;
         this.dataSource = new MatTableDataSource<StudySolr>(data?._embedded?.studySolrDToes);
         this.isLoadingResults = false;
@@ -136,6 +137,7 @@ export class StudySearchComponent implements OnInit, AfterViewInit{
     this.gxe = 'any';
     this.pooled = 'any';
     this.sumstats = 'any';
-    this.searchBoxValue = null;
+    this.noteSearchBoxValue = null;
+    this.gcstSearchBoxValue = null;
   }
 }

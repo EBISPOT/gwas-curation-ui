@@ -9,7 +9,7 @@ export class StudyService {
 
   constructor(private http: CurationHttpService) {}
 
-  search(size: number, page: number, sort: string, order: string, efoTrait: string, reportedTrait: string, note: string,
+  search(size: number, page: number, sort: string, order: string, efoTrait: string, reportedTrait: string, note: string, gcst: string,
          sumstatsFlag: string, pooledFlag: string, gxeFlag: string) {
     let params: HttpParams = new HttpParams();
     if (size) {
@@ -29,6 +29,9 @@ export class StudyService {
     }
     if (note) {
       params = params.set('note', note);
+    }
+    if (gcst) {
+      params = params.set('accessionId', gcst);
     }
     if (sumstatsFlag !== 'any' && sumstatsFlag != null) {
       params = params.set('sumstatsFlag', String(sumstatsFlag));
