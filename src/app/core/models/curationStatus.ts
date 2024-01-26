@@ -1,4 +1,4 @@
 export interface CurationStatus {
-  id: string;
+  curationStatusId: string;
   status: string;
 }

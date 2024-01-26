@@ -81,10 +81,10 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
                   + (p.curator.lastName ? ' ' + p.curator.lastName : '');
               }
               else {
-                p.curator = {id: '', firstName: '', lastName: '', fullName: '', email: ''};
+                p.curator = {curatorId: '', firstName: '', lastName: '', fullName: '', email: ''};
               }
               if (!p.curationStatus) {
-                p.curationStatus = {id: '', status: ''};
+                p.curationStatus = {curationStatusId: '', status: ''};
               }
             });
           }
@@ -116,10 +116,10 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
                 + (p.curator.lastName ? ' ' + p.curator.lastName : '');
             }
             else {
-              p.curator = {id: '', firstName: '', lastName: '', fullName: '', email: ''};
+              p.curator = {curatorId: '', firstName: '', lastName: '', fullName: '', email: ''};
             }
             if (!p.curationStatus) {
-              p.curationStatus = {id: '', status: ''};
+              p.curationStatus = {curationStatusId: '', status: ''};
             }
           });
         }
@@ -148,14 +148,9 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
     this.publicationService.updatePublicationCurationDetails(pmid, curationPatch);
   }
 
-  saveCurationStatus(pmid, curationStatus: CurationStatus) {
-    const curationPatch = {curationStatus};
-    this.publicationService.updatePublicationCurationDetails(pmid, curationPatch);
-  }
-
   openSaveCurationDetailsDialog(pmid: string, curator: Curator, curationStatus: CurationStatus, i: string) {
-    if (this.dataSource.data[i].curator.id === curator?.id) { return; }
-    if (this.dataSource.data[i].curationStatus.id === curationStatus?.id) { return; }
+    if (this.dataSource.data[i].curator.curatorId === curator?.curatorId) { return; }
+    if (this.dataSource.data[i].curationStatus.curationStatusId === curationStatus?.curationStatusId) { return; }
     let message = '';
     if (curator) {
       message = 'Set <b>curator</b> for PMID ' + pmid + ': <b>' + curator.fullName + '</b>';
@@ -173,10 +168,13 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
+        this.isLoadingResults = true;
         this.publicationService.updatePublicationCurationDetails(pmid, {curator, curationStatus}).subscribe(() => {
+          this.isLoadingResults = false;
           this.snackBar.open('Save successful.', '', {duration: 2500});
           this.search();
         }, (error) => {
+          this.isLoadingResults = false;
           if (error.error.indexOf('linked') > 0) {
             this.snackBar.open(error.error, '', {duration: 2500});
           }
