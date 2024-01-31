@@ -19,6 +19,7 @@ import {
 } from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-publications-list',
@@ -45,6 +46,8 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
   curationStatus: CurationStatus[];
   curators: Curator[];
   resultsLength = 0;
+
+  selectedCurationStatus: CurationStatus;
 
   constructor(private publicationService: PublicationService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
@@ -143,12 +146,8 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
     this.paginator.pageIndex = 0;
   }
 
-  saveCurator(pmid, curator: Curator) {
-    const curationPatch = {curator};
-    this.publicationService.updatePublicationCurationDetails(pmid, curationPatch);
-  }
-
-  openSaveCurationDetailsDialog(pmid: string, curator: Curator, curationStatus: CurationStatus, i: string) {
+  openSaveCurationDetailsDialog(pmid: string, curator: Curator, curationStatus: CurationStatus, i: string, select: MatSelect) {
+    select.value = this.dataSource.data[i].curationStatus;
     if (this.dataSource.data[i].curator.curatorId === curator?.curatorId) { return; }
     if (this.dataSource.data[i].curationStatus.curationStatusId === curationStatus?.curationStatusId) { return; }
     let message = '';
@@ -185,4 +184,9 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  compareCurationStatus(o1: CurationStatus, o2: CurationStatus) {
+    return o1?.curationStatusId === o2?.curationStatusId;
+  }
+
 }

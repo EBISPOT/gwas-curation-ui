@@ -116,7 +116,7 @@
                 <mat-select [ngModel]="row.curator.curatorId">
                   <mat-select-trigger>{{row?.curator?.fullName}}</mat-select-trigger>
                   <mat-option *ngFor="let curator of curators" [value]="curator.curatorId"
-                              (click)="openSaveCurationDetailsDialog(row.pmid, curator, null, i)">
+                              (click)="openSaveCurationDetailsDialog(row.pmid, curator, null, i, null)">
                     {{curator.fullName}}
                   </mat-option>
                 </mat-select>
@@ -127,10 +127,10 @@
             <th mat-header-cell *matHeaderCellDef>Curation status</th>
             <td mat-cell *matCellDef="let row; let i = index;">
               <mat-form-field class="mt-1">
-                <mat-select [ngModel]="row.curationStatus.curationStatusId">
+                <mat-select [ngModel]="row.curationStatus" #select
+                            [compareWith]="compareCurationStatus" (selectionChange)="openSaveCurationDetailsDialog(row.pmid, null, $event.value, i, select)">
                   <mat-select-trigger>{{row?.curationStatus?.status}}</mat-select-trigger>
-                  <mat-option *ngFor="let curationStatus of curationStatus" [value]="curationStatus.curationStatusId"
-                              (click)="openSaveCurationDetailsDialog(row.pmid, null, curationStatus, i)">
+                  <mat-option *ngFor="let curationStatus of curationStatus" [value]="curationStatus">
                     {{curationStatus.status}}
                   </mat-option>
                 </mat-select>
