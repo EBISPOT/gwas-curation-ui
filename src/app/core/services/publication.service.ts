@@ -49,4 +49,16 @@ export class PublicationService {
   updatePublicationCurationDetails(pmid: string, publicationCurationPatchDto: any) {
     return this.http.patch('/publications/' + pmid + '/curation', publicationCurationPatchDto);
   }
+
+  importPublicationsFromEpmc(pmids: string[]) {
+    return this.http.post('/publications/' + pmids.join(','));
+  }
+
+  getSubmissionMatchingReport(pmid: string) {
+    let params: HttpParams = new HttpParams();
+    params = params
+      .set('size', String(50))
+      .set('page', String(1));
+    return this.http.get('/publications/' + pmid + '/linked-submissions', params);
+  }
 }

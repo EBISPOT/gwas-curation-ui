@@ -1,0 +1,11 @@
+.ellipsis-col {
+  overflow: hidden;
+  max-width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+td, th {
+  padding: 7px !important;
+  text-align: left;;
+}

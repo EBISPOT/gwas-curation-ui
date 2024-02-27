@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Potential matches for PMID {{pmid}}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="relative">
+    <div *ngIf="loadingInProgress" class="loading-shade">
+      <mat-spinner></mat-spinner>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="w-full" matSort>
+      'submissionId', 'author', 'title', 'doi', 'cosineScore', 'linkSubmission'
+      <ng-container matColumnDef="submissionId">
+        <th mat-header-cell *matHeaderCellDef>SubmissionId</th>
+        <td mat-cell *matCellDef="let row">{{row.submissionID}}</td>
+      </ng-container>
+      <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
+        <td mat-cell *matCellDef="let row">{{row.author}}</td>
+      </ng-container>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let row" class="ellipsis-col">
+          <span matTooltip="{{row.title}}" matTooltipClass="mat-tooltip">{{row?.title || 'NA'}}</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="doi">
+        <th mat-header-cell *matHeaderCellDef>DOI</th>
+        <td mat-cell *matCellDef="let row">
+          <a *ngIf="row.doi" mat-button [href]="row.doi" target="_blank">
+            Open DOI <mat-icon color="primary" style="font-size: 20px">open_in_new</mat-icon>
+          </a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="cosineScore">
+        <th mat-header-cell *matHeaderCellDef>Cosine Score</th>
+        <td mat-cell *matCellDef="let row">{{row.cosScore}}</td>
+      </ng-container>
+      <ng-container matColumnDef="linkSubmission">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-raised-button color="primary">
+            Link submission
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" colspan="9999">
+          <h3>No submissions found for PMID</h3>
+        </td>
+      </tr>
+    </table>
+    <mat-paginator [length]="resultsLength" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>
