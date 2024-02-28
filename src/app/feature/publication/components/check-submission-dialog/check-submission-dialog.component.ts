@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { PublicationService } from '../../../../core/services/publication.service';
 import { MatSort } from '@angular/material/sort';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-check-submission-dialog',
@@ -43,10 +44,24 @@ export class CheckSubmissionDialogComponent implements OnInit {
         if (typeof data[sortHeaderId] === 'string') {
           return data[sortHeaderId].toLocaleLowerCase();
         }
-
         return data[sortHeaderId];
       };
+      this.dataSource.filterPredicate = (data, filter) => {
+        if (filter === 'include') {
+          return true;
+        }
+        return data.pubMedID == null;
+      };
+      this.dataSource.filter = 'GCPOnly';
     });
   }
 
+  filter($event: MatCheckboxChange) {
+    let filter = 'GCPOnly';
+    if ($event.checked) {
+      filter = 'include';
+    }
+    this.dataSource.filter = filter;
+    this.dataSource.paginator.pageIndex = 0;
+  }
 }
