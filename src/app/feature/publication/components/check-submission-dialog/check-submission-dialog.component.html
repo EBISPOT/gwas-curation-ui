@@ -35,7 +35,7 @@
       <ng-container matColumnDef="linkSubmission">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
-          <button mat-raised-button color="primary" [disabled]="row.pubMedID != null">
+          <button mat-raised-button color="primary" [disabled]="row.pubMedID != null" (click)="linkSubmission(row.submissionID)">
             Link submission
           </button>
         </td>

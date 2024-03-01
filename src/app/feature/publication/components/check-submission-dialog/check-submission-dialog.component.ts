@@ -4,8 +4,9 @@ import { SubmissionMatchingReport } from '../../../../core/models/submissionMatc
 import { MatPaginator } from '@angular/material/paginator';
 import { PublicationService } from '../../../../core/services/publication.service';
 import { MatSort } from '@angular/material/sort';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-check-submission-dialog',
@@ -28,7 +29,9 @@ export class CheckSubmissionDialogComponent implements OnInit {
   }
 
   constructor(private publicationService: PublicationService,
-              @Inject(MAT_DIALOG_DATA) public data: {pubmedId: string}) {
+              @Inject(MAT_DIALOG_DATA) public data: {pubmedId: string},
+              private snackBar: MatSnackBar,
+              private dialogRef: MatDialogRef<SubmissionMatchingReport>) {
     this.pmid = data.pubmedId;
   }
 
@@ -63,5 +66,20 @@ export class CheckSubmissionDialogComponent implements OnInit {
     }
     this.dataSource.filter = filter;
     this.dataSource.paginator.pageIndex = 0;
+  }
+
+  linkSubmission(submissionId: string) {
+    this.loadingInProgress = true;
+    this.publicationService
+      .linkSubmission(this.pmid, submissionId)
+      .subscribe(() => {
+        this.loadingInProgress = false;
+        this.snackBar.open('Success! Submission linked', '', {duration: 2500});
+        this.dialogRef.close();
+      }, (error) => {
+        this.loadingInProgress = false;
+        console.log(error);
+        this.snackBar.open(error.error , '', {duration: 2500});
+      });
   }
 }
