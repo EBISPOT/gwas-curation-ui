@@ -9,7 +9,7 @@
           <div *ngIf="submission?.publication" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
             Publication: PMID-{{submission.publication.pmid}}
           </div>
-          <div *ngIf="submission?.bodyOfWork" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
+          <div *ngIf="submission?.bodyOfWork && !submission?.publication" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
             Body of Work: ID- {{submission.bodyOfWork.bodyOfWorkId}}
           </div>
         </div>
@@ -17,7 +17,7 @@
           <div *ngIf="submission?.publication" style="margin-top: 5px;">
             <a href="#" style="margin-right: 5px;">Submission</a> / <a target="_blank" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" class="text-blue-500">{{submission.submissionId}}</a>
           </div>
-          <div *ngIf="submission?.bodyOfWork" style="margin-top: 5px;">
+          <div *ngIf="submission?.bodyOfWork && !submission?.publication" style="margin-top: 5px;">
             <a href="#" style="margin-right: 5px;">Submission</a> / <a target="_blank" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" class="text-blue-500">{{submission.submissionId}}</a>
           </div>
         </div>
