@@ -10,9 +10,14 @@
     </div>
   </div>
   <div class="col-span-12 sm:col-span-6">
-    <div class="mt-5 sm:mt-1 sm:float-right">
-      <button mat-raised-button color="primary" style="font-size:12px; margin-right: -10px;" class="gwas-elevation">
-        <mat-icon>share</mat-icon>
+    <div class="mt-5 sm:mt-1 sm:float-right space-x-2">
+      <a mat-raised-button routerLink="import" class="font-bold">
+        <mat-icon>note_add</mat-icon>
+        Import from EPMC
+      </a>
+      <button mat-raised-button color="primary" class="font-bold">
+<!--        class="material-symbols-outlined" to use material symbols instead of google, material icons-->
+        <mat-icon class="material-symbols-outlined">export_notes</mat-icon>
         Export Data
       </button>
     </div>
