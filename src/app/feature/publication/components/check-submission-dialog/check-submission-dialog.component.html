@@ -1,4 +1,6 @@
 <h2 mat-dialog-title>Potential matches for PMID {{pmid}}</h2>
+<h4 *ngIf="author">{{author}}</h4>
+<h4 *ngIf="title">{{title}}</h4>
 <mat-dialog-content class="mat-typography">
   <div class="relative">
     <div *ngIf="loadingInProgress" class="loading-shade">
@@ -6,6 +8,10 @@
     </div>
     <mat-checkbox class="mt-2" (change)="filter($event)">Include submissions having PMID</mat-checkbox>
     <table mat-table [dataSource]="dataSource" class="w-full" matSort>
+      <ng-container matColumnDef="pubMedID">
+        <th mat-header-cell *matHeaderCellDef>PMID</th>
+        <td mat-cell *matCellDef="let row">{{row.pubMedID || 'NA'}}</td>
+      </ng-container>
       <ng-container matColumnDef="submissionId">
         <th mat-header-cell *matHeaderCellDef>SubmissionId</th>
         <td mat-cell *matCellDef="let row">{{row.submissionID}}</td>
@@ -17,7 +23,7 @@
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>Title</th>
         <td mat-cell *matCellDef="let row" class="ellipsis-col">
-          <span matTooltip="{{row.title}}" matTooltipClass="mat-tooltip">{{row?.title || 'NA'}}</span>
+          <span matTooltip="{{row.title}}" matTooltipClass="mat-tooltip">{{row.title || 'NA'}}</span>
         </td>
       </ng-container>
       <ng-container matColumnDef="doi">
@@ -35,7 +41,7 @@
       <ng-container matColumnDef="linkSubmission">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
-          <button mat-raised-button color="primary" [disabled]="row.pubMedID != null" (click)="linkSubmission(row.submissionID)">
+          <button mat-raised-button color="primary" [disabled]="row.pubMedID != null" (click)="linkSubmission(row.submissionID, row.author)">
             Link submission
           </button>
         </td>

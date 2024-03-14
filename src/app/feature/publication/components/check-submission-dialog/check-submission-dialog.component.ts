@@ -4,9 +4,13 @@ import { SubmissionMatchingReport } from '../../../../core/models/submissionMatc
 import { MatPaginator } from '@angular/material/paginator';
 import { PublicationService } from '../../../../core/services/publication.service';
 import { MatSort } from '@angular/material/sort';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  ConfirmationDialogComponent,
+  ConfirmationDialogModel
+} from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-check-submission-dialog',
@@ -16,6 +20,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CheckSubmissionDialogComponent implements OnInit {
 
   pmid = '';
+  title = '';
+  author = '';
   displayedColumns = ['submissionId', 'author', 'title', 'doi', 'cosineScore', 'linkSubmission'];
   dataSource = new MatTableDataSource<SubmissionMatchingReport>();
   matchingReportList: SubmissionMatchingReport[];
@@ -29,10 +35,13 @@ export class CheckSubmissionDialogComponent implements OnInit {
   }
 
   constructor(private publicationService: PublicationService,
-              @Inject(MAT_DIALOG_DATA) public data: {pubmedId: string},
+              @Inject(MAT_DIALOG_DATA) public data: {pubmedId: string, title: string, author: string},
               private snackBar: MatSnackBar,
-              private dialogRef: MatDialogRef<SubmissionMatchingReport>) {
+              private dialogRef: MatDialogRef<SubmissionMatchingReport>,
+              private confirmationDialog: MatDialog) {
     this.pmid = data.pubmedId;
+    this.title = data.title;
+    this.author = data.author;
   }
 
   ngOnInit(): void {
@@ -60,26 +69,43 @@ export class CheckSubmissionDialogComponent implements OnInit {
   }
 
   filter($event: MatCheckboxChange) {
-    let filter = 'GCPOnly';
+    let filter: string;
     if ($event.checked) {
+      this.displayedColumns.unshift('pubMedID');
       filter = 'include';
+    }
+    else {
+      this.displayedColumns.shift();
+      filter = 'GCPOnly';
     }
     this.dataSource.filter = filter;
     this.dataSource.paginator.pageIndex = 0;
   }
 
-  linkSubmission(submissionId: string) {
-    this.loadingInProgress = true;
-    this.publicationService
-      .linkSubmission(this.pmid, submissionId)
-      .subscribe(() => {
-        this.loadingInProgress = false;
-        this.snackBar.open('Success! Submission linked', '', {duration: 2500});
-        this.dialogRef.close();
-      }, (error) => {
-        this.loadingInProgress = false;
-        console.log(error);
-        this.snackBar.open(error.error , '', {duration: 2500});
-      });
+  linkSubmission(submissionId: string, submissionAuthor: string) {
+    const message = 'You are about to link <b>PMID:' + this.pmid + '</b> by <b>' + (this.author ? this.author : 'NA') +
+      '</b> to Submission <b>' + submissionId + '</b> by <b>' + submissionAuthor + '</b>, continue?';
+    const dialogData = new ConfirmationDialogModel('Confirm?', message);
+
+    const dialogRef = this.confirmationDialog.open(ConfirmationDialogComponent, {
+      maxWidth: '900px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe((dialogResult: any) => {
+      if (dialogResult) {
+        this.loadingInProgress = true;
+        this.publicationService
+          .linkSubmission(this.pmid, submissionId)
+          .subscribe(() => {
+            this.loadingInProgress = false;
+            this.snackBar.open('Success! Submission linked', '', {duration: 2500});
+            this.dialogRef.close();
+          }, (error) => {
+            this.loadingInProgress = false;
+            this.snackBar.open(error.error , '', {duration: 2500});
+          });
+      }
+    });
   }
 }

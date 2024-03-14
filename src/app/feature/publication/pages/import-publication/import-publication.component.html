@@ -79,7 +79,10 @@
             <ng-container matColumnDef="checkSubmission">
               <th mat-header-cell *matHeaderCellDef>  </th>
               <td mat-cell *matCellDef="let row">
-                <button *ngIf="row.status == 'PMID saved'" mat-stroked-button (click)="openCheckSubmissionDialog(row.publicationDto?.pmid)">Check for submission</button>
+                <button *ngIf="row.status == 'PMID saved'" mat-stroked-button
+                        (click)="openCheckSubmissionDialog(row.publicationDto?.pmid, row.publicationDto?.title, (row.publicationDto?.authors || [])[0]?.fullName)">
+                  Check for submission
+                </button>
               </td>
             </ng-container>
 
