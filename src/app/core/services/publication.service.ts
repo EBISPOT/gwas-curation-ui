@@ -39,11 +39,19 @@ export class PublicationService {
   }
 
   getCurators() {
-    return this.http.get('/curators');
+    let params: HttpParams = new HttpParams();
+    params = params
+      .set('size', String(50))
+      .set('page', String(0));
+    return this.http.get('/curators', params);
   }
 
   getCurationStatuses() {
-    return this.http.get('/curation-status');
+    let params: HttpParams = new HttpParams();
+    params = params
+      .set('size', String(50))
+      .set('page', String(0));
+    return this.http.get('/curation-status', params);
   }
 
   updatePublicationCurationDetails(pmid: string, publicationCurationPatchDto: any) {
