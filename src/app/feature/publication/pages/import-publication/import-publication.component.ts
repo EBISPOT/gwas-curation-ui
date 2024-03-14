@@ -84,11 +84,13 @@ export class ImportPublicationComponent implements OnInit, AfterViewInit {
       });
   }
 
-  openCheckSubmissionDialog(pmid: string) {
+  openCheckSubmissionDialog(pubmedId: string, title: string, author: string) {
     this.dialog.open(CheckSubmissionDialogComponent, {
       autoFocus: false,
       data: {
-        pubmedId: pmid
+        pubmedId,
+        title,
+        author
       }
     });
   }
