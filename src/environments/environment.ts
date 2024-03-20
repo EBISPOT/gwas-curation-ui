@@ -14,7 +14,8 @@ export const environment = {
   API_URL: 'http://hh-rke-wp-webadmin-09-worker-2.caas.ebi.ac.uk:30183/gwas/deposition/api/v1',
   CURATION_API_URL: 'http://localhost:3000',
   ANOTHER_API_SECRET: '__ANOTHER__SECRET__',
-  DEPOSITION_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition'
+  DEPOSITION_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition',
+  WHITELISTED_CURATORS: ['sajo.gwas@gmail.com', 'santhir.gwas@gmail.com', 'elliot.gwas@gmail.com', 'earlofgwas@gmail.com', 'lauraharrisgwas75@gmail.com']
 };
 
 
