@@ -11,5 +11,5 @@ export const environment = {
   CURATION_API_URL: 'https://wwwdev.ebi.ac.uk/gwas/depo-curation/api/v1',
   DEPOSITION_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition',
   ANOTHER_API_SECRET: '__ANOTHER__SECRET__',
-  WHITELISTED_CURATORS: ['sajo.gwas@gmail.com', 'santhir.gwas@gmail.com', 'elliot.gwas@gmail.com', 'earlofgwas@gmail.com', 'lauraharrisgwas75@gmail.com']
+  WHITELISTED_CURATORS: ['alaofgwas@gmail.com', 'sajo.gwas@gmail.com', 'santhir.gwas@gmail.com', 'elliot.gwas@gmail.com', 'earlofgwas@gmail.com', 'lauraharrisgwas75@gmail.com']
 };
