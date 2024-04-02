@@ -26,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [ConfirmationDialogComponent],
@@ -56,7 +57,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatFormFieldModule,
     MatInputModule,
     MatBottomSheetModule,
-    MatRadioModule
+    MatRadioModule,
+    MatRippleModule
   ],
   exports: [
     CommonModule,
@@ -85,7 +87,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatFormFieldModule,
     MatInputModule,
     MatBottomSheetModule,
-    MatRadioModule
+    MatRadioModule,
+    MatRippleModule
   ]
 })
 export class SharedModule {

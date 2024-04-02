@@ -6,18 +6,21 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { ImportPublicationComponent } from './pages/import-publication/import-publication.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { CheckSubmissionDialogComponent } from './components/check-submission-dialog/check-submission-dialog.component';
 
 
 @NgModule({
-  declarations: [PublicationsListComponent],
+  declarations: [PublicationsListComponent, ImportPublicationComponent, CheckSubmissionDialogComponent],
   imports: [
     SharedModule,
     PublicationRoutingModule,
     MatSelectModule,
     MatAutocompleteModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatChipsModule
   ]
 })
 export class PublicationModule { }

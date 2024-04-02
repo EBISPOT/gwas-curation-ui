@@ -19,6 +19,9 @@ export class AuthService {
   }
 
   isCurator() {
+    if (environment.WHITELISTED_CURATORS.indexOf(this.getDecodedToken()?.email) > -1) {
+      return true;
+    }
     return this.getDecodedToken()?.domains?.indexOf('self.GWAS_Curator') > -1;
   }
 

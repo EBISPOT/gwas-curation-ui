@@ -21,3 +21,8 @@
 .mat-cell {
   padding: 0 4px;
 }
+
+.filters-button {
+  width: 80px;
+  padding: 0;
+}

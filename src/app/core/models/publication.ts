@@ -1,3 +1,6 @@
+import { Curator } from './curator';
+import { CurationStatus } from './curationStatus';
+
 export interface Publication {
    publicationId: string;
    pmid: string;
@@ -10,4 +13,6 @@ export interface Publication {
      email: string;
    };
    status: string;
+   curationStatus: CurationStatus;
+   curator: Curator;
 }
