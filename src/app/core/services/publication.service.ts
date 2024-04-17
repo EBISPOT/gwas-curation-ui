@@ -54,8 +54,8 @@ export class PublicationService {
     return this.http.get('/curation-status', params);
   }
 
-  updatePublicationCurationDetails(pmid: string, publicationCurationPatchDto: any) {
-    return this.http.patch('/publications/' + pmid + '/curation', publicationCurationPatchDto);
+  patchPublication(pmid: string, publicationCurationPatchDto: any) {
+    return this.http.patch('/publications/' + pmid, publicationCurationPatchDto);
   }
 
   importPublicationsFromEpmc(pmids: string[]) {

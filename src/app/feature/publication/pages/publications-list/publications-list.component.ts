@@ -168,7 +168,7 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
         this.isLoadingResults = true;
-        this.publicationService.updatePublicationCurationDetails(pmid, {curator, curationStatus}).subscribe(() => {
+        this.publicationService.patchPublication(pmid, {curator, curationStatus}).subscribe(() => {
           this.isLoadingResults = false;
           this.snackBar.open('Save successful.', '', {duration: 2500});
           this.search();
