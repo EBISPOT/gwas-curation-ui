@@ -73,4 +73,12 @@ export class PublicationService {
   linkSubmission(pmid: string, submissionId: string) {
     return this.http.put('/publications/' + pmid + '/link-submission', new HttpParams().set('submissionId', submissionId));
   }
+
+  getPublication(publicationId: string) {
+    return this.http.get('/publications/' + publicationId);
+  }
+
+  getBodyOfWork(bowId: string) {
+    return this.http.get('/body-of-work/' + bowId);
+  }
 }

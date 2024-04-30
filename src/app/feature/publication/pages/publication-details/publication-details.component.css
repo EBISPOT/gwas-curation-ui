@@ -1,0 +1,8 @@
+::ng-deep .mat-expansion-indicator::after {
+  border-color: black !important;
+}
+
+.expansion-panel-content {
+  margin: 0 10px;
+  min-height: 70px;
+}

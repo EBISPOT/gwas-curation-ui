@@ -9,10 +9,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ImportPublicationComponent } from './pages/import-publication/import-publication.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { CheckSubmissionDialogComponent } from './components/check-submission-dialog/check-submission-dialog.component';
+import { PublicationDetailsComponent } from './pages/publication-details/publication-details.component';
 
 
 @NgModule({
-  declarations: [PublicationsListComponent, ImportPublicationComponent, CheckSubmissionDialogComponent],
+  declarations: [PublicationsListComponent, ImportPublicationComponent, CheckSubmissionDialogComponent, PublicationDetailsComponent],
   imports: [
     SharedModule,
     PublicationRoutingModule,

@@ -1,0 +1,217 @@
+<mat-toolbar color="accent">
+  <span>Publication {{publication?.pmid}}</span>
+</mat-toolbar>
+<mat-card class="mx-24 my-4 px-4 py-6">
+  <mat-tab-group animationDuration="150ms">
+    <mat-tab label="Publication">
+      <mat-accordion multi class="m-2">
+        <mat-expansion-panel expanded>
+          <div class="loading-shade" *ngIf="isLoadingPublication">
+            <mat-spinner></mat-spinner>
+          </div>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b>Publication</b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion-panel-content">
+            <table class="plain-table border-0">
+              <tr class="border-t-0">
+                <th>Title</th>
+                <th colspan="4"> {{publication?.title}} </th>
+              </tr>
+              <tr>
+                <th class="col-span-2"> PubMed ID</th>
+                <td class="col-span-3"> {{publication?.pmid}} </td>
+                <th class="col-span-2"> Journal</th>
+                <td class="col-span-3"> {{publication?.journal}} </td>
+                <td class="col-span-2">
+                  <a href="{{'https://pubmed.ncbi.nlm.nih.gov/'+ publication?.pmid}}" target="_blank" class="simple-link">
+                    View in PubMed <mat-icon class="text-xs">launch</mat-icon>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th class="col-span-2"> First author</th>
+                <td class="col-span-3" id="publication-author"> {{publication?.firstAuthor}}</td>
+
+                <th class="col-span-2"> Publication date</th>
+                <td class="col-span-3"> {{publication?.publicationDate}}</td>
+
+                <td class="col-span-2">
+                  <a href="{{'https://europepmc.org/article/MED/' + publication?.pmid}}" target="_blank" class="simple-link">
+                    View in EPMC <mat-icon class="text-xs">launch</mat-icon>
+                  </a>
+                </td>
+              </tr>
+              <tr class="border-b-0">
+                <th class="col-span-2"> Open Targets </th>
+                <td class="col-span-3"> <mat-checkbox class="ml-1" #otCheckbox></mat-checkbox> </td>
+                <th class="col-span-2"> User Requested</th>
+                <td class="col-span-3"> <mat-checkbox class="ml-1" #urCheckbox></mat-checkbox> </td>
+              </tr>
+            </table>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel expanded *ngIf="publication?.bodyOfWorkId">
+          <div class="loading-shade" *ngIf="isLoadingBoW">
+            <mat-spinner></mat-spinner>
+          </div>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b>Body of Work</b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion-panel-content">
+            <table class="plain-table border-0">
+              <tr class="border-t-0">
+                <th> Title</th>
+                <th colspan="4"> {{bodyOfWork?.title}} </th>
+              </tr>
+              <tr>
+                <th> Description </th>
+                <th colspan="4">
+                  {{bodyOfWork?.description}}
+                </th>
+              </tr>
+              <tr>
+                <th class="col-span-2" *ngIf="bodyOfWork?.embargoDate || bodyOfWork?.embargoUntilPublished">
+                  Embargo Until:
+                </th>
+                <td class="col-span-3">
+                  {{bodyOfWork?.embargoUntilPublished ?
+                  'Date of publication' : bodyOfWork?.embargoDate}}
+                </td>
+
+                <th class="col-span-2" *ngIf="bodyOfWork?.journal"> Journal</th>
+                <td class="col-span-3" *ngIf="bodyOfWork?.journal">
+                  {{bodyOfWork?.journal}}
+                </td>
+
+                <td class="col-span-2">
+                  <a *ngIf="bodyOfWork?.url" [href]="bodyOfWork.url" target="_blank" class="simple-link">
+                    Submitted to: {{bodyOfWork.journal}} <mat-icon class="text-xs">launch</mat-icon>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th class="col-span-2" *ngIf="bodyOfWork?.firstAuthor?.firstName && bodyOfWork?.firstAuthor?.lastName">
+                  First author
+                </th>
+                <td class="col-span-3" *ngIf="bodyOfWork?.firstAuthor?.firstName && bodyOfWork?.firstAuthor?.lastName">
+                  {{bodyOfWork?.firstAuthor?.firstName + ' ' + bodyOfWork?.firstAuthor?.lastName}}
+                </td>
+
+                <th class="col-span-2" *ngIf="bodyOfWork?.firstAuthor?.group">
+                  First author group:
+                </th>
+                <td class="col-span-3" *ngIf="bodyOfWork?.firstAuthor?.group">
+                  {{bodyOfWork.firstAuthor.group}}
+                </td>
+              </tr>
+              <tr>
+                <th class="col-span-2" *ngIf="bodyOfWork?.lastAuthor?.firstName && bodyOfWork?.lastAuthor?.lastName">
+                  Last author
+                </th>
+                <td class="col-span-3" *ngIf="bodyOfWork?.lastAuthor?.firstName && bodyOfWork?.lastAuthor?.lastName">
+                  {{bodyOfWork?.lastAuthor?.firstName + ' ' + bodyOfWork?.lastAuthor?.lastName}}
+                </td>
+
+                <th class="col-span-2" *ngIf="bodyOfWork?.lastAuthor?.group">
+                  Last author group:
+                </th>
+                <td class="col-span-3" *ngIf="bodyOfWork?.lastAuthor?.group">
+                  {{bodyOfWork?.lastAuthor?.group}}
+                </td>
+              </tr>
+
+              <tr *ngIf="bodyOfWork?.correspondingAuthors" class="border-b-0">
+                <th class="col-span-2">
+                  Corresponding authors:
+                </th>
+                <td class="col-span-3">
+                <span class="flex" *ngFor="let ca of bodyOfWork?.correspondingAuthors">
+                    {{ca.firstName + ' ' + ca.lastName + ' ' + ca.email}}
+                </span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel expanded *ngFor="let submission of submissions">
+          <div class="loading-shade" *ngIf="submission.isLoading">
+            <mat-spinner></mat-spinner>
+          </div>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b>Submission</b>
+              <b *ngIf="submission?.submission?.type"> &nbsp;({{submission.submission.type}}) </b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion-panel-content">
+            <table class="plain-table border-0">
+              <tr class="border-t-0">
+                <th>
+                  ID
+                </th>
+                <td>
+                  <a routerLink="/submissions/{{submission.submission.submissionId}}" target="_blank">
+                    {{submission.submission.submissionId}} <mat-icon class="text-xs">launch</mat-icon>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th class="col-span-2"> User</th>
+                <td class="col-span-3"> {{submission.submission?.created.user.name}} </td>
+                <th class="col-span-2"> Created Date</th>
+                <td class="col-span-3">  {{submission.submission?.created.timestamp | date: 'yyyy-MM-dd'}}  </td>
+              </tr>
+              <tr>
+                <th class="col-span-2"> Studies</th>
+                <td class="col-span-2"> {{submission.submission?.study_count}} </td>
+                <th class="col-span-2"> Associations</th>
+                <td class="col-span-3"> {{submission.submission?.association_count}} </td>
+              </tr>
+              <tr>
+                <th class="col-span-2"> Samples </th>
+                <td class="col-span-3"> {{submission.submission?.sample_count}} </td>
+                <th class="col-span-2"> Submission Status</th>
+                <td class="col-span-3"> {{submission.submission?.submission_status}} </td>
+              </tr>
+              <tr class="border-b-0">
+                <th class="col-span-2"> Metadata Status</th>
+                <td class="col-span-3">
+                  <mat-spinner [diameter]="22" *ngIf="submission.submission?.metadata_status == 'VALIDATING'"></mat-spinner>
+                  <mat-icon *ngIf="submission.submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
+                  <mat-icon *ngIf="submission.submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
+                  {{submission.submission?.metadata_status == 'NA' ? 'NA' : ''}}
+                </td>
+                <th class="col-span-2"> SumStats Status</th>
+                <td class="col-span-3">
+                  <mat-spinner [diameter]="22"
+                               *ngIf="submission.submission?.summary_statistics_status == 'VALIDATING'"></mat-spinner>
+                  <mat-icon *ngIf="submission.submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
+                  <mat-icon *ngIf="submission.submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
+                  {{submission.submission?.summary_statistics_status == 'NA' ? 'NA' : ''}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+      <div class="border-green-600 border-l-4 m-6">
+        <div class="px-2"><b class="text-lg ml-1">Tracking</b></div>
+        <button mat-button><mat-icon>change_circle</mat-icon>Curation Status changed from <b>Level 1 Curation</b> to <b>Level 2 Curation</b> by <b>Elliot Solis</b></button>
+        <br>
+        <button mat-button><mat-icon>change_circle</mat-icon>Curation Status changed from <b>Level 2 Curation</b> to <b>Requires Review</b> by <b>Elliot Solis</b></button>
+      </div>
+    </mat-tab>
+    <mat-tab label="Studies"> Content 2 </mat-tab>
+    <mat-tab label="Associations"> Content 3 </mat-tab>
+    <mat-tab label="Notes"> Content 4 </mat-tab>
+  </mat-tab-group>
+
+</mat-card>

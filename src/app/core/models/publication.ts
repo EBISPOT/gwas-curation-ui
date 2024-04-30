@@ -15,4 +15,6 @@ export interface Publication {
    status: string;
    curationStatus: CurationStatus;
    curator: Curator;
+   bodyOfWorkId: string;
+   submissionIds: string[];
 }
