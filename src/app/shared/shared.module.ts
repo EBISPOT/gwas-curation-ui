@@ -26,7 +26,14 @@ import { MatInputModule } from '@angular/material/input';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatRippleModule } from '@angular/material/core';
+import { MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleModule, RippleGlobalOptions } from '@angular/material/core';
+
+const globalRippleConfig: RippleGlobalOptions = {
+  animation: {
+    enterDuration: 250,
+    exitDuration: 100
+  }
+};
 
 @NgModule({
   declarations: [ConfirmationDialogComponent],
@@ -89,7 +96,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatBottomSheetModule,
     MatRadioModule,
     MatRippleModule
-  ]
+  ],
+  providers: [{provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig}]
 })
 export class SharedModule {
 }

@@ -1,0 +1,339 @@
+<div class="mt-0 grid gap-0 grid-cols-12 card-3b bg-white"
+     style="min-height: 6.5rem; margin-bottom: 15px; !important; border:1px solid #999;
+     background-color: transparent; padding: 20px 30px 15px ">
+
+  <div class="col-span-12">
+    <div class="mt-0 grid gap-0 grid-cols-12 lg:container md:mx-auto">
+      <div class="col-span-12 sm:col-span-6">
+        <div class="col-span-12">
+          <div *ngIf="publication" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
+            Publication: PMID-{{publication.pmid}}
+          </div>
+        </div>
+        <div class="col-span-6">
+          <div *ngIf="publication" style="margin-top: 5px;">
+            <a href="#" style="margin-right: 5px;"> Home </a> /
+            <a routerLink="/publications"> Publications </a> /
+            <a> {{publication?.publicationId}} </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-12 sm:col-span-6">
+        <div class="mt-5 sm:mt-1 sm:float-right">
+          <a *ngIf="publication" mat-raised-button style="font-size:12px;" class="gwas-elevation mr-2"
+             href="{{'https://pubmed.ncbi.nlm.nih.gov/'+ publication.pmid}}" target="_blank">
+            <mat-icon>launch</mat-icon>
+            View in PubMed
+          </a>
+
+          <a *ngIf="publication" mat-raised-button color="primary"  class="gwas-elevation" style="font-size:12px;"
+             href="{{'https://europepmc.org/article/MED/'+ publication.pmid}}" target="_blank">
+            <mat-icon>launch</mat-icon>
+            View in Europe PMC
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-card class="mx-24 p-0">
+  <mat-tab-group animationDuration="150ms">
+    <mat-tab label="Publication">
+      <mat-accordion multi>
+        <mat-expansion-panel expanded>
+          <div class="loading-shade" *ngIf="isLoadingPublication">
+            <mat-spinner></mat-spinner>
+          </div>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b>Publication</b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion-panel-content">
+            <table class="plain-table border-0">
+              <tr class="border-t-0">
+                <th>Title</th>
+                <th colspan="4"> {{publication?.title}} </th>
+              </tr>
+              <tr>
+                <th class="col-span-2"> PubMed ID</th>
+                <td class="col-span-3"> {{publication?.pmid}} </td>
+                <th class="col-span-2"> Journal</th>
+                <td class="col-span-3"> {{publication?.journal}} </td>
+                <td class="col-span-2">
+                  <a href="{{'https://pubmed.ncbi.nlm.nih.gov/'+ publication?.pmid}}" target="_blank" class="simple-link">
+                    View in PubMed <mat-icon class="text-xs">launch</mat-icon>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th class="col-span-2"> First author</th>
+                <td class="col-span-3" id="publication-author"> {{publication?.firstAuthor}}</td>
+
+                <th class="col-span-2"> Publication date</th>
+                <td class="col-span-3"> {{publication?.publicationDate}}</td>
+
+                <td class="col-span-2">
+                  <a href="{{'https://europepmc.org/article/MED/' + publication?.pmid}}" target="_blank" class="simple-link">
+                    View in EPMC <mat-icon class="text-xs">launch</mat-icon>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th class="col-span-2"> Curation Status </th>
+                <td class="col-span-3">
+                  <mat-form-field class="mt-1">
+                    <mat-select [ngModel]="publication?.curationStatus" #select
+                                [compareWith]="compareCurationStatus"
+                                (selectionChange)="openSaveCurationDetailsDialog(publication.pmid, null, $event.value, publication.curationStatus, select)">
+                      <mat-select-trigger>{{publication?.curationStatus?.status}}</mat-select-trigger>
+                      <mat-option *ngFor="let curationStatus of curationStatus" [value]="curationStatus">
+                        {{curationStatus.status}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <th class="col-span-2"> Curator </th>
+                <td class="col-span-3">
+                  <mat-form-field class="mt-1">
+                    <mat-select [ngModel]="publication?.curator" #select1
+                                [compareWith]="compareCurator"
+                                (selectionChange)="openSaveCurationDetailsDialog(publication.pmid, $event.value, null, publication.curator, select1)">
+                      <mat-select-trigger>{{publication?.curator?.fullName}}</mat-select-trigger>
+                      <mat-option *ngFor="let curator of curators" [value]="curator">
+                        {{curator.fullName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field></td>
+              </tr>
+              <tr class="border-b-0">
+                <th class="col-span-2"> Open Targets </th>
+                <td class="col-span-3"> <mat-checkbox class="ml-1" #otCheckbox></mat-checkbox> </td>
+                <th class="col-span-2"> User Requested</th>
+                <td class="col-span-3"> <mat-checkbox class="ml-1" #urCheckbox></mat-checkbox> </td>
+              </tr>
+            </table>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel expanded *ngIf="publication?.bodyOfWorkId">
+          <div class="loading-shade" *ngIf="isLoadingBoW">
+            <mat-spinner></mat-spinner>
+          </div>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b>Body of Work</b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion-panel-content">
+            <table class="plain-table border-0">
+              <tr class="border-t-0">
+                <th> Title</th>
+                <th colspan="4"> {{bodyOfWork?.title}} </th>
+              </tr>
+              <tr>
+                <th> Description </th>
+                <th colspan="4">
+                  {{bodyOfWork?.description}}
+                </th>
+              </tr>
+              <tr>
+                <th class="col-span-2" *ngIf="bodyOfWork?.embargoDate || bodyOfWork?.embargoUntilPublished">
+                  Embargo Until:
+                </th>
+                <td class="col-span-3">
+                  {{bodyOfWork?.embargoUntilPublished ?
+                  'Date of publication' : bodyOfWork?.embargoDate}}
+                </td>
+
+                <th class="col-span-2" *ngIf="bodyOfWork?.journal"> Journal</th>
+                <td class="col-span-3" *ngIf="bodyOfWork?.journal">
+                  {{bodyOfWork?.journal}}
+                </td>
+
+                <td class="col-span-2">
+                  <a *ngIf="bodyOfWork?.url" [href]="bodyOfWork.url" target="_blank" class="simple-link">
+                    Submitted to: {{bodyOfWork.journal}} <mat-icon class="text-xs">launch</mat-icon>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th class="col-span-2" *ngIf="bodyOfWork?.firstAuthor?.firstName && bodyOfWork?.firstAuthor?.lastName">
+                  First author
+                </th>
+                <td class="col-span-3" *ngIf="bodyOfWork?.firstAuthor?.firstName && bodyOfWork?.firstAuthor?.lastName">
+                  {{bodyOfWork?.firstAuthor?.firstName + ' ' + bodyOfWork?.firstAuthor?.lastName}}
+                </td>
+
+                <th class="col-span-2" *ngIf="bodyOfWork?.firstAuthor?.group">
+                  First author group:
+                </th>
+                <td class="col-span-3" *ngIf="bodyOfWork?.firstAuthor?.group">
+                  {{bodyOfWork.firstAuthor.group}}
+                </td>
+              </tr>
+              <tr>
+                <th class="col-span-2" *ngIf="bodyOfWork?.lastAuthor?.firstName && bodyOfWork?.lastAuthor?.lastName">
+                  Last author
+                </th>
+                <td class="col-span-3" *ngIf="bodyOfWork?.lastAuthor?.firstName && bodyOfWork?.lastAuthor?.lastName">
+                  {{bodyOfWork?.lastAuthor?.firstName + ' ' + bodyOfWork?.lastAuthor?.lastName}}
+                </td>
+
+                <th class="col-span-2" *ngIf="bodyOfWork?.lastAuthor?.group">
+                  Last author group:
+                </th>
+                <td class="col-span-3" *ngIf="bodyOfWork?.lastAuthor?.group">
+                  {{bodyOfWork?.lastAuthor?.group}}
+                </td>
+              </tr>
+
+              <tr *ngIf="bodyOfWork?.correspondingAuthors" class="border-b-0">
+                <th class="col-span-2">
+                  Corresponding authors:
+                </th>
+                <td class="col-span-3">
+                <span class="flex" *ngFor="let ca of bodyOfWork?.correspondingAuthors">
+                    {{ca.firstName + ' ' + ca.lastName + ' ' + ca.email}}
+                </span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel expanded *ngFor="let submission of submissions">
+          <div class="loading-shade" *ngIf="submission.isLoading">
+            <mat-spinner></mat-spinner>
+          </div>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <b>Submission</b>
+              <b *ngIf="submission?.submission?.type"> &nbsp;({{submission.submission.type}}) </b>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="expansion-panel-content">
+            <table class="plain-table border-0">
+              <tr class="border-t-0">
+                <th>
+                  ID
+                </th>
+                <td>
+                  <a routerLink="/submissions/{{submission?.submission?.submissionId}}" target="_blank">
+                    {{submission?.submission?.submissionId}} <mat-icon class="text-xs">launch</mat-icon>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th class="col-span-2"> User</th>
+                <td class="col-span-3"> {{submission.submission?.created.user.name}} </td>
+                <th class="col-span-2"> Created Date</th>
+                <td class="col-span-3">  {{submission.submission?.created.timestamp | date: 'yyyy-MM-dd'}}  </td>
+              </tr>
+              <tr>
+                <th class="col-span-2"> Studies</th>
+                <td class="col-span-2"> {{submission.submission?.study_count}} </td>
+                <th class="col-span-2"> Associations</th>
+                <td class="col-span-3"> {{submission.submission?.association_count}} </td>
+              </tr>
+              <tr>
+                <th class="col-span-2"> Samples </th>
+                <td class="col-span-3"> {{submission.submission?.sample_count}} </td>
+                <th class="col-span-2"> Submission Status</th>
+                <td class="col-span-3"> {{submission.submission?.submission_status}} </td>
+              </tr>
+              <tr class="border-b-0">
+                <th class="col-span-2"> Metadata Status</th>
+                <td class="col-span-3">
+                  <mat-spinner [diameter]="22" *ngIf="submission.submission?.metadata_status == 'VALIDATING'"></mat-spinner>
+                  <mat-icon *ngIf="submission.submission?.metadata_status == 'VALID'">check_circle_outline</mat-icon>
+                  <mat-icon *ngIf="submission.submission?.metadata_status == 'INVALID'">highlight_off</mat-icon>
+                  {{submission.submission?.metadata_status == 'NA' ? 'NA' : ''}}
+                </td>
+                <th class="col-span-2"> SumStats Status</th>
+                <td class="col-span-3">
+                  <mat-spinner [diameter]="22"
+                               *ngIf="submission.submission?.summary_statistics_status == 'VALIDATING'"></mat-spinner>
+                  <mat-icon *ngIf="submission.submission?.summary_statistics_status == 'VALID'">check_circle_outline</mat-icon>
+                  <mat-icon *ngIf="submission.submission?.summary_statistics_status == 'INVALID'">highlight_off</mat-icon>
+                  {{submission.submission?.summary_statistics_status == 'NA' ? 'NA' : ''}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+      <div class="border-green-600 border-l-4 m-6">
+        <div class="px-2"><b class="text-lg ml-1">Tracking</b></div>
+        <button mat-button><mat-icon>change_circle</mat-icon>Curation Status changed from <b>Level 1 Curation</b> to <b>Level 2 Curation</b> by <b>Elliot Solis</b></button>
+        <br>
+        <button mat-button><mat-icon>change_circle</mat-icon>Curation Status changed from <b>Level 2 Curation</b> to <b>Requires Review</b> by <b>Elliot Solis</b></button>
+      </div>
+    </mat-tab>
+    <mat-tab label="Studies"> Content 2 </mat-tab>
+    <mat-tab label="Associations"> Content 3 </mat-tab>
+    <mat-tab label="Notes">
+      <div class="loading-shade" *ngIf="isLoadingNotes">
+        <mat-spinner></mat-spinner>
+      </div>
+      <div class="my-4 flex justify-center items-center flex-wrap gap-3">
+        <mat-card class="note" *ngFor="let note of notes">
+          <button mat-button mat-icon-button [matMenuTriggerFor]="menu" class="absolute top-0 right-0">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editNote = {notes: note.notes, noteId: note.noteId}">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteNote(note.noteId)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+          <mat-card-content class="mt-3">
+            <span *ngIf="editNote?.noteId !== note.noteId">
+              {{note.notes}}
+            </span>
+            <mat-form-field *ngIf="editNote?.noteId === note.noteId" class="w-full" appearance="outline">
+              <mat-label>Edit note</mat-label>
+              <textarea matInput placeholder="..."[(ngModel)]="editNote.notes"></textarea>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <div *ngIf="editNote?.noteId !== note.noteId">
+              <b title="Last updated">{{note.updated.timestamp | date:"yyyy-MM-dd"}}</b>
+              <span>&nbsp;by&nbsp;</span>
+              <b title="Curator">{{note.updated.user.name}}</b>
+            </div>
+            <button mat-raised-button *ngIf="editNote?.noteId === note.noteId" (click)="editNote = null">
+              Cancel
+            </button>
+            <button mat-raised-button color="accent" *ngIf="editNote?.noteId === note.noteId"
+                    [disabled]="editNote?.notes.length === 0" (click)="updateNote()">
+              Save
+            </button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card class="note">
+          <mat-card-content>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Create new note</mat-label>
+              <textarea matInput placeholder="..." #newNote></textarea>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-raised-button color="accent" (click)="saveNote(newNote.value); newNote.value = '';"
+            [disabled]="newNote.value.length === 0">
+              <mat-icon>add</mat-icon>
+              Save
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+</mat-card>

@@ -100,7 +100,11 @@
     </tr>
     <tr>
       <th class="col-span-2"> PubMed ID</th>
-      <td class="col-span-3"> {{submission.publication.pmid}} </td>
+      <td class="col-span-3">
+        <a routerLink="/publications/{{submission.publication.publicationId}}" target="_blank">
+          {{submission.publication.pmid}} <mat-icon class="text-xs">launch</mat-icon>
+        </a>
+      </td>
       <th class="col-span-2"> Journal</th>
       <td class="col-span-3"> {{submission.publication.journal}}</td>
       <td class="col-span-2">

@@ -3,6 +3,7 @@ import { CurationHttpService } from './curation-http.service';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { PublicationListApiResponse } from '../models/rest/api-responses/publicationListApiResponse';
+import { Publication } from '../models/publication';
 
 @Injectable({
   providedIn: 'root'
@@ -72,5 +73,29 @@ export class PublicationService {
 
   linkSubmission(pmid: string, submissionId: string) {
     return this.http.put('/publications/' + pmid + '/link-submission', new HttpParams().set('submissionId', submissionId));
+  }
+
+  getPublication(publicationId: string) {
+    return this.http.get('/publications/' + publicationId);
+  }
+
+  getBodyOfWork(bowId: string) {
+    return this.http.get('/body-of-work/' + bowId);
+  }
+
+  getNotes(publicationId: string) {
+    return this.http.get('/publications/' + publicationId + '/notes');
+  }
+
+  createNote(publicationId: string, note: string) {
+    return this.http.post('/publications/' + publicationId + '/notes', {notes: note});
+  }
+
+  updateNote(publicationId: string, noteId: string, notes: string) {
+    return this.http.put('/publications/' + publicationId + '/notes/' + noteId, {notes});
+  }
+
+  deleteNote(publicationId: string, noteId: string) {
+    return this.http.delete('/publications/' + publicationId + '/notes/' + noteId);
   }
 }

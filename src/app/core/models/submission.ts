@@ -26,4 +26,5 @@ export interface Submission {
   agreedToCc0: boolean;
   opentargets_flag: boolean;
   userrequested_flag: boolean;
+  type: string;
 }
