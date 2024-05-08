@@ -2,7 +2,44 @@
   border-color: black !important;
 }
 
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 0 0 !important;
+}
+
 .expansion-panel-content {
-  margin: 0 10px;
   min-height: 70px;
+}
+
+.mat-expansion-panel-header, .mat-expansion-panel-header:hover {
+  background-color: #EDF8F9 !important;
+  height: 44px;
+  border-width: 2px 0;
+}
+
+.note {
+  width: 300px;
+  min-height: 270px;
+}
+
+.add-icon {
+  transform: scale(1.4);
+}
+
+textarea {
+  min-height: 110px;
+}
+
+/*the below three are to keep card actions at the bottom*/
+.mat-card{
+  display:flex;
+  flex-direction: column;
+}
+
+.mat-card-header {
+  flex-shrink: 0;
+}
+
+.mat-card-content{
+  flex-grow: 1;
+  overflow: auto;
 }

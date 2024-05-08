@@ -1,10 +1,46 @@
-<mat-toolbar color="accent">
-  <span>Publication {{publication?.pmid}}</span>
-</mat-toolbar>
-<mat-card class="mx-24 my-4 px-4 py-6">
+<div class="mt-0 grid gap-0 grid-cols-12 card-3b bg-white"
+     style="min-height: 6.5rem; margin-bottom: 15px; !important; border:1px solid #999;
+     background-color: transparent; padding: 20px 30px 15px ">
+
+  <div class="col-span-12">
+    <div class="mt-0 grid gap-0 grid-cols-12 lg:container md:mx-auto">
+      <div class="col-span-12 sm:col-span-6">
+        <div class="col-span-12">
+          <div *ngIf="publication" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
+            Publication: PMID-{{publication.pmid}}
+          </div>
+        </div>
+        <div class="col-span-6">
+          <div *ngIf="publication" style="margin-top: 5px;">
+            <a href="#" style="margin-right: 5px;"> Home </a> /
+            <a routerLink="/publications"> Publications </a> /
+            <a> {{publication?.publicationId}} </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-12 sm:col-span-6">
+        <div class="mt-5 sm:mt-1 sm:float-right">
+          <a *ngIf="publication" mat-raised-button style="font-size:12px;" class="gwas-elevation mr-2"
+             href="{{'https://pubmed.ncbi.nlm.nih.gov/'+ publication.pmid}}" target="_blank">
+            <mat-icon>launch</mat-icon>
+            View in PubMed
+          </a>
+
+          <a *ngIf="publication" mat-raised-button color="primary"  class="gwas-elevation" style="font-size:12px;"
+             href="{{'https://europepmc.org/article/MED/'+ publication.pmid}}" target="_blank">
+            <mat-icon>launch</mat-icon>
+            View in Europe PMC
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-card class="mx-24 p-0">
   <mat-tab-group animationDuration="150ms">
     <mat-tab label="Publication">
-      <mat-accordion multi class="m-2">
+      <mat-accordion multi>
         <mat-expansion-panel expanded>
           <div class="loading-shade" *ngIf="isLoadingPublication">
             <mat-spinner></mat-spinner>
@@ -43,6 +79,33 @@
                     View in EPMC <mat-icon class="text-xs">launch</mat-icon>
                   </a>
                 </td>
+              </tr>
+              <tr>
+                <th class="col-span-2"> Curation Status </th>
+                <td class="col-span-3">
+                  <mat-form-field class="mt-1">
+                    <mat-select [ngModel]="publication?.curationStatus" #select
+                                [compareWith]="compareCurationStatus"
+                                (selectionChange)="openSaveCurationDetailsDialog(publication.pmid, null, $event.value, publication.curationStatus, select)">
+                      <mat-select-trigger>{{publication?.curationStatus?.status}}</mat-select-trigger>
+                      <mat-option *ngFor="let curationStatus of curationStatus" [value]="curationStatus">
+                        {{curationStatus.status}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <th class="col-span-2"> Curator </th>
+                <td class="col-span-3">
+                  <mat-form-field class="mt-1">
+                    <mat-select [ngModel]="publication?.curator" #select1
+                                [compareWith]="compareCurator"
+                                (selectionChange)="openSaveCurationDetailsDialog(publication.pmid, $event.value, null, publication.curator, select1)">
+                      <mat-select-trigger>{{publication?.curator?.fullName}}</mat-select-trigger>
+                      <mat-option *ngFor="let curator of curators" [value]="curator">
+                        {{curator.fullName}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field></td>
               </tr>
               <tr class="border-b-0">
                 <th class="col-span-2"> Open Targets </th>
@@ -157,8 +220,8 @@
                   ID
                 </th>
                 <td>
-                  <a routerLink="/submissions/{{submission.submission.submissionId}}" target="_blank">
-                    {{submission.submission.submissionId}} <mat-icon class="text-xs">launch</mat-icon>
+                  <a routerLink="/submissions/{{submission?.submission?.submissionId}}" target="_blank">
+                    {{submission?.submission?.submissionId}} <mat-icon class="text-xs">launch</mat-icon>
                   </a>
                 </td>
               </tr>
@@ -211,7 +274,66 @@
     </mat-tab>
     <mat-tab label="Studies"> Content 2 </mat-tab>
     <mat-tab label="Associations"> Content 3 </mat-tab>
-    <mat-tab label="Notes"> Content 4 </mat-tab>
+    <mat-tab label="Notes">
+      <div class="loading-shade" *ngIf="isLoadingNotes">
+        <mat-spinner></mat-spinner>
+      </div>
+      <div class="my-4 flex justify-center items-center flex-wrap gap-3">
+        <mat-card class="note" *ngFor="let note of notes">
+          <button mat-button mat-icon-button [matMenuTriggerFor]="menu" class="absolute top-0 right-0">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editNote = {notes: note.notes, noteId: note.noteId}">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteNote(note.noteId)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+          <mat-card-content class="mt-3">
+            <span *ngIf="editNote?.noteId !== note.noteId">
+              {{note.notes}}
+            </span>
+            <mat-form-field *ngIf="editNote?.noteId === note.noteId" class="w-full" appearance="outline">
+              <mat-label>Edit note</mat-label>
+              <textarea matInput placeholder="..."[(ngModel)]="editNote.notes"></textarea>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <div *ngIf="editNote?.noteId !== note.noteId">
+              <b title="Last updated">{{note.updated.timestamp | date:"yyyy-MM-dd"}}</b>
+              <span>&nbsp;by&nbsp;</span>
+              <b title="Curator">{{note.updated.user.name}}</b>
+            </div>
+            <button mat-raised-button *ngIf="editNote?.noteId === note.noteId" (click)="editNote = null">
+              Cancel
+            </button>
+            <button mat-raised-button color="accent" *ngIf="editNote?.noteId === note.noteId"
+                    [disabled]="editNote?.notes.length === 0" (click)="updateNote()">
+              Save
+            </button>
+          </mat-card-actions>
+        </mat-card>
+        <mat-card class="note">
+          <mat-card-content>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Create new note</mat-label>
+              <textarea matInput placeholder="..." #newNote></textarea>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-raised-button color="accent" (click)="saveNote(newNote.value); newNote.value = '';"
+            [disabled]="newNote.value.length === 0">
+              <mat-icon>add</mat-icon>
+              Save
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-tab>
   </mat-tab-group>
 
 </mat-card>

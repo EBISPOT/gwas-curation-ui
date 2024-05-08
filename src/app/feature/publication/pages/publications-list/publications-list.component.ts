@@ -151,11 +151,11 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
     let message = '';
     if (curator) {
       if (originalValue?.curatorId === curator?.curatorId) { return; }
-      message = 'Set <b>curator</b> for PMID ' + pmid + ': <b>' + curator.fullName + '</b>';
+      message = 'Set <b>Curator</b> for PMID ' + pmid + ': <b>' + curator.fullName + '</b>';
     }
     if (curationStatus) {
       if (originalValue?.curationStatusId === curationStatus?.curationStatusId) { return; }
-      message = 'Set <b>curator</b> for PMID ' + pmid + ': <b>' + curationStatus.status + '</b>';
+      message = 'Set <b>Curation Status</b> for PMID ' + pmid + ': <b>' + curationStatus.status + '</b>';
     }
 
     const dialogData = new ConfirmationDialogModel('Confirm save', message);
