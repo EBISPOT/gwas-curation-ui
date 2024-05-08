@@ -78,7 +78,7 @@ export class PublicationDetailsComponent implements OnInit {
 
     this.publicationService.getNotes(this.publicationId).subscribe(value => {
       this.isLoadingNotes = false;
-      this.notes = value._embedded.publicationNotesDtoes;
+      this.notes = value._embedded?.publicationNotesDtoes;
     });
   }
 
@@ -112,8 +112,11 @@ export class PublicationDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
         this.isLoadingPublication = true;
-        this.publicationService.patchPublication(pmid, {curator, curationStatus}).subscribe(() => {
+        this.publicationService.patchPublication(pmid, {curator, curationStatus}).subscribe((value) => {
           this.isLoadingPublication = false;
+          value.curator.fullName = (value.curator.firstName ? value.curator.firstName : '')
+            + (value.curator.lastName ? ' ' + value.curator.lastName : '');
+          this.publication = value;
           this.snackBar.open('Save successful.', '', {duration: 2500});
         }, (error) => {
           this.isLoadingPublication = false;
@@ -148,7 +151,7 @@ export class PublicationDetailsComponent implements OnInit {
       this.snackBar.open('Note deleted.', '', {duration: 2500});
       this.publicationService.getNotes(this.publicationId).subscribe(value => {
         this.isLoadingNotes = false;
-        this.notes = value._embedded.publicationNotesDtoes;
+        this.notes = value._embedded?.publicationNotesDtoes;
       });
     }, () => {
       this.isLoadingNotes = false;
