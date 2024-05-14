@@ -17,4 +17,6 @@ export interface Publication {
    curator: Curator;
    bodyOfWorkId: string;
    submissionIds: string[];
+   isUserRequested: boolean;
+   isOpenTargets: boolean;
 }

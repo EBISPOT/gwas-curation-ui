@@ -59,7 +59,7 @@
       </mat-tab>
       <mat-tab label="Studies ({{submission.study_count}})" *ngIf="submission">
         <ng-template matTabContent>
-          <app-study-tab></app-study-tab>
+          <app-study-tab submissionId="{{submission.submissionId}}"></app-study-tab>
         </ng-template>
       </mat-tab>
       <mat-tab label="Samples ({{submission.sample_count}})" *ngIf="submission">

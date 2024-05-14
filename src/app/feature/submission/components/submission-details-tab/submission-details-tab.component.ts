@@ -88,38 +88,6 @@ export class SubmissionDetailsTabComponent implements OnInit {
     }
   }
 
-  openConfirmationDialog(field: string, cb: MatCheckbox) {
-    const message = field + ': ' + cb.checked;
-
-    const dialogData = new ConfirmationDialogModel('Are you sure about this change?', message);
-
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      maxWidth: '400px',
-      data: dialogData
-    });
-
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      if (dialogResult) {
-        const submission: Submission = ({} as any) as Submission;
-        submission.submissionId = this.submission.submissionId;
-        if (field === 'Open Targets') { submission.opentargets_flag = cb.checked; }
-        if (field === 'User Requested') { submission.userrequested_flag = cb.checked; }
-        this.submissionService.patchSubmission(submission).subscribe((value) => {
-          this.snackbar.open('Changes saved.', '', {duration: 2500});
-          this.submission = value;
-        }, () => {
-          this.snackbar.open('Error occurred while saving flags.', '', {duration: 2500});
-          if (field === 'Open Targets') { cb.checked = this.submission.opentargets_flag; }
-          if (field === 'User Requested') { cb.checked = this.submission.userrequested_flag; }
-        });
-      }
-      else {
-        if (field === 'Open Targets') { cb.checked = this.submission.opentargets_flag; }
-        if (field === 'User Requested') { cb.checked = this.submission.userrequested_flag; }
-      }
-    });
-  }
-
   allowImport(status: string) {
     const submission: Submission = ({} as any) as Submission;
     submission.submissionId = this.submission.submissionId;

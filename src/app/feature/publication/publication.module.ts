@@ -10,18 +10,20 @@ import { ImportPublicationComponent } from './pages/import-publication/import-pu
 import { MatChipsModule } from '@angular/material/chips';
 import { CheckSubmissionDialogComponent } from './components/check-submission-dialog/check-submission-dialog.component';
 import { PublicationDetailsComponent } from './pages/publication-details/publication-details.component';
+import { SubmissionModule } from '../submission/submission.module';
 
 
 @NgModule({
   declarations: [PublicationsListComponent, ImportPublicationComponent, CheckSubmissionDialogComponent, PublicationDetailsComponent],
-  imports: [
-    SharedModule,
-    PublicationRoutingModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatChipsModule
-  ]
+    imports: [
+        SharedModule,
+        PublicationRoutingModule,
+        MatSelectModule,
+        MatAutocompleteModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatChipsModule,
+        SubmissionModule
+    ]
 })
 export class PublicationModule { }
