@@ -1,0 +1,17 @@
+::ng-deep .mat-expansion-indicator::after {
+  border-color: black !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 0 0 !important;
+}
+
+.expansion-panel-content {
+  min-height: 70px;
+}
+
+.mat-expansion-panel-header, .mat-expansion-panel-header:hover {
+  background-color: #EDF8F9 !important;
+  height: 44px;
+  border-width: 2px 0;
+}
