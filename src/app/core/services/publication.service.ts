@@ -98,4 +98,12 @@ export class PublicationService {
   deleteNote(publicationId: string, noteId: string) {
     return this.http.delete('/publications/' + publicationId + '/notes/' + noteId);
   }
+
+  getLiteratureFiles(pmid: string) {
+    return this.http.get('/publications/' + pmid + '/literature-files');
+  }
+
+  downloadLiteratureFile(pmid: string, fileId: string) {
+    return this.http.download('/publications/' + pmid + '/literature-files/' + fileId);
+  }
 }

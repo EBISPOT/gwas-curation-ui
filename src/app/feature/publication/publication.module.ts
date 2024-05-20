@@ -11,19 +11,22 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CheckSubmissionDialogComponent } from './components/check-submission-dialog/check-submission-dialog.component';
 import { PublicationDetailsComponent } from './pages/publication-details/publication-details.component';
 import { SubmissionModule } from '../submission/submission.module';
+import { LiteratureTabComponent } from './components/literature-tab/literature-tab.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 @NgModule({
-  declarations: [PublicationsListComponent, ImportPublicationComponent, CheckSubmissionDialogComponent, PublicationDetailsComponent],
-    imports: [
-        SharedModule,
-        PublicationRoutingModule,
-        MatSelectModule,
-        MatAutocompleteModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatChipsModule,
-        SubmissionModule
-    ]
+  declarations: [PublicationsListComponent, ImportPublicationComponent, CheckSubmissionDialogComponent, PublicationDetailsComponent, LiteratureTabComponent],
+  imports: [
+    SharedModule,
+    PublicationRoutingModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatChipsModule,
+    SubmissionModule,
+    FileUploadModule
+  ]
 })
 export class PublicationModule { }

@@ -38,7 +38,7 @@
   </div>
 </div>
 <mat-card class="mx-24 p-0">
-  <mat-tab-group animationDuration="150ms">
+  <mat-tab-group animationDuration="150ms" selectedIndex="0">
     <mat-tab label="Publication">
       <mat-accordion multi>
         <mat-expansion-panel expanded>
@@ -109,9 +109,9 @@
               </tr>
               <tr class="border-b-0">
                 <th class="col-span-2"> Open Targets </th>
-                <td class="col-span-3"> <mat-checkbox class="ml-1" [ngModel]="publication.isOpenTargets" (change)="openSaveFlagConfirmationDialog('Open Targets', otCheckbox)" #otCheckbox></mat-checkbox> </td>
+                <td class="col-span-3"> <mat-checkbox class="ml-1" [ngModel]="publication?.isOpenTargets" (change)="openSaveFlagConfirmationDialog('Open Targets', otCheckbox)" #otCheckbox></mat-checkbox> </td>
                 <th class="col-span-2"> User Requested</th>
-                <td class="col-span-3"> <mat-checkbox class="ml-1" [ngModel]="publication.isUserRequested" (change)="openSaveFlagConfirmationDialog('User Requested', urCheckbox)" #urCheckbox></mat-checkbox> </td>
+                <td class="col-span-3"> <mat-checkbox class="ml-1" [ngModel]="publication?.isUserRequested" (change)="openSaveFlagConfirmationDialog('User Requested', urCheckbox)" #urCheckbox></mat-checkbox> </td>
               </tr>
             </table>
           </div>
@@ -277,7 +277,11 @@
         <app-study-tab submissionId="{{submissions[0]?.submission?.submissionId}}"></app-study-tab>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Associations"> Content 3 </mat-tab>
+    <mat-tab label="Literature" [disabled]="!publication">
+      <ng-template matTabContent>
+        <app-literature-tab [publication]="publication"></app-literature-tab>
+      </ng-template>
+    </mat-tab>
     <mat-tab label="Notes ({{notes && notes.length > 0 ? notes?.length : 0}})">
       <div class="loading-shade" *ngIf="isLoadingNotes">
         <mat-spinner></mat-spinner>
