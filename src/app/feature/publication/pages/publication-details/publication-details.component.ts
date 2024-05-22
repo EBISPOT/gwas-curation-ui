@@ -20,6 +20,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Note } from '../../../../core/models/note';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-publication-details',
@@ -171,6 +172,45 @@ export class PublicationDetailsComponent implements OnInit {
     }, () => {
       this.isLoadingNotes = false;
       this.snackBar.open('Error occurred on update.', '', {duration: 2500});
+    });
+  }
+
+  openSaveFlagConfirmationDialog(field: string, cb: MatCheckbox) {
+    const message = field + ': ' + cb.checked;
+
+    const dialogData = new ConfirmationDialogModel('Confirm save', message);
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult) {
+        const publication: Publication = ({} as any) as Publication;
+        publication.publicationId = this.publicationId;
+        let isUserRequested: boolean;
+        let isOpenTargets: boolean;
+        if (field === 'User Requested') { isUserRequested = cb.checked; }
+        if (field === 'Open Targets') { isOpenTargets = cb.checked; }
+        this.isLoadingPublication = true;
+        this.publicationService.patchPublication(this.publication.pmid, {isUserRequested, isOpenTargets}).subscribe((publication) => {
+          publication.curator.fullName = (publication.curator.firstName ? publication.curator.firstName : '')
+            + (publication.curator.lastName ? ' ' + publication.curator.lastName : '');
+          this.publication = publication;
+          this.isLoadingPublication = false;
+          this.snackBar.open('Changes saved.', '', {duration: 2500});
+        }, () => {
+          this.isLoadingPublication = false;
+          if (field === 'User Requested') { cb.checked = this.publication.isUserRequested; }
+          if (field === 'Open Targets') { cb.checked = this.publication.isOpenTargets; }
+          this.snackBar.open('Error occurred while saving flags.', '', {duration: 2500});
+        });
+      }
+      else {
+        if (field === 'User Requested') { cb.checked = this.publication.isUserRequested; }
+        if (field === 'Open Targets') { cb.checked = this.publication.isOpenTargets; }
+      }
     });
   }
 }

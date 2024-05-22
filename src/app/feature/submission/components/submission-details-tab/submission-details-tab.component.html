@@ -128,9 +128,9 @@
     </tr>
     <tr>
       <th class="col-span-2"> Open Targets </th>
-      <td class="col-span-3"> <mat-checkbox class="ml-1" [ngModel]="submission.opentargets_flag" (change)="openConfirmationDialog('Open Targets', otCheckbox)" #otCheckbox></mat-checkbox> </td>
+      <td class="col-span-3"> <mat-checkbox class="ml-1" ngModel="{{submission.publication.isOpenTargets}}" disabled></mat-checkbox> </td>
       <th class="col-span-2"> User Requested</th>
-      <td class="col-span-3"> <mat-checkbox class="ml-1" [ngModel]="submission.userrequested_flag" (change)="openConfirmationDialog('User Requested', urCheckbox)" #urCheckbox></mat-checkbox> </td>
+      <td class="col-span-3"> <mat-checkbox class="ml-1" ngModel="{{submission.publication.isUserRequested}}" disabled></mat-checkbox> </td>
     </tr>
   </table>
 

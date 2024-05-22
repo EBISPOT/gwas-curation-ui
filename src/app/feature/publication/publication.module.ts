@@ -10,10 +10,13 @@ import { ImportPublicationComponent } from './pages/import-publication/import-pu
 import { MatChipsModule } from '@angular/material/chips';
 import { CheckSubmissionDialogComponent } from './components/check-submission-dialog/check-submission-dialog.component';
 import { PublicationDetailsComponent } from './pages/publication-details/publication-details.component';
+import { SubmissionModule } from '../submission/submission.module';
+import { LiteratureTabComponent } from './components/literature-tab/literature-tab.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 @NgModule({
-  declarations: [PublicationsListComponent, ImportPublicationComponent, CheckSubmissionDialogComponent, PublicationDetailsComponent],
+  declarations: [PublicationsListComponent, ImportPublicationComponent, CheckSubmissionDialogComponent, PublicationDetailsComponent, LiteratureTabComponent],
   imports: [
     SharedModule,
     PublicationRoutingModule,
@@ -21,7 +24,9 @@ import { PublicationDetailsComponent } from './pages/publication-details/publica
     MatAutocompleteModule,
     MatSortModule,
     MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    SubmissionModule,
+    FileUploadModule
   ]
 })
 export class PublicationModule { }

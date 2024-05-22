@@ -18,19 +18,22 @@ import { SampleTabComponent } from './components/sample-tab/sample-tab.component
 import { AssociationTabComponent } from './components/association-tab/association-tab.component';
 
 @NgModule({
-  declarations: [
-    SubmissionListComponent, SubmissionDetailsComponent, SubmissionDetailsTabComponent, SubmissionEditTabComponent,
-    SubmissionHistoryTabComponent, VersioningComponent, StudyTabComponent, SampleTabComponent, AssociationTabComponent
-  ],
-  imports: [
-    SharedModule,
-    SubmissionRoutingModule,
-    MatSortModule,
-    MatPaginatorModule,
-    FileUploadModule,
-    MatChipsModule,
-    MatAutocompleteModule
-  ]
+    declarations: [
+        SubmissionListComponent, SubmissionDetailsComponent, SubmissionDetailsTabComponent, SubmissionEditTabComponent,
+        SubmissionHistoryTabComponent, VersioningComponent, StudyTabComponent, SampleTabComponent, AssociationTabComponent
+    ],
+    exports: [
+        StudyTabComponent
+    ],
+    imports: [
+        SharedModule,
+        SubmissionRoutingModule,
+        MatSortModule,
+        MatPaginatorModule,
+        FileUploadModule,
+        MatChipsModule,
+        MatAutocompleteModule
+    ]
 })
 export class SubmissionModule {
 }
