@@ -52,9 +52,9 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
   constructor(private publicationService: PublicationService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.publicationService.getCurationStatuses()
+    this.publicationService.getCurationStatuses(100, 0, null, null)
       .subscribe((status: CurationStatusListApiResponse) => this.curationStatus = status._embedded.curationStatusDToes);
-    this.publicationService.getCurators()
+    this.publicationService.getCurators(100, 0, 'firstName', 'asc')
       .subscribe((curators: CuratorListApiResponse) => {
         curators._embedded.curatorDToes
           .forEach(curator => curator.fullName = (curator.firstName ? curator.firstName : '') + (curator.lastName ? ' ' + curator.lastName : ''));

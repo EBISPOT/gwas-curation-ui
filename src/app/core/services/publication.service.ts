@@ -39,19 +39,25 @@ export class PublicationService {
     return this.http.get('/publications', params);
   }
 
-  getCurators() {
+  getCurators(size: number, page: number, sort: string, order: string) {
     let params: HttpParams = new HttpParams();
     params = params
-      .set('size', String(50))
-      .set('page', String(0));
+      .set('size', String(size))
+      .set('page', String(page));
+    if (sort) {
+      params = params.set('sort', sort + ',' + order);
+    }
     return this.http.get('/curators', params);
   }
 
-  getCurationStatuses() {
+  getCurationStatuses(size: number, page: number, sort: string, order: string) {
     let params: HttpParams = new HttpParams();
     params = params
-      .set('size', String(50))
-      .set('page', String(0));
+      .set('size', String(size))
+      .set('page', String(page));
+    if (sort) {
+      params = params.set('sort', sort + ',' + order);
+    }
     return this.http.get('/curation-status', params);
   }
 
