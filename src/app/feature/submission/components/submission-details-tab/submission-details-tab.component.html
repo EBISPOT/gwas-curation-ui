@@ -1,7 +1,7 @@
 <div *ngIf="submission?.bodyOfWork" class="col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-12 card-3b bg-white">
 
   <div class="p-3" style="background-color: #EDF8F9;">
-    <span class="font-bold"> Body of Word ID: {{submission.bodyOfWork.bodyOfWorkId}} </span>
+    <span class="font-bold"> Body of Work ID: {{submission.bodyOfWork.bodyOfWorkId}} </span>
     <a style="float: right; cursor: pointer;" (click)="toggleDisplay('showBodyOfWork')">
       <mat-icon *ngIf="showBodyOfWork">keyboard_arrow_up</mat-icon>
       <mat-icon *ngIf="!showBodyOfWork">keyboard_arrow_down</mat-icon>
