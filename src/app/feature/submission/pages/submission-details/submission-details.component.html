@@ -6,34 +6,42 @@
     <div class="mt-0 grid gap-0 grid-cols-12 lg:container md:mx-auto">
       <div class="col-span-12 sm:col-span-6">
         <div class="col-span-12">
-          <div *ngIf="submission?.publication" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
-            Publication: PMID-{{submission.publication.pmid}}
-          </div>
-          <div *ngIf="submission?.bodyOfWork && !submission?.publication" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
-            Body of Work: ID- {{submission.bodyOfWork.bodyOfWorkId}}
+<!--          <div *ngIf="submission?.publication" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">-->
+<!--            Publication: PMID-{{submission.publication.pmid}}-->
+<!--          </div>-->
+<!--          <div *ngIf="submission?.bodyOfWork && !submission?.publication" style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">-->
+<!--            Body of Work: ID- {{submission.bodyOfWork.bodyOfWorkId}}-->
+<!--          </div>-->
+          <div style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
+            Submission: {{submission.submissionId}}
           </div>
         </div>
         <div class="col-span-6">
-          <div *ngIf="submission?.publication" style="margin-top: 5px;">
-            <a href="#" style="margin-right: 5px;">Submission</a> / <a target="_blank" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" class="text-blue-500">{{submission.submissionId}}</a>
+          <div style="margin-top: 5px;">
+            <a routerLink="/" style="margin-right: 5px;">Home</a> / <a routerLink="/" style="margin-right: 5px;">Submissions</a> / {{submission.submissionId}}
           </div>
-          <div *ngIf="submission?.bodyOfWork && !submission?.publication" style="margin-top: 5px;">
-            <a href="#" style="margin-right: 5px;">Submission</a> / <a target="_blank" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" class="text-blue-500">{{submission.submissionId}}</a>
-          </div>
+<!--          <div *ngIf="submission?.bodyOfWork && !submission?.publication" style="margin-top: 5px;">-->
+<!--            <a href="#" style="margin-right: 5px;">Submission</a> / <a target="_blank" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" class="text-blue-500">{{submission.submissionId}}</a>-->
+<!--          </div>-->
         </div>
       </div>
       <div class="col-span-12 sm:col-span-6">
         <div class="mt-5 sm:mt-1 sm:float-right">
-          <a *ngIf="submission?.publication" mat-raised-button color="basic" style="font-size:12px;" class="gwas-elevation mr-2"
-             href="{{'https://pubmed.ncbi.nlm.nih.gov/'+ submission?.publication.pmid}}" target="_blank">
+          <a mat-raised-button color="primary" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" target="_blank" class="mr-2 gwas-elevation" style="font-size:12px;">
             <mat-icon>launch</mat-icon>
+            Open in Deposition
+          </a>
+
+          <a *ngIf="submission?.publication" mat-raised-button style="font-size:12px;" class="gwas-elevation mr-2"
+             href="{{'https://pubmed.ncbi.nlm.nih.gov/'+ submission?.publication.pmid}}" target="_blank">
+            <mat-icon>article</mat-icon>
             View in PubMed
           </a>
 
-          <a *ngIf="submission?.publication" mat-raised-button color="primary"  class="gwas-elevation" style="font-size:12px;"
+          <a *ngIf="submission?.publication" mat-raised-button class="gwas-elevation" style="font-size:12px;"
              href="{{'https://europepmc.org/article/MED/'+ submission?.publication.pmid}}" target="_blank">
-            <mat-icon>launch</mat-icon>
-            View in Europe PMC
+            <mat-icon>article</mat-icon>
+            View in EPMC
           </a>
 
         </div>

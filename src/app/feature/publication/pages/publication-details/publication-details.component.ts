@@ -68,9 +68,9 @@ export class PublicationDetailsComponent implements OnInit {
       }
     });
 
-    this.publicationService.getCurationStatuses()
+    this.publicationService.getCurationStatuses(100, 0, null, null)
       .subscribe((status: CurationStatusListApiResponse) => this.curationStatus = status._embedded.curationStatusDToes);
-    this.publicationService.getCurators()
+    this.publicationService.getCurators(100, 0, 'firstName', 'asc')
       .subscribe((curators: CuratorListApiResponse) => {
         curators._embedded.curatorDToes
           .forEach(curator => curator.fullName = (curator.firstName ? curator.firstName : '') + (curator.lastName ? ' ' + curator.lastName : ''));
@@ -135,7 +135,7 @@ export class PublicationDetailsComponent implements OnInit {
   saveNote(note: string) {
     this.isLoadingNotes = true;
     this.publicationService.createNote(this.publicationId, note).subscribe(() => {
-      this.snackBar.open('Note saved.', '', {duration: 2500});
+      this.snackBar.open('Comment saved.', '', {duration: 2500});
       this.publicationService.getNotes(this.publicationId).subscribe(value => {
         this.isLoadingNotes = false;
         this.notes = value._embedded.publicationNotesDtoes;
@@ -149,7 +149,7 @@ export class PublicationDetailsComponent implements OnInit {
   deleteNote(noteId: string) {
     this.isLoadingNotes = true;
     this.publicationService.deleteNote(this.publicationId, noteId).subscribe(() => {
-      this.snackBar.open('Note deleted.', '', {duration: 2500});
+      this.snackBar.open('Comment deleted.', '', {duration: 2500});
       this.publicationService.getNotes(this.publicationId).subscribe(value => {
         this.isLoadingNotes = false;
         this.notes = value._embedded?.publicationNotesDtoes;
