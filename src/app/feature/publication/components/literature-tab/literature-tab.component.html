@@ -54,11 +54,11 @@
 
           </th>
           <td mat-cell *matCellDef="let row">
-            <button mat-button mat-icon-button color="accent">
-              <mat-icon>delete</mat-icon>
+            <button mat-button mat-icon-button color="primary">
+              <mat-icon color="primary">delete_outline</mat-icon>
             </button>
-            <button mat-button mat-icon-button color="accent" (click)="downloadLiteratureFile(row.id, row.fileName)">
-              <mat-icon>download</mat-icon>
+            <button mat-button mat-icon-button (click)="downloadLiteratureFile(row.id, row.fileName)">
+              <mat-icon fontSet="material-icons-outlined" color="primary">download</mat-icon>
             </button>
           </td>
         </ng-container>
