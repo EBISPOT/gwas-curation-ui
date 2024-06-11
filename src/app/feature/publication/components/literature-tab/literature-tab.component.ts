@@ -6,6 +6,12 @@ import { TokenStorageService } from '../../../../core/services/token-storage.ser
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Publication } from '../../../../core/models/publication';
 import { PublicationService } from '../../../../core/services/publication.service';
+import { Literature } from '../../../../core/models/literature';
+import {
+  ConfirmationDialogComponent,
+  ConfirmationDialogModel
+} from '../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-literature-tab',
@@ -13,7 +19,7 @@ import { PublicationService } from '../../../../core/services/publication.servic
   styleUrls: ['./literature-tab.component.css']
 })
 export class LiteratureTabComponent implements OnInit {
-  dataSource: MatTableDataSource<{id: string, fileName: string, createdBy: string, createDate: string}>;
+  dataSource: MatTableDataSource<Literature>;
   uploader: FileUploader;
   @ViewChild('fileInput') fileInput: ElementRef;
   @Input()
@@ -21,7 +27,8 @@ export class LiteratureTabComponent implements OnInit {
   files = [];
   isLoadingLiterature = true;
 
-  constructor(private tokenService: TokenStorageService, private snackBar: MatSnackBar, private publicationService: PublicationService) {
+  constructor(private tokenService: TokenStorageService, private snackBar: MatSnackBar, private publicationService: PublicationService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -36,16 +43,15 @@ export class LiteratureTabComponent implements OnInit {
         this.uploader.removeFromQueue(this.uploader.queue[0]);
       }
     };
-    this.uploader.onSuccessItem = (item, response) => {
+    this.uploader.onSuccessItem = () => {
       this.isLoadingLiterature = true;
       this.snackBar.open('Literature file was uploaded successfully.', '', {duration: 2500});
       this.uploader.clearQueue();
       this.fileInput.nativeElement.value = '';
       this.getFiles();
-      // todo reload lit files, remove onSuccess/Error unused args
     };
 
-    this.uploader.onErrorItem = (item, response) => {
+    this.uploader.onErrorItem = () => {
       this.isLoadingLiterature = false;
       this.snackBar.open('An unexpected error occurred while uploading literature.', '', {duration: 2500});
     };
@@ -64,6 +70,7 @@ export class LiteratureTabComponent implements OnInit {
   }
 
   getFiles() {
+    this.isLoadingLiterature = true;
     this.publicationService.getLiteratureFiles(this.publication?.pmid).subscribe(resp => {
       this.files = resp?._embedded ? resp?._embedded['literature-files'] : [];
       this.dataSource = new MatTableDataSource(this.files);
@@ -71,4 +78,25 @@ export class LiteratureTabComponent implements OnInit {
     });
   }
 
+  openDeleteConfirmationDialog(id: string, originalFileName: string) {
+    const message = 'Are you sure you\'d like to delete ' + originalFileName;
+
+    const dialogData = new ConfirmationDialogModel('Confirm deletion', message);
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult) {
+        this.publicationService.deleteLiteratureFile(this.publication.pmid, id).subscribe(() => {
+          this.snackBar.open('File deleted.', '', {duration: 2500});
+          this.getFiles();
+        }, () => {
+          this.snackBar.open('Error occurred on delete.', '', {duration: 2500});
+        });
+      }
+    });
+  }
 }

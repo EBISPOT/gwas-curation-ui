@@ -112,4 +112,8 @@ export class PublicationService {
   downloadLiteratureFile(pmid: string, fileId: string) {
     return this.http.download('/publications/' + pmid + '/literature-files/' + fileId);
   }
+
+  deleteLiteratureFile(pmid: string, fileId: string) {
+    return this.http.delete('/publications/' + pmid + '/literature-files/' + fileId);
+  }
 }
