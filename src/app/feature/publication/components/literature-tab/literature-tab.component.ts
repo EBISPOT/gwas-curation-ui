@@ -34,26 +34,22 @@ export class LiteratureTabComponent implements OnInit {
   ngOnInit(): void {
     this.uploader = new FileUploader({
       url: environment.CURATION_API_URL + '/publications/' + this.publication?.pmid + '/literature-files', itemAlias: 'multipartFile',
-      authToken: 'Bearer ' + this.tokenService.getToken(),
+      authToken: 'Bearer ' + this.tokenService.getToken()
     });
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
-      if (this.uploader.queue.length > 1) {
-        this.uploader.cancelAll();
-        this.uploader.removeFromQueue(this.uploader.queue[0]);
-      }
-    };
-    this.uploader.onSuccessItem = () => {
-      this.isLoadingLiterature = true;
-      this.snackBar.open('Literature file was uploaded successfully.', '', {duration: 2500});
-      this.uploader.clearQueue();
-      this.fileInput.nativeElement.value = '';
-      this.getFiles();
     };
 
     this.uploader.onErrorItem = () => {
       this.isLoadingLiterature = false;
       this.snackBar.open('An unexpected error occurred while uploading literature.', '', {duration: 2500});
+    };
+
+    this.uploader.onCompleteAll = () => {
+      this.isLoadingLiterature = false;
+      this.snackBar.open('Files uploaded successfully.', '', {duration: 2500});
+      this.getFiles();
+      this.uploader.clearQueue();
     };
 
     this.getFiles();
@@ -90,13 +86,20 @@ export class LiteratureTabComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
+        this.isLoadingLiterature = true;
         this.publicationService.deleteLiteratureFile(this.publication.pmid, id).subscribe(() => {
           this.snackBar.open('File deleted.', '', {duration: 2500});
           this.getFiles();
         }, () => {
+          this.isLoadingLiterature = false;
           this.snackBar.open('Error occurred on delete.', '', {duration: 2500});
         });
       }
     });
   }
+
+  getFileNames() {
+    return this.uploader.queue.map(file => file.file.name).join(', ');
+  }
+
 }
