@@ -3,7 +3,6 @@ import { CurationHttpService } from './curation-http.service';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { PublicationListApiResponse } from '../models/rest/api-responses/publicationListApiResponse';
-import { Publication } from '../models/publication';
 
 @Injectable({
   providedIn: 'root'
