@@ -3,7 +3,6 @@ import { CurationHttpService } from './curation-http.service';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { PublicationListApiResponse } from '../models/rest/api-responses/publicationListApiResponse';
-import { Publication } from '../models/publication';
 
 @Injectable({
   providedIn: 'root'
@@ -111,5 +110,9 @@ export class PublicationService {
 
   downloadLiteratureFile(pmid: string, fileId: string) {
     return this.http.download('/publications/' + pmid + '/literature-files/' + fileId);
+  }
+
+  deleteLiteratureFile(pmid: string, fileId: string) {
+    return this.http.delete('/publications/' + pmid + '/literature-files/' + fileId);
   }
 }
