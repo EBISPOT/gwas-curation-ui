@@ -7,9 +7,10 @@ export const environment = {
   REACT_APP_GWAS_DOC_BASE: 'https://www.ebi.ac.uk/gwas/docs',
   DATA_URL: '',
   API_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition/api/v1',
-  // CURATION_API_URL: 'http://localhost:8081/v1',
-  CURATION_API_URL: 'https://wwwdev.ebi.ac.uk/gwas/depo-curation/api/v1',
+  CURATION_API_URL: 'http://localhost:8081/gwas/depo-curation/api/v1',
+  //CURATION_API_URL: 'https://wwwdev.ebi.ac.uk/gwas/depo-curation/api/v1',
   DEPOSITION_URL: 'https://wwwdev.ebi.ac.uk/gwas/deposition',
+  AUDIT_API_URL: 'http://localhost:8085/v1',
   ANOTHER_API_SECRET: '__ANOTHER__SECRET__',
   WHITELISTED_CURATORS: ['alaofgwas@gmail.com', 'sajo.gwas@gmail.com', 'santhir.gwas@gmail.com', 'elliot.gwas@gmail.com', 'earlofgwas@gmail.com', 'lauraharrisgwas75@gmail.com']
 };
