@@ -9,19 +9,21 @@
       <div ng2FileDrop [uploader]="uploader" class="p-12 text-center" style="background: #4E8691; margin: 10px;">
         <div class="styleFile text-xl text-white italic">
           <span>
-            <a class="underline cursor-pointer" (click)="fileInput.click()">Click to select <input id="fileInput" #fileInput type="file" ng2FileSelect [uploader]="uploader" class="hidden"/></a>
+            <a class="underline cursor-pointer" (click)="fileInput.click()">Click to select <input id="fileInput" #fileInput type="file" ng2FileSelect [uploader]="uploader" multiple class="hidden"/></a>
             or drag and drop file
           </span>
         </div>
         <div>
-          {{uploader.queue[0]?.file?.name}}
+          {{getFileNames()}}
         </div>
       </div>
     </div>
-    <button class="float-right m-3" *ngIf="uploader.queue.length > 0"
-            [disabled]="uploader.queue[0]?.isReady || uploader.queue[0]?.isUploading || uploader.queue[0]?.isSuccess"
-            mat-raised-button color="primary" (click)="uploader.progress=0; uploader.queue[0]?.upload(); isLoadingLiterature = true;">
+    <button class="float-right m-3" *ngIf="uploader.queue.length > 0" [disabled]="uploader.isUploading"
+            mat-raised-button color="primary" (click)="uploader.progress=0; uploader.uploadAll(); isLoadingLiterature = true;">
       Upload
+    </button>
+    <button class="float-right m-3" *ngIf="uploader.queue.length > 0" [disabled]="uploader.isUploading" mat-raised-button (click)="uploader.clearQueue()">
+      Reset
     </button>
   </mat-expansion-panel>
   <mat-expansion-panel expanded>
