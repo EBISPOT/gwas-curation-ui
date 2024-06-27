@@ -13,12 +13,12 @@
 <!--            Body of Work: ID- {{submission.bodyOfWork.bodyOfWorkId}}-->
 <!--          </div>-->
           <div style="font-size: 1.5rem; line-height: 2.0rem;" class="font-normal">
-            Submission: {{submission.submissionId}}
+            Submission: {{submission?.submissionId}}
           </div>
         </div>
         <div class="col-span-6">
           <div style="margin-top: 5px;">
-            <a routerLink="/" style="margin-right: 5px;">Home</a> / <a routerLink="/" style="margin-right: 5px;">Submissions</a> / {{submission.submissionId}}
+            <a routerLink="/" style="margin-right: 5px;">Home</a> / <a routerLink="/" style="margin-right: 5px;">Submissions</a> / {{submission?.submissionId}}
           </div>
 <!--          <div *ngIf="submission?.bodyOfWork && !submission?.publication" style="margin-top: 5px;">-->
 <!--            <a href="#" style="margin-right: 5px;">Submission</a> / <a target="_blank" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" class="text-blue-500">{{submission.submissionId}}</a>-->
@@ -27,7 +27,7 @@
       </div>
       <div class="col-span-12 sm:col-span-6">
         <div class="mt-5 sm:mt-1 sm:float-right">
-          <a mat-raised-button color="primary" href="{{env.DEPOSITION_URL + '/submission/' + submission.submissionId}}" target="_blank" class="mr-2 gwas-elevation" style="font-size:12px;">
+          <a mat-raised-button color="primary" href="{{env.DEPOSITION_URL + '/submission/' + submission?.submissionId}}" target="_blank" class="mr-2 gwas-elevation" style="font-size:12px;">
             <mat-icon>launch</mat-icon>
             Open in Deposition
           </a>
@@ -65,17 +65,17 @@
           <app-submission-history-tab></app-submission-history-tab>
         </div>
       </mat-tab>
-      <mat-tab label="Studies ({{submission.study_count}})" *ngIf="submission">
+      <mat-tab label="Studies ({{submission?.study_count}})" *ngIf="submission">
         <ng-template matTabContent>
-          <app-study-tab submissionId="{{submission.submissionId}}"></app-study-tab>
+          <app-study-tab submissionId="{{submission?.submissionId}}"></app-study-tab>
         </ng-template>
       </mat-tab>
-      <mat-tab label="Samples ({{submission.sample_count}})" *ngIf="submission">
+      <mat-tab label="Samples ({{submission?.sample_count}})" *ngIf="submission">
         <ng-template matTabContent>
           <app-sample-tab></app-sample-tab>
         </ng-template>
       </mat-tab>
-      <mat-tab label="Association ({{submission.association_count}})" *ngIf="submission">
+      <mat-tab label="Association ({{submission?.association_count}})" *ngIf="submission">
         <ng-template matTabContent>
           <app-association-tab [submission]="submission" (approveSnpsEvent)="pollUntilStatusIsNotValidating()"></app-association-tab>
         </ng-template>

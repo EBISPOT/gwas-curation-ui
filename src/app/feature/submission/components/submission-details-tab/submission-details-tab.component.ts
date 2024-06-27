@@ -27,7 +27,7 @@ export class SubmissionDetailsTabComponent implements OnInit {
     if (this.submission) {
       this.extractValidationErrors();
     }
-    if (submission && submission.submission_status === 'DEPOSITION_COMPLETE' || submission.submission_status === 'CURATION_COMPLETE') {
+    if (submission && submission?.submission_status === 'DEPOSITION_COMPLETE' || submission?.submission_status === 'CURATION_COMPLETE') {
       this.getSnpStatus();
     }
   }

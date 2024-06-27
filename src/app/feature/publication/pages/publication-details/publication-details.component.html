@@ -264,13 +264,19 @@
           </div>
         </mat-expansion-panel>
 
+        <app-event-tracking></app-event-tracking>
       </mat-accordion>
-      <div class="border-green-600 border-l-4 m-6">
+<!--      <div class="border-green-600 border-l-4 m-6">
         <div class="px-2"><b class="text-lg ml-1">Tracking</b></div>
-        <button mat-button><mat-icon>change_circle</mat-icon>Curation Status changed from <b>Level 1 Curation</b> to <b>Level 2 Curation</b> by <b>Elliot Solis</b></button>
+        <button mat-button><mat-icon>change_circle</mat-icon>Curation Status changed from <b>Level 1 Curation</b> to <b>Level
+            2 Curation</b> by <b>Elliot Solis</b></button>
         <br>
-        <button mat-button><mat-icon>change_circle</mat-icon>Curation Status changed from <b>Level 2 Curation</b> to <b>Requires Review</b> by <b>Elliot Solis</b></button>
-      </div>
+        <button mat-button><mat-icon>change_circle</mat-icon>Curation Status changed from <b>Level 2 Curation</b> to
+          <b>Requires Review</b> by <b>Elliot Solis</b></button>
+      </div> -->
+   
+
+
     </mat-tab>
     <mat-tab label="Studies ({{submissions && submissions.length > 0 ? submissions[0]?.submission?.study_count : 0}})">
       <ng-template matTabContent>

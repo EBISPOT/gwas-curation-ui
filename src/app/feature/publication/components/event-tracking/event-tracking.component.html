@@ -1,0 +1,60 @@
+<mat-expansion-panel expanded>
+    <div class="loading-shade" *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <b>Tracking</b>
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="expansion-panel-content">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="resetPaging()" matSortActive="timestamp"
+            matSortDisableClear matSortDirection="desc" class="w-full">
+
+            <ng-container matColumnDef="event">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Event</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.event}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="eventDetails">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Event Details</th>
+                <td mat-cell *matCellDef="let row" matTooltip="{{row.eventDetails}}" [matTooltipShowDelay]="500" 
+                [matTooltipDisabled]="row.eventDetails.length <= 80" class="ellipsis-col">
+                    
+                <span *ngIf="!row.eventDetails">N/A</span>
+              <!--  <span *ngIf="row.eventDetails" class="ellipsis-col">{{(row.eventDetails.length > 80) ? ((row.eventDetails).slice(0, 80) +
+                    '...') : row.eventDetails}}</span> -->
+                <span *ngIf="row.eventDetails" >{{row.eventDetails}}</span>
+            </ng-container>
+
+
+            <ng-container matColumnDef="timestamp">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.created.timestamp}}
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>User Id</th>
+                <td mat-cell *matCellDef="let row">
+                    {{row.created.user.email}}
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr class="hover:bg-gray-200 cursor-pointer" mat-row *matRowDef="let row;
+    columns: displayedColumns; let index = index;" [ngClass]="{gray: index % 2 == 0}"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="9999">
+                    No data found.
+                </td>
+            </tr>
+        </table>
+        <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons="true"></mat-paginator>
+    </div>
+
+</mat-expansion-panel>
