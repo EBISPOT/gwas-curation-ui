@@ -63,22 +63,23 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   uploadError: any;
 
   constructor(private submissionService: SubmissionService, private snackBar: MatSnackBar, private reportedTraitService: ReportedTraitService,
-              private efoTraitService: EfoTraitService, tokenService: TokenStorageService, private router: Router) {
-    this.traitUploader = new FileUploader(
-      {
-        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/multi-traits/files', itemAlias: 'multipartFile',
-        authToken: 'Bearer ' + tokenService.getToken()
-      });
+              private efoTraitService: EfoTraitService, private tokenService: TokenStorageService, private router: Router) {
+   
 
-    this.efoUploader = new FileUploader(
-      {
-        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/efo-traits/files', itemAlias: 'multipartFile',
-        authToken: 'Bearer ' + tokenService.getToken()
-      });
+    
   }
 
   ngOnInit(): void {
-
+    this.traitUploader = new FileUploader(
+      {
+        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/multi-traits/files', itemAlias: 'multipartFile',
+        authToken: 'Bearer ' + this.tokenService.getToken()
+      });
+      this.efoUploader = new FileUploader(
+        {
+          url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/efo-traits/files', itemAlias: 'multipartFile',
+          authToken: 'Bearer ' + this.tokenService.getToken()
+        });
     this.traitUploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
       this.report = null;
