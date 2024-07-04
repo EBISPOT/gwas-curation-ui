@@ -41,6 +41,7 @@ export class PublicationDetailsComponent implements OnInit {
   curators: Curator[];
   notes: Note[] = [];
   isLoadingNotes = true;
+  curationDetailsChanged = false;
   editNote: Note;
 
   protected readonly env = environment;
@@ -118,6 +119,7 @@ export class PublicationDetailsComponent implements OnInit {
           value.curator.fullName = (value.curator.firstName ? value.curator.firstName : '')
             + (value.curator.lastName ? ' ' + value.curator.lastName : '');
           this.publication = value;
+          this.curationDetailsChanged = true;
           this.snackBar.open('Save successful.', '', {duration: 2500});
         }, (error) => {
           this.isLoadingPublication = false;

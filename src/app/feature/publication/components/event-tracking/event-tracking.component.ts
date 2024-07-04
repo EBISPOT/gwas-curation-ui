@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,10 +13,12 @@ import { EventTrackingService } from 'src/app/core/services/event-tracking.servi
   templateUrl: './event-tracking.component.html',
   styleUrls: ['./event-tracking.component.css']
 })
-export class EventTrackingComponent implements OnInit, AfterViewInit {
+export class EventTrackingComponent implements OnInit, AfterViewInit, OnChanges {
 
   isLoadingResults = true;
   publicationId: string
+  @Input()
+  curatorDetailsChanged : Boolean;
   dataSource: MatTableDataSource<PublicationEvent>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -26,9 +28,31 @@ export class EventTrackingComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private eventTrackingService :  EventTrackingService) { }
 
   ngOnInit(): void {
-
     this.publicationId = this.route.snapshot.paramMap.get('publicationId');
     
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    merge(this.paginator.page, this.sort.sortChange)
+    .pipe(
+      startWith({}),
+      switchMap(() => {
+        this.isLoadingResults = true;
+        return this.eventTrackingService.getPublicationEvents(this.paginator.pageSize, this.paginator.pageIndex,
+           this.sort.active, this.sort.direction, this.publicationId )
+          }),
+          map(data => {
+            this.isLoadingResults = false;
+            this.resultsLength = data.page.totalElements;
+            return data?._embedded?.publicationAuditEntryDtos;
+          }),
+          catchError(() => {
+            this.isLoadingResults = false;
+            return of([]);
+          })
+        ).subscribe(value => {
+          this.dataSource = new MatTableDataSource<PublicationEvent>(value);
+        });
   }
 
   ngAfterViewInit() {
