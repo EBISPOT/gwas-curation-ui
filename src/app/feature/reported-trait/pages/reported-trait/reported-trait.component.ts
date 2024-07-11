@@ -221,9 +221,8 @@ export class ReportedTraitComponent implements OnInit, AfterViewInit {
           if (this.paginator.pageIndex + 1 === this.paginator.getNumberOfPages()
             && this.dataSource.data.length % this.paginator.pageSize === 1) {
             this.paginator.previousPage();
-          } else {
-            this.reloadTraits();
           }
+          this.reloadTraits();
         }, (error) => {
           if (error.error.indexOf('linked') > 0) {
             this.snackBar.open(error.error, '', {duration: 2500});
