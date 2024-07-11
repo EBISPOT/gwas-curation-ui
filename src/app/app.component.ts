@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ActivationEnd, Router} from "@angular/router";
+import {ActivationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',

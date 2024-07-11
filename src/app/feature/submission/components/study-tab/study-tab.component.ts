@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Study } from '../../../../core/models/study';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SubmissionService } from '../../../../core/services/submission.service';
 import { fromEvent, merge, Observable, of } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
@@ -33,8 +33,8 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['study_accession', 'study_tag', 'genotyping_technology', 'array_manufacturer', 'array_information', 'imputation', 'variant_count', 'statistical_model', 'study_description', 'disease_trait', 'efo', 'background_efo', 'sumstats_file', 'cohort'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  submissionId = this.route.snapshot.paramMap.get('id');
-  openedGcst: number;
+  @Input()
+  submissionId: string;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   traitCtrl = new FormControl();
   efoTraitCtrl = new FormControl();
@@ -51,8 +51,8 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
   isLoadingSidenav: boolean;
   sidenavStudy: Study;
+  isInSubmissionPage: boolean = this.router.url.includes('submissions');
   showTraitUpload = false;
-  showEfoUpload = false;
   traitUploader: FileUploader;
   efoUploader: FileUploader;
   hasDropZoneOver = false;
@@ -62,23 +62,24 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   efoReport: any;
   uploadError: any;
 
-  constructor(private route: ActivatedRoute, private submissionService: SubmissionService, private snackBar: MatSnackBar,
-              private reportedTraitService: ReportedTraitService, private efoTraitService: EfoTraitService, private tokenService: TokenStorageService) {
-    this.traitUploader = new FileUploader(
-      {
-        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/multi-traits/files', itemAlias: 'multipartFile',
-        authToken: 'Bearer ' + tokenService.getToken()
-      });
+  constructor(private submissionService: SubmissionService, private snackBar: MatSnackBar, private reportedTraitService: ReportedTraitService,
+              private efoTraitService: EfoTraitService, private tokenService: TokenStorageService, private router: Router) {
+   
 
-    this.efoUploader = new FileUploader(
-      {
-        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/efo-traits/files', itemAlias: 'multipartFile',
-        authToken: 'Bearer ' + tokenService.getToken()
-      });
+    
   }
 
   ngOnInit(): void {
-
+    this.traitUploader = new FileUploader(
+      {
+        url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/multi-traits/files', itemAlias: 'multipartFile',
+        authToken: 'Bearer ' + this.tokenService.getToken()
+      });
+      this.efoUploader = new FileUploader(
+        {
+          url: environment.CURATION_API_URL + '/submissions/' + this.submissionId + '/studies/efo-traits/files', itemAlias: 'multipartFile',
+          authToken: 'Bearer ' + this.tokenService.getToken()
+        });
     this.traitUploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
       this.report = null;

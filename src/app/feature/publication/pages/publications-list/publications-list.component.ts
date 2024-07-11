@@ -52,9 +52,9 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
   constructor(private publicationService: PublicationService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.publicationService.getCurationStatuses()
+    this.publicationService.getCurationStatuses(100, 0, null, null)
       .subscribe((status: CurationStatusListApiResponse) => this.curationStatus = status._embedded.curationStatusDToes);
-    this.publicationService.getCurators()
+    this.publicationService.getCurators(100, 0, 'firstName', 'asc')
       .subscribe((curators: CuratorListApiResponse) => {
         curators._embedded.curatorDToes
           .forEach(curator => curator.fullName = (curator.firstName ? curator.firstName : '') + (curator.lastName ? ' ' + curator.lastName : ''));
@@ -151,11 +151,11 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
     let message = '';
     if (curator) {
       if (originalValue?.curatorId === curator?.curatorId) { return; }
-      message = 'Set <b>curator</b> for PMID ' + pmid + ': <b>' + curator.fullName + '</b>';
+      message = 'Set <b>Curator</b> for PMID ' + pmid + ': <b>' + curator.fullName + '</b>';
     }
     if (curationStatus) {
       if (originalValue?.curationStatusId === curationStatus?.curationStatusId) { return; }
-      message = 'Set <b>curator</b> for PMID ' + pmid + ': <b>' + curationStatus.status + '</b>';
+      message = 'Set <b>Curation Status</b> for PMID ' + pmid + ': <b>' + curationStatus.status + '</b>';
     }
 
     const dialogData = new ConfirmationDialogModel('Confirm save', message);
@@ -168,7 +168,7 @@ export class PublicationsListComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
         this.isLoadingResults = true;
-        this.publicationService.updatePublicationCurationDetails(pmid, {curator, curationStatus}).subscribe(() => {
+        this.publicationService.patchPublication(pmid, {curator, curationStatus}).subscribe(() => {
           this.isLoadingResults = false;
           this.snackBar.open('Save successful.', '', {duration: 2500});
           this.search();

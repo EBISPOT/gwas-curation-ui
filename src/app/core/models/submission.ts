@@ -24,6 +24,5 @@ export interface Submission {
   editTemplate: Provenance;
   lockDetails: {lockedBy: Provenance, status: string};
   agreedToCc0: boolean;
-  opentargets_flag: boolean;
-  userrequested_flag: boolean;
+  type: string;
 }

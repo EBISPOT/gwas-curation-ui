@@ -1,7 +1,7 @@
 <div *ngIf="submission?.bodyOfWork" class="col-span-12 md:col-span-12 lg:col-span-12 xl:col-span-12 card-3b bg-white">
 
   <div class="p-3" style="background-color: #EDF8F9;">
-    <span class="font-bold"> Body of Word ID: {{submission.bodyOfWork.bodyOfWorkId}} </span>
+    <span class="font-bold"> Body of Work ID: {{submission.bodyOfWork.bodyOfWorkId}} </span>
     <a style="float: right; cursor: pointer;" (click)="toggleDisplay('showBodyOfWork')">
       <mat-icon *ngIf="showBodyOfWork">keyboard_arrow_up</mat-icon>
       <mat-icon *ngIf="!showBodyOfWork">keyboard_arrow_down</mat-icon>
@@ -100,7 +100,11 @@
     </tr>
     <tr>
       <th class="col-span-2"> PubMed ID</th>
-      <td class="col-span-3"> {{submission.publication.pmid}} </td>
+      <td class="col-span-3">
+        <a routerLink="/publications/{{submission.publication.publicationId}}" target="_blank">
+          {{submission.publication.pmid}} <mat-icon class="text-xs">launch</mat-icon>
+        </a>
+      </td>
       <th class="col-span-2"> Journal</th>
       <td class="col-span-3"> {{submission.publication.journal}}</td>
       <td class="col-span-2">
@@ -124,9 +128,9 @@
     </tr>
     <tr>
       <th class="col-span-2"> Open Targets </th>
-      <td class="col-span-3"> <mat-checkbox class="ml-1" [ngModel]="submission.opentargets_flag" (change)="openConfirmationDialog('Open Targets', otCheckbox)" #otCheckbox></mat-checkbox> </td>
+      <td class="col-span-3"> <mat-checkbox class="ml-1" ngModel="{{submission.publication.isOpenTargets}}" disabled></mat-checkbox> </td>
       <th class="col-span-2"> User Requested</th>
-      <td class="col-span-3"> <mat-checkbox class="ml-1" [ngModel]="submission.userrequested_flag" (change)="openConfirmationDialog('User Requested', urCheckbox)" #urCheckbox></mat-checkbox> </td>
+      <td class="col-span-3"> <mat-checkbox class="ml-1" ngModel="{{submission.publication.isUserRequested}}" disabled></mat-checkbox> </td>
     </tr>
   </table>
 

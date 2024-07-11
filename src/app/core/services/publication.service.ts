@@ -38,24 +38,30 @@ export class PublicationService {
     return this.http.get('/publications', params);
   }
 
-  getCurators() {
+  getCurators(size: number, page: number, sort: string, order: string) {
     let params: HttpParams = new HttpParams();
     params = params
-      .set('size', String(50))
-      .set('page', String(0));
+      .set('size', String(size))
+      .set('page', String(page));
+    if (sort) {
+      params = params.set('sort', sort + ',' + order);
+    }
     return this.http.get('/curators', params);
   }
 
-  getCurationStatuses() {
+  getCurationStatuses(size: number, page: number, sort: string, order: string) {
     let params: HttpParams = new HttpParams();
     params = params
-      .set('size', String(50))
-      .set('page', String(0));
+      .set('size', String(size))
+      .set('page', String(page));
+    if (sort) {
+      params = params.set('sort', sort + ',' + order);
+    }
     return this.http.get('/curation-status', params);
   }
 
-  updatePublicationCurationDetails(pmid: string, publicationCurationPatchDto: any) {
-    return this.http.patch('/publications/' + pmid + '/curation', publicationCurationPatchDto);
+  patchPublication(pmid: string, publicationCurationPatchDto: any) {
+    return this.http.patch('/publications/' + pmid, publicationCurationPatchDto);
   }
 
   importPublicationsFromEpmc(pmids: string[]) {
@@ -72,5 +78,41 @@ export class PublicationService {
 
   linkSubmission(pmid: string, submissionId: string) {
     return this.http.put('/publications/' + pmid + '/link-submission', new HttpParams().set('submissionId', submissionId));
+  }
+
+  getPublication(publicationId: string) {
+    return this.http.get('/publications/' + publicationId);
+  }
+
+  getBodyOfWork(bowId: string) {
+    return this.http.get('/body-of-work/' + bowId);
+  }
+
+  getNotes(publicationId: string) {
+    return this.http.get('/publications/' + publicationId + '/notes');
+  }
+
+  createNote(publicationId: string, note: string) {
+    return this.http.post('/publications/' + publicationId + '/notes', {notes: note});
+  }
+
+  updateNote(publicationId: string, noteId: string, notes: string) {
+    return this.http.put('/publications/' + publicationId + '/notes/' + noteId, {notes});
+  }
+
+  deleteNote(publicationId: string, noteId: string) {
+    return this.http.delete('/publications/' + publicationId + '/notes/' + noteId);
+  }
+
+  getLiteratureFiles(pmid: string) {
+    return this.http.get('/publications/' + pmid + '/literature-files');
+  }
+
+  downloadLiteratureFile(pmid: string, fileId: string) {
+    return this.http.download('/publications/' + pmid + '/literature-files/' + fileId);
+  }
+
+  deleteLiteratureFile(pmid: string, fileId: string) {
+    return this.http.delete('/publications/' + pmid + '/literature-files/' + fileId);
   }
 }
