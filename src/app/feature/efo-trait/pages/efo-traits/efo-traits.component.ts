@@ -251,9 +251,7 @@ export class EfoTraitsComponent implements OnInit, AfterViewInit {
             && this.dataSource.data.length % this.paginator.pageSize === 1) {
             this.paginator.previousPage();
           }
-          else {
-            this.reloadTraits();
-          }
+          this.reloadTraits();
         }, (error) => {
           this.isLoadingResults = false;
           if (error.error.indexOf('linked') > 0) {
