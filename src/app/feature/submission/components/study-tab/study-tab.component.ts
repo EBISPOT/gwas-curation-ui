@@ -61,12 +61,13 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
   report: any;
   efoReport: any;
   uploadError: any;
+  searchBoxValue = '';
 
   constructor(private submissionService: SubmissionService, private snackBar: MatSnackBar, private reportedTraitService: ReportedTraitService,
               private efoTraitService: EfoTraitService, private tokenService: TokenStorageService, private router: Router) {
-   
 
-    
+
+
   }
 
   ngOnInit(): void {
@@ -141,7 +142,7 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
           this.isLoadingResults = true;
           return this.submissionService
             .getSubmissionStudies(this.paginator.pageSize, this.paginator.pageIndex,
-              this.sort.active, this.sort.direction, this.submissionId);
+              this.sort.active, this.sort.direction, this.submissionId, null);
         }),
         map(data => {
           this.isLoadingResults = false;
@@ -213,14 +214,6 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
           }
         });
       });
-  }
-
-  getSubmissionStudies() {
-
-    this.submissionService.getSubmissionStudies(this.paginator.pageSize, this.paginator.pageIndex,
-      this.sort.active, this.sort.direction, this.submissionId).subscribe((v) => {
-        console.log(v);
-    });
   }
 
   remove(trait: ReportedTrait): void {
@@ -369,19 +362,21 @@ export class StudyTabComponent implements OnInit, AfterViewInit {
 
     this.isLoadingResults = true;
     this.submissionService
-      .getSubmissionStudies(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, this.submissionId)
+      .getSubmissionStudies(this.paginator.pageSize, this.paginator.pageIndex, this.sort.active, this.sort.direction, this.submissionId, this.searchBoxValue)
       .subscribe(value => {
-        for (const study of value._embedded.studies) {
-          study.efo_trait = '';
-          study.background_efo_trait = '';
-          for (const efo of study.efoTraits) {
-            study.efo_trait = study.efo_trait + efo.trait + ' | ';
+        if (value._embedded?.studies) {
+          for (const study of value._embedded.studies) {
+            study.efo_trait = '';
+            study.background_efo_trait = '';
+            for (const efo of study.efoTraits) {
+              study.efo_trait = study.efo_trait + efo.trait + ' | ';
+            }
+            study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
+            for (const efo of study.backgroundEfoTraits) {
+              study.background_efo_trait = study.background_efo_trait + efo.trait + ' | ';
+            }
+            study.background_efo_trait = study.background_efo_trait.substring(0, study.background_efo_trait.length - 3);
           }
-          study.efo_trait = study.efo_trait.substring(0, study.efo_trait.length - 3);
-          for (const efo of study.backgroundEfoTraits) {
-            study.background_efo_trait = study.background_efo_trait + efo.trait + ' | ';
-          }
-          study.background_efo_trait = study.background_efo_trait.substring(0, study.background_efo_trait.length - 3);
         }
         this.isLoadingResults = false;
         this.dataSource = new MatTableDataSource<Study>(value._embedded.studies);
