@@ -73,6 +73,11 @@
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="['fileName', 'uploadDate', 'createdBy', 'actions']"></tr>
         <tr mat-row *matRowDef="let row; columns: ['fileName', 'uploadDate', 'createdBy', 'actions'];"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="9999">
+            No files uploaded.
+          </td>
+        </tr>
       </table>
     </div>
   </mat-expansion-panel>
