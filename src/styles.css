@@ -437,6 +437,8 @@ a.menu-btn {
 .mat-tooltip {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 12px;
+  word-break: break-all !important;
+  white-space: normal !important;
 }
 
 .loading-shade {

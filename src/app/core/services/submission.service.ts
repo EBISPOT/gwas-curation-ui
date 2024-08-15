@@ -102,8 +102,11 @@ export class SubmissionService {
     return res;
   }
 
-  getSubmissionStudies(size: number, page: number, sort: string, order: string, submissionId: string) {
+  getSubmissionStudies(size: number, page: number, sort: string, order: string, submissionId: string, accession: string) {
     let params: HttpParams = new HttpParams();
+    if (accession) {
+      params = params.set('accession', String(accession));
+    }
     params = params
       .set('size', String(size))
       .set('page', String(page))
