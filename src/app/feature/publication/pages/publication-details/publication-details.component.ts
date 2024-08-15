@@ -50,8 +50,10 @@ export class PublicationDetailsComponent implements OnInit {
     this.publicationId = this.route.snapshot.paramMap.get('publicationId');
     this.publicationService.getPublication(this.publicationId).subscribe(publication => {
       this.isLoadingPublication = false;
-      publication.curator.fullName = (publication.curator.firstName ? publication.curator.firstName : '')
-        + (publication.curator.lastName ? ' ' + publication.curator.lastName : '');
+      if (publication.curator) {
+        publication.curator.fullName = (publication.curator.firstName ? publication.curator.firstName : '')
+          + (publication.curator.lastName ? ' ' + publication.curator.lastName : '');
+      }
       this.publication = publication;
       if (this.publication.bodyOfWorkId) {
         this.publicationService.getBodyOfWork(this.publication.bodyOfWorkId).subscribe(bodyOfWork => {
